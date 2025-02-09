@@ -1,0 +1,117 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Forms</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Form Elements</div>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form, {'attr': {'class': 'row g-3 needs-validation','novalidate': 'novalidate'}}) }}
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <!-- Nom -->
+                                <div class="form-floating form-floating-custom mb-3">
+                                    {{ form_widget(form.nom, {'attr': {'id': 'floatingInput', 'class': 'form-control'}}) }}
+                                    <div class="form-group has-error has-feedback">
+                                        {{ form_errors(form.nom,{'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}
+                                    </div>
+                                    <label for="floatingInput">Nom</label>
+                                </div>
+
+                                <!-- Prenom -->
+                                <div class="form-floating form-floating-custom mb-3">
+                                    {{ form_widget(form.prenom, {'attr': {'id': 'floatingInput', 'class': 'form-control'}}) }}
+                                    <div class="form-group has-error has-feedback">
+                                        {{ form_errors(form.prenom,{'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}
+                                    </div>
+                                    <label for="floatingInput">Prenom</label>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-floating form-floating-custom mb-3">
+                                    {{ form_widget(form.email, {'attr': {'id': 'floatingInput', 'class': 'form-control'}}) }}
+                                    <div class="form-group has-error has-feedback">
+                                        {{ form_errors(form.email,{'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}
+                                    </div>
+                                    <label for="floatingInput">Email address</label>
+                                    <span class="input-group-text" id="basic-addon2">@example.com</span>
+                                </div>
+
+                                <!-- Adresse -->
+                                <div class="form-floating form-floating-custom mb-3">
+                                    {{ form_widget(form.adresse, {'attr': {'id': 'floatingInput', 'class': 'form-control'}}) }}
+                                    <div class="form-group has-error has-feedback">
+                                        {{ form_errors(form.adresse,{'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}
+                                    </div>
+                                    <label for="floatingInput">Adresse</label>
+                                </div>
+
+                                <!-- Mot de passe -->
+                                <div class="form-floating form-floating-custom mb-3">
+                                    {{ form_widget(form.mot_de_passe, {'attr': {'id': 'password', 'class': 'form-control'}}) }}
+                                    <div class="form-group has-error has-feedback">
+                                        {{ form_errors(form.mot_de_passe,{'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}
+                                    </div>
+                                    <label for="password">Mot de passe</label>
+                                </div>
+
+                                <!-- Date de naissance -->
+                                <div class="form-floating form-floating-custom mb-3">
+                                    {{ form_widget(form.date_naissance, {'attr': {'id': 'floatingInput', 'class': 'form-control'}}) }}
+                                    <div class="form-group has-error has-feedback">
+                                        {{ form_errors(form.date_naissance) }}
+                                    </div>
+                                    <label for="floatingInput">Date de naissance</label>
+                                </div>
+
+                                <div class="form-floating form-floating-custom mb-3">
+                                    {{ form_widget(form.role, {'attr': {'class': 'form-select', 'id': 'selectFloatingLabel'}}) }}
+                                    <div class="form-group has-error has-feedback">
+                                        {{ form_errors(form.role,{'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}
+                                    </div>
+                                    <label for="selectFloatingLabel">Role</label>
+                                </div>
+
+                                <!-- Gender -->
+                                <div class="form-group">
+                                    <label>Gender</label><br />
+                                    <div class="d-flex">
+                                        {{ form_widget(form.genre, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <!-- Success and Error Inputs (Optional Fields) -->
+                                <div class="form-group has-success">
+                                    <label for="successInput">Success Input</label>
+                                    <input type="text" id="successInput" value="Success" class="form-control" />
+                                </div>
+
+                                <!-- Image Upload -->
+                                <div class="form-group">
+                                    <label for="exampleFormControlFile1">Charger votre image de profile</label>
+                                    {{ form_widget(form.image, {'attr': {'class': 'form-control-file', 'id': 'exampleFormControlFile1'}}) }}
+                                    {{ form_errors(form.image, {'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="card-action">
+                            {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}}) }}
+                            {{ form_widget(form.cancel, {'attr': {'class': 'btn btn-danger'}}) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
