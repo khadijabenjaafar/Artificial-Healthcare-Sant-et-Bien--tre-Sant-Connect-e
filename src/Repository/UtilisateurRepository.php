@@ -15,14 +15,6 @@ class UtilisateurRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Utilisateur::class);
     }
-    public function findFreelancers()
-{
-    return $this->createQueryBuilder('u')
-        ->where('u.role = :role')
-        ->setParameter('role', 'Freelancer')
-        ->getQuery()
-        ->getResult();
-}
 
     //    /**
     //     * @return Utilisateur[] Returns an array of Utilisateur objects

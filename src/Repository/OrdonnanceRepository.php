@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\Matching;
+use App\Entity\Ordonnance;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Matching>
+ * @extends ServiceEntityRepository<Ordonnance>
  */
-class MatchingRepository extends ServiceEntityRepository
+class OrdonnanceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Matching::class);
+        parent::__construct($registry, Ordonnance::class);
     }
 
     //    /**
-    //     * @return Matching[] Returns an array of Matching objects
+    //     * @return Ordonnance[] Returns an array of Ordonnance objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
+    //        return $this->createQueryBuilder('o')
+    //            ->andWhere('o.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('m.id', 'ASC')
+    //            ->orderBy('o.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Matching
+    //    public function findOneBySomeField($value): ?Ordonnance
     //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
+    //        return $this->createQueryBuilder('o')
+    //            ->andWhere('o.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()
