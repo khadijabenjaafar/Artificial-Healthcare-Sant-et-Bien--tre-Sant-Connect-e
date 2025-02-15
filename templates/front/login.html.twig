@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creer un compte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3fdf4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #ffffff;
+            border: 1px solid #d4e8d1;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-container h2 {
+            text-align: center;
+            color: #3fbbc0;
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            color: #3fbbc0;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .form-container input, 
+        .form-container select, 
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #3fbbc0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .form-container button {
+            background-color: #3fbbc0;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .form-container button:hover {
+            background-color: #3fbbc0;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Creer un compte</h2>
+        <form>
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" placeholder="Entrez votre nom" required>
+            <label for="prenom">Prenom :</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Entrez votre prenom" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
+
+            <label for="age">Votre date de naissance :</label>
+            <input type="number" id="age" name="age" placeholder="Entrez votre date de naisssance" min="1" required>
+            <label for="tel">Votre numero de telephone :</label>
+            <input type="number" id="tel" name="tel" placeholder="Entrez votre numero de telephone" min="1" required>
+            <label for="gender">Gender :</label>
+            <select id="gender" name="gender" required>
+                <option value="">Selectionner votre genre</option>
+                <option value="male">Homme</option>
+                <option value="female">Femme</option>
+            </select>
+            
+            <label for="Symptome">Symptome</label>
+            <textarea id="Symptome" name="Symptome-" rows="4" placeholder="Decrire votre Symptome"></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
