@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Matching;
+use App\Entity\Medicament;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Matching>
+ * @extends ServiceEntityRepository<Medicament>
  */
-class MatchingRepository extends ServiceEntityRepository
+class MedicamentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Matching::class);
+        parent::__construct($registry, Medicament::class);
     }
 
     //    /**
-    //     * @return Matching[] Returns an array of Matching objects
+    //     * @return Medicament[] Returns an array of Medicament objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class MatchingRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Matching
+    //    public function findOneBySomeField($value): ?Medicament
     //    {
     //        return $this->createQueryBuilder('m')
     //            ->andWhere('m.exampleField = :val')
