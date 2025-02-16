@@ -1,0 +1,94 @@
+<html>
+
+<head>
+   
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Features</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" type="text/css" href="css/style1.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" href="css/owl.carousel.min.css">
+      <link rel="stylesoeet" href="css/owl.theme.default.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+   </head>
+   <body>
+   <section class="container mt-5">
+    <h2 class="mb-4">Derniers Blogs</h2>
+    <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for article in articles|batch(3) %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <div class="row">
+                        {% for post in article %}
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="{{ asset(post.urlimagearticle) }}" class="card-img-top" alt="{{ post.titre }}">
+                                    <div class="like_icon"><img src="images/likeicon.png"></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ post.titre }}</h5>
+                                        <p class="card-text">{{ post.contenue[:100] ~ '...' }}</p>
+                                        <p class="post_text"><small class="text-muted">Publié le {{ post.datearticle|date('d/m/Y') }}</small></p>
+                                            <a href="{{ path('article_detail', {'id': post.id}) }}" class="btn btn-primary">Lire plus</a>                                       
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Flèches de navigation -->
+        <a class="carousel-control-prev" href="#blogCarousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#blogCarousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <!-- Lien "Voir plus" -->
+    <div class="text-end mt-3">
+        <a href="{{ path('blog_index') }}" class="btn btn-outline-primary">Voir plus →</a>
+    </div>
+</section>
+
+   
+   
+    
+     
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+      <!-- javascript --> 
+      <script src="js/owl.carousel.js"></script>
+      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+  </body>
+
+</html>

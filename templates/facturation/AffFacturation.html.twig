@@ -1,0 +1,99 @@
+{% extends 'baseDoctor.html.twig' %}
+
+{% block title %}Facturation{% endblock %}
+
+{% block body %}
+<br>
+    <br>        
+        <br>
+        <br>    
+<div class="container">
+          <div class="page-inner">
+            <div class="page-header">
+              <h3 class="fw-bold mb-3">Listes des Facturations 📄</h3>
+              <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                  <a href="/back">
+                    <i class="icon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table
+                        id="basic-datatables"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ID Ordonnance</th>
+                        <th>Date</th>
+                        <th>Montant (€)</th>
+                        <th>Méthode de Paiement</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>ID Ordonnance</th>
+                        <th>Date</th>
+                        <th>Montant (€)</th>
+                        <th>Méthode de Paiement</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for facturation in facturations %}
+                        <tr class="align-middle">
+                            <td><strong>{{ facturation.id }}</strong></td>
+                            <td>{{ facturation.idOrdonnanceId }}</td>
+                            <td>{{ facturation.date ? facturation.date|date('Y-m-d') : 'N/A' }}</td>
+                            <td><span class="fw-bold">{{ facturation.montant }}</span></td>
+                            <td>{{ facturation.methodePaiement ? facturation.methodePaiement.label : '' }}</td>
+                           
+                            <td>
+                                <span class="badge {% if facturation.statut == 'payé' %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                                    {{ facturation.statut }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_facturation_show', {'id': facturation.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_facturation_edit', {'id': facturation.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center text-dark fw-bold">Aucune facturation disponible</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+             
+
+        <div class="text-center mt-3">
+            <a href="{{ path('app_facturation_new') }}" class="btn btn-secondary btn-lg shadow">
+                <i class="bi bi-plus-circle"></i> Ajouter Facturation
+            </a>
+        </div>
+        
+</div>
+{% endblock %}
