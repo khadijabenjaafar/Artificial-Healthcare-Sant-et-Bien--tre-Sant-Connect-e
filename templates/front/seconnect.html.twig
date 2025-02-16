@@ -1,0 +1,286 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<style>
+     body {
+        background: linear-gradient(to right, #178b87, #2aa89a);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    header, footer {
+        position: static;
+        width: 100%;
+        z-index: 10;
+    }
+
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1; /* Permet au formulaire d'occuper l'espace central */
+    }
+    .containerkhad {
+        background-color: white;
+        padding: 70px 20px 100px 20px;
+      
+        border-radius: 20px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        width: 450px;
+        position: relative;
+        overflow: hidden;
+        transition: background-color 0.5s ease-in-out;
+    }
+    .circle {
+        position: absolute;
+        width: 100%;
+        height: 30%;
+        background: #1ca7a2;  /* Default green color for login */
+       margin-top:8%;
+        left: 0;
+        border-radius: 50%;
+        /*border-top-right-radius: 50%;*/
+        transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: top;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+    }
+    .container h2 {
+        color: #1ca7a2;
+        transition: opacity 0.5s ease-in-out;
+    }
+    .form-input {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #1ca7a2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+
+        margin-top:5%;
+        cursor: pointer;
+    }
+    .btn:hover {
+        background-color: #178b87;
+    }
+    .toggle {
+        margin-top: 10px;
+        color: #1ca7a2;
+        cursor: pointer;
+    }
+    #text{margin-top:5%;}
+    #login-form {
+        position:relative;
+    }
+    header, footer {
+        position: static; /* Ou display: block; pour annuler flex */
+        width: 100%;
+    }
+    .form-errors {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+</style>
+
+<br><br><br><br>
+
+<div class="main-container">
+<div class="containerkhad" id="form-container">
+   {% if signupForm is not null %}
+<div id="signup-form" style="display: block;">
+    <h2>Sign up</h2>
+
+    {{ form_start(signupForm, {'attr': {'novalidate': 'novalidate', 'class': 'row g-3 needs-validation'}}) }}
+
+    <div class="">
+        {{ form_widget(signupForm.nom, {'attr': {'class': 'needs-validation'}}) }}
+        <div class="text-danger">
+            {{ form_errors(signupForm.nom) }}
+        </div>
+    </div>
+
+    <div class="col-12">
+        {{ form_widget(signupForm.prenom, {'attr': {'class': 'needs-validation'}}) }}
+        <span class="text-danger">{{ form_errors(signupForm.prenom,{'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}</span>
+    </div>
+
+    <div class="col-12">
+        {{ form_widget(signupForm.email, {'attr': {'class': 'needs-validation'}}) }}
+        <span class="text-danger">{{ form_errors(signupForm.email) }}</span>
+    </div>
+
+    <div class="col-12">
+        {{ form_widget(signupForm.adresse, {'attr': {'class': 'needs-validation'}}) }}
+        <span class="text-danger">{{ form_errors(signupForm.adresse) }}</span>
+    </div>
+
+    <div class="col-12">
+        {{ form_widget(signupForm.password, {'attr': {'class': 'needs-validation'}}) }}
+        <span class="text-danger">{{ form_errors(signupForm.password) }}</span>
+    </div>
+
+    <div class="col-12">
+        {{ form_label(signupForm.date_naissance, null, {'attr': {'class': 'form-label'}}) }}
+        {{ form_widget(signupForm.date_naissance, {'attr': {'id': 'dateInput', 'class': 'needs-validation'}}) }}
+        <span class="text-danger">{{ form_errors(signupForm.date_naissance) }}</span>
+    </div>
+
+    <div class="col-12">
+        {{ form_label(signupForm.role, null, {'attr': {'class': 'form-label'}}) }}
+        {{ form_widget(signupForm.role, {'attr': {'class': 'needs-validation'}}) }}
+    </div>
+
+    <div class="col-12">
+        {{ form_label(signupForm.genre, null, {'attr': {'class': 'form-label'}}) }}
+        {{ form_widget(signupForm.genre, {'attr': {'class': 'needs-validation'}}) }}
+    </div>
+
+    <div class="col-12">
+        {{ form_widget(signupForm.image, {'attr': {'class': 'form-control-file'}}) }}
+        <span class="text-danger">{{ form_errors(signupForm.image) }}</span>
+    </div>
+
+    <div class="col-12">
+        {{ form_widget(signupForm.save, {'attr': {'class': 'btn btn-primary','name':"signup_submit"}}) }}
+    </div>
+
+    {{ form_end(signupForm) }}
+</div>
+
+{% endif %}
+{% if loginForm is not null %}
+    <form method="post" action="{{ path('app_login') }}" id="login-form">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Se connecter
+    </button>
+{% endif %}
+
+     <div class="circle" id="circle"><div id="text">Creer un compte</div></div>
+</div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    function toggleForm() {
+        let signupForm = document.getElementById('signup-form');
+        let loginForm = document.getElementById('login-form');
+        let circle = document.getElementById('circle');
+        let container = document.getElementById('form-container');
+        let headingSignup = signupForm.querySelector('h2');
+        let headingLogin = loginForm.querySelector('h2');
+        let text = document.getElementById('text'); // Ensure this element exists
+        let btnSignUp = document.querySelector('.btn');
+
+
+
+        if (signupForm.style.display === 'none') {
+            signupForm.style.display = 'block';
+            loginForm.style.display = 'none';
+            container.style.backgroundColor = '#1ca7a2';
+            circle.style.transform = 'translateY(-1030px)';
+            circle.style.backgroundColor = 'white';  
+            btnSignUp.style.backgroundColor = "white";
+            btnSignUp.style.color = "#1ca7a2";
+            text.innerHTML = 'Login'; // Ensure text is updated correctly
+            text.style.marginTop = '45%';
+            text.style.color = "#1ca7a2";
+            headingSignup.style.color = "white";
+            headingSignup.style.opacity = '1';
+            headingLogin.style.opacity = '0';
+        } else {
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            container.style.backgroundColor = 'white';  
+            circle.style.transform = 'translateY(0)';
+            text.innerHTML = 'Sign up'; // Ensure text is updated correctly
+            text.style.marginTop = '0%';
+             text.style.color = "white";
+             circle.style.backgroundColor = '#1ca7a2'; 
+            headingSignup.style.opacity = '0';
+            headingLogin.style.opacity = '1';
+        }
+    }
+
+    document.getElementById('circle').addEventListener('click', function() {
+            // Vérifier si le formulaire de login est présent dans la page
+            let loginForm = document.getElementById('login-form');
+            
+            // Si le loginForm est null (c'est-à-dire qu'il n'est pas dans le DOM), redirige vers /utilisateur/signup
+            if (loginForm === null) {
+                window.location.href = '/utilisateur/login'; // Redirection vers la page d'inscription
+            } else {
+                window.location.href = '/utilisateur/signup'; // Redirection vers la page de connexion
+            }
+    });
+
+});
+
+</script>
+<script>
+(function () {
+    'use strict'
+    var form = document.querySelector('.needs-validation');
+
+    form.addEventListener('submit', function (event) {
+        var dateInput = document.getElementById('dateInput');
+
+        // Empêcher la soumission si la date est vide
+        if (!dateInput.value) {
+            dateInput.classList.add('is-invalid');
+            event.preventDefault(); // Empêche la soumission du formulaire
+            alert("La date de naissance est obligatoire.");
+        } else {
+            dateInput.classList.remove('is-invalid'); // Enlève l'alerte si la date est valide
+        }
+
+        // Vérifier la validité générale du formulaire
+        if (!form.checkValidity()) {
+            event.preventDefault(); // Empêche la soumission si un autre champ est invalide
+        }
+
+        // Appliquer les styles de validation après soumission
+        form.classList.add('was-validated');
+    });
+})();
+</script>
+
+
+
+<br><br><br><br>
+{% endblock %}

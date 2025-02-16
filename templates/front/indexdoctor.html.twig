@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+  <main class="main">
+
+  <section id="appointments">
+      <h2>Mes Rendez-vous</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Patient</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2025-01-26</td>
+            <td>10:00 AM</td>
+            <td>Jean Dupont</td>
+            <td><button>Voir Détails</button></td>
+          </tr>
+          <tr>
+            <td>2025-01-27</td>
+            <td>2:00 PM</td>
+            <td>Marie Curie</td>
+            <td><button>Voir Détails</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="planning">
+      <h2>Mon Planning</h2>
+      <p>Vous n'avez pas de rendez-vous pour le moment.</p>
+    </section>
+
+    <section id="equipments">
+      <h2>Ajouter Article</h2>
+      <form>
+        <label for="equipment-name">Nom de l'équipement :</label>
+        <input type="text" id="equipment-name" name="equipment-name" required>
+        <label for="equipment-quantity">Quantité :</label>
+        <input type="number" id="equipment-quantity" name="equipment-quantity" required>
+        <button type="submit">Ajouter</button>
+      </form>
+    </section>
+
+    <section id="maintenance">
+      <h2>Équipements Maintenus</h2>
+      <ul>
+        <li>Équipement A - Dernière maintenance : 2025-01-15</li>
+        <li>Équipement B - Dernière maintenance : 2025-01-20</li>
+      </ul>
+    </section>
+
+    <section id="medications">
+      <h2>Commander Médicaments</h2>
+      <form>
+        <label for="medication-name">Nom du médicament :</label>
+        <input type="text" id="medication-name" name="medication-name" required>
+        <label for="medication-quantity">Quantité :</label>
+        <input type="number" id="medication-quantity" name="medication-quantity" required>
+        <button type="submit">Commander</button>
+      </form>
+    </section>
+
+    
+  </main>
+
+  
+<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('vendor/php-email-form/validate.js') }}"></script>
+<script src="{{ asset('vendor/aos/aos.js') }}"></script>
+<script src="{{ asset('vendor/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ asset('vendor/purecounter/purecounter_vanilla.js') }}"></script>
+<script src="{{ asset('vendor/swiper/swiper-bundle.min.js') }}"></script>
+ 
+ 
+  <!-- Main JS File -->
+  <script src="{{ asset('js/main.js') }}"></script>
+
+</body>
+
+</html>

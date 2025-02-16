@@ -1,0 +1,95 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Ordonnance index{% endblock %}
+
+{% block body %}
+     <br>
+        <br>        
+            <br>
+            <br>
+<div class="container">
+          <div class="page-inner">
+            <div class="page-header">
+              <h3 class="fw-bold mb-3">Listes des Ordonnances 📑</h3>
+              <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                  <a href="/back">
+                    <i class="icon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table
+                        id="basic-datatables"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Médicaments</th>
+                        <th>Commentaire</th>
+                        <th>Durée d'utilisation</th>
+                        <th>Quantité d'utilisation</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Médicaments</th>
+                        <th>Commentaire</th>
+                        <th>Durée d'utilisation</th>
+                        <th>Quantité d'utilisation</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for ordonnance in ordonnances %}
+                        <tr class="align-middle">
+                            <td><strong>{{ ordonnance.id }}</strong></td>
+                            <td>{{ ordonnance.date ? ordonnance.date|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ ordonnance.medicaments }}</td>
+                            <td>{{ ordonnance.commantaire }}</td>
+                            <td>{{ ordonnance.dureeUtilisation }}</td>
+                            <td>{{ ordonnance.quantiteUtilisation }}</td>
+                            <td>
+                                <a href="{{ path('app_ordonnance_show', {'id': ordonnance.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center text-dark fw-bold">Aucune ordonnance disponible</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+        <div class="text-center mt-3">
+            <a href="{{ path('app_ordonnance_new') }}" class="btn btn-secondary btn-lg shadow">
+                <i class="bi bi-plus-circle"></i> Ajouter Ordonnance
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

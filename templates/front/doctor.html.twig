@@ -1,0 +1,392 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+    <section id="planning" class="planning section">
+        <h2>Mon Planning</h2>
+        <table class="table123">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Adresse</th>
+                    <th>Réponse</th>
+                    <th>Mode</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for planification in planifications %}
+                    <tr>
+                        <td>{{ planification.id }}</td>
+                        <td>{{ planification.statut }}</td>
+                        <td>{{ planification.date ? planification.date|date('Y-m-d') : '' }}</td>
+                        <td>{{ planification.adresse }}</td>
+                        <td>{{ planification.reponse }}</td>
+                        <td>{{ planification.mode }}</td>
+                        <td>
+                            <a href="{{ path('app_planification_edit', {'id': planification.id}) }}">Modifier</a>
+                            <a href="{{ path('app_planification_delete', {'id': planification.id}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="matching" class="matching section">
+        <h2>Mes Matching</h2>
+        <table class="table123">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CIN</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Compétences</th>
+                    <th>CV</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for matching in matchings %}
+                    <tr>
+                        <td>{{ matching.id }}</td>
+                        <td>{{ matching.cin }}</td>
+                        <td>{{ matching.description }}</td>
+                        <td>{{ matching.date ? matching.date|date('Y-m-d') : '' }}</td>
+                        <td>{{ matching.competences }}</td>
+                        <td>{{ matching.cv }}</td>
+                        <td>
+                            <a href="{{ path('app_planification_edit', {'id': matching.id}) }}">Modifier</a> |
+                            {{ include('matching/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="appointments" class="appointments section">
+        <h1>Rendez-vous du patient</h1>
+        {% if rendez_vouses is defined and rendez_vouses is empty %}
+            <p>Aucun rendez-vous trouvé pour ce patient.</p>
+        {% else %}
+            <table class="table123">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Motif</th>
+                        <th>Statut</th>
+                        <th>Mode</th>
+                        <th>Commentaire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rendezVous in rendez_vouses %}
+                        <tr>
+                            <td>{{ rendezVous.dateHeure|date('d-m-Y H:i') }}</td>
+                            <td>{{ rendezVous.motif.label }}</td>
+                            <td>{{ rendezVous.statut.label }}</td>
+                            <td>{{ rendezVous.mode.label }}</td>
+                            <td>{{ rendezVous.commantaire }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </section>
+
+    <section id="Ordonnances" class="Ordonnances section">
+        <h1>Ordonnances du patient</h1>
+        {% if ordonnances is defined and ordonnances is empty %}
+            <p>Aucune ordonnance trouvée pour ce patient.</p>
+        {% else %}
+            <table class="table123">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Médicaments</th>
+                        <th>Commentaire</th>
+                        <th>Durée d'utilisation</th>
+                        <th>Quantité d'utilisation</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ordonnance in ordonnances %}
+                        <tr>
+                            <td><strong>{{ ordonnance.id }}</strong></td>
+                            <td>{{ ordonnance.date ? ordonnance.date|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ ordonnance.medicaments }}</td>
+                            <td>{{ ordonnance.commantaire }}</td>
+                            <td>{{ ordonnance.dureeUtilisation }}</td>
+                            <td>{{ ordonnance.quantiteUtilisation }}</td>
+                            <td>
+                                <a href="{{ path('app_ordonnance_show', {'id': ordonnance.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </section>
+
+    <section id="Facturations" class="Facturations section">
+        <h1 class="fw-bold mb-3">Liste des Facturations 📄</h1>
+        {% if facturations is defined and facturations is empty %}
+            <p>Aucune facturation trouvée pour ce patient.</p>
+        {% else %}
+            <table class="table123">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ID Ordonnance</th>
+                        <th>Date</th>
+                        <th>Montant (€)</th>
+                        <th>Méthode de Paiement</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for facturation in facturations %}
+                        <tr>
+                            <td><strong>{{ facturation.id }}</strong></td>
+                            <td>{{ facturation.idOrdonnanceId }}</td>
+                            <td>{{ facturation.date ? facturation.date|date('Y-m-d') : 'N/A' }}</td>
+                            <td><span class="fw-bold">{{ facturation.montant }}</span></td>
+                            <td>{{ facturation.methodePaiement ? facturation.methodePaiement.label : '' }}</td>
+                            <td>
+                                <span class="badge {% if facturation.statut == 'payé' %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                                    {{ facturation.statut }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_facturation_show', {'id': facturation.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_facturation_edit', {'id': facturation.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </section>
+    <!-- Section Ajout Ordonnance -->
+    <section id="AjoutFacturation" class="AjoutFacturation section">
+        <h2>Ajouter une Facturation</h2>
+        
+        {{ form_start(form1, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+
+        <div class="form-group">
+            {{ form_label(form1.id_ordonnance_id, 'id_ordonnance associer') }}
+            {{ form_widget(form1.id_ordonnance_id, {'attr': {'id': 'dateInput', 'class': 'form-control'}}) }}
+            {{ form_errors(form1.id_ordonnance_id) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form1.date, 'Date de la facturation', {'attr': {'for': 'dateInput'}}) }}
+            {{ form_widget(form1.date, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form1.date) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form1.montant, 'Montant de la facturation') }}
+            {{ form_widget(form1.montant, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form1.montant) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form1.methode_paiement, 'Methode de Paiement') }}
+            {{ form_widget(form1.methode_paiement, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form1.methode_paiement) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form1.statut, 'Statut de la facturation') }}
+            {{ form_widget(form1.statut, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form1.statut) }}
+        </div>
+
+        <div class="form-button">
+            <button class="btn" style="background-color: #1ca7a2; color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s ease;">
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+
+        {{ form_end(form1) }}
+    </section>
+    <section  id="AjoutOrdonnance" class="AjoutOrdonnance section">
+    <h2>Ajouter une Ordonnance</h2>
+        
+        {{ form_start(form, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+
+        <div class="form-group">
+            {{ form_label(form.date, 'Date de l’ordonnance', {'attr': {'for': 'dateInput'}}) }}
+            {{ form_widget(form.date, {'attr': {'id': 'dateInput', 'class': 'form-control'}}) }}
+            {{ form_errors(form.date) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.medicaments, 'Médicaments prescrits') }}
+            {{ form_widget(form.medicaments, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.medicaments) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.duree_utilisation, 'Durée d’utilisation') }}
+            {{ form_widget(form.duree_utilisation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.duree_utilisation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.quantite_utilisation, 'Quantité à utiliser') }}
+            {{ form_widget(form.quantite_utilisation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.quantite_utilisation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.id_consultation, 'Consultation associée') }}
+            {{ form_widget(form.id_consultation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.id_consultation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.commantaire, 'Commentaire') }}
+            {{ form_widget(form.commantaire, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.commantaire) }}
+        </div>
+
+        <div class="form-button">
+            <button class="btn" style="background-color: #1ca7a2; color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s ease;">
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+
+        {{ form_end(form) }}
+        </section>
+        <section id="articles" class="articles section">
+            <div class="container-fluid mt-5">
+        <h2 class="mb-4 text-primary fw-bold text-center">Mes Articles</h2>
+
+        <!-- Affichage des articles avec un layout bien réparti -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for article in articles %}
+                    <div class="col">
+                        <div class="card shadow-sm border-0 h-100 p-3">
+                            <!-- Image bien cadrée -->
+                            <img src="{{ asset(article.urlimagearticle) }}" class="card-img-top" alt="{{ article.titre }}" style="height: 250px; object-fit: cover; border-radius: 8px;">
+
+                            <div class="card-body">
+
+                <div class="d-flex align-items-center text-muted small me-2"> 
+                 <span>{{ article.dateArticle|date('d M. Y') }} · 2 min de lecture</span>   <a href="{{ path('article_delete', {'id': article.id}) }}">  <i class="bi bi-trash me-2 text-danger" style="cursor: pointer;" ></i> </a>
+
+                <a href="{{ path('article_edit', {'id': article.id}) }}">  <i class="bi bi-pencil-square" style="cursor: pointer;" ></i> </a>
+                </div>
+
+                            
+                             
+                                <h5 class="card-title fw-bold">{{ article.titre }}</h5>
+                                <p class="card-text">{{ article.contenue|slice(0, 100) }}...</p>
+                            </div>
+
+                            <!-- Footer avec icônes -->
+                            <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                                <span class="text-muted"><i class="fas fa-eye"></i> {{ article.nbreVue }}</span>
+                                <span class="text-muted"><i class="fas fa-comment-alt"></i>
+                                {{ commentaireRepository.countCommentairesByArticle(article.id) }}
+                                 </span>
+                                <a href="{{ path('article_detail', {'id': article.id}) }}" class="btn btn-outline-primary btn-sm">Lire plus</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+       
+    </div>
+        </section>
+        <section id="equipments" class="equipments section">
+        {{ form_start(form2, {'attr': {'enctype': 'multipart/form-data', 'novalidate': 'novalidate'}}) }}
+           <div class="mb-3">
+                {{ form_label(form2.titre, 'Titre de l\'article', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                {{ form_widget(form2.titre, {'attr': {'class': 'form-control w-100','rows':'6'}}) }}
+                 {% if form2.titre.vars.errors is not empty %}
+        <div class="text-danger mt-1"> {{ form_errors(form2.titre) }} </div>
+        {% endif %}
+            </div>
+
+        <div class="mb-3">
+                {{ form_label(form2.contenue, 'Contenue de l\'article', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form2.contenue, {'attr': {'class': 'form-control', 'rows': '4'}}) }}
+
+                {% if form2.contenue.vars.errors is not empty %}
+                        <div class="text-danger">{{ form_errors(form2.contenue) }}</div>
+                    {% endif %}
+
+
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form2.urlimagearticle, 'URL de l\'image de l\'article', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form2.urlimagearticle, {'attr': {'class': 'form-control'}}) }}
+               
+        <div class="text-danger mt-1">
+            {{ form_errors(form2.urlimagearticle) }}
+        </div>
+            </div>
+            <div class="mb-3">
+                 <label>Utilisateur</label>
+                {{ form_widget(form2.utilisateur) }}
+            </div>
+            <div class="text-center">
+            <button type="submit" class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
+                Enregistrer
+            </button>
+            </div>
+            {{ form_end(form2) }}
+        </div>
+        </div>
+        </section>
+</main>
+<!-- Script de validation du formulaire -->
+<script>
+(function () {
+    'use strict'
+    var form = document.querySelector('.needs-validation');
+
+    form.addEventListener('submit', function (event) {
+        var dateInput = document.getElementById('dateInput');
+
+        // Vérifie si la date est vide
+        if (!dateInput.value) {
+            dateInput.classList.add('is-invalid');
+            event.preventDefault(); // Empêche la soumission du formulaire
+            alert("La date de l’ordonnance est obligatoire.");
+        } else {
+            dateInput.classList.remove('is-invalid'); // Enlève l'erreur si valide
+        }
+
+        // Vérifier la validité générale du formulaire
+        if (!form.checkValidity()) {
+            event.preventDefault();
+        }
+
+        form.classList.add('was-validated');
+    });
+})();
+</script>
+
+{% endblock %}
