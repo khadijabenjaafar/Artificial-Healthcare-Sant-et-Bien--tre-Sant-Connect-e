@@ -15,9 +15,6 @@ class Matching
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $urlimagearticle = " ";
-
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Le CIN ne peut pas être vide.")]
     private ?string $cin = null;
@@ -28,9 +25,8 @@ class Matching
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotBlank(message: "La date ne peut pas être vide.")]
-    #[Assert\Date(message: "La date doit être valide.")]
     private ?\DateTimeInterface $date = null;
-
+    
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Les compétences ne peuvent pas être vides.")]
     private ?string $competences = null;
@@ -60,17 +56,6 @@ class Matching
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUrlImageArticle(): ?string
-    {
-        return $this->urlimagearticle;
-    }
-
-    public function setUrlImageArticle(?string $urlimagearticle): static
-    {
-        $this->urlimagearticle = $urlimagearticle;
-        return $this;
     }
 
     public function getCin(): ?string

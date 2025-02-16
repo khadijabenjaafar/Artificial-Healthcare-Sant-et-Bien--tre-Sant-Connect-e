@@ -22,6 +22,14 @@ final class PlanificationController extends AbstractController
         ]);
     }
 
+    #[Route('/backPlan',name: 'app_planification_index1', methods: ['GET'])]
+    public function index22(PlanificationRepository $planificationRepository): Response
+    {
+        return $this->render('planification/backPlanning.html.twig', [
+            'planifications' => $planificationRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_planification_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {

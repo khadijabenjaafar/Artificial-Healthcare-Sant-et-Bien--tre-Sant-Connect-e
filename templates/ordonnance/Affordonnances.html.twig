@@ -39,7 +39,6 @@
                         <th>Commentaire</th>
                         <th>Durée d'utilisation</th>
                         <th>Quantité d'utilisation</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -50,7 +49,6 @@
                         <th>Commentaire</th>
                         <th>Durée d'utilisation</th>
                         <th>Quantité d'utilisation</th>
-                        <th>Actions</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -62,14 +60,7 @@
                             <td>{{ ordonnance.commantaire }}</td>
                             <td>{{ ordonnance.dureeUtilisation }}</td>
                             <td>{{ ordonnance.quantiteUtilisation }}</td>
-                            <td>
-                                <a href="{{ path('app_ordonnance_show', {'id': ordonnance.id}) }}" class="btn btn-info btn-sm">
-                                    <i class="bi bi-eye"></i> Voir
-                                </a>
-                                <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-square"></i> Modifier
-                                </a>
-                            </td>
+                            
                         </tr>
                     {% else %}
                         <tr>
@@ -84,12 +75,7 @@
               </div>
 
 
-        <div class="text-center mt-3">
-            <a href="{{ path('app_ordonnance_new') }}" class="btn btn-secondary btn-lg shadow">
-                <i class="bi bi-plus-circle"></i> Ajouter Ordonnance
-            </a>
-        </div>
-
+      
     </div>
 </div>
 {% endblock %}

@@ -24,7 +24,6 @@ class PlanificationType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'La date ne peut pas être vide.']),
-                    new Date(['message' => 'La date doit être valide.']),
                     new GreaterThan(['value' => 'today', 'message' => 'La date doit être dans le futur.']),
                 ],
                 'attr' => [

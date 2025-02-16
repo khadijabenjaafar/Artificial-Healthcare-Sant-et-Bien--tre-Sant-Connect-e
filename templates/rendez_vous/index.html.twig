@@ -37,7 +37,6 @@
                 <th>Statut</th>
                 <th>Mode</th>
                 <th>Commantaire</th>
-                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -49,10 +48,7 @@
                 <td>{{ rendez_vou.statut ? rendez_vou.statut.label : '' }}</td>
                 <td>{{ rendez_vou.mode ? rendez_vou.mode.label : '' }}</td>
                 <td>{{ rendez_vou.commantaire }}</td>
-                <td>
-                    <a href="{{ path('app_rendez_vous_show', {'id': rendez_vou.id}) }}" class="btn btn-danger alert_delete" >show</a>
-                    <a href="{{ path('app_rendez_vous_edit', {'id': rendez_vou.id}) }}" class="btn btn-warning">edit</a>
-                </td>
+             
             </tr>
         {% else %}
             <tr>
@@ -67,5 +63,4 @@
               </div>
 
 </div>
-    <a href="{{ path('app_rendez_vous_new') }}">Create new</a>
 {% endblock %}

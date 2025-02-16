@@ -21,7 +21,6 @@ class Planification
 
     #[ORM\Column(type: 'date')]
     #[Assert\NotBlank(message: "La date ne peut pas être vide.")]
-    #[Assert\Date(message: "La date doit être valide.")]
     #[Assert\GreaterThan("today", message: "La date doit être dans le futur.")]
     private ?\DateTimeInterface $date = null;
 

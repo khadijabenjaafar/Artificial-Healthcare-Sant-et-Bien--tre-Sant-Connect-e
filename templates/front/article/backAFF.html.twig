@@ -1,7 +1,10 @@
 {% extends 'baseback.html.twig' %}
 
 {% block body %}
-
+    <br>
+        <br>        
+            <br>
+            <br>
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
@@ -30,7 +33,6 @@
                                         <th>Auteur</th>
                                         <th>Date de publication</th>
                                         <th>Image</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -40,7 +42,6 @@
                                         <th>Auteur</th>
                                         <th>Date de publication</th>
                                         <th>Image</th>
-                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -51,10 +52,7 @@
                                             <td>{{ article.utilisateur.nom }}</td>
                                             <td>{{ article.datearticle|date('d/m/Y') }}</td>
                                             <td><img src="{{ asset(article.urlimagearticle) }}" alt="Article Image" width="100" height="100"></td>
-                                            <td>
-                                                <a href="{{ path('article_edit', { id: article.id }) }}" class="btn btn-warning">Modifier</a>
-                                                <a href="{{ path('article_delete', { id: article.id }) }}" class="btn btn-danger">Supprimer</a>
-                                            </td>
+                                            
                                         </tr>
                                     {% endfor %}
                                 </tbody>

@@ -220,26 +220,6 @@
           <div class="sidebar-content">
             <ul class="nav nav-secondary">
               <li class="nav-item">
-                <a
-                  data-bs-toggle="collapse"
-                  href="#dashboard"
-                  aria-expanded="true"
-                >
-                  <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse show" id="dashboard">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="../demo1/index.html">
-                        <span class="sub-item">Dashboard 1</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#users" aria-expanded="true">
                   <i class="fas fa-user"></i>
                   <p>Utilisateur</p>
@@ -271,6 +251,22 @@
                     <li>
                       <a href="/rendez/vous">
                         <span class="sub-item">Afficher les rendez vous</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#rendezvous" aria-expanded="true">
+                  <i class="fas fa-stethoscope"></i>
+                  <p>Consultation</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse show" id="rendezvous">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="/consultation/back">
+                        <span class="sub-item">Afficher les consultations</span>
                       </a>
                     </li>
                   </ul>
@@ -310,7 +306,7 @@
               </li>
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#articles" aria-expanded="true">
-                  <i class="fas fa-file-invoice-dollar"></i>
+                  <i class="fas fa-newspaper"></i>
                   <p>Articles</p>
                   <span class="caret"></span>
                 </a>
@@ -319,6 +315,38 @@
                     <li>
                       <a href="/backArticle">
                         <span class="sub-item">Afficher les Articles</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#articles" aria-expanded="true">
+                  <i class="fas fa-handshake"></i>
+                  <p></p>Matching
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse show" id="articles">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="/matching/backMatching">
+                        <span class="sub-item">Afficher les Matching</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#articles" aria-expanded="true">
+                  <i class="fas fa-clock"></i>
+                  <p>Planning</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse show" id="articles">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="/planification/backPlan">
+                        <span class="sub-item">Afficher les Planing</span>
                       </a>
                     </li>
                   </ul>

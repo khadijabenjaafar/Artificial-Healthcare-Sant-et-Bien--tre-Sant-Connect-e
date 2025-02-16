@@ -22,6 +22,14 @@ final class ConsultationController extends AbstractController
         ]);
     }
 
+    #[Route('/back', name: 'app_consultation_index21', methods: ['GET'])]
+    public function index12(ConsultationRepository $consultationRepository): Response
+    {
+        return $this->render('consultation/AffConsultation.html.twig', [
+            'consultations' => $consultationRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_consultation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -72,7 +80,7 @@ final class ConsultationController extends AbstractController
             }
             $entityManager->flush();
             $this->addFlash('success', 'Consultation mise à jour avec succès.');
-            return $this->redirectToRoute('app_consultation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('doctor_index',['data-target' => "Consultation"], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('consultation/edit.html.twig', [
@@ -89,6 +97,6 @@ final class ConsultationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_consultation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
     }
 }
