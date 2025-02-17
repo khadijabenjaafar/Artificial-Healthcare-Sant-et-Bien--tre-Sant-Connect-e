@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <button class="btn" style="background-color: #D3D3D3; color: black; padding: 12px 24px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s ease; display: inline-block; text-align: center;">
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+{{ form_end(form) }}
