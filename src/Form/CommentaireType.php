@@ -27,14 +27,8 @@ class CommentaireType extends AbstractType
         ->add('status', CheckboxType::class, [
             'label' => 'Commentaire anonyme ?',
             'required' => false
-        ])
-        ->add('utilisateur', EntityType::class, [
-            'class' => Utilisateur::class,
-            'choice_label' => 'nom',
-            'choices' => $options['utilisateurs'],
-            'placeholder' => 'Choisir un utilisateur',
-            'required' => false
         ]);
+    
 
         //->add('submit', SubmitType::class, [
            // 'label' => 'Envoyer',

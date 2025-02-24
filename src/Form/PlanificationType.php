@@ -22,25 +22,12 @@ class PlanificationType extends AbstractType
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
                 'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => 'La date ne peut pas être vide.']),
-                    new Date(['message' => 'La date doit être valide.']),
-                    new GreaterThan(['value' => 'today', 'message' => 'La date doit être dans le futur.']),
-                ],
-                'attr' => [
-                    'min' => (new \DateTime())->format('Y-m-d'), // HTML5 validation attribute to ensure future date
-                ],
+               
             ])
             ->add('adresse', TextType::class, [
                 'label' => 'Adresse',
                 'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => "L'adresse ne peut pas être vide."]),
-                    new Length(['max' => 255, 'maxMessage' => "L'adresse ne peut pas dépasser {{ limit }} caractères."]),
-                ],
-                'attr' => [
-                    'maxlength' => 255,
-                ],
+                
             ])
             ->add('mode', ChoiceType::class, [
                 'choices' => [
@@ -48,10 +35,7 @@ class PlanificationType extends AbstractType
                     'En ligne' => 'en ligne',
                 ],
                 'label' => 'Mode',
-                'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => 'Le mode ne peut pas être vide.']),
-                ],
+                
             ]);
     }
 

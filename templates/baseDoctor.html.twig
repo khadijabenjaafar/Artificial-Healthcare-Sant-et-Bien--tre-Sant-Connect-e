@@ -73,7 +73,7 @@
             }
 
             .table123 thead {
-                background-color: #495057; /* Gris foncé élégant */
+                background-color: #1ca7a2; /* Gris foncé élégant */
                 color: white;
             }
 
@@ -155,6 +155,7 @@
                     <ul class="list-unstyled">
                         {% if is_granted('ROLE_FREELANCER') %}
                             <li><a href="#planning" data-target="planning">Mon Planning</a></li>
+                        <li><a href="#Ajoutmatching" data-target="Ajoutmatching">Ajouter Matching</a></li>
                             <li><a href="#matching" data-target="matching">Mes Matchings</a></li>
                             <li><a href="#equipments" data-target="equipments">Ajouter Article</a></li>
                             <li><a href="#articles" data-target="articles">Mes Articles</a></li>
@@ -175,6 +176,8 @@
                         {% endif %}
                         {% if is_granted('ROLE_MEDECIN') %}
                             <li><a href="#appointments" data-target="appointments">Mes Rendez-vous</a></li>
+                            <li><a href="#AjoutConsultation" data-target="AjoutConsultation">Ajouter Consultation</a></li>
+                            <li><a href="#Consultation" data-target="Consultation">Les consultations</a></li>
                             <li><a href="#AjoutOrdonnance" data-target="AjoutOrdonnance">Ajouter Ordonnance</a></li>
                             <li><a href="#Ordonnances" data-target="Ordonnances">Les Ordonnances</a></li>
                             <li><a href="#equipments" data-target="equipments">Ajouter Article</a></li>
@@ -183,10 +186,13 @@
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="#planning" data-target="planning">Mon Planning</a></li>
+                            <li><a href="#Ajoutmatching" data-target="Ajoutmatching">Ajouter Matching</a></li>
                             <li><a href="#matching" data-target="matching">Mes Matchings</a></li>
+                            <li><a href="#AjoutConsultation" data-target="AjoutConsultation">Ajouter Consultation</a></li>
+                            <li><a href="#Consultation" data-target="Consultation">Les consultations</a></li>
                             <li><a href="#appointments" data-target="appointments">Mes Rendez-vous</a></li>
-                            <li><a href="#Ordonnances" data-target="Ordonnances">Mes Ordonnances</a></li>
                             <li><a href="#AjoutOrdonnance" data-target="AjoutOrdonnance">Ajouter Ordonnance</a></li>
+                            <li><a href="#Ordonnances" data-target="Ordonnances">Mes Ordonnances</a></li>
                             <li><a href="#AjoutFacturation" data-target="AjoutFacturation">Ajouter Facturations</a></li>
                             <li><a href="#Facturations" data-target="Facturations">Mes Facturations</a></li>
                             <li><a href="#equipments" data-target="equipments">Ajouter Article</a></li>
@@ -200,6 +206,7 @@
             <!-- Main Content -->
             <div class="content">
                 {% block body %}
+
                 {% endblock %}
             </div>
         </div>

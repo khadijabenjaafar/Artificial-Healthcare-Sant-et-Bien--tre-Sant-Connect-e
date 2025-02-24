@@ -98,6 +98,6 @@ public function edit(Request $request, Facturation $facturation, EntityManagerIn
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_facturation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
     }
 }

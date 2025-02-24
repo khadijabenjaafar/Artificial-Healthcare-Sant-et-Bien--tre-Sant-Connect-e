@@ -24,8 +24,7 @@
                     <div class="table-responsive">
                       <table
                         id="basic-datatables"
-                        class="display table table-striped table-hover"
-                      >
+                        class="display table table-striped table-hover table-sm">
                         <thead>
                           <tr>
                             <th>Nom d'utilisateur</th>
@@ -62,7 +61,7 @@
                                 <td>{{ user.nom }}</td>
                                 <td>{{ user.prenom }}</td>
                                 <td>{{ user.email }}</td>
-                                <td>{{ user.getPassword() }}</td>
+                                <td>{{ user.getPassword()[:10] ~ '...' }}</td>
                                 <td>{{ user.getDateNaissance()|date('d/m/Y') }}</td>
                                 <td>{{ user.adresse}}</td>
                                 <td>{{ user.getRole().value }}</td>
@@ -74,10 +73,14 @@
                                 </a></td>
                             </tr>
                         {% endfor %}
-                          
                         </tbody>
                       </table>
                     </div>
+                    <br><br>
+                   <nav class="d-flex justify-content-end">
+                      {{ knp_pagination_render(users) }}
+                    </nav>
+
                   </div>
                 </div>
               </div>

@@ -98,7 +98,7 @@ final class RendezVousController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Rendez-vous mis à jour avec succès.');
 
-            return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('rendez_vous/edit.html.twig', [
@@ -115,7 +115,7 @@ final class RendezVousController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/patient/{patientId}', name: 'app_rendez_vous_patient', methods: ['GET'])]
 public function showPatientAppointments(int $patientId, RendezVousRepository $rendezVousRepository): Response

@@ -79,8 +79,6 @@ class DoctorformType extends AbstractType
             ->add('image', FileType::class, [
                 'label' => 'Telecharger votre image de profile (Des fichier image uniquement)',
 
-                // unmapped means that this field is not associated to any entity property
-                'mapped' => false,
 
                 // make it optional so you don't have to re-upload the PDF file
                 // every time you edit the Product details
@@ -101,7 +99,7 @@ class DoctorformType extends AbstractType
                 ],
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Se connecter',
+                'label' => 'Creer',
                 'attr' => ['class' => 'btn btn-primary']
             ])
         ;

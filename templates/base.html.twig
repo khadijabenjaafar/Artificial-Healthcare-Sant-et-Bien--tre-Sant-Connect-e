@@ -73,8 +73,7 @@
             <li><a href="/front#about">À propos</a></li>
             <li><a href="/front#tabs">Departments</a></li>
             <li><a href="/front#appointment">Rendez vous</a></li>
-            <li><a href="/front#doctors">Doctors</a></li>
-            <li><a href="/front#reclamation">Reclamation</a></li>
+            <li><a href="/front#doctors">Docteurs</a></li>
             
             <li><a href="/front#contact">Contact</a></li>
           </ul>
@@ -95,6 +94,15 @@
     </div>
 
   </header>
+  {% if app.user and app.user.isVerified == false %}
+    <div class="alert alert-warning" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         <div class="alert-message">
+            <strong>Votre compte n'est pas active</strong>, <a href="{{ path('revoi_verif')}}">cliquez ici pour activer</a>
+            </div>
+    </div>
+ {% endif %}
+ {% include "utilisateur/flash.html.twig" %}
         {% block body %}
 
         {% endblock %}

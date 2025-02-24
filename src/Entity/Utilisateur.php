@@ -64,6 +64,12 @@ class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "L'image est nécessaire")]
     private ?string $image = null;
+    
+    #[ORM\Column(type: 'boolean')]
+    private $is_verified = false;
+
+
+
     /**
      * @var Collection<int, RendezVous>
      */
@@ -217,6 +223,18 @@ class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
     public function setImage(string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
 
         return $this;
     }

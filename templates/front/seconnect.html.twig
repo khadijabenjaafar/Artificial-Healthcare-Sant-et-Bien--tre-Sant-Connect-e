@@ -3,7 +3,8 @@
 {% block body %}
 
 <style>
-     body {
+    /* Ajoutez vos styles ici */
+    body {
         background: linear-gradient(to right, #178b87, #2aa89a);
         margin: 0;
         padding: 0;
@@ -27,7 +28,6 @@
     .containerkhad {
         background-color: white;
         padding: 70px 20px 100px 20px;
-      
         border-radius: 20px;
         box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
         text-align: center;
@@ -41,10 +41,9 @@
         width: 100%;
         height: 30%;
         background: #1ca7a2;  /* Default green color for login */
-       margin-top:8%;
+        margin-top: 8%;
         left: 0;
         border-radius: 50%;
-        /*border-top-right-radius: 50%;*/
         transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out;
         display: flex;
         justify-content: center;
@@ -71,8 +70,7 @@
         color: white;
         border: none;
         border-radius: 5px;
-
-        margin-top:5%;
+        margin-top: 5%;
         cursor: pointer;
     }
     .btn:hover {
@@ -83,9 +81,9 @@
         color: #1ca7a2;
         cursor: pointer;
     }
-    #text{margin-top:5%;}
+    #text { margin-top: 5%; }
     #login-form {
-        position:relative;
+        position: relative;
     }
     header, footer {
         position: static; /* Ou display: block; pour annuler flex */
@@ -96,148 +94,121 @@
         font-size: 12px;
         margin-top: 5px;
     }
-
+    #videoElement {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
 </style>
 
 <br><br><br><br>
 
 <div class="main-container">
-<div class="containerkhad" id="form-container">
-   {% if signupForm is not null %}
-<div id="signup-form" style="display: block;">
-    <h2>Sign up</h2>
+    <div class="containerkhad" id="form-container">
+        {% if signupForm is not null %}
+        <div id="signup-form" style="display: block;">
+            <h2>Sign up</h2>
+            {{ form_start(signupForm, {'attr': {'novalidate': 'novalidate', 'class': 'row g-3 needs-validation'}}) }}
+            <div class="">
+                {{ form_widget(signupForm.nom, {'attr': {'class': 'needs-validation'}}) }}
+                <div class="text-danger">
+                    {{ form_errors(signupForm.nom) }}
+                </div>
+            </div>
 
-    {{ form_start(signupForm, {'attr': {'novalidate': 'novalidate', 'class': 'row g-3 needs-validation'}}) }}
+            <div class="col-12">
+                {{ form_widget(signupForm.prenom, {'attr': {'class': 'needs-validation'}}) }}
+                <span class="text-danger">{{ form_errors(signupForm.prenom,{'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}</span>
+            </div>
 
-    <div class="">
-        {{ form_widget(signupForm.nom, {'attr': {'class': 'needs-validation'}}) }}
-        <div class="text-danger">
-            {{ form_errors(signupForm.nom) }}
+            <div class="col-12">
+                {{ form_widget(signupForm.email, {'attr': {'class': 'needs-validation'}}) }}
+                <span class="text-danger">{{ form_errors(signupForm.email) }}</span>
+            </div>
+
+            <div class="col-12">
+                {{ form_widget(signupForm.adresse, {'attr': {'class': 'needs-validation'}}) }}
+                <span class="text-danger">{{ form_errors(signupForm.adresse) }}</span>
+            </div>
+
+            <div class="col-12">
+                {{ form_widget(signupForm.password, {'attr': {'class': 'needs-validation'}}) }}
+                <span class="text-danger">{{ form_errors(signupForm.password) }}</span>
+            </div>
+
+            <div class="col-12">
+                {{ form_label(signupForm.date_naissance, null, {'attr': {'class': 'form-label'}}) }}
+                {{ form_widget(signupForm.date_naissance, {'attr': {'id': 'dateInput', 'class': 'needs-validation'}}) }}
+                <span class="text-danger">{{ form_errors(signupForm.date_naissance) }}</span>
+            </div>
+
+            <div class="col-12">
+                {{ form_label(signupForm.role, null, {'attr': {'class': 'form-label'}}) }}
+                {{ form_widget(signupForm.role, {'attr': {'class': 'needs-validation'}}) }}
+            </div>
+
+            <div class="col-12">
+                {{ form_label(signupForm.genre, null, {'attr': {'class': 'form-label'}}) }}
+                {{ form_widget(signupForm.genre, {'attr': {'class': 'needs-validation'}}) }}
+            </div>
+
+            <div class="col-12">
+                {{ form_widget(signupForm.image, {'attr': {'class': 'form-control-file'}}) }}
+                <span class="text-danger">{{ form_errors(signupForm.image) }}</span>
+            </div>
+
+             <video id="videoElement" width="320" height="240" autoplay></video>
+        <canvas id="canvasElement" width="320" height="240" style="display:none;"></canvas>
+        <button type="button" id="captureImageSignup" class="btn btn-secondary">Capture Image</button>
+        <input type="hidden" name="captured_image" id="captured_image">
+            <div class="g-recaptcha" data-sitekey="6LeDMNwqAAAAAF_qBAwCHL4V2FA9uq-d2pGa-oq0" ></div>    
+            <div class="col-12">
+                {{ form_widget(signupForm.save, {'attr': {'class': 'btn btn-primary','name':"signup_submit"}}) }}
+            </div>
+            {{ form_end(signupForm) }}
         </div>
-    </div>
+        {% endif %}
 
-    <div class="col-12">
-        {{ form_widget(signupForm.prenom, {'attr': {'class': 'needs-validation'}}) }}
-        <span class="text-danger">{{ form_errors(signupForm.prenom,{'attr': {'id': 'emailHelp', 'class': 'form-text text-muted'}}) }}</span>
-    </div>
-
-    <div class="col-12">
-        {{ form_widget(signupForm.email, {'attr': {'class': 'needs-validation'}}) }}
-        <span class="text-danger">{{ form_errors(signupForm.email) }}</span>
-    </div>
-
-    <div class="col-12">
-        {{ form_widget(signupForm.adresse, {'attr': {'class': 'needs-validation'}}) }}
-        <span class="text-danger">{{ form_errors(signupForm.adresse) }}</span>
-    </div>
-
-    <div class="col-12">
-        {{ form_widget(signupForm.password, {'attr': {'class': 'needs-validation'}}) }}
-        <span class="text-danger">{{ form_errors(signupForm.password) }}</span>
-    </div>
-
-    <div class="col-12">
-        {{ form_label(signupForm.date_naissance, null, {'attr': {'class': 'form-label'}}) }}
-        {{ form_widget(signupForm.date_naissance, {'attr': {'id': 'dateInput', 'class': 'needs-validation'}}) }}
-        <span class="text-danger">{{ form_errors(signupForm.date_naissance) }}</span>
-    </div>
-
-    <div class="col-12">
-        {{ form_label(signupForm.role, null, {'attr': {'class': 'form-label'}}) }}
-        {{ form_widget(signupForm.role, {'attr': {'class': 'needs-validation'}}) }}
-    </div>
-
-    <div class="col-12">
-        {{ form_label(signupForm.genre, null, {'attr': {'class': 'form-label'}}) }}
-        {{ form_widget(signupForm.genre, {'attr': {'class': 'needs-validation'}}) }}
-    </div>
-
-    <div class="col-12">
-        {{ form_widget(signupForm.image, {'attr': {'class': 'form-control-file'}}) }}
-        <span class="text-danger">{{ form_errors(signupForm.image) }}</span>
-    </div>
-
-    <div class="col-12">
-        {{ form_widget(signupForm.save, {'attr': {'class': 'btn btn-primary','name':"signup_submit"}}) }}
-    </div>
-
-    {{ form_end(signupForm) }}
-</div>
-
-{% endif %}
 {% if loginForm is not null %}
-    <form method="post" action="{{ path('app_login') }}" id="login-form">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <form  action="{{ path('app_login') }}" method="POST" id="login-form">
+     
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputEmail">Email</label>
+        <input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+        <label for="inputPassword">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control">
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="yes" id="useFaceId" name="use_face_id">
+            <label class="form-check-label" for="useFaceId">Utiliser la reconnaissance faciale</label>
         </div>
-    {% endif %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Se connecter
-    </button>
+        <video id="videoElementLogin" width="320" height="240" autoplay></video>
+        <canvas id="canvasElementLogin" width="320" height="240" style="display:none;"></canvas>
+        <button type="button" id="captureImageLogin" class="btn btn-secondary">Capture Image</button>
+        <input type="hidden" name="captured_image_login" id="captured_image_login">
+        <button class="btn btn-lg btn-primary" type="submit">Se connecter</button>
+    </form>
 {% endif %}
 
-     <div class="circle" id="circle"><div id="text">Creer un compte</div></div>
+
+
+        <div class="circle" id="circle"><div id="text">Creer un compte</div></div>
+    </div>
 </div>
-</div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    function toggleForm() {
-        let signupForm = document.getElementById('signup-form');
-        let loginForm = document.getElementById('login-form');
-        let circle = document.getElementById('circle');
-        let container = document.getElementById('form-container');
-        let headingSignup = signupForm.querySelector('h2');
-        let headingLogin = loginForm.querySelector('h2');
-        let text = document.getElementById('text'); // Ensure this element exists
-        let btnSignUp = document.querySelector('.btn');
-
-
-
-        if (signupForm.style.display === 'none') {
-            signupForm.style.display = 'block';
-            loginForm.style.display = 'none';
-            container.style.backgroundColor = '#1ca7a2';
-            circle.style.transform = 'translateY(-1030px)';
-            circle.style.backgroundColor = 'white';  
-            btnSignUp.style.backgroundColor = "white";
-            btnSignUp.style.color = "#1ca7a2";
-            text.innerHTML = 'Login'; // Ensure text is updated correctly
-            text.style.marginTop = '45%';
-            text.style.color = "#1ca7a2";
-            headingSignup.style.color = "white";
-            headingSignup.style.opacity = '1';
-            headingLogin.style.opacity = '0';
-        } else {
-            signupForm.style.display = 'none';
-            loginForm.style.display = 'block';
-            container.style.backgroundColor = 'white';  
-            circle.style.transform = 'translateY(0)';
-            text.innerHTML = 'Sign up'; // Ensure text is updated correctly
-            text.style.marginTop = '0%';
-             text.style.color = "white";
-             circle.style.backgroundColor = '#1ca7a2'; 
-            headingSignup.style.opacity = '0';
-            headingLogin.style.opacity = '1';
-        }
-    }
-
-    document.getElementById('circle').addEventListener('click', function() {
+        document.getElementById('circle').addEventListener('click', function() {
             // Vérifier si le formulaire de login est présent dans la page
             let loginForm = document.getElementById('login-form');
             
@@ -247,12 +218,16 @@
             } else {
                 window.location.href = '/utilisateur/signup'; // Redirection vers la page de connexion
             }
-    });
-
-});
+        });
 
 </script>
 <script>
+    document.getElementById("login-form").addEventListener("submit", function(event) {
+        console.log("📩 Formulaire soumis !");
+    });
+</script>
+
+<!--<script>
 (function () {
     'use strict'
     var form = document.querySelector('.needs-validation');
@@ -278,8 +253,58 @@
         form.classList.add('was-validated');
     });
 })();
-</script>
+</script>-->
+<script>
+ let loginForm = document.getElementById('login-form');
+    document.addEventListener("DOMContentLoaded", async function () {
+        console.log("DOM fully loaded");
 
+        function captureImage(videoElement, canvasElement, hiddenInput) {
+            const context = canvasElement.getContext('2d');
+            context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+            const dataURL = canvasElement.toDataURL('image/jpeg');
+            hiddenInput.value = dataURL;
+            console.log("Image captured ✅");
+        }
+        async function setupCamera(videoElement) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                videoElement.srcObject = stream;
+                console.log("Camera activated ✅");
+            } catch (err) {
+                console.error("Erreur d'accès à la caméra :", err.message);
+            }
+        }
+ if (loginForm === null) {
+        const camSignup = document.getElementById('videoElement');
+        const canvasSignup = document.getElementById('canvasElement');
+        const captureImageSignup = document.getElementById('captureImageSignup');
+        const hiddenInputSignup = document.getElementById('captured_image');
+
+        if (camSignup && canvasSignup && captureImageSignup && hiddenInputSignup) {
+            setupCamera(camSignup);
+            captureImageSignup.addEventListener('click', () => {
+                captureImage(camSignup, canvasSignup, hiddenInputSignup);
+            });
+        }
+ }
+ else{
+        const camLogin = document.getElementById('videoElementLogin');
+        const canvasLogin = document.getElementById('canvasElementLogin');
+        const captureImageLogin = document.getElementById('captureImageLogin');
+        const hiddenInputLogin = document.getElementById('captured_image_login');        
+
+        if (camLogin && canvasLogin && captureImageLogin && hiddenInputLogin) {
+            setupCamera(camLogin);
+            captureImageLogin.addEventListener('click', () => {
+                captureImage(camLogin, canvasLogin, hiddenInputLogin);
+            });
+        }
+    }
+});
+
+
+</script>
 
 
 <br><br><br><br>

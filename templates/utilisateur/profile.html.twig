@@ -32,19 +32,20 @@
             {% set age = (now|date("Y") - birthdate|date("Y")) - (now|date("m") < birthdate|date("m") or (now|date("m") == birthdate|date("m") and now|date("d") < birthdate|date("d"))) %}
             <p class="text-secondary">{{ age }} ans</p>
             <!-- Bouton "Edit Profile" avec style spécifique -->
-            <a href="/utilisateur/edit1/{{ app.user.id }}" class="cta-btn">Edit Profile</a>
+            <a href="/utilisateur/edit1/{{ app.user.id }}" class="cta-btn">Modifier Profile</a>
         </div>
         <div class="card-footer d-flex justify-content-around text-center">
             <div>
-                <a href="/doctor" class="text-muted">Mes Rendez vous</a>
+                <a href="/doctor" class="text-muted" data-target="appointments">Mes Rendez vous</a>
             </div>
             <div>
-                <a href="/doctor" class="text-muted">Mes matchings</a>
+                <a href="/doctor" class="text-muted" data-target="matchings">Mes matchings</a>
             </div>
             <div>
-                <a href="/doctor" class="text-muted">Mes ordonnances</a>
+                <a href="/doctor" class="text-muted" data-target="matchings">Mes ordonnances</a>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

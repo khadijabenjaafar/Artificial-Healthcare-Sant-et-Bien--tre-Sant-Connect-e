@@ -25,15 +25,32 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentaireRepository;
 use App\Entity\Utilisateur;
+use App\Entity\Consultation;
+use App\Form\ConsultationType;
+use App\Repository\ConsultationRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Entity\Matching;
+use App\Form\MatchingType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
+
 class FrontController extends AbstractController
 {
    
 
     #[Route('/back', name: 'back_index')]
-    public function index_back()
+    public function index_back(UtilisateurRepository $userRepository): Response
     {
-        return $this->render('back/index.html.twig');
+         // Récupérer les statistiques des rendez-vous par jour
+         $roles = ['ROLE_ADMIN', 'ROLE_FREELANCER', 'ROLE_MEDECIN','ROLE_PHARMACIEN','ROLE_PATIENT']; // Ajoute les rôles nécessaires
+         $stats = [];
+ 
+         foreach ($roles as $role) {
+             $stats[$role] = $userRepository->countUsersByRole($role);
+         }
+         return $this->render('back/index.html.twig', [
+             'stats' => $stats,
+         ]);
     }
 
 
@@ -63,13 +80,54 @@ class FrontController extends AbstractController
     PlanificationRepository $planificationRepository,
     MatchingRepository $matchingRepository,
      Security $security,RendezVousRepository $rendezVousRepository,
-     OrdonnanceRepository $ordonnanceRepository,Request $request,
+     OrdonnanceRepository $ordonnanceRepository,Request $request,Request $request3,
       EntityManagerInterface $entityManager,
       FacturationRepository $facturationRepository,Request $request1,
-      Request $request2,SluggerInterface $slugger,ArticleRepository $articleRepository,CommentaireRepository $commentaireRepository)
+      Request $request2,SluggerInterface $slugger,ArticleRepository $articleRepository,CommentaireRepository $commentaireRepository,ConsultationRepository $consultationRepository)
     {
         $article = new Article();
         $user = $security->getUser();
+        $consultation = new Consultation();
+
+        $matching = new Matching();
+        $form4 = $this->createForm(MatchingType::class, $matching);
+        $form4->handleRequest($request3);
+    
+        if ($form4->isSubmitted() && $form4->isValid()) {
+            // Handle CV file upload
+            $cvFile = $form4->get('cv')->getData();
+    
+            if ($cvFile) {
+                $newFilename = uniqid() . '.' . $cvFile->guessExtension();
+                try {
+                    $cvFile->move(
+                        $this->getParameter('cv_directory'), // Directory must be configured
+                        $newFilename
+                    );
+                    $matching->setCv($newFilename); // Save filename in database
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Erreur lors du téléchargement du fichier.');
+                }
+            } else {
+                $matching->setCv(''); // or set null if your DB allows it
+            }
+    
+            $entityManager->persist($matching);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
+        }
+    
+        $form3 = $this->createForm(ConsultationType::class, $consultation);
+        $form3->handleRequest($request);
+
+        if ($form3->isSubmitted() && $form3->isValid()) {
+            
+            $entityManager->persist($consultation);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
+        }
         if (!$user) {
             throw $this->createAccessDeniedException("Vous devez être connecté pour voir vos rendez-vous.");
         }
@@ -91,7 +149,7 @@ class FrontController extends AbstractController
 
         
        
-        $freelancers = $utilisateurRepository->findBy(['role' => 'ROLE_FREELANCER']);
+        $freelancers = $utilisateurRepository->findAll(); 
         $planifications = $planificationRepository->findBy(['freelancer' => $freelancers]); // Filtrer par utilisateur
         $matchings=$matchingRepository->findBy(['utilisateur'=>$freelancers]);
         
@@ -163,6 +221,11 @@ class FrontController extends AbstractController
             'form2' => $form2->createView(),
             'articles' => $articles,
             'commentaireRepository' => $commentaireRepository,
+            'consultations' => $consultationRepository->findAll(),
+            'consultation' => $consultation,
+            'form3' => $form3,
+            'matching' => $matching,
+            'form4' => $form4->createView(),
         ]);
     }
     #[Route('/exemple', name: 'app_exemple')]

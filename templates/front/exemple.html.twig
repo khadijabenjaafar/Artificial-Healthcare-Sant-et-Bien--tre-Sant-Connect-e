@@ -24,12 +24,13 @@
       <link rel="icon" href="images/fevicon.png" type="image/gif" />
       <!-- Scrollbar Custom CSS -->
       <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <!-- owl stylesheets --> 
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesoeet" href="css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+       <link href="{{ asset('front/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    
+  <!-- Bootstrap CSS -->
+        
    </head>
    <body>
    <section class="container mt-5">
@@ -40,15 +41,28 @@
                 <div class="carousel-item {% if loop.first %}active{% endif %}">
                     <div class="row">
                         {% for post in article %}
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <img src="{{ asset(post.urlimagearticle) }}" class="card-img-top" alt="{{ post.titre }}">
+                            <div class="col-md-4 d-flex align-items-stretch">
+                                <div class="card h-100 shadow-sm border-0">
+                                    <img src="{{ asset(post.urlimagearticle) }}" class="card-img-top" alt="{{ post.titre }}" style="height: 250px; object-fit: cover; border-radius: 8px;">
                                     <div class="like_icon"><img src="images/likeicon.png"></div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ post.titre }}</h5>
-                                        <p class="card-text">{{ post.contenue[:100] ~ '...' }}</p>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title text-truncat">{{ post.titre }}</h5>
+                                        <p class="card-text ariations de hauteur ">
+                                        <p class="card-text text-muted flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ post.contenue[:100] ~ '...' }}</p>
                                         <p class="post_text"><small class="text-muted">Publié le {{ post.datearticle|date('d/m/Y') }}</small></p>
-                                            <a href="{{ path('article_detail', {'id': post.id}) }}" class="btn btn-primary">Lire plus</a>                                       
+                                        <div class="d-flex justify-content-between text-muted">
+                            <div class="d-flex justify-content-between text-muted">
+    <span class="me-3">
+        <i class="fas fa-eye"></i> {{ post.nbreVue }} 
+    </span>
+    <span>
+        <i class="fas fa-comment-alt"></i> 
+        {{ commentaireRepository.countCommentairesByArticle(post.id) }}
+    </span>
+</div>
+                           
+                        </div>
+                                            <a href="{{ path('article_detail', {'id': post.id}) }}" class="btn btn-primary" style="border-radius: 8px; background-color: #4BB5C1; border-color: #4BB5C1;">Lire plus</a>                                       
                                     </div>
                                 </div>
                             </div>
@@ -66,10 +80,13 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </a>
     </div>
+    <br>
 
     <!-- Lien "Voir plus" -->
     <div class="text-end mt-3">
-        <a href="{{ path('blog_index') }}" class="btn btn-outline-primary">Voir plus →</a>
+        <a href="{{ path('blog_index') }}" class="btn btn-outline-primary" style="border-radius: 8px; background-color: white; border-color: #4BB5C1; color: #4BB5C1;" onmouseover="this.style.backgroundColor='#4BB5C1'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#4BB5C1';">
+   Voir plus →
+</a>
     </div>
 </section>
 

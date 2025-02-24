@@ -1,12 +1,31 @@
 {{ form_start(form) }}
+  {{ form_label(form.date) }}
     {{ form_widget(form.date) }}
+    {{ form_errors(form.date) }}
+
+      {{ form_label(form.medicaments) }}
         {{ form_widget(form.medicaments) }}
+            {{ form_errors(form.medicaments) }}
+
+          {{ form_label(form.duree_utilisation) }}
     {{ form_widget(form.duree_utilisation) }}
+    {{ form_errors(form.duree_utilisation) }}
+
+      {{ form_label(form.quantite_utilisation) }}
     {{ form_widget(form.quantite_utilisation) }}
+    {{ form_errors(form.quantite_utilisation) }}
+
+      {{ form_label(form.id_consultation) }}
     {{ form_widget(form.id_consultation) }}
+    {{ form_errors(form.id_consultation) }}
+
+
+      {{ form_label(form.commantaire) }}
+    {{ form_widget(form.commantaire) }}
+    {{ form_errors(form.commantaire) }}
 
     <div style="display: flex; justify-content: center; align-items: center;">
-        <button class="btn" style="background-color: #D3D3D3; color: black; padding: 12px 24px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s ease; display: inline-block; text-align: center;">
+        <button class="btn" style="background-color:rgb(255, 255, 255); color: black; padding: 12px 24px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s ease; display: inline-block; text-align: center;">
             {{ button_label|default('Enregistrer') }}
         </button>
     </div>

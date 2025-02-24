@@ -21,12 +21,11 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                username_parameter: email  # Change "_username" en "email" si besoin
-                password_parameter: password
+                default_target_path: front_index
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: front_index
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -38,7 +37,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-          - { path: ^/back, roles: [ROLE_ADMIN, ROLE_FREELANCER] }
+          - { path: ^/back, roles: [ROLE_ADMIN, ROLE_FREELANCER,ROLE_MEDECIN] }
           - { path: ^/doctor, roles: [ROLE_MEDECIN, ROLE_PHARMACIEN, ROLE_FREELANCER,ROLE_ADMIN,ROLE_PATIENT ] }
           - { path: ^/front1, roles: [ROLE_MEDECIN, ROLE_PHARMACIEN, ROLE_FREELANCER,ROLE_PATIENT]}
 

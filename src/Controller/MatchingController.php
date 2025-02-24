@@ -35,6 +35,13 @@ final class MatchingController extends AbstractController
             'matchings' => $matchingRepository->findAll(),
         ]);
     }
+    #[Route('/backMatching',name: 'app_matching_index2', methods: ['GET'])]
+    public function index44(MatchingRepository $matchingRepository): Response
+    {
+        return $this->render('matching/BackMatching.html.twig', [
+            'matchings' => $matchingRepository->findAll(),
+        ]);
+    }
 
     
 
@@ -88,7 +95,7 @@ final class MatchingController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_matching_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_matching_edit', )]
     public function edit(Request $request, Matching $matching, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(Matching1Type::class, $matching);
@@ -97,7 +104,7 @@ final class MatchingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_matching_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('matching/edit.html.twig', [
@@ -114,7 +121,7 @@ final class MatchingController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_matching_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
     }
 
     

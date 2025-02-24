@@ -83,10 +83,7 @@ class ArticleType extends AbstractType
             'attr' => ['class' => 'form-control'],
             'data' => isset($options['user']) ? $options['user']->getNom() : 'Utilisateur inconnu', // Empêcher l'erreur
         ])
-        ->add('enregistrer', SubmitType::class, [
-            ])
           
-
         ;
     }
 
