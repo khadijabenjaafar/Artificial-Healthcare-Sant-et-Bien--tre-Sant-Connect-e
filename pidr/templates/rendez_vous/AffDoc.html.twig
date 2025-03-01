@@ -1,0 +1,53 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+            
+        <h1>Rendez-vous du patient</h1>
+        {% if rendez_vouses is defined and rendez_vouses is empty %}
+            <p>Aucun rendez-vous trouvé pour ce patient.</p>
+        {% else %}
+            <table class="table123">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Motif</th>
+                        <th>Statut</th>
+                        <th>Mode</th>
+                        <th>Commentaire</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rendezVous in rendez_vouses %}
+                        <tr>
+                            <td>{{ rendezVous.dateHeure|date('d-m-Y H:i') }}</td>
+                            <td>{{ rendezVous.motif.label }}</td>
+                            <td>{{ rendezVous.statut.label }}</td>
+                            <td>{{ rendezVous.mode.label }}</td>
+                            <td>{{ rendezVous.commantaire }}</td>
+                             <td>
+                                <a href="{{ path('app_rendez_vous_show', {'id': rendezVous.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_rendez_vous_edit', {'id': rendezVous.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        </div>
+    </div>
+</div>
+</main>
+
+{% endblock %}

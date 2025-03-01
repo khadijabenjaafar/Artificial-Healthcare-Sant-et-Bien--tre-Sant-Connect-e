@@ -1,0 +1,48 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+        <h2>Mes Matching</h2>
+        <table class="table123">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CIN</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Compétences</th>
+                    <th>CV</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for matching in matchings %}
+                    <tr>
+                        <td>{{ matching.id }}</td>
+                        <td>{{ matching.cin }}</td>
+                        <td>{{ matching.description }}</td>
+                        <td>{{ matching.getDate()|date('Y-m-d') }}</td>
+
+                        <td>{{ matching.competences }}</td>
+                        <td>{{ matching.cv }}</td>
+                        <td>
+                            <a href="{{ path('app_matching_edit', {'id': matching.id}) }}">Modifier</a> 
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+</main>
+
+
+
+{% endblock %}

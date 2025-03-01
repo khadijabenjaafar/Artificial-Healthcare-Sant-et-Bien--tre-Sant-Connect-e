@@ -1,0 +1,103 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un compte</title>
+</head>
+<body>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Modifier un compte</div>
+                    </div>
+                    <div class="card-body">        
+{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+<table>
+<tr>
+<td> {{ form_label(form.nom, 'Nom') }}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.nom, {'attr': {'class': 'form-input'}}) }}</td>
+<td>{{ form_errors(form.nom)}}</td>
+</tr>
+<tr>
+<td> {{ form_label(form.prenom, 'Prenom') }}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.prenom, {'attr': {'class': 'form-input'}}) }}</td>
+<td>{{ form_errors(form.prenom)}}</td>
+</tr>
+<tr>
+<td> {{ form_label(form.email, 'Email') }}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.email, {'attr': {'class': 'form-input'}}) }}</td>
+<td>{{ form_errors(form.email) }}</td>
+</tr>
+<tr>
+<td> {{ form_label(form.adresse, 'Adresse') }}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.adresse, {'attr': {'class': 'form-input'}}) }}</td>
+<td>{{ form_errors(form.adresse) }}</td>
+</tr>
+<tr>
+<td> {{ form_label(form.mot_de_passe, 'Mot de passe') }}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.mot_de_passe, {'attr': {'id': 'password', 'class': 'form-control', 'disabled': 'disabled'}}) }}</td>
+
+</tr>
+<tr>
+<td> {{ form_label(form.date_naissance, 'Date de naissance') }}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.date_naissance, {'attr': {'class': 'form-input'}}) }}</td>
+</tr>
+<tr>
+<td>{{ form_errors(form.date_naissance) }}</td>
+</tr>
+<tr>
+<td> {{ form_label(form.role, 'Role') }}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.role, {'attr': {'class': 'form-input'}}) }}</td>
+
+</tr>
+<tr>
+<td> {{ form_label(form.genre, 'Genre') }}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.genre, {'attr': {'class': 'form-input'}}) }}</td>
+</tr>
+<tr>
+<td> {{ form_label(form.image, 'Image') }}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.image, {'attr': {'class': 'form-input'}}) }}</td>
+</tr>
+</table>
+
+       {{ form_widget(form.save) }}
+ {{ form_end(form) }}
+
+  </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

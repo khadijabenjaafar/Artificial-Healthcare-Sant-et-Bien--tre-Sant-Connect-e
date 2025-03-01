@@ -1,0 +1,13 @@
+# Active le moteur de réécriture
+RewriteEngine On
+
+# Définit le point de départ pour les URLs
+RewriteBase /view/back/templates/admin/
+
+# Si une requête cible un fichier ou un dossier existant, la servir directement
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Sinon, rediriger tout vers index.php (ou votre fichier d'entrée principal)
+RewriteRule ^ index.php [L]

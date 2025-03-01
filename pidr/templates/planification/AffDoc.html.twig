@@ -1,0 +1,47 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+           <h2>Mon Planning</h2>
+        <table class="table123">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Adresse</th>
+                    <th>Réponse</th>
+                    <th>Mode</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for planification in planifications %}
+                    <tr>
+                        <td>{{ planification.id }}</td>
+                        <td>{{ planification.statut }}</td>
+                        <td>{{ planification.getDate() ? planification.getDate()|date('Y-m-d') : '' }}</td>
+                        <td>{{ planification.adresse }}</td>
+                        <td>{{ planification.reponse }}</td>
+                        <td>{{ planification.mode }}</td>
+                        <td>
+                            <a href="{{ path('app_planification_edit', {'id': planification.id}) }}">Modifier</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+</main>
+
+
+
+{% endblock %}
