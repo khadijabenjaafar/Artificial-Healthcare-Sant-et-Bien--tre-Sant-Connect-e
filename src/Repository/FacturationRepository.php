@@ -16,6 +16,16 @@ class FacturationRepository extends ServiceEntityRepository
         parent::__construct($registry, Facturation::class);
     }
 
+    public function countByPaymentMethod()
+{
+    return $this->createQueryBuilder('f')
+        ->select('f.methode_paiement AS methode, COUNT(f.id) AS count')
+        ->groupBy('f.methode_paiement')
+        ->getQuery()
+        ->getResult();
+}
+
+
     //    /**
     //     * @return Facturation[] Returns an array of Facturation objects
     //     */

@@ -1,0 +1,48 @@
+
+
+{% block title %}Statistiques des Facturations{% endblock %}
+
+{% block body %}
+    <h1>Statistiques des Facturations par Méthode de Paiement</h1>
+
+    <!-- Stocker les données sous forme JSON -->
+    <script id="facturationData" type="application/json">{{ stats|json_encode|raw }}</script>
+
+    <!-- Canvas pour le graphique -->
+    <canvas id="facturationChart"></canvas>
+
+    <!-- Importation de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('facturationChart').getContext('2d');
+
+            // Récupérer les données JSON
+            const data = JSON.parse(document.getElementById('facturationData').textContent);
+
+            const labels = data.map(stat => stat.methode);
+            const values = data.map(stat => stat.count);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Nombre de Facturations',
+                        data: values,
+                        backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
