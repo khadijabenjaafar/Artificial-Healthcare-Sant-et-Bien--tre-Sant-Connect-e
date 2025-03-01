@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -14,47 +14,47 @@ class Article
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id= null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $titre = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titre = "";
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT,
+    nullable:true)]
+    #[Assert\NotBlank(message: "Le contenu de l'article est obligatoire.")]
+    #[Assert\Length(
+        min: 20,
+        minMessage: "Le contenu doit contenir au moins {{ limit }} caractères."
+    )]
     private ?string $contenue = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    
+    //#[ORM\Column(type: Types::DATE_MUTABLE, options: ["default" => "CURRENT_TIMESTAMP"])]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $datearticle = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $url_image = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $urlimagearticle = " ";
+
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: "id_utilisateur", referencedColumnName: "id", onDelete: "CASCADE")]
+    private ?Utilisateur $utilisateur = null;
 
     #[ORM\Column]
-    private ?int $nbr_vue = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $createur = null;
-
-    #[ORM\ManyToOne(inversedBy: 'articles')]
-    private ?utilisateur $id_medecin = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?utilisateur $id_utilisateur = null;
-
-    /**
-     * @var Collection<int, Commentaire>
-     */
-    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'id_article')]
-    private Collection $commentaires;
-
+    private ?int $nbreVue = null;
+    
     public function __construct()
     {
-        $this->commentaires = new ArrayCollection();
+    $this->datearticle = new \DateTime(); // ✅ Définit la date actuelle lors de la création de l'entité
     }
+
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
+   
 
     public function getTitre(): ?string
     {
@@ -80,104 +80,60 @@ class Article
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    
+
+   
+
+   
+
+    
+    public function getDateArticle(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->datearticle;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDateArticle(\DateTimeInterface $datearticle): static
     {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    public function getUrlImage(): ?string
-    {
-        return $this->url_image;
-    }
-
-    public function setUrlImage(string $url_image): static
-    {
-        $this->url_image = $url_image;
-
-        return $this;
-    }
-
-    public function getNbrVue(): ?int
-    {
-        return $this->nbr_vue;
-    }
-
-    public function setNbrVue(int $nbr_vue): static
-    {
-        $this->nbr_vue = $nbr_vue;
-
-        return $this;
-    }
-
-    public function getCreateur(): ?string
-    {
-        return $this->createur;
-    }
-
-    public function setCreateur(string $createur): static
-    {
-        $this->createur = $createur;
-
-        return $this;
-    }
-
-    public function getIdMedecin(): ?utilisateur
-    {
-        return $this->id_medecin;
-    }
-
-    public function setIdMedecin(?utilisateur $id_medecin): static
-    {
-        $this->id_medecin = $id_medecin;
-
-        return $this;
-    }
-
-    public function getIdUtilisateur(): ?utilisateur
-    {
-        return $this->id_utilisateur;
-    }
-
-    public function setIdUtilisateur(?utilisateur $id_utilisateur): static
-    {
-        $this->id_utilisateur = $id_utilisateur;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Commentaire>
-     */
-    public function getCommentaires(): Collection
-    {
-        return $this->commentaires;
-    }
-
-    public function addCommentaire(Commentaire $commentaire): static
-    {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires->add($commentaire);
-            $commentaire->setIdArticle($this);
+        if ($this->datearticle === null) { // ✅ Ne modifie la date que si elle est nulle
+            $this->datearticle = $datearticle;
         }
+        
+        return $this;
+    }
+
+    public function getUrlImageArticle(): ?string
+    {
+        return $this->urlimagearticle ?? "";
+    }
+
+    public function setUrlImageArticle(string $urlimagearticle): static
+    {
+        $this->urlimagearticle = $urlimagearticle;
 
         return $this;
     }
 
-    public function removeCommentaire(Commentaire $commentaire): static
+    public function getUtilisateur(): ?Utilisateur
     {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getIdArticle() === $this) {
-                $commentaire->setIdArticle(null);
-            }
-        }
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(Utilisateur $utilisateur): static
+{
+    $this->utilisateur = $utilisateur;
+
+    return $this;
+}
+
+   
+    public function getNbreVue(): ?int
+    {
+        return $this->nbreVue;
+    }
+
+    public function setNbreVue(int $nbreVue): static
+    {
+        $this->nbreVue = $nbreVue;
 
         return $this;
     }

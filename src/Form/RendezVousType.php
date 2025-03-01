@@ -34,10 +34,7 @@ class RendezVousType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\NotNull(['message' => 'Veuillez sélectionner une date et une heure.']),
-                    new Assert\GreaterThan([
-                        'value' => 'now',
-                        'message' => 'La date doit être dans le futur.'
-                    ])
+
                 ]
             ])
             ->add('motif', ChoiceType::class, [
@@ -67,17 +64,9 @@ class RendezVousType extends AbstractType
             ])
             ->add('commantaire', TextareaType::class, [
                 'required' => true,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Le commentaire est obligatoire.',
-                    ]),
-                ],
-                'required' => true, // Assure que le champ est requis
+
             ])
-            ->add('id_patient', EntityType::class, [
-                'class' => Utilisateur::class,
-                'choice_label' => 'id',
-            ])
+            
             ->add('id_medecin', EntityType::class, [
                 'class' => Utilisateur::class,
                 'choice_label' => 'id',

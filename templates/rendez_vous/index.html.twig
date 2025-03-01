@@ -1,11 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseback.html.twig' %}
 
 {% block title %}RendezVous index{% endblock %}
 
 {% block body %}
-    <h1>RendezVous index</h1>
-
-    <table class="table">
+<br><br><br><br>
+<div class="container">
+          <div class="page-inner">
+            <div class="page-header">
+              <h3 class="fw-bold mb-3">Listes des rendez vous</h3>
+              <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                  <a href="/back">
+                    <i class="icon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table
+                        id="basic-datatables"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
         <thead>
             <tr>
                 <th>Id</th>
@@ -14,7 +37,6 @@
                 <th>Statut</th>
                 <th>Mode</th>
                 <th>Commantaire</th>
-                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,18 +48,19 @@
                 <td>{{ rendez_vou.statut ? rendez_vou.statut.label : '' }}</td>
                 <td>{{ rendez_vou.mode ? rendez_vou.mode.label : '' }}</td>
                 <td>{{ rendez_vou.commantaire }}</td>
-                <td>
-                    <a href="{{ path('app_rendez_vous_show', {'id': rendez_vou.id}) }}">show</a>
-                    <a href="{{ path('app_rendez_vous_edit', {'id': rendez_vou.id}) }}">edit</a>
-                </td>
+             
             </tr>
         {% else %}
             <tr>
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+         </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-    <a href="{{ path('app_rendez_vous_new') }}">Create new</a>
+</div>
 {% endblock %}

@@ -16,6 +16,23 @@ class CommentaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentaire::class);
     }
 
+
+
+    public function countCommentairesByArticle(int $articleId): int
+{
+    return $this->createQueryBuilder('c')
+        ->select('COUNT(c.id_commentaire)')
+        ->where('c.article = :articleId')
+        ->setParameter('articleId', $articleId)
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
+
+
+
+
+
     //    /**
     //     * @return Commentaire[] Returns an array of Commentaire objects
     //     */

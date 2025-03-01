@@ -1,15 +1,21 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Planification;
+use Symfony\Component\HttpFoundation\File\File;
+use App\Entity\RendezVous;
+use App\Enum\enumRole;
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert; 
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur
+class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,59 +23,90 @@ class Utilisateur
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom est nécessaire")] 
+    #[Assert\Length(min:4,minMessage: "Veuillez avoir au moin 4 caractères")] 
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le prenom est nécessaire")] 
+    #[Assert\Length(min:4,minMessage: "Veuillez avoir au moin 4 caractères")] 
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'email est nécessaire")]
+    #[Assert\Email(message: 'email {{value}} is not a valid email')] 
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $mot_de_passe = null;
+    #[Assert\NotBlank(message: "Le mot de passe est nécessaire")] 
+    #[Assert\Length(min:8,minMessage:"Votre mot  de passe ne contient pas {{ limit }} caractères.")]
+    private ?string $password = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_naissance = null;
+    #[Assert\NotBlank(message: "La date de naissance est requise.")]
+    #[Assert\Type(\DateTimeInterface::class, message: "Veuillez entrer une date valide.")]
+    #[Assert\LessThan("today", message: "La date de naissance doit être dans le passé.")]
+    private ?\DateTimeInterface $date_naissance;
+
+    #[ORM\Column(type: "string", enumType: enumRole::class)]
+    private enumRole $role;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'adresse est nécessaire")]
+    #[Assert\NotNull(message: "L'adresse ne peut pas être nulle")]
+    #[Assert\Length(min: 5, minMessage: "L'adresse doit contenir au moins {{ limit }} caractères")]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $role = null;
-
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le genre est nécessaire")]
     private ?string $genre = null;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'image est nécessaire")]
+    private ?string $image = null;
     /**
-    * @var Collection<int, Article>
-    */
-    #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'id_medecin')]
-    private Collection $articles;
+     * @var Collection<int, RendezVous>
+     */
+    #[ORM\OneToMany(mappedBy: 'id_medecin', targetEntity: RendezVous::class)]
+    private Collection $rendezVouses;
+
+    /**
+     * @var Collection<int, RendezVous>
+     */
+    #[ORM\OneToMany(mappedBy: 'id_patient', targetEntity: RendezVous::class)]
+    private Collection $rendez_vous;
+
+    /**
+     * @var Collection<int, Article>
+     */
+    #[ORM\OneToMany(mappedBy: 'id_medecin', targetEntity: Article::class)]
+    private Collection $article;
 
     /**
      * @var Collection<int, Commentaire>
      */
-    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'id_utilisateur')]
-    private Collection $commentaires;
+    #[ORM\OneToMany(mappedBy: 'id_utilisateur', targetEntity: Commentaire::class)]
+    private Collection $commentaire;
+
+
+   
+
+    #[ORM\OneToOne(targetEntity: Matching::class, mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
+    private ?Matching $matching = null;
+
+    private array $roles = [];
 
     /**
-     * @var Collection<int, RendezVous>
+     * @var Collection<int, Planification>
      */
-    #[ORM\OneToMany(targetEntity: RendezVous::class, mappedBy: 'id_patient')]
-    private Collection $id_medecin;
-
-    /**
-     * @var Collection<int, RendezVous>
-     */
-    #[ORM\OneToMany(targetEntity: RendezVous::class, mappedBy: 'id_medecin')]
-    private Collection $rendezVouses;
-
+    #[ORM\OneToMany(targetEntity: Planification::class, mappedBy: 'id_freelancer')]
+    private Collection $planifications;
     public function __construct()
     {
-        $this->articles = new ArrayCollection();
-        $this->commentaires = new ArrayCollection();
-        $this->id_medecin = new ArrayCollection();
         $this->rendezVouses = new ArrayCollection();
+        $this->rendez_vous = new ArrayCollection();
+        $this->article = new ArrayCollection();
+        $this->commentaire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,14 +150,14 @@ class Utilisateur
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    public function getPassword(): ?string
     {
-        return $this->mot_de_passe;
+        return $this->password;
     }
 
-    public function setMotDePasse(string $mot_de_passe): static
+    public function setPassword(string $password): static
     {
-        $this->mot_de_passe = $mot_de_passe;
+        $this->password = $password;
 
         return $this;
     }
@@ -137,6 +174,18 @@ class Utilisateur
         return $this;
     }
 
+    public function getRole(): ?enumRole
+    {
+        return $this->role;
+    }
+
+    public function setRole(enumRole $role): static
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
     public function getAdresse(): ?string
     {
         return $this->adresse;
@@ -145,18 +194,6 @@ class Utilisateur
     public function setAdresse(string $adresse): static
     {
         $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): static
-    {
-        $this->role = $role;
 
         return $this;
     }
@@ -172,95 +209,14 @@ class Utilisateur
 
         return $this;
     }
-
-   
-
-    /**
-     * @return Collection<int, Article>
-     */
-    public function getArticles(): Collection
+    public function getImage(): ?string
     {
-        return $this->articles;
+        return $this->image;
     }
 
-    public function addArticle(Article $article): static
+    public function setImage(string $image): static
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles->add($article);
-            $article->setIdMedecin($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): static
-    {
-        if ($this->articles->removeElement($article)) {
-            // set the owning side to null (unless already changed)
-            if ($article->getIdMedecin() === $this) {
-                $article->setIdMedecin(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Commentaire>
-     */
-    public function getCommentaires(): Collection
-    {
-        return $this->commentaires;
-    }
-
-    public function addCommentaire(Commentaire $commentaire): static
-    {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires->add($commentaire);
-            $commentaire->setIdUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentaire(Commentaire $commentaire): static
-    {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getIdUtilisateur() === $this) {
-                $commentaire->setIdUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, RendezVous>
-     */
-    public function getIdMedecin(): Collection
-    {
-        return $this->id_medecin;
-    }
-
-    public function addIdMedecin(RendezVous $idMedecin): static
-    {
-        if (!$this->id_medecin->contains($idMedecin)) {
-            $this->id_medecin->add($idMedecin);
-            $idMedecin->setIdPatient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdMedecin(RendezVous $idMedecin): static
-    {
-        if ($this->id_medecin->removeElement($idMedecin)) {
-            // set the owning side to null (unless already changed)
-            if ($idMedecin->getIdPatient() === $this) {
-                $idMedecin->setIdPatient(null);
-            }
-        }
+        $this->image = $image;
 
         return $this;
     }
@@ -294,4 +250,141 @@ class Utilisateur
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, RendezVous>
+     */
+    public function getRendezVous(): Collection
+    {
+        return $this->rendez_vous;
+    }
+
+    public function addRendezVou(RendezVous $rendezVou): static
+    {
+        if (!$this->rendez_vous->contains($rendezVou)) {
+            $this->rendez_vous->add($rendezVou);
+            $rendezVou->setIdPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendezVou(RendezVous $rendezVou): static
+    {
+        if ($this->rendez_vous->removeElement($rendezVou)) {
+            // set the owning side to null (unless already changed)
+            if ($rendezVou->getIdPatient() === $this) {
+                $rendezVou->setIdPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticle(): Collection
+    {
+        return $this->article;
+    }
+
+
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaire(): Collection
+    {
+        return $this->commentaire;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): static
+    {
+        if (!$this->commentaire->contains($commentaire)) {
+            $this->commentaire->add($commentaire);
+            $commentaire->setIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): static
+    {
+        if ($this->commentaire->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getIdUtilisateur() === $this) {
+                $commentaire->setIdUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+    public function eraseCredentials(): void
+    {
+        // Effacer les informations sensibles, si nécessaire
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    public function getRoles(): array
+    {
+        return [strtoupper($this->role->value)];
+    }
+    
+    public function getSalt(): ?string
+    {
+        return null; // Pas nécessaire si vous utilisez bcrypt ou sodium
+    }
+   
+
+    public function getMatching(): ?Matching
+    {
+        return $this->matching;
+    }
+
+    public function setMatching(?Matching $matching): static
+    {
+        // Ensure bidirectional relationship is set correctly
+        if ($matching && $matching->getUtilisateur() !== $this) {
+            $matching->setUtilisateur($this);
+        }
+
+        $this->matching = $matching;
+        return $this;
+    }
+    /**
+     * @return Collection<int, Planification>
+     */
+    public function getPlanifications(): Collection
+    {
+        return $this->planifications;
+    }
+
+    public function addPlanification(Planification $planification): static
+    {
+        if (!$this->planifications->contains($planification)) {
+            $this->planifications->add($planification);
+            $planification->setFreelancer($this);
+        }
+        return $this;
+    }
+
+    public function removePlanification(Planification $planification): static
+    {
+        if ($this->planifications->removeElement($planification)) {
+            if ($planification->getFreelancer() === $this) {
+                $planification->setFreelancer(null);
+            }
+        }
+        return $this;
+    }
+    
+
+
 }

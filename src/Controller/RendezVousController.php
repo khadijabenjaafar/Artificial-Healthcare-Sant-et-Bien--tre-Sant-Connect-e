@@ -18,12 +18,22 @@ use Symfony\Component\Routing\Attribute\Route;
 final class RendezVousController extends AbstractController
 {
     #[Route(name: 'app_rendez_vous_index', methods: ['GET'])]
-    public function index(RendezVousRepository $rendezVousRepository): Response
-    {
-        return $this->render('rendez_vous/index.html.twig', [
-            'rendez_vouses' => $rendezVousRepository->findAll(),
-        ]);
+    public function index(Request $request, RendezVousRepository $rendezVousRepository): Response
+{
+    $searchTerm = $request->query->get('search'); // Récupère la recherche
+
+    if ($searchTerm) {
+        // Recherche par date, motif ou statut
+        $rendezVouses = $rendezVousRepository->searchRendezVous($searchTerm);
+    } else {
+        $rendezVouses = $rendezVousRepository->findAll();
     }
+
+    return $this->render('rendez_vous/index.html.twig', [
+        'rendez_vouses' => $rendezVouses,
+        'searchTerm' => $searchTerm, // Garde la recherche affichée
+    ]);
+}
 
     #[Route('/new', name: 'app_rendez_vous_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -98,7 +108,7 @@ final class RendezVousController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Rendez-vous mis à jour avec succès.');
 
-            return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('rendez_vous/edit.html.twig', [
@@ -115,8 +125,35 @@ final class RendezVousController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
     }
-   
+    #[Route('/patient/{patientId}', name: 'app_rendez_vous_patient', methods: ['GET'])]
+public function showPatientAppointments(int $patientId, RendezVousRepository $rendezVousRepository): Response
+{
+    // Récupérer les rendez-vous associés au patient
+    $rendezVouses = $rendezVousRepository->findBy(['patient' => $patientId]);
+
+    // Si aucun rendez-vous n'est trouvé pour ce patient, tu peux ajouter un message flash ou une redirection
+    if (!$rendezVouses) {
+        $this->addFlash('warning', 'Aucun rendez-vous trouvé pour ce patient.');
+        return $this->redirectToRoute('app_rendez_vous_index');
+    }
+
+    // Afficher les rendez-vous du patient
+    return $this->render('rendez_vous/patient.html.twig', [
+        'rendez_vouses' => $rendezVouses,
+    ]);
+}
+#[Route('/calendar', name: 'app_rendez_vous_calendar', methods: ['GET'])]
+public function calendar(RendezVousRepository $rendezVousRepository): Response
+{
+    $rendezvous = $rendezVousRepository->findAll(); // Récupère tous les rendez-vous
+
+    return $this->render('calendar/index.html.twig', [
+        'rendezvous' => $rendezvous
+    ]);
+}
+
+
 
 }

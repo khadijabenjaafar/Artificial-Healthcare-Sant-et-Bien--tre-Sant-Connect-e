@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'Ordonnance{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">📝 Détail de l'Ordonnance </h1>
+
+    <div class="p-4 rounded shadow" style="background-color: #20B2AA;">
+        <div class="table-responsive">
+            <table class="table table-hover text-center rounded shadow-lg" style="background-color: #87CEEB;">
+                <thead class="text-white" style="background-color: #000000;">
+                    <tr>
+                        <th>Champ</th>
+                        <th>Valeur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <td><strong>{{ ordonnance.id }}</strong></td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{ ordonnance.date ? ordonnance.date|date('Y-m-d') : 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Médicaments</th>
+                        <td>{{ ordonnance.medicaments }}</td>
+                    </tr>
+                    <tr>
+                        <th>Commentaire</th>
+                        <td>{{ ordonnance.commantaire }}</td>
+                    </tr>
+                    <tr>
+                        <th>Durée d'utilisation</th>
+                        <td>{{ ordonnance.dureeUtilisation }}</td>
+                    </tr>
+                    <tr>
+                        <th>Quantité d'utilisation</th>
+                        <td>{{ ordonnance.quantiteUtilisation }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ path('app_ordonnance_index') }}" class="btn btn-secondary btn-lg shadow">
+                <i class="bi bi-arrow-left"></i> Retour à la liste
+            </a>
+            <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}" class="btn btn-warning btn-lg shadow">
+                <i class="bi bi-pencil-square"></i> Modifier
+            </a>
+            <form method="post" action="{{ path('app_ordonnance_delete', {'id': ordonnance.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette ordonnance ?');" class="d-inline">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ordonnance.id) }}">
+                <button type="submit" class="btn btn-danger btn-lg shadow">
+                    <i class="bi bi-trash"></i> Supprimer
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

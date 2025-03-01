@@ -48,7 +48,8 @@ class Consultation
     #[Assert\Type(type: 'numeric', message: "La durée doit être un nombre.")]
     private ?string $duree = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(cascade: ['persist', 'remove'],orphanRemoval: true)]
+    #[ORM\JoinColumn(name: 'id_rendez_vous', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?RendezVous $id_rendez_vous = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]

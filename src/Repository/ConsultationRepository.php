@@ -16,6 +16,40 @@ class ConsultationRepository extends ServiceEntityRepository
         parent::__construct($registry, Consultation::class);
     }
 
+    public function findExpiredConsultations(\DateTime $now): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.prochain_rdv < :now')
+            ->setParameter('now', $now)
+            ->getQuery()
+            ->getResult();
+    }
+    
+
+    public function searchConsultation(string $searchTerm)
+{
+    return $this->createQueryBuilder('c')
+        ->where('c.diagnostic LIKE :search OR c.traitement LIKE :search OR c.observation LIKE :search')
+        ->setParameter('search', '%' . $searchTerm . '%')
+        ->orderBy('c.id', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
+public function countByDay(): array
+{
+    $qb = $this->createQueryBuilder('c')
+        ->select("DATE(c.prochain_rdv) as jour, COUNT(c.id) as total")
+        ->groupBy('jour')
+        ->orderBy('jour', 'ASC')
+        ->getQuery();
+
+    return array_column($qb->getResult(), 'total', 'jour');
+}
+
+
+
+
     //    /**
     //     * @return Consultation[] Returns an array of Consultation objects
     //     */

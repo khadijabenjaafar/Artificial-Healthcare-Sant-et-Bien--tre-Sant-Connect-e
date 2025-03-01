@@ -1,0 +1,81 @@
+{% extends 'baseDoctor.html.twig' %}
+
+{% block title %}Calendrier{% endblock %}
+
+{% block body %}
+<style>.selected-date {
+    background-color: rgba(0, 123, 255, 0.3) !important;
+    border-radius: 5px;
+}
+</style>
+    <h1>Calendrier</h1>
+    <div id="calendar"></div>
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="calendarModalLabel">Mon Calendrier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-body">
+                    <div id="calendarModalContent"></div> <!-- Le calendrier sera injecté ici -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'fr',
+        headerToolbar: {
+            left: 'dayGridMonth,timeGridWeek,timeGridDay',
+            center: 'title',
+            right: 'prev,today,next'
+        },
+        buttonText: {
+            today: "Aujourd'hui",
+            month: "Mois",
+            week: "Semaine",
+            day: "Jour"
+        },
+        dateClick: function(info) { 
+            // Remove previous selected color
+            document.querySelectorAll('.selected-date').forEach(function(el) {
+                el.classList.remove('selected-date');
+            });
+
+            // Highlight clicked date
+            info.dayEl.classList.add('selected-date');
+
+            // Open Bootstrap modal
+            var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+            document.getElementById('eventDate').innerText = 'Date sélectionnée : ' + info.dateStr;
+            document.getElementById('eventTitle').value = ''; // Clear input field
+            document.getElementById('saveEvent').setAttribute('data-date', info.dateStr);
+            eventModal.show();
+        },
+        events: function(fetchInfo, successCallback, failureCallback) {
+            fetch('/calendar/events')
+                .then(response => response.json())
+                .then(events => successCallback(events))
+                .catch(error => failureCallback(error));
+        }
+    });
+
+    calendar.render();
+});
+    </script>
+{% endblock %}

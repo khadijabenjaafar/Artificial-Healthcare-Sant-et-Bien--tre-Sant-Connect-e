@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envoyer un Email</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        button { 
+            background-color: #007bff; 
+            color: white; 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h2>Envoyer un Email</h2>
+    <p>Cliquez sur le bouton ci-dessous pour envoyer un email.</p>
+    <p>Rejoignez la réunion en cliquant sur le lien ci-dessous :</p>
+    <p><a href="https://meet.jit.si/myRoom" target="_blank">Rejoindre la réunion</a></p>
+    
+    <button id="sendEmailBtn">Envoyer l'Email</button>
+
+    <script>
+document.getElementById('sendEmailBtn').addEventListener('click', function() {
+    fetch('/send-email', { method: 'POST' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Problème avec la requête. Statut : ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => alert(data.message))
+        .catch(error => alert('Erreur : ' + error.message));
+});
+
+    </script>
+</body>
+</html>

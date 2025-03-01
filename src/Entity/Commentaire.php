@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\CommentaireRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArticleRepository;
+use DateTime;
+
 
 #[ORM\Entity(repositoryClass: CommentaireRepository::class)]
 class Commentaire
@@ -12,31 +15,49 @@ class Commentaire
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id_commentaire = null;
 
-    #[ORM\Column(length: 255)]
+   
+
+    #[ORM\Column(length: 250)]
     private ?string $contenue = null;
 
+
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    private ?\DateTimeInterface $date_commentaire = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $createur = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $statut = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commentaires')]
-    private ?article $id_article = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commentaires')]
-    private ?utilisateur $id_utilisateur = null;
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: "id_utilisateur", referencedColumnName: "id", onDelete: "CASCADE")]
+    private ?Utilisateur $utilisateur = null;
 
-    public function getId(): ?int
+    
+
+    #[ORM\ManyToOne(targetEntity: Article::class)]
+    #[ORM\JoinColumn(name: "article_id", referencedColumnName: "id", onDelete: "CASCADE")]
+    private ?Article $article = null;
+
+    #[ORM\Column]
+    private ?bool $status = null;
+
+
+    #[ORM\Column(type: "time", nullable: true)]
+    private ?\DateTimeInterface $heure = null;
+
+    
+
+    
+
+   
+
+    public function getIdCommentaire(): ?int
     {
-        return $this->id;
+        return $this->id_commentaire;
     }
 
+   
     public function getContenue(): ?string
     {
         return $this->contenue;
@@ -49,63 +70,69 @@ class Commentaire
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    
+    public function getUtilisateur(): ?Utilisateur
     {
-        return $this->date;
+        return $this->utilisateur;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setUtilisateur(?Utilisateur $utilisateur): static
     {
-        $this->date = $date;
+        $this->utilisateur = $utilisateur;
+        return $this;
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): static
+    {
+        $this->article = $article;
+        return $this;
+    }
+   
+
+    public function getDateCommentaire(): ?\DateTimeInterface
+    {
+        return $this->date_commentaire;
+    }
+
+    public function setDateCommentaire(\DateTimeInterface $date_commentaire): static
+    {
+        $this->date_commentaire = $date_commentaire;
 
         return $this;
     }
 
-    public function getCreateur(): ?string
+    public function isStatus(): ?bool
     {
-        return $this->createur;
+        return $this->status;
     }
 
-    public function setCreateur(string $createur): static
+    public function setStatus(bool $status): static
     {
-        $this->createur = $createur;
+        $this->status = $status;
 
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getHeure(): ?\DateTimeInterface
     {
-        return $this->statut;
+    return $this->heure;
     }
 
-    public function setStatut(string $statut): static
+    public function setHeure(\DateTimeInterface $heure): static
     {
-        $this->statut = $statut;
-
+        $this->heure = $heure;
         return $this;
     }
 
-    public function getIdArticle(): ?article
-    {
-        return $this->id_article;
-    }
 
-    public function setIdArticle(?article $id_article): static
-    {
-        $this->id_article = $id_article;
 
-        return $this;
-    }
 
-    public function getIdUtilisateur(): ?utilisateur
-    {
-        return $this->id_utilisateur;
-    }
 
-    public function setIdUtilisateur(?utilisateur $id_utilisateur): static
-    {
-        $this->id_utilisateur = $id_utilisateur;
 
-        return $this;
-    }
+
 }

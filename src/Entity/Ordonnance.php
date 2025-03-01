@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\OrdonnanceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: OrdonnanceRepository::class)]
 class Ordonnance
 {
@@ -14,29 +14,47 @@ class Ordonnance
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: "date")]
+    #[Assert\NotNull(message: "La date est obligatoire.")]
+    #[Assert\Type("\DateTimeInterface")]
+    #[Assert\GreaterThanOrEqual(
+        "today", 
+        message: "La date ne peut pas être dans le passé."
+    )]
     private ?\DateTimeInterface $date = null;
+    
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255, maxMessage: "Les médicaments ne peuvent pas dépasser 255 caractères.")]
+    #[Assert\NotBlank(message: "Le champ des médicaments ne peut pas être vide.")]
     private ?string $medicaments = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 500, maxMessage: "Le commentaire ne peut pas dépasser 500 caractères.")]
     private ?string $commantaire = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255, maxMessage: "La durée d'utilisation ne peut pas dépasser 255 caractères.")]
+    #[Assert\NotBlank(message: "La durée d'utilisation est obligatoire.")]
     private ?string $duree_utilisation = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255, maxMessage: "La quantité d'utilisation ne peut pas dépasser 255 caractères.")]
+    #[Assert\NotBlank(message: "La quantité d'utilisation est obligatoire.")]
     private ?string $quantite_utilisation = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?consultation $id_consultation = null;
+    #[Assert\NotNull(message: "L'ID de la consultation est obligatoire.")]
+    private ?Consultation $id_consultation = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    public function __toString(): string
+    {
+        return (string) $this->id; // Ou toute autre propriété que vous souhaitez afficher
+    }
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -97,12 +115,12 @@ class Ordonnance
         return $this;
     }
 
-    public function getIdConsultation(): ?consultation
+    public function getIdConsultation(): ?Consultation
     {
         return $this->id_consultation;
     }
 
-    public function setIdConsultation(?consultation $id_consultation): static
+    public function setIdConsultation(?Consultation $id_consultation): static
     {
         $this->id_consultation = $id_consultation;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MatchingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MatchingRepository::class)]
 class Matching
@@ -15,38 +16,46 @@ class Matching
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $image = null;
-
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le CIN ne peut pas être vide.")]
     private ?string $cin = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "La description ne peut pas être vide.")]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message: "La date ne peut pas être vide.")]
     private ?\DateTimeInterface $date = null;
-
+    
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Les compétences ne peuvent pas être vides.")]
     private ?string $competences = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $cv = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Utilisateur $id_freelancer = null;
+
+    #[ORM\OneToOne(targetEntity: Utilisateur::class, inversedBy: 'matching')]
+    #[ORM\JoinColumn(name: 'utilisateur_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[Assert\NotNull(message: "L'utilisateur ne peut pas être nul.")]
+    private ?Utilisateur $utilisateur = null;
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
+        return $this;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
     }
 
     public function getCin(): ?string
@@ -57,7 +66,6 @@ class Matching
     public function setCin(string $cin): static
     {
         $this->cin = $cin;
-
         return $this;
     }
 
@@ -69,7 +77,6 @@ class Matching
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -81,7 +88,6 @@ class Matching
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
-
         return $this;
     }
 
@@ -93,7 +99,6 @@ class Matching
     public function setCompetences(string $competences): static
     {
         $this->competences = $competences;
-
         return $this;
     }
 
@@ -105,7 +110,17 @@ class Matching
     public function setCv(string $cv): static
     {
         $this->cv = $cv;
+        return $this;
+    }
 
+    public function getIdFreelancer(): ?Utilisateur
+    {
+        return $this->id_freelancer;
+    }
+
+    public function setIdFreelancer(?Utilisateur $id_freelancer): static
+    {
+        $this->id_freelancer = $id_freelancer;
         return $this;
     }
 }
