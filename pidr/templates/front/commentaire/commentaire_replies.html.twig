@@ -1,0 +1,123 @@
+{% for reponse in commentaires %}
+    <div class="card bg-light mt-2 p-2 ms-4" id="comment-{{ reponse.idCommentaire }}">
+        <div class="d-flex align-items-center justify-content-between">
+            <strong class="fw-bold">{{ reponse.utilisateur.nom }}</strong>
+            <div class="dropdown">
+                <i class="fa-solid fa-ellipsis-vertical menu-icon ms-2" data-bs-toggle="dropdown" style="cursor: pointer;"></i>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    {% if reponse.utilisateur == app.user %}
+                        <li><a class="dropdown-item" href="{{ path('commentaire_delete', {'id': reponse.idCommentaire}) }}">Supprimer</a></li>
+                        <li><a class="dropdown-item" href="{{ path('commentaire_edit', {'id': reponse.idCommentaire}) }}">Modifier</a></li>
+                    {% else %}
+                        <li><a class="dropdown-item signal-comment" href="#" data-comment-id="{{ reponse.idCommentaire }}">🚨 Signaler</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <p class="mt-2">{{ reponse.contenue }}</p>
+
+        <!-- 🔥 Système de vote J'aime / Je n'aime pas -->
+        <div class="d-flex align-items-center">
+            <button class="btn btn-outline-success btn-sm btn-vote"
+                    data-comment-id="{{ reponse.idCommentaire }}" data-vote="like">
+                👍 <span class="like-count">{{ reponse.getLikes }}</span>
+            </button>
+
+            <button class="btn btn-outline-danger btn-sm ms-2 btn-vote"
+                    data-comment-id="{{ reponse.idCommentaire }}" data-vote="dislike">
+                👎 <span class="dislike-count">{{ reponse.getDislikes }}</span>
+            </button>
+        </div>
+    </div>
+{% endfor %}
+
+<script>
+////////////////////////// 🔹 SIGNALER 🔹 //////////////////////////
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".signal-comment").forEach(button => {
+        button.addEventListener("click", function(event) {
+            event.preventDefault();
+            let commentId = this.getAttribute("data-comment-id");
+
+            if (!commentId) {
+                console.error("❌ Erreur : Aucun ID de commentaire trouvé.");
+                return;
+            }
+
+            console.log("🛑 Signalement envoyé pour le commentaire ID :", commentId);
+
+            fetch("/commentaire/signaler", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify({ commentId: commentId })
+
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { 
+                        throw new Error("❌ Réponse HTTP invalide : " + response.status + " - " + text);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("🔍 Réponse serveur :", data);
+
+                if (data.status === "success") {
+                    alert("🚨 Commentaire signalé !");
+                } else if (data.status === "deleted") {
+                    alert("❌ Commentaire supprimé après 10 signalements !");
+                    document.getElementById("comment-" + commentId)?.remove();
+                } 
+            })
+            .catch(error => {
+                console.error("🚨 Erreur AJAX :", error);
+                
+            });
+        });
+    });
+});
+
+
+////////////////////////// 🔹 VOTE J'AIME / J'AIME PAS 🔹 //////////////////////////
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".btn-vote").forEach(button => {
+        button.addEventListener("click", function() {
+            let commentId = this.getAttribute("data-comment-id");
+            let voteType = this.getAttribute("data-vote");
+             let likeBtn = document.querySelector(`#comment-${commentId} .btn-vote[data-vote="like"]`);
+            let dislikeBtn = document.querySelector(`#comment-${commentId} .btn-vote[data-vote="dislike"]`);
+
+            if (!commentId || !voteType) {
+                console.error("❌ Erreur : Paramètres invalides.");
+                return;
+            }
+
+            fetch("/commentaire/vote", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify({ commentId: commentId, voteType: voteType })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                                        console.log("✅ Vote enregistré :", data);
+                                        alert(" ✅ Vote est bien enregistrée");
+                    document.querySelector(`#comment-${commentId} .like-count`).innerText = data.likes;
+                    document.querySelector(`#comment-${commentId} .dislike-count`).innerText = data.dislikes;
+                } 
+            })
+            .catch(error => {
+                console.error("🚨 Erreur AJAX :", error);
+                alert("❌ Erreur lors du vote. Vérifiez la console.");
+            });
+        });
+    });
+});
+</script>

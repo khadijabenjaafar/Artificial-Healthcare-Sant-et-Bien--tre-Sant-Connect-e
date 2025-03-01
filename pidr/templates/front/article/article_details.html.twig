@@ -1,0 +1,499 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.titre }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+
+
+    <button id="playAudio">🎤 Lire l'article</button>
+<button id="pauseAudio">⏸️ Pause</button>
+<button id="stopAudio">⏹️ Arrêter</button>
+
+
+
+{% if audioFile is defined %}
+    <h3>Écoute l'audio :</h3>
+    <audio controls>
+        <source src="{{ asset(audioFile) }}" type="audio/mpeg">
+        Votre navigateur ne supporte pas l’audio.
+    </audio>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 🔹 Affichage des messages d'erreur et de succès -->
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger text-center">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success text-center">{{ message }}</div>
+        {% endfor %}
+
+
+
+
+
+        <h1>{{ article.titre }}</h1>
+        <img src="{{ asset(article.urlimagearticle) }}" class="img-fluid mb-3" alt="{{ article.titre }}">
+        <p><strong>Résumé :</strong> {{ article.contenue }}</p>
+        <a href="{{ path('blog_index') }}" class="btn btn-secondary">Retour aux articles</a>
+    </div>
+
+    <br><br><br>
+
+
+    <form method="GET" action="{{ path('article_detail', {id: article.id}) }}">
+    <select name="lang" onchange="this.form.submit()">
+        <option value="fr" {{ lang == 'fr' ? 'selected' : '' }}>Français</option>
+        <option value="en" {{ lang == 'en' ? 'selected' : '' }}>Anglais</option>
+        <option value="es" {{ lang == 'es' ? 'selected' : '' }}>Espagnol</option>
+        <option value="de" {{ lang == 'de' ? 'selected' : '' }}>Allemand</option>
+    </select>
+</form>
+
+<h2>{{ article.titre }}</h2>
+<p>{{ translatedText|raw }}</p> {# Affiche le texte traduit #}
+
+
+
+
+
+
+    
+
+
+    <div class="d-flex justify-content-center mt-3 gap-2">
+
+    <!-- 🔵 Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url(path('article_detail', {'id': article.id})) }}" 
+       target="_blank" class="btn btn-primary">
+       <i class="fa-brands fa-facebook"></i> Partager sur Facebook
+    </a>
+
+    <!-- 🔹 LinkedIn -->
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ absolute_url(path('article_detail', {'id': article.id})) }}&title={{ article.titre }}"
+       target="_blank" class="btn btn-info">
+       <i class="fa-brands fa-linkedin"></i> Partager sur LinkedIn
+    </a>
+
+    <!-- 🔴 Instagram (Pas de lien direct, seulement via stories) -->
+    <a href="https://www.instagram.com/" target="_blank" class="btn btn-danger">
+       <i class="fa-brands fa-instagram"></i> Ouvrir Instagram
+    </a>
+
+    <!-- 🐦 Twitter -->
+    <a href="https://twitter.com/intent/tweet?url={{ absolute_url(path('article_detail', {'id': article.id})) }}&text={{ article.titre }}"
+       target="_blank" class="btn btn-dark">
+       <i class="fa-brands fa-x-twitter"></i> Partager sur Twitter
+    </a>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="container text-center">
+        <p>Note moyenne : <span id="note-moyenne">{{ article.getAverageRating() }}/10</span></p>
+        <p>{{ article.ratings|length }} Votes</p>
+
+        <p>Attribuez une note :</p>
+        <div class="stars" style="display: flex; gap: 5px; cursor: pointer;">
+            {% for i in 1..10 %}
+                <span class="star" data-rating="{{ i }}" style="font-size: 24px;">⭐</span>
+            {% endfor %}
+        </div>
+
+
+
+
+<div class="rating-distribution d-flex justify-content-center align-items-end">
+    {% for i in 1..10 %}
+            <div class="d-flex flex-column align-items-center me-2">
+            <div class="bar bg-warning rounded" style="width: 20px; height: {{ (article.getRatingDistribution()[i] / article.ratings|length) * 100 }}px;"></div>
+
+            <span class="fw-bold">{{ i }}</span>
+        </div>
+    {% endfor %}
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="ms-3">
+        <h2 class="mb-4">Commentaires</h2>
+
+        {% for commentaire in commentaires %}
+            <div class="card mb-3 p-3 shadow-sm" id="comment-{{ commentaire.idCommentaire }}">
+                <div class="d-flex align-items-center justify-content-between">
+<strong class="fw-bold"> {% if commentaire.isAnonyme() %} Anonyme {% else %} {{ commentaire.utilisateur.nom }} {% endif %} </strong>                    <div class="dropdown">
+                        <i class="fa-solid fa-ellipsis-vertical menu-icon ms-2" data-bs-toggle="dropdown" style="cursor: pointer;"></i>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            {% if commentaire.utilisateur == app.user %}
+                                <li><a class="dropdown-item" href="{{ path('commentaire_delete', {'id': commentaire.idCommentaire}) }}">Supprimer</a></li>
+                                <li><a class="dropdown-item" href="{{ path('commentaire_edit', {'id': commentaire.idCommentaire}) }}">Modifier</a></li>
+
+
+                                {% else %}
+
+                                <li><a class="dropdown-item signal-comment" href="#" data-comment-id="{{ commentaire.idCommentaire }}">🚨 Signaler</a></li>
+
+                              
+
+                                
+
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="mt-2">{{ commentaire.contenue }}</p>
+
+                <!-- 🔹 Bouton "Répondre" -->
+                <button class="btn btn-sm btn-primary reply-btn" data-comment-id="{{ commentaire.idCommentaire }}">Répondre</button>
+
+
+                <div class="d-flex align-items-center">
+    <!-- 🔹 Bouton "J'aime" -->
+    <button class="btn btn-outline-success btn-sm vote-btn" data-comment-id="{{ commentaire.idCommentaire }}" data-vote="like">
+        👍 <span class="like-count">{{ commentaire.getLikes }}</span>
+    </button>
+
+    <!-- 🔹 Bouton "Je n'aime pas" -->
+    <button class="btn btn-outline-danger btn-sm ms-2 vote-btn" data-comment-id="{{ commentaire.idCommentaire }}" data-vote="dislike">
+        👎 <span class="dislike-count">{{ commentaire.getDislikes }}</span>
+    </button>
+</div>
+
+
+
+
+                <!-- 🔹 Formulaire de réponse caché (sera affiché dynamiquement en JS) -->
+                <div class="reply-form mt-3" id="reply-form-{{ commentaire.idCommentaire }}" style="display: none;">
+                    <textarea class="form-control reply-content" rows="2" placeholder="Votre réponse ici..."></textarea>
+                    <button class="btn btn-success btn-sm mt-2 send-reply"
+                        data-article-id="{{ article.id }}" 
+                        data-comment-id="{{ commentaire.getIdCommentaire }}">
+                        Envoyer
+                    </button>
+                </div>
+
+                <!-- 🔥 Afficher les réponses imbriquées dynamiquement -->
+                <div id="replies-{{ commentaire.idCommentaire }}">
+                    {% include 'front/commentaire/commentaire_replies.html.twig' with {'commentaires': commentaire.reponses} %}
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun commentaire pour cet article.</p>
+        {% endfor %}
+
+        <!-- 🔹 Formulaire pour ajouter un commentaire principal -->
+        <div class="mt-5">
+            <h2 class="mb-3">Ajouter un commentaire</h2>
+            <div class="card p-4 shadow-sm">
+                {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.contenue, 'Votre commentaire', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.contenue, {'attr': {'class': 'form-control', 'rows': '3', 'placeholder': 'Écrivez votre commentaire ici...'}}) }}
+                </div>
+                <button type="submit" class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
+                    Envoyer
+                </button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- 🔹 Script AJAX pour soumettre les réponses dynamiquement -->
+    <script>
+       
+
+
+ document.addEventListener("DOMContentLoaded", function() {
+            // 🔹 Afficher le champ de réponse quand on clique sur "Répondre"
+            document.querySelectorAll(".reply-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    let commentId = this.getAttribute("data-comment-id");
+                    let replyForm = document.getElementById("reply-form-" + commentId);
+                    replyForm.style.display = replyForm.style.display === "none" ? "block" : "none";
+                });
+            });
+
+            // 🔹 Envoyer la réponse en AJAX
+            document.addEventListener("click", function(event) {
+        if (event.target.classList.contains("send-reply")) {
+            event.preventDefault();
+            let button = event.target;
+            let articleId = button.getAttribute("data-article-id");
+            let commentId = button.getAttribute("data-comment-id");
+            let textarea = document.querySelector("#reply-form-" + commentId + " .reply-content");
+            let content = textarea.value.trim();
+
+                if (content === "") {
+                alert("Veuillez entrer un message !");
+                return;
+                }
+
+
+                    fetch("/commentaire/repondre", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json",
+                         "X-Requested-With": "XMLHttpRequest" },
+                        body: JSON.stringify({ articleId: articleId, parentId: commentId, contenue: content })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === "success") {
+                            let repliesContainer = document.getElementById("replies-" + commentId);
+                    if (repliesContainer) {
+                        repliesContainer.innerHTML += data.html; // Ajouter la réponse sous le commentaire parent
+                    }
+                    textarea.value = ""; // Vider le champ après envoi
+                } else {
+                    alert(data.message);
+                }
+                    })
+            .catch(error => console.error("Erreur AJAX :", error));
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 🔹 les stars 
+        document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".star").forEach(star => {
+        star.addEventListener("click", function() {
+            let ratingValue = this.getAttribute("data-rating");
+            let articleId = "{{ article.id }}";
+
+            fetch(`/article/${articleId}/rate`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify({ rating: ratingValue })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    console.log("Note enregistrée en base"); // Vérifier si la requête fonctionne
+
+                    document.querySelector("#note-moyenne").innerText = data.average + "/10"; //🔹 Mettre à jour la note moyenne sans recharger la page
+                    updateRatingDistribution(data.distribution);        // 🔹 Mettre à jour le graphique des votes
+                   
+                    showSuccessMessage("Votre note a bien été prise en compte !");
+                } else {
+                    console.log("Nonnn"); //si ca ne fonctionne pas 
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error("Erreur AJAX :", error));
+        });
+    });
+
+
+
+
+    function updateRatingDistribution(distribution) {
+        document.querySelectorAll(".rating-distribution .bar").forEach((bar, index) => {
+            let rating = index + 1;
+            let totalVotes = {{ article.ratings|length }}; // Récupérer le nombre total de votes
+            let height = totalVotes > 0 ? (distribution[rating] / totalVotes) * 100 : 0;
+            bar.style.height = height + "px"; // Mettre à jour la hauteur de la barre
+        });
+    }
+
+    function showSuccessMessage(message) {
+        let alertBox = document.createElement("div");
+        alertBox.classList.add("alert", "alert-success", "position-fixed", "top-0", "start-50", "translate-middle-x", "mt-3");
+        alertBox.style.zIndex = "1050"; // Pour être au-dessus du contenu
+        alertBox.innerText = message;
+        
+        document.body.appendChild(alertBox);
+
+        setTimeout(() => {
+            alertBox.remove(); // Supprime l'alerte après 3 secondes
+        }, 3000);
+    }
+
+
+
+
+
+
+});
+
+
+//////////////////////////🔹 signaler 🔹
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".signal-comment").forEach(button => {
+        button.addEventListener("click", function(event) {
+            event.preventDefault();
+            let commentId = this.getAttribute("data-comment-id");
+
+            if (!commentId) {
+                console.error("Erreur : Aucun ID de commentaire trouvé.");
+                return;
+            }
+
+            console.log("🛑 Signalement envoyé pour le commentaire ID :", commentId);
+
+            fetch("/commentaire/signaler", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify({ commentId: commentId })
+
+            })
+            .then(response => {if (!response.ok) {
+        // Permet de lever une erreur si c'est un code 4xx ou 5xx
+        return response.text().then(text => { 
+            throw new Error("Réponse HTTP invalide : " + response.status + " - " + text);
+        });
+    }
+    return response.json();
+})
+
+
+
+
+            .then(data => {
+                console.log("🔍 Réponse serveur :", data);
+
+                if (data.status === "success") {
+                    alert("🚨 Commentaire signalé !");
+                } else if (data.status === "deleted") {
+                    alert("❌ Commentaire supprimé après 10 signalements !");
+                    document.getElementById("comment-" + commentId)?.remove();
+                } else {
+                    console.log("aaaa");
+                    
+                }
+            })
+            .catch(error => {
+                console.error("Erreur AJAX :", error);
+                
+            });
+        });
+    });
+});
+
+
+
+
+
+
+//////////📌 j'aime et j'aime pas  📌
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".vote-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            let commentId = this.getAttribute("data-comment-id");
+            let voteType = this.getAttribute("data-vote");
+
+            fetch("/commentaire/vote", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify({ commentId: commentId, voteType: voteType })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    document.querySelector(`#comment-${commentId} .like-count`).innerText = data.likes;
+                    document.querySelector(`#comment-${commentId} .dislike-count`).innerText = data.dislikes;
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error("Erreur AJAX :", error));
+        });
+    });
+});
+
+
+
+
+//////////📌 vocallll  📌
+let synthesis = window.speechSynthesis;
+    let textToRead = `{{ translatedText|e('js') }}`; // Le texte traduit de l'article
+    let utterance = new SpeechSynthesisUtterance(textToRead);
+
+    document.getElementById("playAudio").addEventListener("click", function() {
+        synthesis.speak(utterance);
+    });
+
+    document.getElementById("pauseAudio").addEventListener("click", function() {
+        synthesis.pause();
+    });
+
+    document.getElementById("stopAudio").addEventListener("click", function() {
+        synthesis.cancel();
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+{% endblock %}

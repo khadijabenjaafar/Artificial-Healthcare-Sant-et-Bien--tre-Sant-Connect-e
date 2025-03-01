@@ -74,7 +74,7 @@ class ArticleType extends AbstractType
         ])
     ]
 ])
-        ->add('nbreVue')
+       // ->add('nbreVue')
             
             
         ->add('utilisateur', TextType::class, [

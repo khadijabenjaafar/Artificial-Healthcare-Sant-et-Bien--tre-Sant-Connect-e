@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 
@@ -28,6 +29,37 @@ class CommentaireType extends AbstractType
             'label' => 'Commentaire anonyme ?',
             'required' => false
         ]);
+
+
+
+
+        //->add('rating', ChoiceType::class, [
+          //  'choices' => [
+            //    '⭐' => 1,
+              //  '⭐⭐' => 2,
+                //'⭐⭐⭐' => 3,
+                //'⭐⭐⭐⭐' => 4,
+                //'⭐⭐⭐⭐⭐' => 5,
+            //],
+            //'expanded' => true, // Affichage sous forme de boutons
+            //'multiple' => false,
+            //'label' => 'Votre note',
+            //'required' => false, // Permettre de ne pas donner de note
+        //]);
+        
+        
+        
+        
+        //->add('parent', EntityType::class, [
+          //  'class' => Commentaire::class,
+            //'choice_label' => 'contenue', // Affiche le contenu du commentaire parent
+            //'placeholder' => 'Répondre à un commentaire', // Optionnel, pour laisser vide par défaut
+            //'required' => false,
+        //]);
+
+
+
+       
     
 
         //->add('submit', SubmitType::class, [

@@ -31,22 +31,99 @@
      <div class="d-flex flex-column align-items-end">
         
         <small lass="text-muted"> {{ commentaire.dateCommentaire|date('d/m/Y') }} ,{{ commentaire.heure|date('H:i') }} </small>
-<div class="dropdown">
+            <div class="dropdown">
                         <i class="fa-solid fa-ellipsis-vertical menu-icon" data-bs-toggle="dropdown" style="cursor: pointer;"></i>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#" "> Signaler</a></li>
+                            <li><a class="dropdown-item" href="#" > Signaler</a></li>
+
+                            {% if commentaire.utilisateur == app.user %}
                             <li><a class="dropdown-item" href="{{ path('commentaire_delete', {'id': commentaire.getIdCommentaire()}) }}" "> Supprimer</a></li>
                             <li><a class="dropdown-item" href="{{ path('commentaire_edit', {'id': commentaire.getIdCommentaire()}) }}" ">Modifier</a></li>
-                            <li><a class="dropdown-item" href="#" ">Repondre</a></li>
 
-                        </ul>
+                            {% endif %}
 
-    </div>
+
+
+
+
+                            <li><a class="dropdown-item" href="{{ path('article_detail', {id: article.id}) }}?reply_to={{ commentaire.idCommentaire }}" >Repondre</a>
+                            </li>
+                            {{ dump(reply_to) }}
+
+                            </ul>
+
                     </div>
-        </div> 
-        
+                </div>
+            </div> 
+
         <p class="mt-2">{{ commentaire.contenue }}</p>
-    </div>
+
+
+         {% if reply_to is defined and reply_to == commentaire.getIdCommentaire() %}
+                            <form action="{{ path('article_detail', {id: article.id}) }}?reply_to={{ commentaire.getIdCommentaire() }}" method="POST">
+                          {{ form_start(formReponse) }}
+                         {{ form_widget(formReponse.contenue, { 'attr': {'placeholder': 'Votre réponse ici...'} }) }}
+                        <button type="submit" class="btn btn-sm btn-success mt-2">Poster</button>
+                        {{ form_end(formReponse) }}
+                        </form>
+                        {% endif %}
+
+
+        <!-- 🔹 AFFICHAGE DES RÉPONSES IMBRIQUÉES -->
+        {% for reponse in commentaire.reponses %}
+            <div class="card bg-light mt-2 p-2 ms-4">
+                <div class="d-flex align-items-center justify-content-between">
+                 <strong class="fw-bold">{{ reponse.utilisateur.nom }}</strong>
+
+               
+
+
+
+
+                <div class="dropdown">
+                <i class="fa-solid fa-ellipsis-vertical menu-icon" data-bs-toggle="dropdown" style="cursor: pointer;"></i>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">Signaler</a></li>
+
+                    {% if reponse.utilisateur == app.user %}
+                        <li>
+                            <a class="dropdown-item" href="{{ path('commentaire_delete', {'id': reponse.idCommentaire}) }}">
+                                Supprimer
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ path('commentaire_edit', {'id': reponse.idCommentaire}) }}">
+                                Modifier
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <!-- Ajouter un bouton pour répondre à la réponse -->
+                    <li>
+                        <a class="dropdown-item" href="{{ path('article_detail', {id: article.id}) }}?reply_to={{ reponse.idCommentaire }}">
+                            Répondre
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            </div>
+            <p class="mt-2">{{ reponse.contenue }}</p>
+            </div>
+        {% endfor %}
+
+
+
+
+                       
+
+
+  </div>
+
+
+
+
+
 {% else %}
     <p>Aucun commentaire pour cet article.</p>
 {% endfor %}

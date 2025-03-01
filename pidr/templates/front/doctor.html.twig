@@ -3,7 +3,6 @@
 {% block body %}
 
 <main class="content p-3 flex-grow-1">
-
         {{ form_start(form2, {'attr': {'enctype': 'multipart/form-data', 'novalidate': 'novalidate'}}) }}
            <div class="mb-3">
                 {{ form_label(form2.titre, 'Titre de l\'article', {'label_attr': {'class': 'form-label fw-bold'}}) }}
@@ -27,14 +26,6 @@
                
         <div class="text-danger mt-1">
             {{ form_errors(form2.urlimagearticle) }}
-        </div>
-            </div>
-             <div class="mb-3">
-                {{ form_label(form2.nbreVue, 'le nbre de vue de article', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form2.nbreVue, {'attr': {'class': 'form-control'}}) }}
-               
-        <div class="text-danger mt-1">
-            {{ form_errors(form2.nbreVue) }}
         </div>
             </div>
             <div class="mb-3">

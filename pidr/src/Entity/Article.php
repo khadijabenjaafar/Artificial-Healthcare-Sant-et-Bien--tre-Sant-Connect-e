@@ -6,6 +6,8 @@ use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
@@ -41,7 +43,11 @@ class Article
     private ?Utilisateur $utilisateur = null;
 
     #[ORM\Column]
-    private ?int $nbreVue = null;
+    private ?int $nbreVue = 0;
+
+
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: ArticleRating::class)]
+    private Collection $ratings;
     
     public function __construct()
     {
@@ -137,4 +143,45 @@ class Article
 
         return $this;
     }
+
+    public function incrementNbreVue(): self
+    {
+        $this->nbreVue++;
+        return $this;
+    }
+
+
+
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+
+    // Calculer la moyenne des votes
+public function getAverageRating(): float
+{
+    $ratings = $this->ratings->map(fn(ArticleRating $rating) => $rating->getRating())->toArray();
+    if (count($ratings) === 0) {
+        return 0;
+    }
+    return round(array_sum($ratings) / count($ratings), 1);
+}
+
+// Obtenir la distribution des votes (1 à 10)
+public function getRatingDistribution(): array
+{
+    $distribution = array_fill(1, 10, 0);
+    foreach ($this->ratings as $rating) {
+        $distribution[$rating->getRating()]++;
+    }
+    return $distribution;
+}
+
+
+
+
+
+
+
 }

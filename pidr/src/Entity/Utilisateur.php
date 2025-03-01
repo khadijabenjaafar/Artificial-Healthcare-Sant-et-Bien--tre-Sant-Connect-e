@@ -120,12 +120,19 @@ class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\OneToMany(targetEntity: Planification::class, mappedBy: 'id_freelancer')]
     private Collection $planifications;
+
+    /**
+     * @var Collection<int, ArticleRating>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ArticleRating::class)]
+    private Collection $articleRatings;
     public function __construct()
     {
         $this->rendezVouses = new ArrayCollection();
         $this->rendez_vous = new ArrayCollection();
         $this->article = new ArrayCollection();
         $this->commentaire = new ArrayCollection();
+        $this->articleRatings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -460,6 +467,36 @@ class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
                 $planification->setFreelancer(null);
             }
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ArticleRating>
+     */
+    public function getArticleRatings(): Collection
+    {
+        return $this->articleRatings;
+    }
+
+    public function addArticleRating(ArticleRating $articleRating): static
+    {
+        if (!$this->articleRatings->contains($articleRating)) {
+            $this->articleRatings->add($articleRating);
+            $articleRating->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleRating(ArticleRating $articleRating): static
+    {
+        if ($this->articleRatings->removeElement($articleRating)) {
+            // set the owning side to null (unless already changed)
+            if ($articleRating->getUser() === $this) {
+                $articleRating->setUser(null);
+            }
+        }
+
         return $this;
     }
     

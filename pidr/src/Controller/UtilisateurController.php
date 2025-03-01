@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\Utilisateur;
 use App\Entity\Article;
@@ -54,7 +53,6 @@ final class UtilisateurController extends AbstractController
             return $this->redirectToRoute('Plannification_success');
         }
         $rendezVou = new RendezVous();
-
         $form = $this->createForm(RendezVousType::class, $rendezVou);
         $form->handleRequest($request);
 
@@ -310,14 +308,12 @@ final class UtilisateurController extends AbstractController
                 // Conserve l'ancien mot de passe
                 $user->setPassword($ancienMotDePasse);
             }
-
             // Gérer l'upload de l'image
             /** @var UploadedFile $imageFile */
             $imageFile = $form->get('image')->getData();
             if ($imageFile) {
                 $destination = $this->getParameter('kernel.project_dir') . '/public/utilisateur/img';
                 $newFilename = uniqid() . '.' . $imageFile->guessExtension();
-
                 try {
                     $imageFile->move($destination, $newFilename);
                     $user->setImage($newFilename);  // Enregistre le chemin dans la base de données
@@ -336,7 +332,6 @@ final class UtilisateurController extends AbstractController
             'user' => $user,
         ]);
     }
-
 
 
     #[Route('/utilisateur', name: 'app_utilisateur')]
@@ -361,12 +356,10 @@ final class UtilisateurController extends AbstractController
     }
 
 
-
     #[Route('/utilisateur/delete/{id}', name: 'delete_user')]
     public function delete(EntityManagerInterface $entityManager, int $id): Response
     {
         $user = $entityManager->getRepository(Utilisateur::class)->find($id);
-
         if (!$user) {
             throw $this->createNotFoundException('Utilisateur non trouvé');
         }
