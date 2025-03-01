@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\CommentaireSignalementRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: CommentaireSignalementRepository::class)]
+class CommentaireSignalement
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\ManyToOne(targetEntity: Commentaire::class, inversedBy: 'signalements')]
+    #[ORM\JoinColumn(name: "commentaire_id", referencedColumnName: "id_commentaire", nullable: false, onDelete: "CASCADE")]    private ?Commentaire $commentaire = null;
+
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: "id_utilisateur", referencedColumnName: "id", onDelete: "CASCADE")]
+    private ?Utilisateur $utilisateur = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCommentaire(): ?Commentaire
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?Commentaire $commentaire): static
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+}
