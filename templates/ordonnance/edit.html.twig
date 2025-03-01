@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'Ordonnance{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center" style="color:rgb(68, 68, 68);">📝 Modifier l'Ordonnance</h1>
+
+    <div class="p-4 rounded shadow" style="background-color: #20B2AA;">
+        <div class="card-body">
+            {{ include('ordonnance/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ path('doctor_index') }}" class="btn btn-secondary btn-lg shadow-sm">
+            <i class="bi bi-arrow-left"></i> Retourner à la liste
+        </a>
+    </div>
+
+    <div class="text-center mt-4">
+        {{ include('ordonnance/_delete_form.html.twig') }}
+    </div>
+</div>
+{% endblock %}

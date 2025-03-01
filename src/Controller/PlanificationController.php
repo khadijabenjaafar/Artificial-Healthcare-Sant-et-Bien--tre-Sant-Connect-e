@@ -7,9 +7,12 @@ use App\Form\PlanificationType;
 use App\Repository\PlanificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 #[Route('/planification')]
 final class PlanificationController extends AbstractController
@@ -31,19 +34,22 @@ final class PlanificationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_planification_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,Security $security): Response
     {
         $planification = new Planification();
         $form = $this->createForm(PlanificationType::class, $planification);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $security->getUser(); // Get logged-in user
+            $planification->setUtilisateur( $user); // Assign user as the patient
+    
             $entityManager->persist($planification);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_planification_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('planification/new.html.twig', [
             'planification' => $planification,
             'form' => $form,
@@ -93,11 +99,12 @@ final class PlanificationController extends AbstractController
     public function list(PlanificationRepository $planificationRepository): JsonResponse
     {
         $planifications = $planificationRepository->findAll();
-        
+    
         $data = [];
         foreach ($planifications as $planif) {
             $data[] = [
                 'id' => $planif->getId(),
+                'patient' => $planif->getPatient()->getPrenom() . ' ' . $planif->getPatient()->getNom(),
                 'freelancer' => $planif->getFreelancer()->getPrenom() . ' ' . $planif->getFreelancer()->getNom(),
                 'date' => $planif->getDate()->format('Y-m-d H:i'),
                 'adresse' => $planif->getAdresse(),
@@ -105,7 +112,7 @@ final class PlanificationController extends AbstractController
                 'statut' => $planif->getStatut(),
             ];
         }
-
+    
         return new JsonResponse($data);
     }
     #[Route('/confirm/{id}', name: 'planification_confirm', methods: ['POST'])]
@@ -139,5 +146,54 @@ public function cancelPlanification(PlanificationRepository $repo, Request $requ
     $em->flush();
 
     return new JsonResponse(['success' => true]);
+}
+
+
+#[Route('/confirm-status/{id}', name: 'confirm_status', methods: ['POST'])]
+public function confirmStatus($id, MailerInterface $mailer, EntityManagerInterface $entityManager)
+{
+    $planification = $entityManager->getRepository(Planification::class)->find($id);
+    if ($planification) {
+        $planification->setStatut('confirmé');
+        $entityManager->flush();
+
+        // Send email
+        $email = (new Email())
+            ->from('hanaharragi555@gmail.com')
+            ->to($planification->getUtilisateur()->getEmail())
+            ->subject('Planification Confirmée')
+            ->text('Votre planification a été confirmée.');
+
+        try {
+            $mailer->send($email);
+            return new JsonResponse(['success' => true]);
+        } catch (\Exception $e) {
+            return new JsonResponse(['success' => false, 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    return new JsonResponse(['success' => false], 400);
+}
+
+public function cancelStatus($id, MailerInterface $mailer, EntityManagerInterface $entityManager)
+{
+    $planification = $entityManager->getRepository(Planification::class)->find($id);
+    if ($planification) {
+        $planification->setStatut('annulé');
+        $entityManager->flush();
+
+        // Send email
+        $email = (new Email())
+            ->from('hanaharragi555@gmail.com')
+            ->to($planification->getUtilisateur()->getEmail())
+            ->subject('Planification Annulée')
+            ->text('Votre planification a été annulée.');
+
+        $mailer->send($email);
+
+        return new JsonResponse(['success' => true]);
+    }
+
+    return new JsonResponse(['success' => false], 400);
 }
 }

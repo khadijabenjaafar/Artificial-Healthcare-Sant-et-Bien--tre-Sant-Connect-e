@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matching Index{% endblock %}
+
+{% block body %}
+<h1>Matching Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>CIN</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Compétences</th>
+            <th>Freelancer</th>
+            <th>Utilisateur</th>
+            <th>Price</th>
+            <th>Availability</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for matching in matchings %}
+            <tr>
+                <td>{{ matching.id }}</td>
+                <td>{{ matching.cin }}</td>
+                <td>{{ matching.description }}</td>
+                <td>{{ matching.date ? matching.date|date('Y-m-d') : '' }}</td>
+                <td>{{ matching.competences }}</td>
+                <td>{{ matching.idFreelancer ? matching.idFreelancer.nom ~ ' ' ~ matching.idFreelancer.prenom : 'Non assigné' }}</td>
+                <td>{{ matching.utilisateur ? matching.utilisateur.nom ~ ' ' ~ matching.utilisateur.prenom : 'Non assigné' }}</td>
+                <td>{{ matching.price }}</td>
+                <td>{{ matching.availability ? 'Available' : 'Not Available' }}</td>
+                <td>
+                    <a href="{{ path('app_matching_show', {'id': matching.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                    <a href="{{ path('app_matching_edit', {'id': matching.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    <form method="post" action="{{ path('app_matching_delete', {'id': matching.id}) }}" style="display:inline-block;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matching.id) }}">
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('app_matching_new') }}" class="btn btn-primary">Ajouter un nouveau matching</a>
+{% endblock %}

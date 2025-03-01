@@ -1,0 +1,534 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Palanning -->
+<section id="planning" class="planning section">
+        <h2>Mon Planning</h2>
+        <div class="input-group mb-3" style="max-width: 300px;">
+            
+        </div>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/main.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/main.min.js"></script>
+<div id="calendar"></div>
+
+<table id="planification-table" class="table123 display table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Adresse</th>
+            <th>Réponse</th>
+            <th>freelancer</th>
+            <th>utilisature</th>
+            <th>Mode</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for planification in planifications %}
+            <tr>
+                <td>{{ planification.id }}</td>
+                <td>{{ planification.getDate() ? planification.getDate()|date('Y-m-d') : '' }}</td>
+                <td>{{ planification.adresse }}</td>
+                <td>{{ planification.reponse }}</td>
+                <td>{{ planification.freelancer }}</td>
+                <td></td>
+                <td>{{ planification.mode }}</td>
+                <td>
+                    {% if planification.statut == 'confirmé' %}
+                        <span class="badge bg-success">Confirmé</span>
+                    {% elseif planification.statut == 'annulé' %}
+                        <span class="badge bg-danger">Annulé</span>
+                    {% else %}
+                        <span class="badge bg-warning">En attente</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_planification_edit', {'id': planification.id}) }}" class="btn btn-warning btn-sm"></a>
+                        <i class="bi bi-pencil-square"></i> Modifier
+                    </a>
+                    {% if planification.statut != 'confirmé' %}
+                        <button class="btn btn-success btn-sm" onclick="confirmStatus('{{ planification.id }}')">Confirmer</button>
+                    {% endif %}
+                    {% if planification.statut != 'annulé' %}
+                        <button class="btn btn-danger btn-sm" onclick="cancelStatus('{{ planification.id }}')">Annuler</button>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function sendEmail(id, status) {
+    fetch(`/planification/send-email/${id}`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Email sent successfully!');
+        } else {
+            alert('Error sending email!');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+function confirmStatus(id) {
+    fetch(`/planification/confirm/${id}`, { 
+        method: 'POST',
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Status confirmed for ID: ' + id);
+            sendEmail(id, 'confirmé');
+            location.reload(); // Refresh the table
+        } else {
+            alert('Error confirming status!');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function cancelStatus(id) {
+    let response = prompt('Please enter your response:');
+    if (response) {
+        fetch(`/planification/cancel/${id}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ response: response })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Status cancelled for ID: ' + id + ' with response: ' + response);
+                sendEmail(id, 'annulé');
+                location.reload(); // Refresh the table
+            } else {
+                alert('Error cancelling status!');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+}
+</script>
+<!-- Section Affichage Matching -->
+    <section id="matching" class="matching section">
+        <h2>Mes Matching</h2>
+        <div class="input-group mb-3" style="max-width: 300px;">
+            
+        </div>
+        
+        <table class="table123 table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th data-column="0">ID <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="1">Date <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="2">Description <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="3">Compétences <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="4">Freelancer <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="5">Prix <span class="sort-icon">🔼🔽</span></th>
+                    <th>Availability</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for matching in matchings %}
+                    <tr>
+                        <td><strong>{{ matching.id }}</strong></td>
+                        <td>{{ matching.getDate() ? matching.getDate()|date('Y-m-d') : 'N/A' }}</td>
+                        <td>{{ matching.description }}</td>
+                        <td>{{ matching.competences }}</td>
+                        <td>{{ matching.idFreelancer ? matching.idFreelancer.nom ~ ' ' ~ matching.idFreelancer.prenom : 'Non assigné' }}</td>
+                        <td>{{ matching.price is not null ? matching.price ~ ' $' : 'Non défini' }}</td>
+                        <td>
+                    {% if matching.availability %}
+                        <span class="badge bg-success">Available</span>
+                    {% else %}
+                        <span class="badge bg-danger">Unavailable</span>
+                    {% endif %}
+                </td>
+                        <td>
+                            <a href="{{ path('app_matching_show', {'id': matching.id}) }}" class="btn btn-info btn-sm">
+                                <i class="bi bi-eye"></i> Voir
+                            </a>
+                            <a href="{{ path('app_matching_edit', {'id': matching.id}) }}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-square"></i> Modifier
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Include DataTables & Bootstrap -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+        
+        <script>
+            $(document).ready(function () {
+                let table = $('.table123').DataTable({
+                    "order": [[0, "asc"]], // Default sorting by ID in ascending order
+                    "columnDefs": [
+                        { "orderable": false, "targets": 6 } // Disable sorting on 'Actions' column
+                    ]
+                });
+        
+                // Update sorting icons dynamically
+                $('.table123 thead th').click(function () {
+                    $('.table123 thead th .sort-icon').text('🔼🔽'); // Reset all
+                    let columnIdx = $(this).index();
+                    let order = table.order();
+                    if (order[0][0] === columnIdx) {
+                        $(this).find('.sort-icon').text(order[0][1] === 'asc' ? '🔼' : '🔽');
+                    }
+                });
+            });
+        </script>
+        
+    </section>
+<!-- Section Affichage Rendez-vous -->
+    <section id="appointments" class="appointments section">
+        <h1>Rendez-vous du patient</h1>
+        {% if rendez_vouses is defined and rendez_vouses is empty %}
+            <p>Aucun rendez-vous trouvé pour ce patient.</p>
+        {% else %}
+            <table class="table123">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Motif</th>
+                        <th>Statut</th>
+                        <th>Mode</th>
+                        <th>Commentaire</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rendezVous in rendez_vouses %}
+                        <tr>
+                            <td>{{ rendezVous.dateHeure|date('d-m-Y H:i') }}</td>
+                            <td>{{ rendezVous.motif.label }}</td>
+                            <td>{{ rendezVous.statut.label }}</td>
+                            <td>{{ rendezVous.mode.label }}</td>
+                            <td>{{ rendezVous.commantaire }}</td>
+                             <td>
+                                <a href="{{ path('app_rendez_vous_show', {'id': rendezVous.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_rendez_vous_edit', {'id': rendezVous.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </section>
+<!-- Section Affichage Ordonnances -->
+    <section id="Ordonnances" class="Ordonnances section">
+        <h1>Ordonnances du patient</h1>
+        {% if ordonnances is defined and ordonnances is empty %}
+            <p>Aucune ordonnance trouvée pour ce patient.</p>
+        {% else %}
+            <table class="table123">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Médicaments</th>
+                        <th>Commentaire</th>
+                        <th>Durée d'utilisation</th>
+                        <th>Quantité d'utilisation</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ordonnance in ordonnances %}
+                        <tr>
+                            <td><strong>{{ ordonnance.id }}</strong></td>
+                            <td>{{ ordonnance.getDate() ? ordonnance.getDate()|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ ordonnance.medicaments }}</td>
+                            <td>{{ ordonnance.commantaire }}</td>
+                            <td>{{ ordonnance.dureeUtilisation }}</td>
+                            <td>{{ ordonnance.quantiteUtilisation }}</td>
+                            <td>
+                                <a href="{{ path('app_ordonnance_show', {'id': ordonnance.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </section>
+
+    <!-- Section Ajout Ordonnance -->
+    <section  id="AjoutOrdonnance" class="AjoutOrdonnance section">
+    <h2>Ajouter une Ordonnance</h2>
+        
+        {{ form_start(form, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+
+        <div class="form-group">
+            {{ form_label(form.date, 'Date de l’ordonnance', {'attr': {'for': 'dateInput'}}) }}
+            {{ form_widget(form.date, {'attr': {'id': 'dateInput', 'class': 'form-control'}}) }}
+            {{ form_errors(form.date) }}
+        </div>x
+
+        <div class="form-group">
+            {{ form_label(form.medicaments, 'Médicaments prescrits') }}
+            {{ form_widget(form.medicaments, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.medicaments) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.duree_utilisation, 'Durée d’utilisation') }}
+            {{ form_widget(form.duree_utilisation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.duree_utilisation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.quantite_utilisation, 'Quantité à utiliser') }}
+            {{ form_widget(form.quantite_utilisation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.quantite_utilisation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.id_consultation, 'Consultation associée') }}
+            {{ form_widget(form.id_consultation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.id_consultation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.commantaire, 'Commentaire') }}
+            {{ form_widget(form.commantaire, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.commantaire) }}
+        </div>
+
+        <div class="form-button">
+            <button class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+
+        {{ form_end(form) }}
+        </section>
+        <!--button here-->
+
+        <!-- Section Ajout Matching -->
+<section id="Ajoutmatching" class="Ajoutmatching section">
+    <h2>Ajouter un matching</h2>
+    
+    {{ form_start(form4, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+
+    <div class="form-group">
+        {{ form_label(form4.cin, 'CIN') }}
+        {{ form_widget(form4.cin, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.cin) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form4.date, 'Date du matching', {'attr': {'for': 'dateInput'}}) }}
+        {{ form_widget(form4.date, {'attr': {'id': 'dateInput', 'class': 'form-control'}}) }}
+        {{ form_errors(form4.date) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form4.description, 'Description') }}
+        {{ form_widget(form4.description, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.description) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form4.competences, 'Compétences') }}
+        {{ form_widget(form4.competences, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.competences) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form4.cv, 'CV') }}
+        {{ form_widget(form4.cv, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.cv) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form4.id_freelancer, 'Freelancer associé') }}
+        {{ form_widget(form4.id_freelancer, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.id_freelancer) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form4.price, 'price') }}
+        {{ form_widget(form4.price, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.price) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form4.recaptcha) }} 
+        {{ form_errors(form4.recaptcha) }}
+    </div>
+    
+
+    <div class="form-button">
+        <button  class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+
+    {{ form_end(form4) }}
+</section>
+        <!-- Section Ajout Consultation -->
+        <section  id="AjoutConsultation" class="AjoutConsultation section">
+    <h2>Ajouter une consultation</h2>
+        
+        {{ form_start(form3, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+
+        <div class="form-group">
+           {{ form_row(form3.prochain_rdv) }}
+
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.diagnostic, 'Diagnostic') }}
+            {{ form_widget(form3.diagnostic, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.diagnostic) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.traitement, 'Traitement donnee') }}
+            {{ form_widget(form3.traitement, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.traitement) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.observation, 'Observation') }}
+            {{ form_widget(form3.observation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.observation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.prix, 'Prix de la consultation') }}
+            {{ form_widget(form3.prix, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.prix) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.duree, 'Duree') }}
+            {{ form_widget(form3.duree, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.duree) }}
+        </div>
+         <div class="form-group">
+            {{ form_label(form3.id_rendez_vous, 'Id rendez vous associer') }}
+            {{ form_widget(form3.id_rendez_vous, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.id_rendez_vous) }}
+        </div>
+
+        <div class="form-button">
+            <button class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+
+        {{ form_end(form3) }}
+        </section>
+        <!-- Section Affichage Articles -->
+        <section id="articles" class="articles section">
+            <div class="container-fluid mt-5">
+        <h2 class="mb-4 text-primary fw-bold text-center">Mes Articles</h2>
+
+        <!-- Affichage des articles avec un layout bien réparti -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for article in articles %}
+                    <div class="col">
+                        <div class="card shadow-sm border-0 h-100 p-3">
+                            <!-- Image bien cadrée -->
+                            <img src="{{ asset(article.urlimagearticle) }}" class="card-img-top" alt="{{ article.titre }}" style="height: 250px; object-fit: cover; border-radius: 8px;">
+
+                            <div class="card-body">
+
+                <div class="d-flex align-items-center text-muted small me-2"> 
+                 <span>{{ article.dateArticle|date('d M. Y') }} · 2 min de lecture</span>   <a href="{{ path('article_delete', {'id': article.id}) }}">  <i class="bi bi-trash me-2 text-danger" style="cursor: pointer;" ></i> </a>
+
+                <a href="{{ path('article_edit', {'id': article.id}) }}">  <i class="bi bi-pencil-square" style="cursor: pointer;" ></i> </a>
+                </div>
+                                <h5 class="card-title fw-bold">{{ article.titre }}</h5>
+                                <p class="card-text">{{ article.contenue|slice(0, 100) }}...</p>
+                            </div>
+                            <!-- Footer avec icônes -->
+                            <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                                <span class="text-muted"><i class="fas fa-eye"></i> {{ article.nbreVue }}</span>
+                                <span class="text-muted"><i class="fas fa-comment-alt"></i>
+                                {{ commentaireRepository.countCommentairesByArticle(article.id) }}
+                                 </span>
+                                <a href="{{ path('article_detail', {'id': article.id}) }}" class="btn btn-outline-primary btn-sm">Lire plus</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+       
+    </div>
+        </section>
+        
+        <!-- Section Affichage Consultation -->
+                <section id="Consultation" class="Consultation section">
+        <h1>Consultations du patient</h1>
+        {% if consultations is defined and consultations is empty %}
+            <p>Aucune consultation trouvée pour ce patient.</p>
+        {% else %}
+            <table class="table123">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>prix</th>
+                        <th>observation</th>
+                        <th>traitement</th>
+                        <th>diagnostic</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consultation in consultations %}
+                        <tr>
+                            <td><strong>{{ consultation.id }}</strong></td>
+                            <td>{{ consultation.getProchainRdv() ? consultation.getProchainRdv()|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ consultation.prix }}</td>
+                            <td>{{ consultation.observation }}</td>
+                            <td>{{ consultation.traitement }}</td>
+                            <td>{{ consultation.diagnostic }}</td>
+                            <td>
+                                <a href="{{ path('app_consultation_show', {'id': consultation.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_consultation_edit', {'id': consultation.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </section>
+ 
+
+</main>
+
+
+
+
+{% endblock %}

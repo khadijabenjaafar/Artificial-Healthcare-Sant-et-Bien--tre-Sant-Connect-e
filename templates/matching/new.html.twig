@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Matching{% endblock %}
+
+{% block body %}
+    <h1>Create new Matching</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.cin) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.competences) }}
+        {{ form_row(form.cv) }}
+        {{ form_row(form.id_freelancer) }}
+        {{ form_row(form.utilisateur) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.availability) }}
+        <button class="btn">Save</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_matching_index') }}">back to list</a>
+{% endblock %}

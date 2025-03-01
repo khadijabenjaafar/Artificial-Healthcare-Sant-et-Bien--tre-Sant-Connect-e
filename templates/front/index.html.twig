@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - ClinicFlow Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+
+  <link href="{{ asset('front/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ asset('front/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('front/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('front/vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ asset('front/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('front/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('front/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{{ asset('front/css/main.css') }}" rel="stylesheet">
+  <style>
+  .testimonial-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover; /* Coupe l'image pour qu'elle rentre bien */
+    border-radius: 10px; /* Optionnel : arrondi les bords */
+}
+  </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header sticky-top">
+
+    <div class="topbar d-flex align-items-center">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+        <div class="d-none d-md-flex align-items-center">
+          <i class="bi bi-clock me-1"></i> Monday - Saturday, 8AM to 10PM
+        </div>
+        <div class="d-flex align-items-center">
+          <i class="bi bi-phone me-1"></i> Call us now +215 558 548 855
+        </div>
+      </div>
+    
+    
+    
+      
+    </div><!-- End Top Bar -->
+
+    <div class="branding d-flex align-items-center">
+
+      <div class="container position-relative d-flex align-items-center justify-content-end">
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <img src="{{ asset('front/img/logonew.png') }}" alt="">
+          <!-- Uncomment the line below if you also wish to use a text logo -->
+          <h1 class="sitename">ClinicFlow</h1>  
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="#hero" class="active">Accueil</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#tabs">Departments</a></li>
+            <li><a href="#appointment">Rendez vous</a></li>
+                        <li><a href="#reclamation">blogs</a></li>
+            <li><a href="#doctors">Docteurs</a></li>            
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+          {% if app.user %}
+              <a class="cta-btn" href="{{ path('profile_user') }}">Profile</a>
+              <a class="cta-btn" href="{{ path('app_logout') }}">Logout</a>
+          {% else %}
+              <a class="cta-btn" href="/utilisateur/login">Signin</a>
+              <a class="cta-btn" href="/utilisateur/signup">Signup</a>
+          {% endif %}
+
+      </div>
+      <button id="history-btn" class="btn btn-outline-primary">
+        <i class="fas fa-history"></i> View History
+    </button>
+    
+    <div id="history-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Action History</h3>
+            <ul id="history-list"></ul>
+        </div>
+    </div>
+    <script>
+      document.getElementById('history-btn').addEventListener('click', function() {
+          fetch('/matching/history') // Call the route
+              .then(response => response.json())
+              .then(data => {
+                  let historyList = document.getElementById('history-list');
+                  historyList.innerHTML = ''; // Clear existing history
+      
+                  data.forEach(entry => {
+                      let li = document.createElement('li');
+                      li.textContent = `${entry.action} ${entry.entity} at ${entry.timestamp}`;
+                      historyList.appendChild(li);
+                  });
+      
+                  document.getElementById('history-modal').style.display = 'block';
+              });
+      });
+      
+      // Close modal when clicking the 'X'
+      document.querySelector('.close').addEventListener('click', function() {
+          document.getElementById('history-modal').style.display = 'none';
+      });
+      </script>
+    </div>
+
+    <style>.modal {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-content {
+      text-align: center;
+  }
+  
+  .close {
+      float: right;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+  }
+  </style>
+    
+    <!-- End Branding -->      
+
+
+
+
+
+
+
+      <li class="nav-item topbar-icon dropdown hidden-caret">
+        <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-envelope"></i>
+            <span id="message-count" class="badge bg-danger">0</span>
+        </a>
+        <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+            <li>
+          <div class="dropdown-title d-flex justify-content-between align-items-center">
+              Messages
+              <a href="#" id="open-chat">Envoyer un message</a>
+          </div>
+            </li>
+            <li>
+          <div class="message-notif-scroll scrollbar-outer">
+              <div class="notif-center" id="message-list"></div>
+            <!-- Messages récents chargés via AJAX -->
+              </div>
+          </div>
+            </li>
+            <li>
+          <a class="see-all" href="{{ path('chat_page') }}">
+              See all messages <i class="fa fa-angle-right"></i>
+          </a>
+            </li>
+        </ul>
+          </li>
+    <!-- Fenêtre du chat -->
+    <div id="chat-container">
+        <div id="user-list">
+            <h4>Contacts</h4>
+        </div>
+    
+        <div id="chat-box-container">
+            <h4 id="chat-title">Sélectionnez un utilisateur</h4>
+            <div id="chat-box"></div>
+    
+            <textarea id="chat-input" placeholder="Écrire un message..."></textarea>
+            <button id="send-btn">Envoyer</button>
+        </div>
+    </div>
+    
+    <!-- ✅ CSS Amélioré -->
+    <style>
+      /* Style for the topbar icon */
+.topbar-icon {
+    position: relative;
+}
+
+.topbar-icon .nav-link {
+    color: #0baab6;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.topbar-icon .fa-envelope {
+    font-size: 18px;
+}
+
+/* Badge styling */
+#message-count {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    color: #fff;
+}
+
+/* Dropdown styling */
+.messages-notif-box {
+    width: 300px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.dropdown-title {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-title a {
+    font-size: 12px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.dropdown-title a:hover {
+    text-decoration: underline;
+}
+
+/* Message list styling */
+.message-notif-scroll {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.notif-center {
+    padding: 10px;
+}
+
+/* See all messages link */
+.see-all {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: #f8f9fa;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    border-top: 1px solid #ddd;
+}
+
+.see-all:hover {
+    background: #e9ecef;
+}
+   
+ /* Style for the topbar icon */
+.topbar-icon {
+    position: relative;
+}
+
+.topbar-icon .nav-link {
+    color: #0a8076;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.topbar-icon .fa-envelope {
+    font-size: 18px;
+}
+/*hhhhhh*/
+/* Badge styling */
+#message-count {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    color: #fff;
+}
+
+/* Dropdown styling */
+.messages-notif-box {
+    width: 300px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.dropdown-title {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-title a {
+    font-size: 12px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.dropdown-title a:hover {
+    text-decoration: underline;
+}
+
+/* Message list styling */
+.message-notif-scroll {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.notif-center {
+    padding: 10px;
+}
+
+/* See all messages link */
+.see-all {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: #f8f9fa;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    border-top: 1px solid #ddd;
+}
+
+.see-all:hover {
+    background: #e9ecef;
+}
+
+/* Chat Container */
+#chat-container {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 500px;
+    height: 500px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* User List */
+#user-list {
+    width: 40%;
+    overflow-y: auto;
+    background: #f8f8f8;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    color: #000;
+}
+
+#user-list div {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.2s;
+}
+
+#user-list div:hover {
+    background: #e0e0e0;
+}
+
+#user-list img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Chat Box Container */
+#chat-box-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+#chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chat Input */
+#chat-input {
+    width: calc(100% - 60px);
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#send-btn {
+    padding: 8px;
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 50px;
+}
+
+#send-btn:hover {
+    background: #0056b3;
+}
+
+/* Messages Styling */
+.message.receiver {
+    align-self: flex-start;
+    background: #e0e0e0;
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    max-width: 70%;
+}
+
+.message.sender {
+    align-self: flex-end;
+    background: #007bff;
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    max-width: 70%;
+}
+
+.message .time {
+    font-size: 0.8em;
+    color: #555;
+    display: block;
+    text-align: right;
+    margin-top: 2px;
+}
+
+    </style>
+    
+    <!-- ✅ JavaScript amélioré -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+    let chatBox = document.getElementById("chat-container");
+    let openChatButton = document.getElementById("open-chat");
+    let messageList = document.getElementById("message-list");
+
+    // Masquer la boîte de chat au chargement
+    chatBox.style.display = "none";
+
+    // Afficher la boîte de chat au clic sur "Envoyer un message"
+    openChatButton.addEventListener("click", function () {
+        chatBox.style.display = "flex";
+    });
+
+    // Afficher la boîte de chat lorsqu'on clique sur un message reçu
+    messageList.addEventListener("click", function (event) {
+        let clickedMessage = event.target.closest(".message-item");
+        if (clickedMessage) {
+            chatBox.style.display = "flex";
+        }
+    });
+});
+
+        let selectedUserId = null;
+    
+        // Charger la liste des utilisateurs
+        function loadUsers() {
+            fetch('/chat/users')
+                .then(response => response.json())
+                .then(users => {
+                    const userList = document.getElementById('user-list');
+                    userList.innerHTML = "<h4>Contacts</h4>";
+    
+                    users.forEach(user => {
+                        let userDiv = document.createElement('div');
+                        userDiv.innerHTML = `<img src="${user.image}" alt="Avatar" style="width:40px; height:40px; border-radius:50%; margin-right:10px;"> ${user.name}`;
+                        userDiv.onclick = () => selectUser(user.id, user.name);
+                        userList.appendChild(userDiv);
+                    });
+                    
+                })
+                .catch(error => console.error("Erreur chargement utilisateurs :", error));
+        }
+    
+        // Sélectionner un utilisateur
+        function selectUser(userId, userName) {
+            selectedUserId = userId;
+            document.getElementById('chat-title').textContent = "Chat avec " + userName;
+            loadMessages();
+        }
+    
+       // Charger les messages
+function loadMessages() {
+    if (!selectedUserId) return;
+
+    fetch(`/chat/messages/${selectedUserId}`)
+        .then(response => response.json())
+        .then(messages => {
+            console.log("Messages reçus :", messages); // 🔍 Debug
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML = ""; // Effacer l'ancien contenu du chat
+
+            if (!messages || messages.length === 0) {
+                chatBox.innerHTML = "<p>Aucun message.</p>";
+                return;
+            }
+
+            messages.forEach(msg => {
+                let messageDiv = document.createElement("div");
+                let messageClass = (msg.senderId === selectedUserId) ? "receiver" : "sender";
+                messageDiv.classList.add("message", messageClass);
+
+                // Formatage du message
+                messageDiv.innerHTML = `
+                    <strong>${msg.senderName}:</strong> ${msg.content}
+                    <span class="time">${msg.time}</span>
+                `;
+                
+                chatBox.appendChild(messageDiv);
+            });
+
+            // Auto-scroll en bas du chat
+            chatBox.scrollTop = chatBox.scrollHeight;
+        })
+        .catch(error => console.error("Erreur lors du chargement des messages:", error));
+}
+
+// Envoyer un message
+document.getElementById("send-btn").addEventListener("click", function () {
+    if (!selectedUserId) {
+        alert("Veuillez sélectionner un utilisateur !");
+        return;
+    }
+
+    const messageInput = document.getElementById("chat-input");
+    const messageContent = messageInput.value.trim();
+    if (messageContent === "") return;
+
+    fetch("/chat/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ receiverId: selectedUserId, content: messageContent })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            messageInput.value = ""; // Effacer le champ de saisie après envoi
+            setTimeout(loadMessages, 500); // Recharger les messages après envoi
+        } else {
+            alert("Erreur lors de l'envoi !");
+        }
+    })
+    .catch(error => console.error("Erreur lors de l'envoi du message:", error));
+});
+
+        // Charger les messages récents
+        function loadLatestMessages() {
+            fetch('/chat/latest-messages')
+                .then(response => response.json())
+                .then(data => {
+                    const messageList = document.getElementById('message-list');
+                    const messageCount = document.getElementById('message-count');
+    
+                    messageList.innerHTML = "";
+                    messageCount.textContent = data.length;
+    
+                    data.forEach(message => {
+                        messageList.innerHTML += `
+                            <a href="javascript:void(0);" onclick="selectUser(${message.senderId}, '${message.senderName}')">
+                                <div class="notif-img">
+                                    <img src="${message.senderImage}" alt="Profile">
+                                </div>
+                                <div class="notif-content">
+                                    <span class="subject">${message.senderName}</span>
+                                    <span class="block">${message.content}</span>
+                                    <span class="time">${message.time}</span>
+                                </div>
+                            </a>
+                        `;
+                    });
+                })
+                .catch(error => console.error("Erreur chargement messages :", error));
+        }
+    
+        setInterval(loadMessages, 3000);
+        setInterval(loadLatestMessages, 5000);
+        loadUsers();
+        loadLatestMessages();
+    </script>
+
+    </div>
+
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+
+      <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+        <div class="carousel-item active">
+          <img src="{{ asset('front/img/hero-carousel/hero-carousel-1.jpg') }}" alt="">
+          <div class="container">
+            <h2>Bienvenue chez ClinicFlow</h2>
+            <p>ClinicFlow offre des services médicaux de qualité, allant de la prise de rendez-vous pour vos consultations à la gestion des équipements médicaux. Découvrez notre plateforme tout-en-un pour gérer votre santé et votre bien-être avec facilité.</p>
+            <a href="#about" class="btn-get-started"> En savoir plus</a>
+          </div>
+        </div><!-- End Carousel Item -->
+
+        <div class="carousel-item">
+          <img src="{{ asset('front/img/hero-carousel/hero-carousel-2.jpg') }}" alt="">
+          <div class="container">
+            <h2>Maintenance des Équipements Médicaux</h2>
+            <p>Nos équipements médicaux sont essentiels pour la qualité des soins. Si vous rencontrez un problème avec un équipement, notre service de maintenance est à votre disposition pour assurer une intervention rapide et efficace.</p>
+            <a href="#about" class="btn-get-started">En savoir plus</a>
+          </div>
+        </div><!-- End Carousel Item -->
+
+        <div class="carousel-item">
+          <img src="{{ asset('front/img/hero-carousel/hero-carousel-3.jpg') }}" alt="">
+          <div class="container">
+            <h2>Notre engagement envers l’innovation</h2>
+            <p>A ClinicFlow, Nous utilisons les dernières avancées en matière de diagnostics et de traitements pour garantir que vous receviez les soins les plus efficaces. Notre engagement à l’amélioration continue signifie que nous sommes toujours prêts à relever de nouveaux défis de santé avec les meilleurs outils disponibles.</p>
+            <a href="#about" class="btn-get-started">En savoir plus</a>
+          </div>
+        </div><!-- End Carousel Item -->
+
+        <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+
+        <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
+        <ol class="carousel-indicators"></ol>
+
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section accent-background">
+
+      <div class="container">
+        <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-xl-10">
+            <div class="text-center">
+              <h3>Besoin d'une aide urgente ?</h3>
+              <p>En cas d'urgence, notre équipe médicale est prête à intervenir rapidement pour vous fournir les soins nécessaires. N'attendez pas, contactez-nous immédiatement pour toute situation urgente.</p>
+              <a class="cta-btn" href="#appointment">Prendre un rendez vous </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Call To Action Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>A propos ClincFlow <br></h2>
+        <p>ClinicFlow est une plateforme de services de santé innovante, conçue pour faciliter l’accès aux soins médicaux et simplifier la gestion des services </p><p> Notre mission est d’améliorer le bien-être de nos utilisateurs en offrant une solution complète et accessible à tous</p> <p>Grâce à une technologie de pointe, nous permettons à nos utilisateurs de prendre des rendez-vous en ligne, de gérer la maintenance des équipements médicaux, de soumettre des réclamations et de commander des médicaments en toute simplicité.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+          <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
+            <img src="{{ asset('front/img/about.jpg') }}" class="img-fluid" alt="">
+            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+          </div>
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+            <h3>Notre Mission</h3>
+            <p class="fst-italic">
+             Chez ClinicFlow, nous croyons que la santé doit être accessible à tous. C’est pourquoi nous avons créé une plateforme tout-en-un qui permet de faciliter l’interaction entre les patients, les professionnels de santé, et les équipements médicaux.
+            </p>
+            <ul>
+              <li><i class="bi bi-check2-all"></i> <span>Offrir des solutions efficaces et accessibles pour améliorer le parcours de soins.</span></li>
+              
+              <li><i class="bi bi-check2-all"></i> <span>Répondre rapidement aux préoccupations des utilisateurs pour une expérience fluide</span></li>
+             
+              <li><i class="bi bi-check2-all"></i> <span>Offrir un service de commande de médicaments rapide, sécurisé et livré à domicile</span></li>
+               <li><i class="bi bi-check2-all"></i> <span> Assurer le bon fonctionnement des équipements médicaux pour un service sans interruption</span></li>
+             
+              
+            </ul>
+            
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="fas fa-user-md flex-shrink-0"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="25" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Doctors</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="far fa-hospital flex-shrink-0"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Departments</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="fas fa-flask flex-shrink-0"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="8" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Research Labs</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="fas fa-award flex-shrink-0"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Awards</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Stats Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+
+      <div class="container">
+
+        <div class="row justify-content-around gy-4">
+          <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100"><img src="{{ asset('front/img/features.jpg') }}" alt=""></div> 
+
+          <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            <h3>Bienvenue dans notre application</h3>
+            <p>Simplifiez la gestion de vos rendez-vous médicaux et accédez à nos services en quelques clics</p>
+
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="300">
+              <i class="fa-solid fa-hand-holding-medical flex-shrink-0"></i>
+              <div>
+                <h4><a href="" class="stretched-link">Consultation Médicale</a></h4>
+                <p>Nous comprenons les besoins de nos patients et nous nous engageons à offrir une expérience fluide pour la prise de rendez-vous, le suivi médical et la gestion des factures.</p>
+              </div>
+            </div><!-- End Icon Box -->
+
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="400">
+              <i class="fa-solid fa-suitcase-medical flex-shrink-0"></i>
+              <div>
+                <h4><a href="" class="stretched-link">Maintenance des Équipements Médicaux</a></h4>
+                <p>Votre équipement médical est essentiel pour un service de qualité. Nous assurons une maintenance rapide et fiable pour garantir leur bon fonctionnement</p>
+              </div>
+            </div><!-- End Icon Box -->
+
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="500">
+              
+              <i class="fa-solid fa-lungs flex-shrink-0"></i>
+              <div>
+                <h4><a href="" class="stretched-link">Réclamations et Suggestions</a></h4>
+                <p>Si vous avez des préoccupations, notre plateforme vous permet de soumettre facilement vos réclamations et nous nous engageons à y répondre dans les meilleurs délais</p>
+              </div>
+            </div><!-- End Icon Box -->
+
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="600">
+              
+              <i class="fa-solid fa-staff-snake flex-shrink-0"></i>
+              <div>
+                <h4><a href="" class="stretched-link">Pharmacie en Ligne</a></h4>
+                <p>Commandez vos médicaments en ligne et faites-vous livrer directement chez vous en toute sécurité</p>
+              </div>
+            </div><!-- End Icon Box -->
+
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Features Section -->
+
+    
+
+   
+    <!-- Tabs Section -->
+   
+    <section id="tabs" class="tabs section">
+
+      <!-- Section Title -->
+      <div  class="container section-title" data-aos="fade-up">
+        <h2>Departments</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" href="#tabs-tab-1">Cardiology</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-2">Neurology</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-3">Hepatology</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-4">Pediatrics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-5">Ophthalmologists</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              <div class="tab-pane active show" id="tabs-tab-1">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Cardiology</h3>
+                    <p class="fst-italic">La cardiologie est la spécialité médicale dédiée à l’étude, au diagnostic et au traitement des maladies du cœur et des vaisseaux sanguins. Nos experts veillent à votre santé cardiaque grâce à des soins personnalisés et des technologies de pointe.</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-1.jpg') }}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-tab-2">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Neurology</h3>
+                    <p class="fst-italic">La neurologie est la spécialité médicale qui traite des troubles du système nerveux, y compris le cerveau, la moelle épinière et les nerfs périphériques. Nos spécialistes s’engagent à diagnostiquer et soigner des pathologies complexes grâce à une expertise avancée et des technologies moderne</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-2.jpg') }}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-tab-3">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Hepatology</h3>
+                    <p class="fst-italic">L’hépatologie est une branche de la médecine qui se concentre sur le diagnostic, le traitement et la prévention des maladies du foie, de la vésicule biliaire et des voies biliaires. Nos spécialistes offrent des soins de qualité pour des pathologies comme les hépatites, la cirrhose et bien d’autres.</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-3.jpg') }}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-tab-4">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Pediatrie</h3>
+                    <p class="fst-italic">La pédiatrie est dédiée à la santé et au bien-être des enfants, de la naissance à l’adolescence. Nos pédiatres offrent des soins spécialisés pour le développement, la prévention et le traitement des maladies infantiles.</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-4.jpg') }}" alt="" class="img-fluid">
+
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-tab-5">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Ophthalmologie</h3>
+                    <p class="fst-italic">L’ophtalmologie est la spécialité médicale qui se concentre sur le diagnostic et le traitement des troubles de la vision et des maladies des yeux. Nos ophtalmologistes utilisent des technologies de pointe pour préserver et améliorer votre santé visuelle.</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-5.jpg') }}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Tabs Section -->
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="appointment section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>PRENDRE UN RENDEZ VOUS</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+
+          <div class="row">
+            <div class="col-md-4 form-group">
+               {{ form_widget(form.date_heure) }}
+               {{ form_errors(form.date_heure) }}
+            </div>
+            <div class="col-md-4 form-group mt-3 mt-md-0">
+               {{ form_widget(form.motif) }}
+                              {{ form_errors(form.motif) }}
+
+            </div>
+            <div class="col-md-4 form-group mt-3 mt-md-0">
+               {{ form_widget(form.statut) }}
+                              {{ form_errors(form.statut) }}
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 form-group mt-3">
+               {{ form_widget(form.mode) }}
+                              {{ form_errors(form.mode) }}
+
+            </div>
+
+          <div class="form-group mt-3">
+               {{ form_widget(form.commantaire) }}
+                              {{ form_errors(form.commantaire) }}
+
+          </div>
+          <div class="form-group mt-3">
+               {{ form_widget(form.id_medecin) }}
+                              {{ form_errors(form.id_medecin) }}
+
+          </div>
+        
+
+          <div class="form-group mt-3 text-center">
+    <button class="btn btn-primary btn-lg cta-btn" style="background-color: #1ca7a2; border-color: #1ca7a2;">{{ button_label|default('Save') }}</button>
+</div>
+        {{ form_end(form) }}
+
+      </div>
+
+    </section><!-- /Appointment Section -->
+
+
+
+
+
+
+    
+
+
+<table id="planificationsTable" border="1" style="display:none;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Freelancer</th>
+            <th>Date</th>
+            <th>Adresse</th>
+            <th>Mode</th>
+            <th>Statut</th>
+            <th>Actions</th> <!-- New column for actions -->
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+document.getElementById("showPlanifications").addEventListener("click", function () {
+    fetch("/planification/matching/planifications")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const table = document.getElementById("planificationsTable");
+            const tbody = table.querySelector("tbody");
+
+            tbody.innerHTML = ""; // Clear old data
+            data.forEach(planif => {
+                const row = `<tr>
+                    <td>${planif.id}</td>
+                    <td>${planif.freelancer}</td>
+                    <td>${planif.date}</td>
+                    <td>${planif.adresse}</td>
+                    <td>${planif.mode}</td>
+                    <td>${planif.statut}</td>
+                    <td>
+                        <button class="confirm-btn" data-id="${planif.id}">Confirmer</button>
+                        <button class="cancel-btn" data-id="${planif.id}">Annuler</button>
+                    </td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+
+            table.style.display = "block"; // Show table
+
+            // Add event listeners for the new buttons
+            document.querySelectorAll('.confirm-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const planifId = this.getAttribute('data-id');
+                    updatePlanificationStatus(planifId, 'confirmé');
+                });
+            });
+
+            document.querySelectorAll('.cancel-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const planifId = this.getAttribute('data-id');
+                    updatePlanificationStatus(planifId, 'annulé');
+                });
+            });
+        })
+        .catch(error => console.error("Error fetching planifications:", error));
+});
+
+function updatePlanificationStatus(planifId, status) {
+    fetch(`/planification/update-status/${planifId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`Planification ${status} avec succès.`);
+            document.getElementById("showPlanifications").click(); // Refresh the table
+        } else {
+            alert('Erreur lors de la mise à jour du statut.');
+        }
+    })
+    .catch(error => console.error("Error updating planification status:", error));
+}
+</script>
+  
+{% if freelancers is defined and freelancers is not empty %}
+  <section id="doctors" class="doctors section light-background">
+      <div class="container section-title" data-aos="fade-up">
+          <h2>Doctors</h2>
+          <p>Une équipe de professionnels de santé dévoués.</p>
+      </div>
+
+      <div class="container">
+          <div class="row gy-4 justify-content-center">
+              {% for freelancer in freelancers %}
+              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                  <div class="testimonial-card">
+                      <div class="testimonial-content">
+                          <p>
+                              <span class="quote-icon">❝</span>
+                              {{ freelancer.matching.description is defined ? freelancer.matching.description : 'Aucune description disponible.' }}
+                              <span class="quote-icon">❞</span>
+                          </p>
+                      </div>
+                      <div class="testimonial-footer">
+                          <img src="{{ asset('utilisateur/img/' ~ freelancer.image) }}" class="testimonial-img" alt="Doctor Image">
+                          <h4>{{ freelancer.prenom }} {{ freelancer.nom }}</h4>
+                          <p>Freelancer</p>
+                          <button class="view-details" data-id="{{ freelancer.id }}">View Details</button>
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+      </div>
+  </section>
+
+  <!-- SINGLE MODAL (OUTSIDE LOOP) -->
+  <div id="freelancerModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="freelancerName"></h2>
+                <p><strong>id:</strong> <span id="freelancerId"></span></p>
+        <p><strong>Email:</strong> <span id="freelancerEmail"></span></p>
+        <p><strong>Date de Naissance:</strong> <span id="freelancerDOB"></span></p>
+        <p><strong>Adresse:</strong> <span id="freelancerAddress"></span></p>
+        <p><strong>Genre:</strong> <span id="freelancerGender"></span></p>
+        <p><strong>Specialty:</strong> <span id="freelancerSpecialty"></span></p>
+        <p><strong>Bio:</strong> <span id="freelancerBio"></span></p>
+        <p><strong>CV:</strong> <span id="freelancerCV"></span></p>
+        <p><strong>Prix:</strong> <span id="freelancerPrice"></span></p>
+        <p><strong>Disponibilité:</strong> <span id="freelancerAvailability"></span></p>
+        
+        <!-- Plannification Button -->
+        <button id="requestPlannification" class="btn btn-primary">Demander une Plannification</button>
+
+        <!-- Plannification Form (Initially Hidden) -->
+        <form id="PlannificationForm" style="display: none; margin-top: 20px;">
+            <input type="hidden" id="freelancerId" name="freelancerId">
+           
+
+         
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="adresse">Adresse:</label>
+            <input type="text" id="adresse" name="adresse" required>
+
+            <label for="mode">Mode:</label>
+            <select id="mode" name="mode">
+              <option value="présentiel">Présentiel</option>
+              <option value="en ligne">En ligne</option>
+            </select>
+
+           
+
+            <button type="submit" class="btn btn-success">Confirmer</button>
+        </form>
+    </div>
+  </div>
+{% else %}
+  <p class="text-center">Aucun freelancer disponible.</p>
+{% endif %}
+
+<style>
+  .doctors {
+    background-color: #ffffff; /* Set background color to white */
+  }
+  .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
+  .modal-content { background: white; padding: 20px; border-radius: 10px; width: 400px; text-align: center; position: relative; }
+  .close { position: absolute; top: 10px; right: 20px; cursor: pointer; font-size: 20px; }
+
+</style>
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+    console.log("JavaScript loaded!");
+
+    document.querySelectorAll('.view-details').forEach(button => {
+        button.addEventListener('click', function () {
+            let freelancerId = this.getAttribute('data-id');
+            console.log("Clicked button for ID:", freelancerId);
+
+            fetch(`/matching/freelancer/details/${freelancerId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+
+                    console.log("Received data:", data);
+                    document.getElementById('freelancerName').textContent = data.name;
+                    document.getElementById('freelancerEmail').textContent = data.email;
+                    document.getElementById('freelancerDOB').textContent = data.date_naissance;
+                    document.getElementById('freelancerAddress').textContent = data.adresse;
+                    document.getElementById('freelancerGender').textContent = data.genre;
+                    document.getElementById('freelancerSpecialty').textContent = data.competences;
+                    document.getElementById('freelancerBio').textContent = data.description;
+                    document.getElementById('freelancerCV').textContent = data.cv;
+                    document.getElementById('freelancerPrice').textContent = data.price ;
+                    document.getElementById('freelancerAvailability').innerHTML = data.availability ? '<span class="badge bg-success">Available</span>' : '<span class="badge bg-danger">Unavailable</span>';
+
+                    document.getElementById('freelancerId').value = freelancerId;
+                    document.getElementById('freelancerModal').style.display = "flex";
+                })
+                .catch(error => console.error("Fetch error:", error));
+        });
+    });
+
+    document.querySelector('.close').addEventListener('click', function () {
+        document.getElementById('freelancerModal').style.display = "none";
+    });
+
+    window.addEventListener('click', function(event) {
+        let modal = document.getElementById('freelancerModal');
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    document.getElementById("requestPlannification").addEventListener("click", function () {
+        document.getElementById("PlannificationForm").style.display = "block";
+    });
+
+    document.getElementById("PlannificationForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const freelancerId = document.getElementById("freelancerId").value;
+        const utilisateurInput = document.getElementById("utilisateurId");
+        const utilisateurId = utilisateurInput ? utilisateurInput.value : null;
+        const date = document.getElementById("date").value;
+        const adresse = document.getElementById("adresse").value;
+        const mode = document.getElementById("mode").value;
+
+        if (!utilisateurId) {
+            console.error("Utilisateur ID is missing.");
+            alert("User ID is required to request a consultation.");
+            return;
+        }
+
+        fetch("/matching/consultation/request", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                utilisateurId: utilisateurId,
+                freelancerId: freelancerId,
+                date: date,
+                adresse: adresse,
+                mode: mode
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                document.getElementById("PlannificationForm").style.display = "none";
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while saving the consultation request.");
+        });
+    });
+});
+
+</script>
+
+
+
+  <!-- Reclamation Section -->
+<section id="reclamation" class="reclamation section light-background">
+
+{% include 'front/exemple.html.twig' with { 'articles': articles  } %}
+
+ 
+
+</section><!-- End Reclamation Section -->
+    
+
+    <!-- Faq Section -->
+    <section id="faq" class="faq section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Frequently Asked Questions</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row justify-content-center">
+
+          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="faq-container">
+
+              <div class="faq-item">
+                <h3>Non consectetur a erat nam at lectus urna duis?</h3>
+                <div class="faq-content">
+                  <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>Feugiat scelerisque varius morbi enim nunc faucibus?</h3>
+                <div class="faq-content">
+                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
+                <div class="faq-content">
+                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h3>
+                <div class="faq-content">
+                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>Tempus quam pellentesque nec nam aliquam sem et tortor?</h3>
+                <div class="faq-content">
+                  <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>Perspiciatis quod quo quos nulla quo illum ullam?</h3>
+                <div class="faq-content">
+                  <p>Enim ea facilis quaerat voluptas quidem et dolorem. Quis et consequatur non sed in suscipit sequi. Distinctio ipsam dolore et.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+            </div>
+
+          </div><!-- End Faq Column-->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Faq Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
+        <iframe style="border:0; width: 100%; height: 370px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div><!-- End Google Maps -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+          <div class="col-lg-6 ">
+            <div class="row gy-4">
+
+              <div class="col-lg-12">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
+                  <i class="bi bi-geo-alt"></i>
+                  <h3>Address</h3>
+                  <p>A108 Adam Street, New York, NY 535022</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
+                  <i class="bi bi-telephone"></i>
+                  <h3>Call Us</h3>
+                  <p>+1 5589 55488 55</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
+                  <i class="bi bi-envelope"></i>
+                  <h3>Email Us</h3>
+                  <p>info@example.com</p>
+                </div>
+              </div><!-- End Info Item -->
+
+            </div>
+          </div>   
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">ClinicFlow</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>A108 Adam Street</p>
+            <p>New York, NY 535022</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+            <p><strong>Email:</strong> <span>info@example.com</span></p>
+          </div>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">ClinicFlow</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href=“https://themewagon.com>ThemeWagon
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+<script src="{{ asset('front/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('front/vendor/php-email-form/validate.js') }}"></script>
+<script src="{{ asset('front/vendor/aos/aos.js') }}"></script>
+<script src="{{ asset('front/vendor/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ asset('front/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+<script src="{{ asset('front/vendor/swiper/swiper-bundle.min.js') }}"></script>
+ 
+ 
+  <!-- Main JS File -->
+  <script src="{{ asset('front/js/main.js') }}"></script>
+
+
+</body>
+
+</html>
