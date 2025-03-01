@@ -1,0 +1,66 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+    <!-- Section Ajout Ordonnance -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+    <h2>Ajouter une Ordonnance</h2>
+        
+        {{ form_start(form, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+
+        <div class="form-group">
+            {{ form_label(form.date, 'Date de l’ordonnance', {'attr': {'for': 'dateInput'}}) }}
+            {{ form_widget(form.date, {'attr': {'id': 'dateInput', 'class': 'form-control'}}) }}
+            {{ form_errors(form.date) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.medicaments, 'Médicaments prescrits') }}
+            {{ form_widget(form.medicaments, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.medicaments) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.duree_utilisation, 'Durée d’utilisation') }}
+            {{ form_widget(form.duree_utilisation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.duree_utilisation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.quantite_utilisation, 'Quantité à utiliser') }}
+            {{ form_widget(form.quantite_utilisation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.quantite_utilisation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.id_consultation, 'Consultation associée') }}
+            {{ form_widget(form.id_consultation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.id_consultation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.commantaire, 'Commentaire') }}
+            {{ form_widget(form.commantaire, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.commantaire) }}
+        </div>
+
+        <div class="form-button">
+            <button class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+
+        {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+       
+</main>
+
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+            
+        <h1 class="fw-bold mb-3">Liste des Facturations 📄</h1>
+        {% if facturations is defined and facturations is empty %}
+            <p>Aucune facturation trouvée pour ce patient.</p>
+        {% else %}
+            <table class="table123">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ID Ordonnance</th>
+                        <th>Date</th>
+                        <th>Montant (€)</th>
+                        <th>Méthode de Paiement</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for facturation in facturations %}
+                        <tr>
+                            <td><strong>{{ facturation.id }}</strong></td>
+                            <td>{{ facturation.idOrdonnanceId }}</td>
+                            <td>{{ facturation.getDate() ? facturation.getDate()|date('Y-m-d') : 'N/A' }}</td>
+                            <td><span class="fw-bold">{{ facturation.montant }}</span></td>
+                            <td>{{ facturation.methodePaiement ? facturation.methodePaiement.label : '' }}</td>
+                            <td>
+                                <span class="badge {% if facturation.statut == 'payé' %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                                    {{ facturation.statut }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_facturation_show', {'id': facturation.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_facturation_edit', {'id': facturation.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        </div>
+    </div>
+</div>
+</main>
+
+{% endblock %}

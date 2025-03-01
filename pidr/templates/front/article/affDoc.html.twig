@@ -1,0 +1,50 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+            <div class="container-fluid mt-5">
+        <h2 class="mb-4 text-primary fw-bold text-center">Mes Articles</h2>
+
+        <!-- Affichage des articles avec un layout bien réparti -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for article in articles %}
+                    <div class="col">
+                        <div class="card shadow-sm border-0 h-100 p-3">
+                            <!-- Image bien cadrée -->
+                            <img src="{{ asset(article.urlimagearticle) }}" class="card-img-top" alt="{{ article.titre }}" style="height: 250px; object-fit: cover; border-radius: 8px;">
+
+                            <div class="card-body">
+
+                <div class="d-flex align-items-center text-muted small me-2"> 
+                 <span>{{ article.dateArticle|date('d M. Y') }} · 2 min de lecture</span>   <a href="{{ path('article_delete', {'id': article.id}) }}">  <i class="bi bi-trash me-2 text-danger" style="cursor: pointer;" ></i> </a>
+
+                <a href="{{ path('article_edit', {'id': article.id}) }}">  <i class="bi bi-pencil-square" style="cursor: pointer;" ></i> </a>
+                </div>
+                                <h5 class="card-title fw-bold">{{ article.titre }}</h5>
+                                <p class="card-text">{{ article.contenue|slice(0, 100) }}...</p>
+                            </div>
+                            <!-- Footer avec icônes -->
+                            <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                                <span class="text-muted"><i class="fas fa-eye"></i> {{ article.nbreVue }}</span>
+                                <span class="text-muted"><i class="fas fa-comment-alt"></i>
+                                {{ commentaireRepository.countCommentairesByArticle(article.id) }}
+                                 </span>
+                                <a href="{{ path('article_detail', {'id': article.id}) }}" class="btn btn-outline-primary btn-sm">Lire plus</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+       
+    </div>
+       </div>
+    </div>
+</div>
+</main>
+{% endblock %}

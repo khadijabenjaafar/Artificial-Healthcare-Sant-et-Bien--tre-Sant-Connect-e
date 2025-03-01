@@ -1,0 +1,22 @@
+<form method="post" action="{{ path('app_facturation_delete', {'id': facturation.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ facturation.id) }}">
+    <button class="btn">Supprimer</button>
+</form>
+<style>
+    .btn-delete {
+        background-color: #d3d3d3; /* Gris clair */
+        color: black;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-delete:hover {
+        background-color: #a9a9a9; /* Gris plus foncé */
+        color: white;
+    }
+</style>

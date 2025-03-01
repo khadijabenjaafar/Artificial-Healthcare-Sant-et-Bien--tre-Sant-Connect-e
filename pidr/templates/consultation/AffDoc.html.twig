@@ -1,0 +1,56 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+        <h1>Consultations du patient</h1>
+        {% if consultations is defined and consultations is empty %}
+            <p>Aucune consultation trouvée pour ce patient.</p>
+        {% else %}
+            <table class="table123">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>prix</th>
+                        <th>observation</th>
+                        <th>traitement</th>
+                        <th>diagnostic</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consultation in consultations %}
+                        <tr>
+                            <td><strong>{{ consultation.id }}</strong></td>
+                            <td>{{ consultation.getProchainRdv() ? consultation.getProchainRdv()|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ consultation.prix }}</td>
+                            <td>{{ consultation.observation }}</td>
+                            <td>{{ consultation.traitement }}</td>
+                            <td>{{ consultation.diagnostic }}</td>
+                            <td>
+                                <a href="{{ path('app_consultation_show', {'id': consultation.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_consultation_edit', {'id': consultation.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        </div>
+    </div>
+</div>
+</main>
+
+
+
+{% endblock %}
