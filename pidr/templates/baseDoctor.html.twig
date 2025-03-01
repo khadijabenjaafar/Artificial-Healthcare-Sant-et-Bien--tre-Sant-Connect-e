@@ -147,15 +147,6 @@
             <aside class="sidebar12 p-3">
                 <div class="sidebar-header">
                     <h3>{{ app.user.nom }}</h3>
-                    {% if app.user and app.user.image %}
-                        <a href="{{ path('profile_user') }}">
-                            <img src="{{ asset('utilisateur/img/' ~ app.user.image) }}" alt="Photo de profil" class="profile-icon">
-                        </a>
-                    {% else %}
-                        <a href="{{ path('profile_user') }}">
-                            <i class="bi bi-person-circle profile-icon"></i>
-                        </a>
-                    {% endif %}
                 </div>
                 <nav>
                     <ul class="list-unstyled">

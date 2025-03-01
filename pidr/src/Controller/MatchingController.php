@@ -5,7 +5,6 @@ use App\Entity\Utilisateur;
 use App\Entity\Matching;
 use App\Form\Matching1Type;
 use App\Repository\MatchingRepository;
-use App\Repository\PlanificationRepository;
 use App\Repository\UtilisateurRepository;
 use App\Entity\Planification;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,7 +15,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,7 +34,6 @@ final class MatchingController extends AbstractController
         return $this->render('matching/accueil.html.twig', [
             'matchings' => $matchingRepository->findAll(),
         ]);
-        
     }
     #[Route('/backMatching',name: 'app_matching_index2', methods: ['GET'])]
     public function index44(MatchingRepository $matchingRepository): Response
@@ -107,7 +104,7 @@ final class MatchingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('doctor_matching_aff', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('matching/edit.html.twig', [
@@ -115,17 +112,16 @@ final class MatchingController extends AbstractController
             'form' => $form,
         ]);
     }
-    
 
     #[Route('/{id}', name: 'app_matching_delete', methods: ['POST'])]
     public function delete(Request $request, Matching $matching, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$matching->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$matching->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($matching);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('doctor_matching_aff', [], Response::HTTP_SEE_OTHER);
     }
 
     
@@ -175,10 +171,7 @@ public function getFreelancerDetails($id, EntityManagerInterface $entityManager,
             'genre' => $freelancer->getGenre() ?? 'Not specified',
             'description' => $matching->getDescription() ?? 'No bio available',
             'competences' => $matching->getCompetences() ?? 'Not specified',
-            'cv' => $matching->getCv() ?? 'No CV available',
-            'price' => $matching->getPrice() ?? 'Not specified',
-            'available' => $matching->getDate() ? $matching->getDate()->format('Y-m-d') : 'Not specified',
-
+            'cv' => $matching->getCv() ?? 'No CV available'
         ]);
 
     } catch (\Exception $e) {
@@ -220,62 +213,4 @@ public function getFreelancerDetails($id, EntityManagerInterface $entityManager,
         }
     }
 
-    
-    #[Route('/statistics', name: 'app_statistics')]
-    public function index5(MatchingRepository $matchingRepo, PlanificationRepository $planificationRepo): Response
-    {
-       // Fetch statistics
-       $totalMatchings = $matchingRepo->countMatchings();
-       $totalPlanifications = $planificationRepo->countPlanifications();
-       $averagePrice = $matchingRepo->averagePrice();
-
-       $matchingStatusStats = $matchingRepo->countByStatus();
-       $planificationStatusStats = $planificationRepo->countByStatus();
-
-       return $this->render('back/index.html.twig', [
-           'totalMatchings' => $totalMatchings,
-           'totalPlanifications' => $totalPlanifications,
-           'averagePrice' => $averagePrice,
-           'matchingStatusStats' => $matchingStatusStats,
-           'planificationStatusStats' => $planificationStatusStats,
-       ]);
-   }
-   /*
-   #[Route('/statistics', name: 'app_statistics')]
-   public function index_back(MatchingRepository $matchingRepo): Response
-   {
-       $totalMatchings = $matchingRepo->countMatchings(); 
-   
-       return $this->render('back/index.html.twig', [
-           'totalMatchings' => $totalMatchings,
-       ]);
-   }
-    public function index_back2(PlanificationRepository $planificationRepo): Response
-    {
-         $totalPlanifications = $planificationRepo->countPlanifications(); 
-    
-         return $this->render('back/index.html.twig', [
-              'totalPlanifications' => $totalPlanifications,
-         ]);
-    } 
-    
-    
-    #[Route('/matching/{id}/toggle-availability', name: 'app_matching_toggle_availability')]
-    public function toggleAvailability(int $id, EntityManagerInterface $entityManager): RedirectResponse
-    {
-        $matching = $entityManager->getRepository(Matching::class)->find($id);
-
-        if (!$matching) {
-            $this->addFlash('error', 'Matching not found.');
-            return $this->redirectToRoute('app_matching_list');
-        }
-
-        // Toggle availability
-        $matching->setAvailability(!$matching->getAvailability());
-        $entityManager->flush();
-
-        $this->addFlash('success', 'Availability updated successfully.');
-        return $this->redirectToRoute('app_matching_list');
-    }
-        */
 }
