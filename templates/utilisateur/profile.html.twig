@@ -1,0 +1,50 @@
+{# templates/profile/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block body %}
+<style>
+    .profile-icon {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    .cta-btn h2 {
+        color: white !important;  /* Applique la couleur blanche au titre "Profile" */
+    }
+</style>
+<div class="container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+    <div class="card w-50 shadow-lg">
+        <div class="cta-btn text-center py-4" style="background-color: #1ca7a2; border-radius: 8px;">
+            <h2 class="mb-0">Profile</h2>  <!-- "Profile" sera maintenant en blanc -->
+        </div>
+        <div class="card-body text-center text-white">
+            <img class="rounded-circle border border-white mb-3" src="{{ asset('utilisateur/img/' ~ app.user.image) }}" alt="Profile" width="100" height="100" />
+            <h3>{{ app.user.nom }}</h3>
+            <p class="text-muted">{{ app.user.email }}</p>
+            {% set birthdate = app.user.getDateNaissance() %}
+            {% set now = "now"|date("Y-m-d") %}
+            {% set birthdate = birthdate|date("Y-m-d") %}
+
+            {# Calcul de l'âge #}
+            {% set age = (now|date("Y") - birthdate|date("Y")) - (now|date("m") < birthdate|date("m") or (now|date("m") == birthdate|date("m") and now|date("d") < birthdate|date("d"))) %}
+            <p class="text-secondary">{{ age }} ans</p>
+            <!-- Bouton "Edit Profile" avec style spécifique -->
+            <a href="/utilisateur/edit1/{{ app.user.id }}" class="cta-btn">Edit Profile</a>
+        </div>
+        <div class="card-footer d-flex justify-content-around text-center">
+            <div>
+                <a href="/doctor" class="text-muted">Mes Rendez vous</a>
+            </div>
+            <div>
+                <a href="/doctor" class="text-muted">Mes matchings</a>
+            </div>
+            <div>
+                <a href="/doctor" class="text-muted">Mes ordonnances</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

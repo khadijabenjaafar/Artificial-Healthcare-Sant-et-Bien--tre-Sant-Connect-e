@@ -17,10 +17,7 @@ class Ordonnance
     #[ORM\Column(type: "date")]
     #[Assert\NotNull(message: "La date est obligatoire.")]
     #[Assert\Type("\DateTimeInterface")]
-    #[Assert\GreaterThanOrEqual(
-        "today", 
-        message: "La date ne peut pas être dans le passé."
-    )]
+  
     private ?\DateTimeInterface $date = null;
     
 
@@ -43,8 +40,8 @@ class Ordonnance
     #[Assert\NotBlank(message: "La quantité d'utilisation est obligatoire.")]
     private ?string $quantite_utilisation = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[Assert\NotNull(message: "L'ID de la consultation est obligatoire.")]
+    #[ORM\OneToOne(cascade: ['persist', 'remove'],orphanRemoval: true)]
+    #[ORM\JoinColumn(name: 'id_consultation_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?Consultation $id_consultation = null;
 
     public function getId(): ?int

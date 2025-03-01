@@ -16,10 +16,8 @@ class Facturation
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[Assert\NotNull(message: "L'ordonnance associée est requise.")]
+    #[ORM\OneToOne(cascade: ['persist', 'remove'],orphanRemoval: true)]
+    #[ORM\JoinColumn(name: 'id_ordonnance_id_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?Ordonnance $id_ordonnance_id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

@@ -1,0 +1,96 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Ordonnance index{% endblock %}
+
+{% block body %}
+     <br>
+        <br>        
+            <br>
+            <br>
+<div class="container">
+          <div class="page-inner">
+            <div class="page-header">
+              <h3 class="fw-bold mb-3">Listes des Ordonnances 📑</h3>
+              <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                  <a href="/back">
+                    <i class="icon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+              </ul>
+              <div class="input-group mb-3 float-end" style="max-width: 300px;">
+                <input type="text" class="form-control" id="searchInput" placeholder="Rechercher..." aria-label="Search">
+                <div class="input-group-append">
+                    
+                </div>
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table
+                        id="basic-datatables"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Médicaments</th>
+                        <th>Commentaire</th>
+                        <th>Durée d'utilisation</th>
+                        <th>Quantité d'utilisation</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Médicaments</th>
+                        <th>Commentaire</th>
+                        <th>Durée d'utilisation</th>
+                        <th>Quantité d'utilisation</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for ordonnance in ordonnances %}
+                        <tr class="align-middle">
+                            <td><strong>{{ ordonnance.id }}</strong></td>
+                            <td>{{ ordonnance.date ? ordonnance.date|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ ordonnance.medicaments }}</td>
+                            <td>{{ ordonnance.commantaire }}</td>
+                            <td>{{ ordonnance.dureeUtilisation }}</td>
+                            <td>{{ ordonnance.quantiteUtilisation }}</td>
+                            
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center text-dark fw-bold">Aucune ordonnance disponible</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+      
+    </div>
+</div>
+<script>
+  document.getElementById("searchInput").addEventListener("keyup", function () {
+      let filter = this.value.toLowerCase();
+      let rows = document.querySelectorAll("tbody tr");
+      rows.forEach(row => {
+          row.style.display = row.innerText.toLowerCase().includes(filter) ? "" : "none";
+      });
+  });
+</script>
+{% endblock %}

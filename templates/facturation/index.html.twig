@@ -1,16 +1,54 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseback.html.twig' %}
 
 {% block title %}Facturation{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <h1 class="mb-4 text-center">📄 Facturation</h1>
-
-    <div class="p-4 rounded shadow" style="background-color: #20B2AA;"> {# Fond turquoise du haut de page #}
-
-        <div class="table-responsive">
-            <table class="table table-hover text-center rounded shadow-lg" style="background-color: #87CEEB;"> {# Tableau bleu #}
-                <thead class="text-white" style="background-color: #000000;"> {# En-tête noir #}
+<br>
+    <br>        
+        <br>
+        <br>    
+<div class="container">
+          <div class="page-inner">
+            <div class="page-header">
+              <h3 class="fw-bold mb-3">Listes des Facturations 📄</h3>
+              <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                  <a href="/back">
+                    <i class="icon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+               <li> 
+                
+                </li>
+               <script>
+                document.getElementById("searchInput").addEventListener("keyup", function () {
+                    let filter = this.value.toLowerCase();
+                    let rows = document.querySelectorAll("tbody tr");
+                    rows.forEach(row => {
+                        row.style.display = row.innerText.toLowerCase().includes(filter) ? "" : "none";
+                    });
+                });
+            </script>
+             
+              </ul>
+              <div class="input-group mb-3 float-end" style="max-width: 300px;">
+                <input type="text" class="form-control" id="searchInput" placeholder="Rechercher..." aria-label="Search"></div> 
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    
+                    <div class="table-responsive">
+                      <table
+                        id="basic-datatables"
+                        class="display table table-striped table-hover"
+                      >
+                     
+                        <thead>
                     <tr>
                         <th>ID</th>
                         <th>ID Ordonnance</th>
@@ -18,9 +56,18 @@
                         <th>Montant (€)</th>
                         <th>Méthode de Paiement</th>
                         <th>Statut</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>ID Ordonnance</th>
+                        <th>Date</th>
+                        <th>Montant (€)</th>
+                        <th>Méthode de Paiement</th>
+                        <th>Statut</th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     {% for facturation in facturations %}
                         <tr class="align-middle">
@@ -50,15 +97,10 @@
                         </tr>
                     {% endfor %}
                 </tbody>
-            </table>
-        </div>
-
-        <div class="text-center mt-3">
-            <a href="{{ path('app_facturation_new') }}" class="btn btn-secondary btn-lg shadow">
-                <i class="bi bi-plus-circle"></i> Ajouter Facturation
-            </a>
-        </div>
-        
-    </div>
+            </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
 </div>
 {% endblock %}

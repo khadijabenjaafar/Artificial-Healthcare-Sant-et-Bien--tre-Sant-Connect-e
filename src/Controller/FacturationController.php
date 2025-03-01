@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 #[Route('/facturation')]
 final class FacturationController extends AbstractController
@@ -28,6 +30,7 @@ final class FacturationController extends AbstractController
         $facturation = new Facturation();
         $form = $this->createForm(FacturationType::class, $facturation);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -98,6 +101,62 @@ public function edit(Request $request, Facturation $facturation, EntityManagerIn
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_facturation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/facturation/{id}/toggle-status', name: 'app_facturation_toggle_status')]
+    public function toggleStatus(Facturation $facturation, EntityManagerInterface $entityManager): Response
+    {
+        // Empêcher le changement si la facturation est déjà Payée
+        if ($facturation->getStatut() === 'Payée') {
+            $this->addFlash('warning', 'Cette facturation est déjà payée et ne peut plus être modifiée.');
+            return $this->redirectToRoute('app_facturation_index');
+        }
+    
+        // Changer le statut
+        $facturation->setStatut('Payée');
+    
+        $entityManager->persist($facturation);
+        $entityManager->flush();
+    
+        $this->addFlash('success', 'Le statut de la facturation a été mis à jour.');
+    
+        return $this->redirectToRoute('app_facturation_index');
+    }
+    #[Route('/facture/{id}/download', name: 'app_facture_download')]
+    public function downloadFacture(Facturation $facturation): Response
+    {
+        // Vérifier si la facture est payée
+        if ($facturation->getStatut() !== 'Payée') {
+            $this->addFlash('warning', 'Vous ne pouvez télécharger la facture que si elle est payée.');
+            return $this->redirectToRoute('app_facturation_index');
+        }
+    
+        // Options du PDF
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+    
+        // Instancier Dompdf
+        $dompdf = new Dompdf($pdfOptions);
+    
+        // Contenu du PDF (modifie selon ton besoin)
+        $html = "
+            <h1>Facture #{$facturation->getId()}</h1>
+            <p><strong>Date :</strong> {$facturation->getDate()->format('d/m/Y')}</p>
+            <p><strong>Statut :</strong> {$facturation->getStatut()}</p>
+            <p><strong>Montant :</strong> {$facturation->getMontant()} €</p>
+            <hr>
+            <p>Merci pour votre paiement.</p>
+        ";
+    
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+    
+        // Réponse PDF
+        return new Response($dompdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="facture_'.$facturation->getId().'.pdf"'
+        ]);
+    }    
+
 }

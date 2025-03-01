@@ -51,13 +51,25 @@
             <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}" class="btn btn-warning btn-lg shadow">
                 <i class="bi bi-pencil-square"></i> Modifier
             </a>
+            
+            <button id="printButton_{{ ordonnance.id }}" class="btn btn-primary">Imprimer l'ordonnance</button>
+            <script>
+                document.getElementById('printButton_{{ ordonnance.id }}').addEventListener('click', function() {
+                    var printContents = document.querySelector('.table-responsive').innerHTML;
+                    var logo = '<div class="text-center mb-4"><img src="/path/to/logo.png" alt="Logo" style="width: 100px;"></div>';
+                    printContents = logo + printContents;
+                    var originalContents = document.body.innerHTML;
+                    document.body.innerHTML = printContents;
+                    window.print();
+                    document.body.innerHTML = originalContents;
+                    location.reload();
+                });
+            </script>
             <form method="post" action="{{ path('app_ordonnance_delete', {'id': ordonnance.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette ordonnance ?');" class="d-inline">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ordonnance.id) }}">
                 <button type="submit" class="btn btn-danger btn-lg shadow">
                     <i class="bi bi-trash"></i> Supprimer
                 </button>
             </form>
-        </div>
-    </div>
-</div>
+
 {% endblock %}

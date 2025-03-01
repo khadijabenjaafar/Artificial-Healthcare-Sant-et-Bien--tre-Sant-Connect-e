@@ -1,0 +1,60 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+    <br>
+        <br>        
+            <br>
+            <br>
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Liste des Consultations</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="/back">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Diagnostic</th>
+                                        <th>Traitement</th>
+                                        <th>Observation</th>
+                                        <th>Prix</th>
+                                        <th>Prochain Rendez-vous</th>
+                                        <th>Durée</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for consultation in consultations %}
+                                    <tr>
+                                        <td>{{ consultation.diagnostic }}</td>
+                                        <td>{{ consultation.traitement }}</td>
+                                        <td>{{ consultation.observation }}</td>
+                                        <td>{{ consultation.prix }}</td>
+                                        <td>{{ consultation.getProchainRdv()|date('d/m/Y') }}</td>
+                                        <td>{{ consultation.duree }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
