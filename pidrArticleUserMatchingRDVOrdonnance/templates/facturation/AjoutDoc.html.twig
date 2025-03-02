@@ -1,0 +1,62 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+            
+        <h2>Ajouter une Facturation</h2>
+        
+        {{ form_start(form1, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+
+        <div class="form-group">
+            {{ form_label(form1.id_ordonnance_id, 'id_ordonnance associer') }}
+            {{ form_widget(form1.id_ordonnance_id, {'attr': {'id': 'dateInput', 'class': 'form-control'}}) }}
+            {{ form_errors(form1.id_ordonnance_id) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form1.date, 'Date de la facturation', {'attr': {'for': 'dateInput'}}) }}
+            {{ form_widget(form1.date, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form1.date) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form1.montant, 'Montant de la facturation') }}
+            {{ form_widget(form1.montant, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form1.montant) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form1.methode_paiement, 'Methode de Paiement') }}
+            {{ form_widget(form1.methode_paiement, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form1.methode_paiement) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form1.statut, 'Statut de la facturation') }}
+            {{ form_widget(form1.statut, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form1.statut) }}
+        </div>
+
+        <div class="form-button">
+            <button class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+
+        {{ form_end(form1) }}
+        </div>
+    </div>
+</div>
+</main>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

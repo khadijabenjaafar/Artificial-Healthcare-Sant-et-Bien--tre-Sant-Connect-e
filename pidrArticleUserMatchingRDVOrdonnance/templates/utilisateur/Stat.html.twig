@@ -1,0 +1,52 @@
+
+    <h1>Statistiques des Utilisateurs par Rôle</h1>
+<style>
+#statsChart {
+    width: 80%;  /* Ajuste la largeur selon ton besoin */
+    margin-left: auto;
+    margin-right: 0;
+}
+</style>
+    <!-- Stocker les données sous forme JSON -->
+    <script id="userStat" type="application/json">{{ stats|json_encode|raw }}</script>
+
+    <!-- Canvas pour afficher le graphique -->
+    <canvas id="statsChart" style="display: block; height: 360px; width: 521px;"></canvas>
+
+    <!-- Importation de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Récupérer les données JSON depuis le script caché
+            const jsonData = document.getElementById("userStat").textContent;
+            const stats = JSON.parse(jsonData);
+            console.log(stats);
+
+            // Extraire les labels et les valeurs
+            const labels = Object.keys(stats);
+            const dataValues = Object.values(stats);
+
+            // Création du graphique en cercle
+            const ctx = document.getElementById('statsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie', // Changez 'bar' en 'pie' ou 'doughnut' pour un graphique en cercle
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Nombre d\'utilisateurs',
+                        data: dataValues,
+                        backgroundColor: ['red', 'blue', 'green', 'orange', 'purple'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true }
+                    }
+                }
+            });
+        });
+    </script>
+

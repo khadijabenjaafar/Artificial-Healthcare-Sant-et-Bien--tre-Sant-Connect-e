@@ -1,0 +1,338 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<style>/* Style général pour la liste */
+    #historiqueOrdonnanceList {
+        list-style-type: none; /* Supprimer les puces */
+        padding: 0;
+        margin: 20px 0;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        color: #333;
+    }
+    
+    /* Style des éléments de la liste */
+    #historiqueOrdonnanceList li {
+        background: rgba(255, 255, 255, 0.9); /* Effet semi-transparent */
+        padding: 18px;
+        margin: 12px 0;
+        border-radius: 12px; /* Coins plus arrondis */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        gap: 12px; /* Espacement entre l'icône et le texte */
+        position: relative;
+        backdrop-filter: blur(6px); /* Effet de flou moderne */
+        overflow: hidden;
+    }
+    
+    /* Effet au survol */
+    #historiqueOrdonnanceList li:hover {
+        background: rgba(240, 240, 240, 0.95);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Icônes à gauche de chaque élément (optionnel) */
+    #historiqueOrdonnanceList li::before {
+        content: "📄"; /* Icône document */
+        font-size: 20px;
+    }
+    
+    /* Style des liens */
+    #historiqueOrdonnanceList li a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        flex-grow: 1; /* Permet au texte de s’étirer */
+    }
+    
+    /* Effet de survol des liens */
+    #historiqueOrdonnanceList li a:hover {
+        text-decoration: underline;
+        color: #0056b3;
+    }
+    
+    /* Ajout d’une ligne décorative à gauche */
+    #historiqueOrdonnanceList li::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background: linear-gradient(45deg, #007bff, #00d4ff);
+        transition: width 0.3s ease-in-out;
+    }
+    
+    /* Animation au survol de la ligne */
+    #historiqueOrdonnanceList li:hover::after {
+        width: 8px;
+    }
+    
+    </style>
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+        <h1>Ordonnances du patient</h1>
+
+    <button id="toggleHistorique">Afficher l'historique</button>
+    <div id="historiqueOrdonnances" style="display: none;">
+        <ul id="historiqueOrdonnanceList"></ul>
+    </div>
+
+    <script>
+        document.getElementById('toggleHistorique').addEventListener('click', function() {
+            var historiqueSection = document.getElementById('historiqueOrdonnances');
+            var historiqueList = document.getElementById('historiqueOrdonnanceList');
+
+            if (historiqueSection.style.display === 'none' || historiqueSection.style.display === '') {
+                historiqueSection.style.display = 'block';
+                this.textContent = 'Masquer l\'historique';
+
+                fetch('/ordonnance/ordonnance/historique')
+
+
+                    .then(response => response.json())
+                    .then(data => {
+                        historiqueList.innerHTML = ''; // Clear previous list
+                        if (data.length === 0) {
+                            historiqueList.innerHTML = '<li>Aucune ordonnance enregistrée.</li>';
+                        } else {
+                            data.forEach(ordonnance => {
+                                let li = document.createElement('li');
+                                li.textContent = `Ordonnance #${ordonnance.id} - Date : ${ordonnance.date}`;
+                                historiqueList.appendChild(li);
+                            });
+                        }
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            } else {
+                historiqueSection.style.display = 'none';
+                this.textContent = 'Afficher l\'historique';
+            }
+        });
+    </script>
+</section>
+    
+
+
+
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(filter) ? "" : "none";
+            });
+        });
+    </script>
+
+    {% if ordonnances is defined and ordonnances is empty %}
+        <p>Aucune ordonnance trouvée pour ce patient.</p>
+    {% else %}
+        <table class="table123" id="ordonnanceTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Médicaments</th>
+                    <th>Commentaire</th>
+                    <th>Durée d'utilisation</th>
+                    <th>Quantité d'utilisation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ordonnance in ordonnances %}
+                    <tr>
+                        <td><strong>{{ ordonnance.id }}</strong></td>
+                        <td>{{ ordonnance.getDate() ? ordonnance.getDate()|date('Y-m-d') : 'N/A' }}</td>
+                        <td>{{ ordonnance.medicaments }}</td>
+                        <td>{{ ordonnance.commantaire() }}</td>
+                        <td>{{ ordonnance.dureeUtilisation }}</td>
+                        <td>{{ ordonnance.quantiteUtilisation }}</td>
+                        <td>
+                            <a href="{{ path('ordonnance_show', {'id': ordonnance.id}) }}" class="btn btn-info btn-sm">
+                                <i class="bi bi-eye"></i> Voir
+                            </a>    
+                            <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-square"></i> Modifier
+                            </a>
+                           
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <button id="downloadPdf" class="btn btn-primary mt-3">📄 Télécharger PDF</button>
+   <!--
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rows = document.querySelectorAll('#ordonnanceTable tbody tr');
+            const currentDate = new Date();
+    
+            // Flag to check if any ordonnance is older than 3 days
+            let showAlert = false;
+    
+            rows.forEach(function(row) {
+                const ordonnanceDateStr = row.getAttribute('data-date');
+                if (ordonnanceDateStr) {
+                    const ordonnanceDate = new Date(ordonnanceDateStr);
+    
+                    // Calculer la différence en jours
+                    const daysDifference = (currentDate - ordonnanceDate) / (1000 * 3600 * 24);
+                    
+                    // Vérifier si la différence est supérieure à 3 jours
+                    if (daysDifference > 3) {
+                        showAlert = true;
+                    }
+                }
+            });
+    
+            // Si une ordonnance est plus vieille de 3 jours, afficher l'alerte
+            if (showAlert) {
+                alert("Il y a des ordonnances qui ont dépassé 3 jours par rapport à la date actuelle.");
+            }
+        });
+    </script>
+
+
+</section>
+-->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+    document.getElementById("downloadPdf").addEventListener("click", function () {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF();
+
+        // Récupération des lignes de données du tableau HTML
+        const rows = document.querySelectorAll("#ordonnanceTable tbody tr");
+
+        // Parcours des lignes pour créer chaque ordonnance
+        rows.forEach((row, index) => {
+            if (index > 0) {
+                pdf.addPage(); // Nouvelle page pour chaque ordonnance
+            }
+
+            let y = 10;
+            const patient = row.cells[0].textContent.trim();
+            const dure = row.cells[4].textContent.trim();
+            const quantite_utilisation = row.cells[5].textContent.trim();
+            const date = row.cells[1].textContent.trim();
+            const medications = row.cells[2].textContent.trim();
+            const comment = row.cells[3].textContent.trim();
+
+            // Titre de l'ordonnance
+            pdf.setFontSize(14);
+            pdf.setFont("helvetica", "bold");
+            pdf.text("ORDONNANCE", 105, y, null, null, 'center');
+            y += 10;
+
+            // Informations sur le patient et le médecin
+            pdf.setFontSize(12);
+            pdf.setFont("helvetica", "normal");
+            pdf.text(`ID: ${patient}`, 10, y);
+            y += 8;
+            pdf.text(`Medicaments: ${medications}`, 10, y);
+            y += 8;
+            pdf.text(`Date: ${date}`, 10, y);
+            y += 8;
+            pdf.text(`Duree: ${dure}`, 10, y);
+            y += 8;
+            pdf.text(`Quantite d'utilisation: ${quantite_utilisation}`, 10, y);
+            y += 15;
+            pdf.text(`Commentaire: ${comment}`, 10, y);
+            y += 8;
+            // Médicaments prescrits
+            pdf.setFont("helvetica", "bold");
+            pdf.text("Médicaments:", 10, y);
+            y += 8;
+
+            const medsList = medications.split("<br>").map(med => med.trim());
+            medsList.forEach(med => {
+                pdf.setFont("helvetica", "normal");
+                pdf.text(med, 10, y);
+                y += 8;
+            });
+
+            y += 10;
+
+            // Commentaire
+            pdf.setFont("helvetica", "italic");
+            pdf.text(`Commentaire: ${comment}`, 10, y);
+
+            // Ajouter une ligne de séparation en bas de la page
+            y += 15;
+            pdf.setLineWidth(0.5);
+            pdf.line(10, y, 200, y);  // Ligne horizontale
+        });
+
+        pdf.save("ordonnances.pdf");
+    });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function checkExpiredOrdonnances() {
+            fetch('/ordonnance/check-ordonnance')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        let alertMessage = "Les ordonnances suivantes ont plus de 3 jours et doivent être vérifiées :\n\n";
+    
+                        data.forEach(ordonnance => {
+                            alertMessage += `Ordonnance ID: ${ordonnance.id} - Date: ${ordonnance.date}\n`;
+                        });
+    
+                        // Demander à l'utilisateur s'il veut supprimer les ordonnances expirées
+                        if (confirm(alertMessage + "\nVoulez-vous supprimer ces ordonnances ?")) {
+                            deleteExpiredOrdonnances(data.map(ord => ord.id));
+                        }
+                    } else {
+                        console.log('Aucune ordonnance expirée.');
+                    }
+                })
+                .catch(error => console.error('Erreur lors de la récupération des ordonnances :', error));
+        }
+    
+        function deleteExpiredOrdonnances(ordonnanceIds) {
+            fetch('/ordonnance/ordonnance/delete-expired', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ids: ordonnanceIds })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Ordonnances supprimées avec succès !");
+                    location.reload(); // Recharger la page après suppression
+                }
+            })
+            .catch(error => console.error('Erreur lors de la suppression des ordonnances :', error));
+        }
+    
+        checkExpiredOrdonnances();
+    });
+    
+</script>
+        </div>
+    </div>
+</div>
+</main>
+
+
+
+{% endblock %}

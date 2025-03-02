@@ -1,0 +1,73 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+    <h2>Ajouter une consultation</h2>
+        
+        {{ form_start(form3, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+
+        <div class="form-group">
+           {{ form_row(form3.prochain_rdv) }}
+
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.diagnostic, 'Diagnostic') }}
+            {{ form_widget(form3.diagnostic, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.diagnostic) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.traitement, 'Traitement donnee') }}
+            {{ form_widget(form3.traitement, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.traitement) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.observation, 'Observation') }}
+            {{ form_widget(form3.observation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.observation) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.prix, 'Prix de la consultation') }}
+            {{ form_widget(form3.prix, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.prix) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form3.duree, 'Duree') }}
+            {{ form_widget(form3.duree, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.duree) }}
+        </div>
+         <div class="form-group">
+            {{ form_label(form3.id_rendez_vous, 'Id rendez vous associer') }}
+            {{ form_widget(form3.id_rendez_vous, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form3.id_rendez_vous) }}
+        </div>
+
+        <div class="form-button">
+            <button class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+
+        {{ form_end(form3) }}
+        </div>
+    </div>
+</div>
+</main>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+{% endblock %}

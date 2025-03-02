@@ -1,0 +1,58 @@
+{% block title %}Statistiques des Freelances{% endblock %}
+
+{% block body %}
+
+    <!-- Statistiques par Compétence -->
+    <h1>Freelances par Compétence</h1>
+    {% if statsByCompetence is empty %}
+        <p>Aucune donnée disponible.</p>
+    {% else %}
+        <script id="competenceData" type="application/json">{{ statsByCompetence|json_encode|raw }}</script>
+
+        <canvas id="competenceChart" style="display: block; height: 360px; width: 521px;"></canvas>
+
+        <!-- Importation de Chart.js (placez-le avant votre script) -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const ctx = document.getElementById('competenceChart').getContext('2d');
+                const data = JSON.parse(document.getElementById('competenceData').textContent);
+
+                if (data.length === 0) {
+                    console.warn("Aucune donnée pour les statistiques des freelances par compétence !");
+                    return;
+                }
+
+                const labels = data.map(stat => stat.competences);
+                const counts = data.map(stat => stat.countFreelancers);
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Nombre de Freelances',
+                            data: counts,
+                            backgroundColor: '#36A2EB',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Nombre de Freelances'
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    {% endif %}
+
+{% endblock %}

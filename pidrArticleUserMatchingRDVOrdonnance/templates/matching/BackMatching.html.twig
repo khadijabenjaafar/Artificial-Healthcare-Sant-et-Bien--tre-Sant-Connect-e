@@ -1,0 +1,126 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+    <br>
+    <br>        
+    <br>
+    <br>
+    <div class="container">
+        <div class="page-inner">
+            <div class="page-header">
+                <h3 class="fw-bold mb-3">Listes des Matchings</h3>
+                <ul class="breadcrumbs mb-3">
+                    <li class="nav-home">
+                        <a href="/back">
+                            <i class="icon-home"></i>
+                        </a>
+                    </li>
+                    <li></li>
+                    <li class="nav-item">
+                        
+                    <a href="{{ path('app_matching_new') }}" class="text-success">
+                        <i class="fas fa-plus-circle fa-2x"></i>
+                    </a>
+                    </li>
+ 
+                
+                
+                
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                               
+                                <table id="basic-datatables" class="display table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID <span class="sort-icon">🔼🔽</span></th>
+                                            <th>CIN <span class="sort-icon">🔼🔽</span></th>
+                                            <th>Description <span class="sort-icon">🔼🔽</span></th>
+                                            <th>Date <span class="sort-icon">🔼🔽</span></th>
+                                            <th>Specified <span class="sort-icon">🔼🔽</span></th>
+                                            <th>CV <span class="sort-icon">🔼🔽</span></th>
+                                            <th>Utilisateur <span class="sort-icon">🔼🔽</span></th>
+                                            <th>Freelancer <span class="sort-icon">🔼🔽</span></th>
+                                            <th>Prix <span class="sort-icon">🔼🔽</span></th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for matching in matchings %}
+                                            <tr>
+                                                <td>{{ matching.id }}</td>
+                                                <td>{{ matching.cin }}</td>
+                                                <td>{{ matching.description }}</td>
+                                                <td>{{ matching.date|date('d/m/Y') }}</td>
+                                                <td>{{ matching.competences }}</td>
+                                                <td>{{ matching.cv }}</td>
+                                                <td>{{ matching.utilisateur.nom }}</td>
+                                                <td>{{ matching.getIdFreelancer().nom }}</td>
+                                                <td>{{ matching.price }}</td>
+                                                <td>
+                                                    <a href="{{ path('app_matching_edit', {'id': matching.id}) }}" class="text-primary">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <form method="post" action="{{ path('app_matching_delete', {'id': matching.id}) }}" 
+                                                          onsubmit="return confirm('Are you sure you want to delete this item?');" 
+                                                          style="display:inline;">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matching.id) }}">
+                                                        <button type="submit" class="border-0 bg-transparent text-danger">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                
+                                <!-- Include DataTables -->
+                                <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+                                
+                                <script>
+                                    $(document).ready(function () {
+                                        let table = $('#basic-datatables').DataTable({
+                                            "order": [[0, "asc"]], // Default sorting by ID in ascending order
+                                            "columnDefs": [
+                                                { "orderable": false, "targets": 9 } // Disable sorting on 'Actions' column
+                                            ]
+                                        });
+                                
+                                        // Update sorting icons dynamically
+                                        $('#basic-datatables thead th').click(function () {
+                                            $('#basic-datatables thead th .sort-icon').text('🔼🔽'); // Reset all
+                                            let columnIdx = $(this).index();
+                                            let order = table.order();
+                                            if (order[0][0] === columnIdx) {
+                                                $(this).find('.sort-icon').text(order[0][1] === 'asc' ? '🔼' : '🔽');
+                                            }
+                                        });
+                                    });
+                                </script>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(filter) ? "" : "none";
+            });
+        });
+    </script>
+    
+    
+{% endblock %}

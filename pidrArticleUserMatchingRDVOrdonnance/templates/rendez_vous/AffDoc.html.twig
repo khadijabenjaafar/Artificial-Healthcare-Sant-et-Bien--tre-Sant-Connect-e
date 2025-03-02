@@ -1,0 +1,162 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+            
+                <h1>Rendez-vous du patient</h1>
+        {% if rendez_vouses is defined and rendez_vouses is empty %}
+            <p>Aucun rendez-vous trouvé pour ce patient.</p>
+        {% else %}
+            <table class="table123" id="table123" >
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Motif</th>
+                        <th>Statut</th>
+                        <th>Mode</th>
+                        <th>Commentaire</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rendezVous in rendez_vouses %}
+                        <tr>
+                            <td>{{ rendezVous.dateHeure|date('d-m-Y H:i') }}</td>
+                            <td>{{ rendezVous.motif.label }}</td>
+                            <td>{{ rendezVous.statut.label }}</td>
+                            <td>{{ rendezVous.mode.label }}</td>
+                            <td>{{ rendezVous.commantaire }}</td>
+                             <td>
+                                <a href="{{ path('app_rendez_vous_show', {'id': rendezVous.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_rendez_vous_edit', {'id': rendezVous.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+ <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(filter) ? "" : "none";
+            });
+        });
+    </script>
+
+
+<script>
+$(document).ready(function () {
+    let table = $('#table123').DataTable({
+        "order": [[0, "asc"]],
+        "columnDefs": [
+            { "orderable": false, "targets": 5 } // Désactive le tri sur la colonne Action
+        ]
+
+    });
+
+    // Mise à jour des icônes de tri
+    $('#table123 thead th').click(function () {
+        $('#table123 thead th .sort-icon');
+        let columnIdx = $(this).index();
+        let order = table.order();
+        if (order[0][0] === columnIdx) {
+            $(this).find('.sort-icon').text(order[0][1] === 'asc' ? '🔼' : '🔽');
+        }
+    });
+});
+</script>
+<!-- Conteneur pour afficher la notification -->
+<div id="notification-container" 
+     style="position: fixed; top: 20px; right: 20px; padding: 15px; background-color: #1ca7a2; color: white; border-radius: 5px; display: none;">
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    function checkNotifications() {
+        fetch("/notifications")
+            .then(response => response.json())
+            .then(data => {
+                if (data.message && data.id) {
+                    // Vérifier si la notification a déjà été traitée
+                    if (!localStorage.getItem(`rdv_${data.id}`)) {
+                        showNotification(data.message, data.id);
+                    }
+                }
+            })
+            .catch(error => console.error("Erreur de notification :", error));
+
+        setTimeout(checkNotifications, 5000); // Vérifie toutes les 5 secondes
+    }
+
+    function showNotification(message, id) {
+        let notificationDiv = document.getElementById("notification-container");
+        notificationDiv.innerHTML = `
+            <div>
+                <p>${message}</p>
+                <button id="confirm-btn" style="margin-right: 10px; padding: 5px; background-color: green; color: white; border: none; border-radius: 3px; cursor: pointer;">Confirmer</button>
+                <button id="cancel-btn" style="padding: 5px; background-color: red; color: white; border: none; border-radius: 3px; cursor: pointer;">Annuler</button>
+            </div>
+        `;
+        notificationDiv.style.display = "block";
+
+        function removeNotification() {
+            notificationDiv.style.display = "none";
+            localStorage.setItem(`rdv_${id}`, "processed"); // Marque la notification comme traitée
+        }
+
+        document.getElementById("confirm-btn").addEventListener("click", () => {
+            fetch(`/confirm-rdv/${id}`, { method: "POST", headers: { "Content-Type": "application/json" } })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Rendez-vous confirmé et email envoyé !");
+                        removeNotification();
+                    } else {
+                        alert("Erreur : " + data.message);
+                    }
+                })
+                .catch(error => console.error("Erreur :", error));
+        });
+
+        document.getElementById("cancel-btn").addEventListener("click", () => {
+            fetch(`/cancel-rdv/${id}`, { method: "POST", headers: { "Content-Type": "application/json" } })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Rendez-vous annulé et email envoyé !");
+                        removeNotification();
+                    } else {
+                        alert("Erreur : " + data.message);
+                    }
+                })
+                .catch(error => console.error("Erreur :", error));
+        });
+    }
+
+    checkNotifications();
+});
+</script>
+
+</main>
+
+{% endblock %}

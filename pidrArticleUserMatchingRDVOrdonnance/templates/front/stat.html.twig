@@ -1,0 +1,98 @@
+
+{% block title %}Statistiques Admin{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center">📊 Tableau de Bord - Statistiques</h1>
+
+    <div class="row mt-4">
+        <!-- 🔹 Nombre total d'articles -->
+        <div class="col-md-4">
+            <div class="card bg-primary text-white text-center p-3">
+                <h3>📝 Total Articles</h3>
+                <p class="fs-3">{{ totalArticles }}</p>
+            </div>
+        </div>
+
+        <!-- 🔹 Nombre total de commentaires -->
+        <div class="col-md-4">
+            <div class="card bg-success text-white text-center p-3">
+                <h3>💬 Total Commentaires</h3>
+                <p class="fs-3">{{ totalCommentaires }}</p>
+            </div>
+        </div>
+
+        <!-- 🔹 Nombre total de signalements -->
+        <div class="col-md-4">
+            <div class="card bg-danger text-white text-center p-3">
+                <h3>🚨 Total Signalements</h3>
+                <p class="fs-3">{{ totalSignalements }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔥 Top 5 Articles les Plus Vus -->
+    <div class="mt-5">
+        <h2>🔥 Articles les Plus Vus</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Nombre de Vues</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articlesLesPlusVus %}
+                    <tr>
+                        <td>{{ article.titre }}</td>
+                        <td>{{ article.nbreVue }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ⭐ Top 5 Articles les Mieux Notés -->
+    <div class="mt-5">
+        <h2>⭐ Articles les Mieux Notés</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Note Moyenne</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articlesLesMieuxNotes %}
+                    <tr>
+                        <td>{{ article.titre }}</td>
+                        <td>{{ article.getAverageRating() }}/10</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ❤️ Top 5 Commentaires les Plus Aimés -->
+    <div class="mt-5">
+        <h2>❤️ Commentaires les Plus Aimés</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Contenu</th>
+                    <th>J'aime</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commentaire in commentairesLesPlusAimes %}
+                    <tr>
+                        <td>{{ commentaire.contenue }}</td>
+                        <td>{{ commentaire.likes }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

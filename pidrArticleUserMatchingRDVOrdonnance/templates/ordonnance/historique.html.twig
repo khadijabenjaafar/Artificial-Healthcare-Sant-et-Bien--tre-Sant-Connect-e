@@ -1,0 +1,38 @@
+{# templates/ordonnance/historique.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique des Ordonnances{% endblock %}
+
+{% block body %}
+    <h1>Historique des Ordonnances</h1>
+
+    {% if ordonnances is empty %}
+        <p>Aucune ordonnance disponible.</p>
+    {% else %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Patient</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ordonnance in ordonnances %}
+                    <tr>
+                        <td>{{ ordonnance.id }}</td>
+                        <td>{{ ordonnance.date|date('Y-m-d H:i') }}</td>
+                        <td>{{ ordonnance.patient.nom }} {{ ordonnance.patient.prenom }}</td>
+                        <td>
+                            <a href="{{ path('app_ordonnance_download', {'id': ordonnance.id}) }}" class="btn btn-info btn-sm">
+                                <i class="bi bi-download"></i> Télécharger
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

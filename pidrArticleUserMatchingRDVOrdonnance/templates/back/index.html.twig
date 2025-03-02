@@ -1,0 +1,151 @@
+{% extends 'baseback.html.twig' %}
+{% block body %}
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Widgets - Kaiadmin Bootstrap 5 Admin Dashboard</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"name="viewport"/>
+
+
+        <div class="container">
+          <div class="page-inner">
+            <!-- Card -->
+ <div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <div class="card card-stats card-round d-flex align-items-center justify-content-center">
+                <div class="card-body">
+                    {% include 'utilisateur/Stat.html.twig' %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-6">
+            <div class="card card-stats card-round d-flex align-items-center justify-content-center">
+                <div class="card-body">
+                  {% include 'statistiques/index.html.twig' %}
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <div class="card card-stats card-round d-flex align-items-center justify-content-center">
+                <div class="card-body">
+                    {% include 'statistiques/articleStat.html.twig'%}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-6">
+            <div class="card card-stats card-round d-flex align-items-center justify-content-center">
+                <div class="card-body">
+                  {% include 'statistiques/statFacturation.html.twig' %}
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <div class="card card-stats card-round d-flex align-items-center justify-content-center">
+                <div class="card-body">
+                    {% include 'statistiques/planstat.html.twig'%}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-6">
+            <div class="card card-stats card-round d-flex align-items-center justify-content-center">
+                <div class="card-body">
+                  {% include 'statistiques/matchingStat.html.twig' %}
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+           
+       
+      </div>
+      
+    </div>
+    <!--   Core JS Files   -->
+    <script src="{{ asset('back/assets/js/core/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('back/assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('back/assets/js/core/bootstrap.min.js') }}"></script>
+
+
+    <!-- jQuery Scrollbar -->
+    <script src="{{ asset('back/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
+    <!-- jQuery Sparkline -->
+    <script src="{{ asset('back/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
+    <!-- Kaiadmin JS -->
+    <script src="{{ asset('back/assets/js/kaiadmin.min.js') }}"></script>
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="{{ asset('back/assets/js/setting-demo.js') }}"></script>
+    <script>
+      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#177dff",
+        fillColor: "rgba(23, 125, 255, 0.14)",
+      });
+
+      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#f3545d",
+        fillColor: "rgba(243, 84, 93, .14)",
+      });
+
+      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#ffa534",
+        fillColor: "rgba(255, 165, 52, .14)",
+      });
+
+      $("#lineChart4").sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "rgba(255, 255, 255, .5)",
+        fillColor: "rgba(255, 255, 255, .15)",
+      });
+
+      $("#lineChart5").sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "rgba(255, 255, 255, .5)",
+        fillColor: "rgba(255, 255, 255, .15)",
+      });
+
+      $("#lineChart6").sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "rgba(255, 255, 255, .5)",
+        fillColor: "rgba(255, 255, 255, .15)",
+      });
+    </script>
+
+  </body>
+</html>
+    
+{% endblock %}

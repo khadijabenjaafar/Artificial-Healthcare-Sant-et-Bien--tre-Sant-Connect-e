@@ -1,0 +1,742 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil{% endblock %}
+
+{% block body %}
+<style>
+  .testimonial-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover; /* Coupe l'image pour qu'elle rentre bien */
+    border-radius: 10px; /* Optionnel : arrondi les bords */
+}
+  </style>
+<body class="index-page">
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+
+      <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+        <div class="carousel-item active">
+          <img src="{{ asset('front/img/hero-carousel/hero-carousel-1.jpg') }}" alt="">
+          <div class="container">
+            <h2>Bienvenue chez ClinicFlow</h2>
+            <p>ClinicFlow offre des services médicaux de qualité, allant de la prise de rendez-vous pour vos consultations à la gestion des équipements médicaux. Découvrez notre plateforme tout-en-un pour gérer votre santé et votre bien-être avec facilité.</p>
+            <a href="#about" class="btn-get-started"> En savoir plus</a>
+          </div>
+        </div><!-- End Carousel Item -->
+
+        <div class="carousel-item">
+          <img src="{{ asset('front/img/hero-carousel/hero-carousel-2.jpg') }}" alt="">
+          <div class="container">
+            <h2>Maintenance des Équipements Médicaux</h2>
+            <p>Nos équipements médicaux sont essentiels pour la qualité des soins. Si vous rencontrez un problème avec un équipement, notre service de maintenance est à votre disposition pour assurer une intervention rapide et efficace.</p>
+            <a href="#about" class="btn-get-started">En savoir plus</a>
+          </div>
+        </div><!-- End Carousel Item -->
+
+        <div class="carousel-item">
+          <img src="{{ asset('front/img/hero-carousel/hero-carousel-3.jpg') }}" alt="">
+          <div class="container">
+            <h2>Notre engagement envers l’innovation</h2>
+            <p>A ClinicFlow, Nous utilisons les dernières avancées en matière de diagnostics et de traitements pour garantir que vous receviez les soins les plus efficaces. Notre engagement à l’amélioration continue signifie que nous sommes toujours prêts à relever de nouveaux défis de santé avec les meilleurs outils disponibles.</p>
+            <a href="#about" class="btn-get-started">En savoir plus</a>
+          </div>
+        </div><!-- End Carousel Item -->
+
+        <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+
+        <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
+        <ol class="carousel-indicators"></ol>
+
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section accent-background">
+
+      <div class="container">
+        <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-xl-10">
+            <div class="text-center">
+              <h3>Besoin d'une aide urgente ?</h3>
+              <p>En cas d'urgence, notre équipe médicale est prête à intervenir rapidement pour vous fournir les soins nécessaires. N'attendez pas, contactez-nous immédiatement pour toute situation urgente.</p>
+              <a class="cta-btn" href="#appointment">Prendre un rendez vous </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Call To Action Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>A propos ClincFlow <br></h2>
+        <p>ClinicFlow est une plateforme de services de santé innovante, conçue pour faciliter l’accès aux soins médicaux et simplifier la gestion des services </p><p> Notre mission est d’améliorer le bien-être de nos utilisateurs en offrant une solution complète et accessible à tous</p> <p>Grâce à une technologie de pointe, nous permettons à nos utilisateurs de prendre des rendez-vous en ligne, de gérer la maintenance des équipements médicaux, de soumettre des réclamations et de commander des médicaments en toute simplicité.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+          <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
+            <img src="{{ asset('front/img/about.jpg') }}" class="img-fluid" alt="">
+            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+          </div>
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+            <h3>Notre Mission</h3>
+            <p class="fst-italic">
+             Chez ClinicFlow, nous croyons que la santé doit être accessible à tous. C’est pourquoi nous avons créé une plateforme tout-en-un qui permet de faciliter l’interaction entre les patients, les professionnels de santé, et les équipements médicaux.
+            </p>
+            <ul>
+              <li><i class="bi bi-check2-all"></i> <span>Offrir des solutions efficaces et accessibles pour améliorer le parcours de soins.</span></li>
+              
+              <li><i class="bi bi-check2-all"></i> <span>Répondre rapidement aux préoccupations des utilisateurs pour une expérience fluide</span></li>
+             
+              <li><i class="bi bi-check2-all"></i> <span>Offrir un service de commande de médicaments rapide, sécurisé et livré à domicile</span></li>
+               <li><i class="bi bi-check2-all"></i> <span> Assurer le bon fonctionnement des équipements médicaux pour un service sans interruption</span></li>
+             
+              
+            </ul>
+            
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="fas fa-user-md flex-shrink-0"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="25" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Doctors</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="far fa-hospital flex-shrink-0"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Departments</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="fas fa-flask flex-shrink-0"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="8" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Research Labs</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item d-flex align-items-center w-100 h-100">
+              <i class="fas fa-award flex-shrink-0"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Awards</p>
+              </div>
+            </div>
+          </div><!-- End Stats Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Stats Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+
+      <div class="container">
+
+        <div class="row justify-content-around gy-4">
+          <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100"><img src="{{ asset('front/img/features.jpg') }}" alt=""></div> 
+
+          <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            <h3>Bienvenue dans notre application</h3>
+            <p>Simplifiez la gestion de vos rendez-vous médicaux et accédez à nos services en quelques clics</p>
+
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="300">
+              <i class="fa-solid fa-hand-holding-medical flex-shrink-0"></i>
+              <div>
+                <h4><a href="" class="stretched-link">Consultation Médicale</a></h4>
+                <p>Nous comprenons les besoins de nos patients et nous nous engageons à offrir une expérience fluide pour la prise de rendez-vous, le suivi médical et la gestion des factures.</p>
+              </div>
+            </div><!-- End Icon Box -->
+
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="400">
+              <i class="fa-solid fa-suitcase-medical flex-shrink-0"></i>
+              <div>
+                <h4><a href="" class="stretched-link">Maintenance des Équipements Médicaux</a></h4>
+                <p>Votre équipement médical est essentiel pour un service de qualité. Nous assurons une maintenance rapide et fiable pour garantir leur bon fonctionnement</p>
+              </div>
+            </div><!-- End Icon Box -->
+
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="500">
+              
+              <i class="fa-solid fa-lungs flex-shrink-0"></i>
+              <div>
+                <h4><a href="" class="stretched-link">Réclamations et Suggestions</a></h4>
+                <p>Si vous avez des préoccupations, notre plateforme vous permet de soumettre facilement vos réclamations et nous nous engageons à y répondre dans les meilleurs délais</p>
+              </div>
+            </div><!-- End Icon Box -->
+
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="600">
+              
+              <i class="fa-solid fa-staff-snake flex-shrink-0"></i>
+              <div>
+                <h4><a href="" class="stretched-link">Pharmacie en Ligne</a></h4>
+                <p>Commandez vos médicaments en ligne et faites-vous livrer directement chez vous en toute sécurité</p>
+              </div>
+            </div><!-- End Icon Box -->
+
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Features Section -->
+
+    
+
+   
+    <!-- Tabs Section -->
+   
+    <section id="tabs" class="tabs section">
+
+      <!-- Section Title -->
+      <div  class="container section-title" data-aos="fade-up">
+        <h2>Departments</h2>
+        <p>Voici nos departments : </p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" href="#tabs-tab-1">Cardiology</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-2">Neurology</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-3">Hepatology</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-4">Pediatrics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tabs-tab-5">Ophthalmologists</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              <div class="tab-pane active show" id="tabs-tab-1">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Cardiology</h3>
+                    <p class="fst-italic">La cardiologie est la spécialité médicale dédiée à l’étude, au diagnostic et au traitement des maladies du cœur et des vaisseaux sanguins. Nos experts veillent à votre santé cardiaque grâce à des soins personnalisés et des technologies de pointe.</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-1.jpg') }}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-tab-2">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Neurology</h3>
+                    <p class="fst-italic">La neurologie est la spécialité médicale qui traite des troubles du système nerveux, y compris le cerveau, la moelle épinière et les nerfs périphériques. Nos spécialistes s’engagent à diagnostiquer et soigner des pathologies complexes grâce à une expertise avancée et des technologies moderne</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-2.jpg') }}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-tab-3">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Hepatology</h3>
+                    <p class="fst-italic">L’hépatologie est une branche de la médecine qui se concentre sur le diagnostic, le traitement et la prévention des maladies du foie, de la vésicule biliaire et des voies biliaires. Nos spécialistes offrent des soins de qualité pour des pathologies comme les hépatites, la cirrhose et bien d’autres.</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-3.jpg') }}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-tab-4">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Pediatrie</h3>
+                    <p class="fst-italic">La pédiatrie est dédiée à la santé et au bien-être des enfants, de la naissance à l’adolescence. Nos pédiatres offrent des soins spécialisés pour le développement, la prévention et le traitement des maladies infantiles.</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-4.jpg') }}" alt="" class="img-fluid">
+
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-tab-5">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Ophthalmologie</h3>
+                    <p class="fst-italic">L’ophtalmologie est la spécialité médicale qui se concentre sur le diagnostic et le traitement des troubles de la vision et des maladies des yeux. Nos ophtalmologistes utilisent des technologies de pointe pour préserver et améliorer votre santé visuelle.</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{{ asset('front/img/departments-5.jpg') }}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Tabs Section -->
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="appointment section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Prendre Un Rendez Vous</h2>
+        <p>Pour prendre un rendez-vous, remplissez ce formulaire.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+
+          <div class="row">
+            <div class="col-md-4 form-group">
+               {{ form_widget(form.date_heure) }}
+               {{ form_errors(form.date_heure) }}
+            </div>
+            <div class="col-md-4 form-group mt-3 mt-md-0">
+               {{ form_widget(form.motif) }}
+                              {{ form_errors(form.motif) }}
+
+            </div>
+            <div class="col-md-4 form-group mt-3 mt-md-0">
+               {{ form_widget(form.statut) }}
+                              {{ form_errors(form.statut) }}
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 form-group mt-3">
+               {{ form_widget(form.mode) }}
+                              {{ form_errors(form.mode) }}
+
+            </div>
+
+          <div class="form-group mt-3">
+               {{ form_widget(form.commantaire) }}
+                              {{ form_errors(form.commantaire) }}
+
+          </div>
+          <div class="form-group mt-3">
+               {{ form_widget(form.id_medecin) }}
+                              {{ form_errors(form.id_medecin) }}
+
+          </div>
+          <div class="form-group mt-3 text-center">
+    <button class="btn btn-primary btn-lg cta-btn" style="background-color: #1ca7a2; border-color: #1ca7a2;">{{ button_label|default('Save') }}</button>
+</div>
+        {{ form_end(form) }}
+
+      </div>
+
+    </section><!-- /Appointment Section -->
+
+
+
+
+
+
+    
+
+
+<table id="planificationsTable" border="1" style="display:none;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Freelancer</th>
+            <th>Date</th>
+            <th>Adresse</th>
+            <th>Mode</th>
+            <th>Statut</th>
+            <th>Actions</th> <!-- New column for actions -->
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+document.getElementById("showPlanifications").addEventListener("click", function () {
+    fetch("/planification/matching/planifications")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const table = document.getElementById("planificationsTable");
+            const tbody = table.querySelector("tbody");
+
+            tbody.innerHTML = ""; // Clear old data
+            data.forEach(planif => {
+                const row = `<tr>
+                    <td>${planif.id}</td>
+                    <td>${planif.freelancer}</td>
+                    <td>${planif.date}</td>
+                    <td>${planif.adresse}</td>
+                    <td>${planif.mode}</td>
+                    <td>${planif.statut}</td>
+                    <td>
+                        <button class="confirm-btn" data-id="${planif.id}">Confirmer</button>
+                        <button class="cancel-btn" data-id="${planif.id}">Annuler</button>
+                    </td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+
+            table.style.display = "block"; // Show table
+
+            // Add event listeners for the new buttons
+            document.querySelectorAll('.confirm-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const planifId = this.getAttribute('data-id');
+                    updatePlanificationStatus(planifId, 'confirmé');
+                });
+            });
+
+            document.querySelectorAll('.cancel-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const planifId = this.getAttribute('data-id');
+                    updatePlanificationStatus(planifId, 'annulé');
+                });
+            });
+        })
+        .catch(error => console.error("Error fetching planifications:", error));
+});
+
+function updatePlanificationStatus(planifId, status) {
+    fetch(`/planification/update-status/${planifId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`Planification ${status} avec succès.`);
+            document.getElementById("showPlanifications").click(); // Refresh the table
+        } else {
+            alert('Erreur lors de la mise à jour du statut.');
+        }
+    })
+    .catch(error => console.error("Error updating planification status:", error));
+}
+</script>
+  
+{% if freelancers is defined and freelancers is not empty %}
+  <section id="doctors" class="doctors section light-background">
+      <div class="container section-title" data-aos="fade-up">
+          <h2>Doctors</h2>
+          <p>Une équipe de professionnels de santé dévoués.</p>
+      </div>
+
+      <div class="container">
+          <div class="row gy-4 justify-content-center">
+              {% for freelancer in freelancers %}
+              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                  <div class="testimonial-card">
+                      <div class="testimonial-content">
+                          <p>
+                              <span class="quote-icon">❝</span>
+                              {{ freelancer.matching.description is defined ? freelancer.matching.description : 'Aucune description disponible.' }}
+                              <span class="quote-icon">❞</span>
+                          </p>
+                      </div>
+                      <div class="testimonial-footer">
+                          <img src="{{ asset('utilisateur/img/' ~ freelancer.image1) }}" class="testimonial-img" alt="Doctor Image">
+                          <h4>{{ freelancer.prenom }} {{ freelancer.nom }}</h4>
+                          <p>Freelancer</p>
+                          <button class="view-details" data-id="{{ freelancer.id }}">View Details</button>
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+      </div>
+  </section>
+
+  <!-- SINGLE MODAL (OUTSIDE LOOP) -->
+  <div id="freelancerModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="freelancerName"></h2>
+                <p><strong>id:</strong> <span id="freelancerId"></span></p>
+        <p><strong>Email:</strong> <span id="freelancerEmail"></span></p>
+        <p><strong>Date de Naissance:</strong> <span id="freelancerDOB"></span></p>
+        <p><strong>Adresse:</strong> <span id="freelancerAddress"></span></p>
+        <p><strong>Genre:</strong> <span id="freelancerGender"></span></p>
+        <p><strong>Specialty:</strong> <span id="freelancerSpecialty"></span></p>
+        <p><strong>Bio:</strong> <span id="freelancerBio"></span></p>
+        <p><strong>CV:</strong> <span id="freelancerCV"></span></p>
+        <p><strong>Prix:</strong> <span id="freelancerPrice"></span></p>
+        <p><strong>Disponibilité:</strong> <span id="freelancerAvailability"></span></p>
+        
+        <!-- Plannification Button -->
+        <button id="requestPlannification" class="btn btn-primary">Demander une Plannification</button>
+
+        <!-- Plannification Form (Initially Hidden) -->
+        <form id="PlannificationForm" style="display: none; margin-top: 20px;">
+        <input type="hidden" id="freelancerId" name="freelancerId">
+        {% if app.user %}
+        <input type="hidden" id="utilisateurId" name="utilisateurId" value="{{ app.user.id }}">
+{% endif %}
+            <input type="hidden" id="freelancerId" name="freelancerId">
+            
+            <label for="adresse">Adresse:</label>
+            <input type="text" id="adresse" name="adresse" required>
+
+            <label for="mode">Mode:</label>
+            <select id="mode" name="mode">
+              <option value="présentiel">Présentiel</option>
+              <option value="en ligne">En ligne</option>
+            </select>
+
+            <button type="submit" class="btn btn-success">Confirmer</button>
+        </form>
+    </div>
+  </div>
+{% else %}
+  <p class="text-center">Aucun freelancer disponible.</p>
+{% endif %}
+
+<style>
+  .doctors {
+    background-color: #ffffff; /* Set background color to white */
+  }
+  .modal { position: fixed; top: -500; left: -500; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
+  .modal-content { background: white; padding: 20px; border-radius: 10px; width: 400px; text-align: center; position: relative; }
+  .close { position: absolute; top: 10px; right: 20px; cursor: pointer; font-size: 20px; }
+
+</style>
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+    console.log("JavaScript loaded!");
+
+    document.querySelectorAll('.view-details').forEach(button => {
+        button.addEventListener('click', function () {
+            let freelancerId = this.getAttribute('data-id');
+            console.log("Clicked button for ID:", freelancerId);
+
+            fetch(`/matching/freelancer/details/${freelancerId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+
+                    console.log("Received data:", data);
+                    document.getElementById('freelancerName').textContent = data.name;
+                    document.getElementById('freelancerEmail').textContent = data.email;
+                    document.getElementById('freelancerDOB').textContent = data.date_naissance;
+                    document.getElementById('freelancerAddress').textContent = data.adresse;
+                    document.getElementById('freelancerGender').textContent = data.genre;
+                    document.getElementById('freelancerSpecialty').textContent = data.competences;
+                    document.getElementById('freelancerBio').textContent = data.description;
+                    document.getElementById('freelancerCV').textContent = data.cv;
+                    document.getElementById('freelancerPrice').textContent = data.price ;
+                    document.getElementById('freelancerAvailability').innerHTML = data.availability ? '<span class="badge bg-success">Available</span>' : '<span class="badge bg-danger">Unavailable</span>';
+
+                    document.getElementById('freelancerId').value = freelancerId;
+                    document.getElementById('freelancerModal').style.display = "flex";
+                })
+                .catch(error => console.error("Fetch error:", error));
+        });
+    });
+
+    document.querySelector('.close').addEventListener('click', function () {
+        document.getElementById('freelancerModal').style.display = "none";
+    });
+
+    window.addEventListener('click', function(event) {
+        let modal = document.getElementById('freelancerModal');
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    document.getElementById("requestPlannification").addEventListener("click", function () {
+        document.getElementById("PlannificationForm").style.display = "block";
+    });
+
+    document.getElementById("PlannificationForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const freelancerId = document.getElementById("freelancerId").value;
+        const utilisateurId = document.getElementById("utilisateurId");
+        const date = document.getElementById("date").value;
+        const adresse = document.getElementById("adresse").value;
+        const mode = document.getElementById("mode").value;
+
+        if (!utilisateurId) {
+            console.error("Utilisateur ID is missing.");
+            alert("User ID is required to request a consultation.");
+            return;
+        }
+
+        fetch("/matching/consultation/request", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                utilisateurId: utilisateurId,
+                freelancerId: freelancerId,
+                date: date,
+                adresse: adresse,
+                mode: mode
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                document.getElementById("PlannificationForm").style.display = "none";
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while saving the consultation request.");
+        });
+    });
+});
+
+</script>
+
+
+
+  <!-- Reclamation Section -->
+<section id="reclamation" class="reclamation section light-background">
+
+{% include 'front/exemple.html.twig' with { 'articles': articles  } %}
+
+ 
+
+</section><!-- End Reclamation Section -->
+    
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Pour nous contacter vous notre lieux</p>
+      </div><!-- End Section Title -->
+
+      <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
+<iframe style="border:0; width: 100%; height: 370px;" 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3189.1222492463123!2d10.187565115209715!3d36.86648347993611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cbddf5f97075%3A0xb9c5747f1669e4e2!2sAriana%2C%20Tunisie!5e0!3m2!1sfr!2stn!4v1709218923456!5m2!1sfr!2stn" 
+    frameborder="0" allowfullscreen="" loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+      </div><!-- End Google Maps -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-10">
+          <div class="col-lg-6 ">
+            <div class="row gy-4">
+
+              <div class="col-lg-12">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
+                  <i class="bi bi-geo-alt"></i>
+                  <h3>Address</h3>
+                  <p>Tunis, Tunisie Ariana </p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
+                  <i class="bi bi-telephone"></i>
+                  <h3>téléphoner a</h3>
+                  <p>+215 558 548 855</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
+                  <i class="bi bi-envelope"></i>
+                  <h3>Notre mail est :</h3>
+                  <p>info@clinicflow.com</p>
+                </div>
+              </div><!-- End Info Item -->
+
+            </div>
+          </div>   
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+<script src="{{ asset('front/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('front/vendor/php-email-form/validate.js') }}"></script>
+<script src="{{ asset('front/vendor/aos/aos.js') }}"></script>
+<script src="{{ asset('front/vendor/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ asset('front/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+<script src="{{ asset('front/vendor/swiper/swiper-bundle.min.js') }}"></script>
+ 
+ 
+  <!-- Main JS File -->
+  <script src="{{ asset('front/js/main.js') }}"></script>
+
+{% endblock %}

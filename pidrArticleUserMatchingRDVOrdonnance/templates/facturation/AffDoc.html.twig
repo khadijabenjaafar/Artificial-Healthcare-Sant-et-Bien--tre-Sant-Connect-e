@@ -1,0 +1,113 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+            
+      <h1 class="fw-bold mb-3">Liste des Facturations 📄</h1>
+        {% if facturations is defined and facturations is empty %}
+            <p>Aucune facturation trouvée pour ce patient.</p>
+        {% else %}
+            <table class="table123 table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th data-column="0">ID<span class="sort-icon">🔼🔽</span></th>
+                        <th data-column="1"> Ordonnance <span class="sort-icon">🔼🔽</span></th>
+                        <th data-column="2">Date <span class="sort-icon">🔼🔽</span></th>
+                        <th data-column="4">Montant (€)<span class="sort-icon">🔼🔽</span></th>
+                        <th data-column="5">Méthode de Paiement <span class="sort-icon">🔼🔽</span></th>
+                        <th data-column="6"> Statut <span class="sort-icon">🔼🔽</span></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for facturation in facturations %}
+                        <tr>
+                            <td><strong>{{ facturation.id }}</strong></td>
+                            <td>{{ facturation.idOrdonnanceId }}</td>
+                            <td>{{ facturation.getDate() ? facturation.getDate()|date('Y-m-d') : 'N/A' }}</td>
+                            <td><span class="fw-bold">{{ facturation.montant }}</span></td>
+                            <td>{{ facturation.methodePaiement ? facturation.methodePaiement.label : '' }}</td>
+                            <td>
+                                <span class="badge {% if facturation.statut == 'payé' %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                                    {{ facturation.statut }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_facturation_show', {'id': facturation.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_facturation_edit', {'id': facturation.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                                <a href="{{ path('app_facturation_toggle_status', {'id': facturation.id}) }}" class="btn btn-success btn-sm">
+                                    <i class="bi bi-cash"></i> 
+                                    {% if facturation.statut == 'Payée' %}
+                                    <button class="btn btn-success btn-sm" disabled style="padding: 3px 8px; font-size: 12px; border-radius: 20px;">
+                                        <i class="bi bi-check-circle"></i> Payée
+                                    </button>
+                                    
+                                    
+{% else %}
+    <a href="{{ path('app_facturation_toggle_status', {'id': facturation.id}) }}" class="btn btn-success btn-sm">
+        <i class="bi bi-cash"></i> Marquer comme Payée
+    </a>
+{% endif %}
+{% if facturation.statut == 'Payée' %}
+<a href="{{ path('app_facture_download', {'id': facturation.id}) }}" class="btn btn-primary btn-sm" style="padding: 4px 10px; font-size: 12px; border-radius: 20px;">
+    <i class="bi bi-download"></i> Télécharger
+</a>
+
+{% else %}
+    <button class="btn btn-secondary btn-sm" disabled>
+        <i class="bi bi-download"></i> Disponible après paiement
+    </button>
+{% endif %}
+
+                                </a>
+                                
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+
+
+<script>
+    $(document).ready(function () {
+        let table = $('.table123').DataTable({
+            "order": [[0, "asc"]], // Default sorting by ID in ascending order
+            "columnDefs": [
+                { "orderable": false, "targets": 6 } // Disable sorting on 'Actions' column
+            ]
+        });
+
+        // Update sorting icons dynamically
+        $('.table123 thead th').click(function () {
+            $('.table123 thead th .sort-icon').text('🔼🔽'); // Reset all
+            let columnIdx = $(this).index();
+            let order = table.order();
+            if (order[0][0] === columnIdx) {
+                $(this).find('.sort-icon').text(order[0][1] === 'asc' ? '🔼' : '🔽');
+            }
+        });
+    });
+</script>
+        </div>
+    </div>
+</div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'baseDoctor.html.twig' %}
+{% block title %}Doctor{% endblock %}
+{% block body %}
+
+<main class="content p-3 flex-grow-1">
+<!-- Section Affichage Ordonnances -->
+    <div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+        <h1>Consultations du patient</h1>
+        {% if consultations is defined and consultations is empty %}
+            <p>Aucune consultation trouvée pour ce patient.</p>
+        {% else %}
+            <table class="table123" id="table123">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>prix</th>
+                        <th>observation</th>
+                        <th>traitement</th>
+                        <th>diagnostic</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consultation in consultations %}
+                        <tr  id="consultation-{{ consultation.id }}" 
+                        data-date="{{ consultation.getProchainRdv() ? consultation.getProchainRdv()|date('Y-m-d H:i:s') : '' }}">
+                            <td><strong>{{ consultation.id }}</strong></td>
+                            <td>{{ consultation.getProchainRdv() ? consultation.getProchainRdv()|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ consultation.prix }}</td>
+                            <td>{{ consultation.observation }}</td>
+                            <td>{{ consultation.traitement }}</td>
+                            <td>{{ consultation.diagnostic }}</td>
+                            <td>
+                                <a href="{{ path('app_consultation_show', {'id': consultation.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_consultation_edit', {'id': consultation.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+ <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(filter) ? "" : "none";
+            });
+        });
+    </script>
+    <script>
+$(document).ready(function () {
+    let table = $('#table123').DataTable({
+        "order": [[0, "asc"]],
+        "columnDefs": [
+            { "orderable": false, "targets": 5 } // Désactive le tri sur la colonne Action
+        ]
+
+    });
+
+    // Mise à jour des icônes de tri
+    $('#table123 thead th').click(function () {
+        $('#table123 thead th .sort-icon');
+        let columnIdx = $(this).index();
+        let order = table.order();
+        if (order[0][0] === columnIdx) {
+            $(this).find('.sort-icon').text(order[0][1] === 'asc' ? '🔼' : '🔽');
+        }
+    });
+});
+</script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                function checkExpiredConsultations() {
+                    let now = new Date();
+                    document.querySelectorAll("tr[data-date]").forEach(row => {
+                        let dateStr = row.getAttribute("data-date");
+                        if (dateStr) {
+                            let consultationDate = new Date(dateStr);
+                            if (consultationDate < now) {
+                                row.style.display = "none"; // Cache la ligne expirée
+                            }
+                        }
+                    });
+                }
+        
+                checkExpiredConsultations();
+                setInterval(checkExpiredConsultations, 60000); // Vérification toutes les minutes
+            });
+        </script>
+        </div>
+    </div>
+</div>
+</main>
+
+
+
+{% endblock %}
