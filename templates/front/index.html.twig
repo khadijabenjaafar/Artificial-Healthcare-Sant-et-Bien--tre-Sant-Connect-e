@@ -41,7 +41,7 @@
           <img src="{{ asset('front/img/hero-carousel/hero-carousel-3.jpg') }}" alt="">
           <div class="container">
             <h2>Notre engagement envers l’innovation</h2>
-            <p>A ClinicFlow, Nous utilisons les dernières avancées en matière de diagnostics et de traitements pour garantir que vous receviez les soins les plus efficaces. Notre engagement à l’amélioration continue signifie que nous sommes toujours prêts à relever de nouveaux défis de santé avec les meilleurs outils disponibles.</p>
+            <p>A ClinicFlow, Nous utilisons les dernières avancées en matière de diagnostics et de traitements pour garantir que vous receviez les soins les plus efficaces. Notre engagement à l’amélioration continue que nous sommes toujours prêts à relever de nouveaux défis de santé avec les meilleurs outils disponibles.</p>
             <a href="#about" class="btn-get-started">En savoir plus</a>
           </div>
         </div><!-- End Carousel Item -->
@@ -490,7 +490,7 @@ function updatePlanificationStatus(planifId, status) {
                           </p>
                       </div>
                       <div class="testimonial-footer">
-                          <img src="{{ asset('utilisateur/img/' ~ freelancer.image) }}" class="testimonial-img" alt="Doctor Image">
+                          <img src="{{ asset('utilisateur/img/' ~ freelancer.image1) }}" class="testimonial-img" alt="Doctor Image">
                           <h4>{{ freelancer.prenom }} {{ freelancer.nom }}</h4>
                           <p>Freelancer</p>
                           <button class="view-details" data-id="{{ freelancer.id }}">View Details</button>
@@ -515,32 +515,35 @@ function updatePlanificationStatus(planifId, status) {
         <p><strong>Specialty:</strong> <span id="freelancerSpecialty"></span></p>
         <p><strong>Bio:</strong> <span id="freelancerBio"></span></p>
         <p><strong>CV:</strong> <span id="freelancerCV"></span></p>
+        <p><strong>Prix:</strong> <span id="freelancerPrice"></span></p>
+        <p><strong>Disponibilité:</strong> <span id="freelancerAvailability"></span></p>
+        
         <!-- Plannification Button -->
         <button id="requestPlannification" class="btn btn-primary">Demander une Plannification</button>
 
         <!-- Plannification Form (Initially Hidden) -->
-        {{ form_start(PlannificationForm, {'attr': {'id': 'PlannificationForm', 'style': 'display: none; margin-top: 20px;','novalidate': 'novalidate'}}) }}
-            <input type="hidden" id="freelancerId" name="freelancerId">
-            <div class="form-group">
-                {{ form_label(PlannificationForm.date) }}
-                {{ form_widget(PlannificationForm.date, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(PlannificationForm.date) }}
-            </div>
+        <form id="PlannificationForm" style="display: none; margin-top: 20px;">
+        <input type="hidden" id="freelancerId" name="freelancerId">
+        <input type="hidden" id="utilisateurId" name="utilisateurId" value="{{ app.user.id }}">
 
-            <div class="form-group">
-                {{ form_label(PlannificationForm.adresse, 'Adresse:') }}
-                {{ form_widget(PlannificationForm.adresse, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(PlannificationForm.adresse) }}
-            </div>
 
-            <div class="form-group">
-                {{ form_label(PlannificationForm.mode, 'Mode:') }}
-                {{ form_widget(PlannificationForm.mode, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(PlannificationForm.mode) }}
-            </div>
+         
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="adresse">Adresse:</label>
+            <input type="text" id="adresse" name="adresse" required>
+
+            <label for="mode">Mode:</label>
+            <select id="mode" name="mode">
+              <option value="présentiel">Présentiel</option>
+              <option value="en ligne">En ligne</option>
+            </select>
+
+           
 
             <button type="submit" class="btn btn-success">Confirmer</button>
-        {{ form_end(PlannificationForm) }}
+        </form>
     </div>
   </div>
 {% else %}
@@ -557,97 +560,106 @@ function updatePlanificationStatus(planifId, status) {
 
 </style>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+   document.addEventListener("DOMContentLoaded", function () {
     console.log("JavaScript loaded!");
 
     document.querySelectorAll('.view-details').forEach(button => {
-        button.addEventListener('click', async function () {
-            const freelancerId = this.getAttribute('data-id');
+        button.addEventListener('click', function () {
+            let freelancerId = this.getAttribute('data-id');
             console.log("Clicked button for ID:", freelancerId);
 
-            try {
-                const response = await fetch(`/matching/freelancer/details/${freelancerId}`);
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            fetch(`/matching/freelancer/details/${freelancerId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
 
-                const data = await response.json();
-                if (data.error) {
-                    alert(data.error);
-                    return;
-                }
+                    console.log("Received data:", data);
+                    document.getElementById('freelancerName').textContent = data.name;
+                    document.getElementById('freelancerEmail').textContent = data.email;
+                    document.getElementById('freelancerDOB').textContent = data.date_naissance;
+                    document.getElementById('freelancerAddress').textContent = data.adresse;
+                    document.getElementById('freelancerGender').textContent = data.genre;
+                    document.getElementById('freelancerSpecialty').textContent = data.competences;
+                    document.getElementById('freelancerBio').textContent = data.description;
+                    document.getElementById('freelancerCV').textContent = data.cv;
+                    document.getElementById('freelancerPrice').textContent = data.price ;
+                    document.getElementById('freelancerAvailability').innerHTML = data.availability ? '<span class="badge bg-success">Available</span>' : '<span class="badge bg-danger">Unavailable</span>';
 
-                console.log("Received data:", data);
-                                document.getElementById('freelancerId').textContent = data.id || "N/A";
-                document.getElementById('freelancerName').textContent = data.name || "N/A";
-                document.getElementById('freelancerEmail').textContent = data.email || "N/A";
-                document.getElementById('freelancerDOB').textContent = data.date_naissance || "N/A";
-                document.getElementById('freelancerAddress').textContent = data.adresse || "N/A";
-                document.getElementById('freelancerGender').textContent = data.genre || "N/A";
-                document.getElementById('freelancerSpecialty').textContent = data.competences || "N/A";
-                document.getElementById('freelancerBio').textContent = data.description || "N/A";
-                document.getElementById('freelancerCV').textContent = data.cv || "N/A";
-
-                document.getElementById('freelancerId').value = freelancerId;
-                document.getElementById('freelancerModal').style.display = "flex";
-            } catch (error) {
-                console.error("Fetch error:", error);
-                alert("Une erreur est survenue lors du chargement des détails.");
-            }
+                    document.getElementById('freelancerId').value = freelancerId;
+                    document.getElementById('freelancerModal').style.display = "flex";
+                })
+                .catch(error => console.error("Fetch error:", error));
         });
     });
 
-    // Close modal logic
-    const closeModal = () => document.getElementById('freelancerModal').style.display = "none";
-
-    document.querySelector('.close')?.addEventListener('click', closeModal);
-
-    window.addEventListener('click', function (event) {
-        const modal = document.getElementById('freelancerModal');
-        if (event.target === modal) closeModal();
+    document.querySelector('.close').addEventListener('click', function () {
+        document.getElementById('freelancerModal').style.display = "none";
     });
 
-    // Display plannification form
-    document.getElementById("requestPlannification")?.addEventListener("click", function () {
+    window.addEventListener('click', function(event) {
+        let modal = document.getElementById('freelancerModal');
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    document.getElementById("requestPlannification").addEventListener("click", function () {
         document.getElementById("PlannificationForm").style.display = "block";
     });
 
-    // Handle form submission
-    document.getElementById("PlannificationForm")?.addEventListener("submit", async function (event) {
+    document.getElementById("PlannificationForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
         const freelancerId = document.getElementById("freelancerId").value;
-        const date = document.getElementById("PlannificationForm_date").value.trim();
-        const adresse = document.getElementById("PlannificationForm_adresse").value.trim();
-        const mode = document.getElementById("PlannificationForm_mode").value.trim();
+        const utilisateurId = document.getElementById("utilisateurId");
+        const date = document.getElementById("date").value;
+        const adresse = document.getElementById("adresse").value;
+        const mode = document.getElementById("mode").value;
 
-        if (!date || !adresse || !mode) {
-            alert("Veuillez remplir tous les champs obligatoires.");
+        if (!utilisateurId) {
+            console.error("Utilisateur ID is missing.");
+            alert("User ID is required to request a consultation.");
             return;
         }
 
-        try {
-            const response = await fetch("/matching/consultation/request", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ freelancerId, date, adresse, mode }),
-            });
-
-            const data = await response.json();
-            alert(data.message);
-
+        fetch("/matching/consultation/request", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                utilisateurId: utilisateurId,
+                freelancerId: freelancerId,
+                date: date,
+                adresse: adresse,
+                mode: mode
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
             if (data.success) {
+                alert(data.message);
                 document.getElementById("PlannificationForm").style.display = "none";
+            } else {
+                alert("Error: " + data.message);
             }
-        } catch (error) {
+        })
+        .catch(error => {
             console.error("Error:", error);
-            alert("Une erreur est survenue lors de l'envoi de la demande.");
-        }
+            alert("An error occurred while saving the consultation request.");
+        });
     });
 });
 
- </script> 
+</script>
 
-   <!-- Reclamation Section -->
+
+
+  <!-- Reclamation Section -->
 <section id="reclamation" class="reclamation section light-background">
+
+{% include 'front/exemple.html.twig' with { 'articles': articles  } %}
 
  
 
@@ -841,93 +853,4 @@ document.addEventListener("DOMContentLoaded", function () {
   <!-- Main JS File -->
   <script src="{{ asset('front/js/main.js') }}"></script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        console.log("JavaScript loaded!");
-
-        document.querySelectorAll('.view-details').forEach(button => {
-            button.addEventListener('click', async function () {
-                const freelancerId = this.getAttribute('data-id');
-                console.log("Clicked button for ID:", freelancerId);
-
-                try {
-                    const response = await fetch(`/matching/freelancer/details/${freelancerId}`);
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-                    const data = await response.json();
-                    if (data.error) {
-                        alert(data.error);
-                        return;
-                    }
-
-                    console.log("Received data:", data);
-                    document.getElementById('freelancerName').textContent = data.name || "N/A";
-                    document.getElementById('freelancerEmail').textContent = data.email || "N/A";
-                    document.getElementById('freelancerDOB').textContent = data.date_naissance || "N/A";
-                    document.getElementById('freelancerAddress').textContent = data.adresse || "N/A";
-                    document.getElementById('freelancerGender').textContent = data.genre || "N/A";
-                    document.getElementById('freelancerSpecialty').textContent = data.competences || "N/A";
-                    document.getElementById('freelancerBio').textContent = data.description || "N/A";
-                    document.getElementById('freelancerCV').textContent = data.cv || "N/A";
-
-                    document.getElementById('freelancerId').value = freelancerId;
-                    document.getElementById('freelancerModal').style.display = "flex";
-                } catch (error) {
-                    console.error("Fetch error:", error);
-                    alert("Une erreur est survenue lors du chargement des détails.");
-                }
-            });
-        });
-
-        // Close modal logic
-        const closeModal = () => document.getElementById('freelancerModal').style.display = "none";
-
-        document.querySelector('.close')?.addEventListener('click', closeModal);
-
-        window.addEventListener('click', function (event) {
-            const modal = document.getElementById('freelancerModal');
-            if (event.target === modal) closeModal();
-        });
-
-        // Display plannification form
-        document.getElementById("requestPlannification")?.addEventListener("click", function () {
-            document.getElementById("PlannificationForm").style.display = "block";
-        });
-
-        // Handle form submission
-        document.getElementById("PlannificationForm")?.addEventListener("submit", async function (event) {
-            event.preventDefault();
-
-            const freelancerId = document.getElementById("freelancerId").value;
-            const date = document.getElementById("PlannificationForm_date").value.trim();
-            const adresse = document.getElementById("PlannificationForm_adresse").value.trim();
-            const mode = document.getElementById("PlannificationForm_mode").value.trim();
-
-            if (!date || !adresse || !mode) {
-                alert("Veuillez remplir tous les champs obligatoires.");
-                return;
-            }
-
-            try {
-                const response = await fetch("/matching/consultation/request", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ freelancerId, date, adresse, mode }),
-                });
-
-                const data = await response.json();
-                alert(data.message);
-
-                if (data.success) {
-                    document.getElementById("PlannificationForm").style.display = "none";
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Une erreur est survenue lors de l'envoi de la demande.");
-            }
-        });
-    });
-</script>
-
-</body>
 {% endblock %}

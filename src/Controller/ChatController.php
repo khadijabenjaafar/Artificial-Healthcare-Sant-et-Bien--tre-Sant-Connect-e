@@ -16,46 +16,57 @@ use App\Repository\MessageRepository;
 final class ChatController extends AbstractController
 {
     #[Route('/send', name: 'chat_send', methods: ['POST'])]
-    public function sendMessage(Request $request, EntityManagerInterface $em): JsonResponse
-    {
-        try {
-            $data = json_decode($request->getContent(), true);
-    
-            if (!isset($data['receiverId'], $data['content'])) {
-                return new JsonResponse(['error' => 'Données manquantes'], 400);
-            }
-    
-            $sender = $this->getUser();
-            if (!$sender) {
-                return new JsonResponse(['error' => 'Utilisateur non authentifié'], 401);
-            }
-    
-            $receiver = $em->getRepository(Utilisateur::class)->find($data['receiverId']);
-            if (!$receiver) {
-                return new JsonResponse(['error' => 'Utilisateur non trouvé'], 404);
-            }
-    
-            $message = new Message();
-            $message->setSender($sender);
-            $message->setReceiver($receiver);
-            $message->setContent($data['content']);
-            $message->setCreatedAt(new \DateTime()); // ✅ Ajoute la date de création
-    
-            $em->persist($message);
-            $em->flush();
-    
-            return new JsonResponse(['success' => 'Message envoyé']);
-        } catch (\Exception $e) {
-            return new JsonResponse(['error' => 'Erreur serveur : ' . $e->getMessage()], 500);
+public function sendMessage(Request $request, EntityManagerInterface $em): JsonResponse
+{
+    try {
+        $data = json_decode($request->getContent(), true);
+        
+        if (!isset($data['receiverId'], $data['content'])) {
+            return new JsonResponse(['error' => 'Données manquantes'], 400);
         }
+
+        $sender = $this->getUser();
+        if (!$sender instanceof Utilisateur) {
+            return new JsonResponse(['error' => 'Utilisateur non authentifié'], 401);
+        }
+
+        $receiver = $em->getRepository(Utilisateur::class)->find($data['receiverId']);
+        if (!$receiver) {
+            return new JsonResponse(['error' => 'Utilisateur non trouvé'], 404);
+        }
+
+        // Log debugging info
+        error_log("✅ Sender: " . $sender->getId());
+        error_log("✅ Receiver: " . $receiver->getId());
+        error_log("✅ Content: " . $data['content']);
+
+        $message = new Message();
+        $message->setSender($sender);
+        $message->setReceiver($receiver);
+        $message->setContent($data['content']);
+        $message->setCreatedAt(new \DateTime());
+
+        $em->persist($message);
+        $em->flush();
+
+        return new JsonResponse(['success' => 'Message envoyé']);
+    } catch (\Exception $e) {
+        return new JsonResponse(['error' => 'Erreur serveur: ' . $e->getMessage()], 500);
     }
+}
+
     
  
- #[Route('/messages/{id}', name: 'chat_messages', methods: ['GET'])]
- 
+#[Route('/messages/{id}', name: 'chat_messages', methods: ['GET'])]
 public function getMessages($id, MessageRepository $messageRepository): JsonResponse
 {
-    $messages = $messageRepository->findBy(['receiver' => $id], ['createdAt' => 'ASC']);
+    $currentUser = $this->getUser();
+
+    if (!$currentUser instanceof Utilisateur) {
+        return $this->json(['success' => false, 'message' => 'Utilisateur non authentifié.'], 401);
+    }
+
+    $messages = $messageRepository->findConversation($currentUser->getId(), $id);
 
     if (!$messages) {
         return $this->json(['success' => false, 'message' => 'Aucun message trouvé.'], 404);
@@ -63,13 +74,16 @@ public function getMessages($id, MessageRepository $messageRepository): JsonResp
 
     return $this->json(array_map(function ($message) {
         return [
-            'senderName' => $message->getSender()->getNom(), // Remplace 'getUsername()' par la bonne méthode
+            'senderName' => $message->getSender()->getNom(),
             'content' => $message->getContent(),
             'time' => $message->getCreatedAt()->format('H:i'),
             'senderId' => $message->getSender()->getId(),
         ];
     }, $messages));
 }
+
+
+    
 
 
     #[Route('/latest-messages', name: 'latest_messages', methods: ['GET'])]
@@ -92,7 +106,7 @@ public function getMessages($id, MessageRepository $messageRepository): JsonResp
             return [
                 'senderId' => $msg->getSender()->getId(),
                 'senderName' => $msg->getSender()->getPrenom() . " " . $msg->getSender()->getNom(),
-                'senderImage' => '/uploads/profile/' . $msg->getSender()->getImage(),
+                'senderImage' => '/utilisateur' . $msg->getSender()->getImage(),
                 'content' => $msg->getContent(),
                 'time' => $msg->getCreatedAt()->format('H:i'),
             ];
@@ -116,7 +130,7 @@ public function getMessages($id, MessageRepository $messageRepository): JsonResp
         $usersList = array_map(fn($user) => [
             'id' => $user->getId(),
             'name' => $user->getPrenom() . " " . $user->getNom(),
-            'avatar' => '/uploads/profile/' . $user->getImage(),
+            'avatar' => '/utilisateur/img/' . $user->getImage1(),
         ], $users);
 
         return new JsonResponse($usersList);

@@ -62,7 +62,6 @@ class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $genre = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "L'image est nécessaire")]
     private ?string $image = null;
 
     #[ORM\Column(length: 255)]
@@ -79,10 +78,12 @@ class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $Tel_verified = false;
 
-    #[ORM\Column(type: 'string',length:100)]
+    #[ORM\Column(type: 'string',length:100,nullable: true)]
     private $codeVerif;
 
-
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'image est nécessaire")]
+    private ?string $image1 = null;
     /**
      * @var Collection<int, RendezVous>
      */
@@ -133,6 +134,8 @@ class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
         $this->article = new ArrayCollection();
         $this->commentaire = new ArrayCollection();
         $this->articleRatings = new ArrayCollection();
+        $this->planifications = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -306,6 +309,19 @@ class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getImage1(): ?string
+    {
+        return $this->image1;
+    }
+
+    public function setImage1(string $image1): static
+    {
+        $this->image1 = $image1;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, RendezVous>
      */
@@ -500,6 +516,10 @@ class Utilisateur  implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
     
-
+    public function __toString(): string
+    {
+        return $this->nom . ' ' . $this->prenom; // Or any meaningful representation
+    }
+    
 
 }

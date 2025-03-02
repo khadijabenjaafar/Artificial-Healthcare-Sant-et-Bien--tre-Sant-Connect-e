@@ -89,7 +89,7 @@ class UserformType extends AbstractType
                 'multiple' => false,
         
             ])
-            ->add('image', FileType::class, [
+            ->add('image1', FileType::class, [
                 'label' => 'Telecharger votre image de profile (Des fichier image uniquement)',
 
                 // unmapped means that this field is not associated to any entity property

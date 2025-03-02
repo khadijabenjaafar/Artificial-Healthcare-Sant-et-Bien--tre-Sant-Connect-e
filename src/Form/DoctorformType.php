@@ -76,7 +76,7 @@ class DoctorformType extends AbstractType
                 ],
                 'label' => 'Gender',
             ])
-            ->add('image', FileType::class, [
+            ->add('image1', FileType::class, [
                 'label' => 'Telecharger votre image de profile (Des fichier image uniquement)',
 
 

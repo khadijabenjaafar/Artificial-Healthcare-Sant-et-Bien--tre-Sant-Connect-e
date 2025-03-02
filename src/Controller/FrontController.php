@@ -98,50 +98,6 @@ class FrontController extends AbstractController
             'ordonnances' => $ordonnances,
         ]);
     }
-
-    #[Route('/doctor/matching/Ajout', name: 'doctor_matching_Ajout')]
-    public function doctorMatchingAjout(UtilisateurRepository $utilisateurRepository,
-    Security $security,Request $request3, EntityManagerInterface $entityManager)
-    {
-        $user = $security->getUser();
-        $matching = new Matching();
-        $form4 = $this->createForm(MatchingType::class, $matching);
-        $form4->handleRequest($request3);
-        if ($form4->isSubmitted() && $form4->isValid()) {
-            // Handle CV file upload
-            $cvFile = $form4->get('cv')->getData();
-    
-            if ($cvFile) {
-                $newFilename = uniqid() . '.' . $cvFile->guessExtension();
-                try {
-                    $cvFile->move(
-                        $this->getParameter('cv_directory'), // Directory must be configured
-                        $newFilename
-                    );
-                    $matching->setCv($newFilename); // Save filename in database
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Erreur lors du téléchargement du fichier.');
-                }
-            } else {
-                $matching->setCv(''); // or set null if your DB allows it
-            }
-    
-            $entityManager->persist($matching);
-            $entityManager->flush();
-    
-            return $this->redirectToRoute('doctor_matching_aff', [], Response::HTTP_SEE_OTHER);
-        }
-        if (!$user) {
-            throw $this->createAccessDeniedException("Vous devez être connecté pour voir vos rendez-vous.");
-        }
-      
-   
-        return $this->render('matching/AjoutDoc.html.twig', [
-           'matching' => $matching,
-            'form4' => $form4->createView()
-        ]);
-    }
-    
     #[Route('/doctor/matching/Aff', name: 'doctor_matching_aff')]
     public function doctorMatchingAff(UtilisateurRepository $utilisateurRepository,MatchingRepository $matchingRepository,Security $security,Request $request3, EntityManagerInterface $entityManager)
     {    
@@ -161,6 +117,67 @@ class FrontController extends AbstractController
         ]);
     }
 
+#[Route('/doctor/matching/Ajout', name: 'doctor_matching_Ajout')]
+public function doctorMatchingAjout(UtilisateurRepository $utilisateurRepository,
+    Security $security, Request $request3, EntityManagerInterface $entityManager)
+{
+    $user = $security->getUser();
+    if (!$user) {
+        throw $this->createAccessDeniedException("Vous devez être connecté.");
+    }
+
+    // Vérification utilisateur
+   
+
+    $matching = new Matching();
+    $matching->setUtilisateur($user); // ⚡ AJOUT AVANT FORMULAIRE
+
+    $form = $this->createForm(MatchingType::class, $matching);
+    $form->handleRequest($request3);
+
+    if ($form->isSubmitted()) {
+        //dd("Form soumis", $form->isValid(), $form->getErrors(true, false)); // Débogage
+    }
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $cvFile = $form->get('cv')->getData();
+
+
+
+       // dd($cvFile);
+        //dd($this->getParameter('cv_directory'));
+
+
+
+        if ($cvFile) {
+            if ($cvFile->getMimeType() !== "application/pdf") {
+                $this->addFlash('error', 'Le fichier doit être un PDF.');
+                return $this->redirectToRoute('doctor_matching_Ajout');
+            }
+
+            
+            $newFilename = uniqid() . '.' . $cvFile->guessExtension();
+            try {
+                $cvFile->move($this->getParameter('cv_directory'), $newFilename);
+                $matching->setCv($newFilename);
+            } catch (FileException $e) {
+                $this->addFlash('error', 'Erreur lors du téléchargement du fichier.');
+            }
+        }
+
+        $entityManager->persist($matching);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('doctor_matching_aff', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('matching/AjoutDoc.html.twig', [
+        'matching' => $matching,
+        'form4' => $form->createView(),
+    ]);
+}
+
+
     #[Route('/doctor/plan/Aff', name: 'doctor_plan_Aff')]
     public function doctorPlan(UtilisateurRepository $utilisateurRepository,PlanificationRepository $planificationRepository,
      Security $security)
@@ -171,10 +188,24 @@ class FrontController extends AbstractController
             throw $this->createAccessDeniedException("Vous devez être connecté pour voir vos rendez-vous.");
         }
     
-        $freelancers = $utilisateurRepository->findAll(); 
-        $planifications = $planificationRepository->findBy(['freelancer' => $freelancers]); // Filtrer par utilisateur
+               // Fetch data and ensure all referenced entities exist
+               $planifications = $planificationRepository->findAll();
+               $validPlanifications = [];
+               $invalidPlanifications = [];
+       
+               foreach ($planifications as $planification) {
+                   if ($planification->getFreelancer() && $planification->getUtilisateur()) {
+                       $validPlanifications[] = $planification;
+                   } else {
+                       $invalidPlanifications[] = $planification;
+                   }
+               }
+       
+               if (!empty($invalidPlanifications)) {
+                   // Log the invalid planifications or handle them as needed
+                   $this->addFlash('error', 'Some planifications have invalid data and were excluded.');
+               }
         return $this->render('planification/AffDoc.html.twig', [
-            'freelancers' => $freelancers,
             'planifications' => $planifications
         ]);
     }

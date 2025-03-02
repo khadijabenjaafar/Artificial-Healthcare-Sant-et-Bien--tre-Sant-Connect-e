@@ -32,7 +32,7 @@ class Matching
     private ?string $competences = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $cv = null;
+    private ?string $cv = "";
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Utilisateur $id_freelancer = null;
@@ -42,7 +42,7 @@ class Matching
     #[Assert\NotNull(message: "L'utilisateur ne peut pas être nul.")]
     private ?Utilisateur $utilisateur = null;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: true)]
+    #[ORM\Column(type: "float")]
     private ?float $price = null;
 
     #[ORM\Column(type: 'boolean', nullable: false)]

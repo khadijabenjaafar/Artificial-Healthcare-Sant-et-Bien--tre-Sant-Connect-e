@@ -100,11 +100,27 @@
                   <td>
                     <a href="{{ path('app_planification_edit', {'id': planification.id}) }}">Modifier</a> |
                     {{ include('planification/_delete_form.html.twig') }}
+                    <button onclick="confirmStatus('{{ planification.id }}')">Confirmer</button>
+                   <button onclick="cancelStatus('{{ planification.id }}')">Annuler</button>
                   </td>
                 </tr>
               {% endfor %}
             </tbody>
           </table>
+          <script>
+            function confirmStatus(id) {
+            // Add your AJAX call here to change the status
+            alert('Status confirmed for ID: ' + id);
+            }
+      
+            function cancelStatus(id) {
+            // Add your AJAX call here to cancel the status and write a response
+            let response = prompt('Please enter your response:');
+            if (response) {
+              alert('Status cancelled for ID: ' + id + ' with response: ' + response);
+            }
+            }
+          </script>
         </section>
 
         <section id="matching" class="section">

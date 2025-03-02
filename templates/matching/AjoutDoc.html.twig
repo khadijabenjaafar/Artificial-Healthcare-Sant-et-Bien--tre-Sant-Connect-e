@@ -9,56 +9,64 @@
         <div class="row">
             <div class="col-md-12">
     <h2>Ajouter un matching</h2>
-        
-        {{ form_start(form4, {'attr': { 'novalidate': 'novalidate'}}) }}
+    
+    {{ form_start(form4, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
 
-         <div class="form-group">
-            {{ form_label(form4.cin, 'cin') }}
-            {{ form_widget(form4.cin, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form4.cin) }}
-        </div>
+    <div class="form-group">
+        {{ form_label(form4.cin, 'CIN') }}
+        {{ form_widget(form4.cin, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.cin) }}
+    </div>
 
-        <div class="form-group">
-{{ form_label(form4.date, 'Date de l’ordonnance', {'attr': {'for': 'dateInput'}}) }}
-            {{ form_widget(form4.date, {'attr': {'id': 'dateInput', 'class': 'form-control'}}) }}
-            {{ form_errors(form4.date) }}
-        </div>
+    <div class="form-group">
+        {{ form_label(form4.date, 'Date du matching', {'attr': {'for': 'dateInput'}}) }}
+        {{ form_widget(form4.date, {'attr': {'id': 'dateInput', 'class': 'form-control'}}) }}
+        {{ form_errors(form4.date) }}
+    </div>
 
-        <div class="form-group">
-            {{ form_label(form4.description, 'Description') }}
-            {{ form_widget(form4.description, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form4.description) }}
-        </div>
+    <div class="form-group">
+        {{ form_label(form4.description, 'Description') }}
+        {{ form_widget(form4.description, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.description) }}
+    </div>
 
-        <div class="form-group">
-            {{ form_label(form4.competences, 'Competences ') }}
-            {{ form_widget(form4.competences, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form4.competences) }}
-        </div>
+    <div class="form-group">
+        {{ form_label(form4.competences, 'Compétences') }}
+        {{ form_widget(form4.competences, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.competences) }}
+    </div>
 
-        <div class="form-group">
-            {{ form_label(form4.cv, 'CV') }}
-            {{ form_widget(form4.cv, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form4.cv) }}
-        </div>
+    <div class="form-group">
+        {{ form_label(form4.cv, 'CV') }}
+        {{ form_widget(form4.cv, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.cv) }}
+    </div>
 
-        <div class="form-group">
-            {{ form_label(form4.id_freelancer, 'id_freelancer associer') }}
-            {{ form_widget(form4.id_freelancer, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form4.id_freelancer) }}
-        </div>
+    <div class="form-group">
+        {{ form_label(form4.id_freelancer, 'Freelancer associé') }}
+        {{ form_widget(form4.id_freelancer, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.id_freelancer) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form4.price, 'price') }}
+        {{ form_widget(form4.price, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form4.price) }}
+    </div>
 
-        <div class="form-button">
-            <button class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
-                {{ button_label|default('Enregistrer') }}
-            </button>
-        </div>
+    
 
-        {{ form_end(form4) }}
+    <div class="form-button">
+        <button  class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;">
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+
+    {{ form_end(form4) }}
         </div>
     </div>
 </div>
-       
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+     
 </main>
 
 

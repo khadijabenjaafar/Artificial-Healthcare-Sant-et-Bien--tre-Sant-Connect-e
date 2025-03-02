@@ -1,32 +1,37 @@
 <?php
 
 namespace App\Controller;
-use App\Entity\Utilisateur;
 use App\Entity\Matching;
+use App\Entity\Utilisateur;
 use App\Form\Matching1Type;
-use App\Repository\MatchingRepository;
-use App\Repository\UtilisateurRepository;
+use Psr\Log\LoggerInterface;
 use App\Entity\Planification;
+use App\Service\HistoryLogger;
+use App\Repository\MatchingRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\UtilisateurRepository;
+use Symfony\Component\BrowserKit\History;
+use App\Repository\PlanificationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 
 #[Route('/matching')]
 final class MatchingController extends AbstractController
 {
     private $logger;
-
-    public function __construct(LoggerInterface $logger)
+    private HistoryLogger $historyLogger;
+    public function __construct(LoggerInterface $logger, HistoryLogger $historyLogger)
     {
         $this->logger = $logger;
+        $this->historyLogger = $historyLogger;
     }
     #[Route(name: 'app_matching_index', methods: ['GET'])]
     public function index(MatchingRepository $matchingRepository): Response
@@ -34,6 +39,7 @@ final class MatchingController extends AbstractController
         return $this->render('matching/accueil.html.twig', [
             'matchings' => $matchingRepository->findAll(),
         ]);
+        
     }
     #[Route('/backMatching',name: 'app_matching_index2', methods: ['GET'])]
     public function index44(MatchingRepository $matchingRepository): Response
@@ -73,7 +79,7 @@ final class MatchingController extends AbstractController
     
             $entityManager->persist($matching);
             $entityManager->flush();
-    
+            $this->historyLogger->logAction('add', 'matching');
             return $this->redirectToRoute('app_matching_index', [], Response::HTTP_SEE_OTHER);
         }
     
@@ -103,8 +109,8 @@ final class MatchingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
-            return $this->redirectToRoute('doctor_matching_aff', [], Response::HTTP_SEE_OTHER);
+            $this->historyLogger->logAction('modify', 'matching');
+            return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('matching/edit.html.twig', [
@@ -112,16 +118,18 @@ final class MatchingController extends AbstractController
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{id}', name: 'app_matching_delete', methods: ['POST'])]
     public function delete(Request $request, Matching $matching, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$matching->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$matching->getId(), $request->request->get('_token'))) {
             $entityManager->remove($matching);
             $entityManager->flush();
+            $this->historyLogger->logAction('delete', 'matching');
         }
 
-        return $this->redirectToRoute('doctor_matching_aff', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('doctor_index', [], Response::HTTP_SEE_OTHER);
     }
 
     
@@ -171,7 +179,10 @@ public function getFreelancerDetails($id, EntityManagerInterface $entityManager,
             'genre' => $freelancer->getGenre() ?? 'Not specified',
             'description' => $matching->getDescription() ?? 'No bio available',
             'competences' => $matching->getCompetences() ?? 'Not specified',
-            'cv' => $matching->getCv() ?? 'No CV available'
+            'cv' => $matching->getCv() ?? 'No CV available',
+            'price' => $matching->getPrice() ?? 'Not specified',
+            'available' => $matching->getDate() ? $matching->getDate()->format('Y-m-d') : 'Not specified',
+
         ]);
 
     } catch (\Exception $e) {
@@ -213,4 +224,62 @@ public function getFreelancerDetails($id, EntityManagerInterface $entityManager,
         }
     }
 
+    
+    
+   /*
+   #[Route('/statistics', name: 'app_statistics')]
+   public function index_back(MatchingRepository $matchingRepo): Response
+   {
+       $totalMatchings = $matchingRepo->countMatchings(); 
+   
+       return $this->render('back/index.html.twig', [
+           'totalMatchings' => $totalMatchings,
+       ]);
+   }
+    public function index_back2(PlanificationRepository $planificationRepo): Response
+    {
+         $totalPlanifications = $planificationRepo->countPlanifications(); 
+    
+         return $this->render('back/index.html.twig', [
+              'totalPlanifications' => $totalPlanifications,
+         ]);
+    } 
+    
+    
+    #[Route('/matching/{id}/toggle-availability', name: 'app_matching_toggle_availability')]
+    public function toggleAvailability(int $id, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        $matching = $entityManager->getRepository(Matching::class)->find($id);
+
+        if (!$matching) {
+            $this->addFlash('error', 'Matching not found.');
+            return $this->redirectToRoute('app_matching_list');
+        }
+
+        // Toggle availability
+        $matching->setAvailability(!$matching->getAvailability());
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Availability updated successfully.');
+        return $this->redirectToRoute('app_matching_list');
+    }
+        */
+
+        #[Route('/history', name: 'app_matching_history', methods: ['GET'])]
+        public function history(EntityManagerInterface $entityManager): JsonResponse
+        {
+            $history = $entityManager->getRepository(History::class)->findBy([], ['timestamp' => 'DESC']);
+        
+            $historyData = array_map(function ($entry) {
+                return [
+                    'action' => $entry->getAction(),
+                    'entity' => $entry->getEntity(),
+                    'timestamp' => $entry->getTimestamp()->format('d/m/Y H:i'),
+                ];
+            }, $history);
+        
+            return new JsonResponse($historyData);
+        }
+        
+        
 }

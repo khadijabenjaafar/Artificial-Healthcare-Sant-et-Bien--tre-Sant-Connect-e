@@ -8,7 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
-use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -75,7 +74,6 @@ class Matching1Type extends AbstractType
                 ],
             ])
             ->add('availability');
-           /* ->add("recaptcha", ReCaptchaType::class);*/
     }
 
     public function configureOptions(OptionsResolver $resolver): void

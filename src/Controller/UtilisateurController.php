@@ -159,7 +159,7 @@ final class UtilisateurController extends AbstractController
      UtilisateurRepository $utilisateurRepository,
       UserPasswordHasherInterface $passwordHasher, 
       ManagerRegistry $doctrine, SendMailService $mail,
-      JWTService $jwt,TexterInterface $texter): Response
+      JWTService $jwt,TexterInterface $texter,SluggerInterface $slugger): Response
     {
         $user = new Utilisateur();
         $signupForm = $this->createForm(UserFormType::class, $user);
@@ -168,6 +168,21 @@ final class UtilisateurController extends AbstractController
         if ($signupForm->isSubmitted() && $signupForm->isValid()) {
             // Handle captured image
             $capturedImage = $request->get('captured_image');
+            $image1 = $signupForm->get('image1')->getData();
+
+            if ($image1) {
+                $originalFilename1 = pathinfo($image1->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename1 = $slugger->slug($originalFilename1);
+                $newFilename1 = $safeFilename1.'-'.uniqid().'.'.$image1->guessExtension();
+                try {
+                    $image1->move(
+                        $this->getParameter('User_directory'), $newFilename1);
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $user->setImage1($newFilename1);
+            }
 
             if ($capturedImage) {
                 $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $capturedImage));

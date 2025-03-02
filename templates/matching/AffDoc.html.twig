@@ -8,36 +8,79 @@
     <div class="page-inner">
         <div class="row">
             <div class="col-md-12">
-        <h2>Mes Matching</h2>
-        <table class="table123">
+<h2>Mes Matching</h2>
+        <div class="input-group mb-3" style="max-width: 300px;">
+            
+        </div>
+        
+        <table class="table123 table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>CIN</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th>Compétences</th>
-                    <th>CV</th>
+                    <th data-column="0">ID <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="1">Date <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="2">Description <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="3">Compétences <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="4">Freelancer <span class="sort-icon">🔼🔽</span></th>
+                    <th data-column="5">Prix <span class="sort-icon">🔼🔽</span></th>
+                    <th>Availability</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for matching in matchings %}
                     <tr>
-                        <td>{{ matching.id }}</td>
-                        <td>{{ matching.cin }}</td>
+                        <td><strong>{{ matching.id }}</strong></td>
+                        <td>{{ matching.getDate() ? matching.getDate()|date('Y-m-d') : 'N/A' }}</td>
                         <td>{{ matching.description }}</td>
-                        <td>{{ matching.getDate()|date('Y-m-d') }}</td>
-
                         <td>{{ matching.competences }}</td>
-                        <td>{{ matching.cv }}</td>
+                        <td>{{ matching.idFreelancer ? matching.idFreelancer.nom ~ ' ' ~ matching.idFreelancer.prenom : 'Non assigné' }}</td>
+                        <td>{{ matching.price is not null ? matching.price ~ ' $' : 'Non défini' }}</td>
                         <td>
-                            <a href="{{ path('app_matching_edit', {'id': matching.id}) }}">Modifier</a> 
+                    {% if matching.availability %}
+                        <span class="badge bg-success">Available</span>
+                    {% else %}
+                        <span class="badge bg-danger">Unavailable</span>
+                    {% endif %}
+                </td>
+                        <td>
+                            <a href="{{ path('app_matching_show', {'id': matching.id}) }}" class="btn btn-info btn-sm">
+                                <i class="bi bi-eye"></i> Voir
+                            </a>
+                            <a href="{{ path('app_matching_edit', {'id': matching.id}) }}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-square"></i> Modifier
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        
+        <!-- Include DataTables & Bootstrap -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+        
+        <script>
+            $(document).ready(function () {
+                let table = $('.table123').DataTable({
+                    "order": [[0, "asc"]], // Default sorting by ID in ascending order
+                    "columnDefs": [
+                        { "orderable": false, "targets": 6 } // Disable sorting on 'Actions' column
+                    ]
+                });
+        
+                // Update sorting icons dynamically
+                $('.table123 thead th').click(function () {
+                    $('.table123 thead th .sort-icon').text('🔼🔽'); // Reset all
+                    let columnIdx = $(this).index();
+                    let order = table.order();
+                    if (order[0][0] === columnIdx) {
+                        $(this).find('.sort-icon').text(order[0][1] === 'asc' ? '🔼' : '🔽');
+                    }
+                });
+            });
+        </script>
         </div>
     </div>
 </div>
