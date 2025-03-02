@@ -20,6 +20,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginControlleurController extends AbstractController
 {
+
     #[Route(path: '/login', name: 'app_login32')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -40,6 +41,7 @@ class LoginControlleurController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
     #[Route(path: '/oubli-pass', name: 'forgotten_password')]
     public function forgottenPassword (Request $request,UtilisateurRepository $utilisateurRepository,
     TokenGeneratorInterface $tokenGeneratorInterface,

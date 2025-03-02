@@ -26,7 +26,8 @@
                 </thead>
                 <tbody>
                     {% for consultation in consultations %}
-                        <tr>
+                        <tr  id="consultation-{{ consultation.id }}" 
+                        data-date="{{ consultation.getProchainRdv() ? consultation.getProchainRdv()|date('Y-m-d H:i:s') : '' }}">
                             <td><strong>{{ consultation.id }}</strong></td>
                             <td>{{ consultation.getProchainRdv() ? consultation.getProchainRdv()|date('Y-m-d') : 'N/A' }}</td>
                             <td>{{ consultation.prix }}</td>
@@ -46,6 +47,26 @@
                 </tbody>
             </table>
         {% endif %}
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                function checkExpiredConsultations() {
+                    let now = new Date();
+                    document.querySelectorAll("tr[data-date]").forEach(row => {
+                        let dateStr = row.getAttribute("data-date");
+                        if (dateStr) {
+                            let consultationDate = new Date(dateStr);
+                            if (consultationDate < now) {
+                                row.style.display = "none"; // Cache la ligne expirée
+                            }
+                        }
+                    });
+                }
+        
+                checkExpiredConsultations();
+                setInterval(checkExpiredConsultations, 60000); // Vérification toutes les minutes
+            });
+        </script>
         </div>
     </div>
 </div>

@@ -48,6 +48,7 @@ class Article
 
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: ArticleRating::class)]
     private Collection $ratings;
+
     
     public function __construct()
     {
@@ -86,13 +87,6 @@ class Article
         return $this;
     }
 
-    
-
-   
-
-   
-
-    
     public function getDateArticle(): ?\DateTimeInterface
     {
         return $this->datearticle;
@@ -177,11 +171,5 @@ public function getRatingDistribution(): array
     }
     return $distribution;
 }
-
-
-
-
-
-
 
 }

@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 
+
 class Matching1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -74,6 +75,7 @@ class Matching1Type extends AbstractType
                 ],
             ])
             ->add('availability');
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -31,7 +31,6 @@
      <div class="d-flex flex-column align-items-end">
         
         <small lass="text-muted"> {{ commentaire.dateCommentaire|date('d/m/Y') }} ,{{ commentaire.heure|date('H:i') }} </small>
-            <div class="dropdown">
                         <i class="fa-solid fa-ellipsis-vertical menu-icon" data-bs-toggle="dropdown" style="cursor: pointer;"></i>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#" > Signaler</a></li>
@@ -112,12 +111,6 @@
             </div>
         {% endfor %}
 
-
-
-
-                       
-
-
   </div>
 
 
@@ -125,27 +118,13 @@
 
 
 {% else %}
-    <p>Aucun commentaire pour cet article.</p>
-{% endfor %}
-
-<div class="mt-5">
-        <h2 class="mb-3">Ajouter un commentaire</h2>
-        <div class="card p-4 shadow-sm">
-{{ form_start(form) }}
-<div class="mb-3">
-                    {{ form_label(form.contenue, 'Votre commentaire', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.contenue, {'attr': {'class': 'form-control', 'rows': '3', 'placeholder': 'Écrivez votre commentaire ici...'}}) }}
- </div>
-  
-                <button type="submit" class="btn w-100" style="background-color: #66C0C6; border-color: #66C0C6; color: white; font-weight: bold; padding: 10px 20px; border-radius: 5px;"> Envoyer </button>
-{{ form_end(form) }}
-
-</div>
-</div>
- </div>
 
 
 
 
 
+<<<<<<< HEAD
 {% endblock %}
+=======
+{% endblock %}
+>>>>>>> origin/mayssa

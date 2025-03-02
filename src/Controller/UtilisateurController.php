@@ -53,6 +53,7 @@ final class UtilisateurController extends AbstractController
             return $this->redirectToRoute('Plannification_success');
         }
         $rendezVou = new RendezVous();
+
         $form = $this->createForm(RendezVousType::class, $rendezVou);
         $form->handleRequest($request);
 
@@ -67,8 +68,8 @@ final class UtilisateurController extends AbstractController
             $rendezVou->setMode($form->get('mode')->getData());
             $entityManager1->persist($rendezVou);
             $entityManager1->flush();
-
             return $this->redirectToRoute('doctor_rendezVous', [], Response::HTTP_SEE_OTHER);
+
         }
 
         $articles = $entityManager->getRepository(Article::class)->findAll();
@@ -297,9 +298,7 @@ final class UtilisateurController extends AbstractController
     public function editUser(
         Request $request,
         EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher,
-        int $id
-    ): Response {
+        UserPasswordHasherInterface $passwordHasher,int $id): Response {
         $user = $entityManager->getRepository(Utilisateur::class)->find($id);
 
         if (!$user) {
@@ -310,7 +309,6 @@ final class UtilisateurController extends AbstractController
         $ancienMotDePasse = $user->getPassword();
         $form = $this->createForm(EditPatientformType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             // Vérifie et gère le mot de passe
             $nouveauMotDePasse = $form->get('mot_de_passe')->getData();
@@ -323,12 +321,14 @@ final class UtilisateurController extends AbstractController
                 // Conserve l'ancien mot de passe
                 $user->setPassword($ancienMotDePasse);
             }
+
             // Gérer l'upload de l'image
             /** @var UploadedFile $imageFile */
             $imageFile = $form->get('image')->getData();
             if ($imageFile) {
                 $destination = $this->getParameter('kernel.project_dir') . '/public/utilisateur/img';
                 $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+
                 try {
                     $imageFile->move($destination, $newFilename);
                     $user->setImage($newFilename);  // Enregistre le chemin dans la base de données
@@ -342,12 +342,12 @@ final class UtilisateurController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+
         return $this->render('utilisateur/editPatient.html.twig', [
             'form' => $form->createView(),
             'user' => $user,
         ]);
     }
-
 
     #[Route('/utilisateur', name: 'app_utilisateur')]
     public function index(): Response
@@ -356,12 +356,12 @@ final class UtilisateurController extends AbstractController
             'controller_name' => 'UtilisateurController',
         ]);
     }
-
     #[Route('/utilisateur/table', name: 'view_user')]
     public function view(UtilisateurRepository $u): Response
     {
         return $this->render('utilisateur/list.html.twig', [
             'users' =>  $u->findAll(),
+
         ]);
     }
     #[Route('/utilisateur/profile', name: 'profile_user')]
@@ -369,7 +369,6 @@ final class UtilisateurController extends AbstractController
     {
         return $this->render('utilisateur/profile.html.twig');
     }
-
 
     #[Route('/utilisateur/delete/{id}', name: 'delete_user')]
     public function delete(EntityManagerInterface $entityManager, int $id): Response
@@ -410,6 +409,7 @@ final class UtilisateurController extends AbstractController
                         $newFilename
                     );
                 } catch (FileException $e) {
+
                 }
 
                 $user->setImage($newFilename);
@@ -417,6 +417,7 @@ final class UtilisateurController extends AbstractController
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('back_index');
+
         }
         return $this->render('utilisateur/add_doctor.html.twig', [
             'form' => $form,
@@ -445,7 +446,6 @@ final class UtilisateurController extends AbstractController
             'freelancers' => $freelancers,
         ]);
     }
-
     #[Route('/utilisateur/verif/{token}', name: 'verif_email')]
     public function verifyUser(string $token, JWTService $jwt,
     UtilisateurRepository $userRepository, EntityManagerInterface $em): Response

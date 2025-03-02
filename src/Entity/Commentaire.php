@@ -44,9 +44,9 @@ class Commentaire
     private ?bool $status = false;
 
 
+
     #[ORM\Column(type: "time", nullable: true)]
     private ?\DateTimeInterface $heure = null;
-
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy:"responses")]
     #[ORM\JoinColumn(name:"parent_id", referencedColumnName:"id_commentaire", onDelete: "CASCADE", nullable: true)]
@@ -93,18 +93,15 @@ class Commentaire
     }
 
 
-    
-
     public function getSignalements(): Collection
-{
-    return $this->signalements;
-}
+    {
+        return $this->signalements;
+    }
 
-public function getNombreSignalements(): int
-{
-    return $this->signalements->count();
-}
-
+    public function getNombreSignalements(): int
+    {
+        return $this->signalements->count();
+    }
    
 
     public function getIdCommentaire(): ?int
@@ -183,7 +180,6 @@ public function getNombreSignalements(): int
         $this->heure = $heure;
         return $this;
     }
-
 
     public function getParent(): ?self
     {
@@ -282,7 +278,5 @@ public function isAnonyme(): bool
 {
     return $this->status ?? false;
 }
-
-
 
 }

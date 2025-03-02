@@ -7,11 +7,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
-
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use App\Entity\Article;
 use App\Entity\Utilisateur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -75,9 +72,7 @@ class ArticleType extends AbstractType
     ]
 ])
        // ->add('nbreVue')
-            
-            
-        ->add('utilisateur', TextType::class, [
+      ->add('utilisateur', TextType::class, [
             'disabled' => true, // Empêche la modification
             'mapped' => false, // Ne pas enregistrer dans l'entité
             'attr' => ['class' => 'form-control'],

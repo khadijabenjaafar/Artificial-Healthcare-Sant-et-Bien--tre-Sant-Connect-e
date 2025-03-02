@@ -65,8 +65,8 @@ final class OrdonnanceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('doctor_ordonnance_Aff', [], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->render('ordonnance/edit.html.twig', [
@@ -84,5 +84,6 @@ final class OrdonnanceController extends AbstractController
         }
 
         return $this->redirectToRoute('doctor_ordonnance_Aff', [], Response::HTTP_SEE_OTHER);
+
     }
 }

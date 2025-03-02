@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-12">
             
-        <h1>Rendez-vous du patient</h1>
+                <h1>Rendez-vous du patient</h1>
         {% if rendez_vouses is defined and rendez_vouses is empty %}
             <p>Aucun rendez-vous trouvé pour ce patient.</p>
         {% else %}
@@ -48,6 +48,87 @@
         </div>
     </div>
 </div>
+<!-- Conteneur pour afficher la notification -->
+<div id="notification-container" 
+     style="position: fixed; top: 20px; right: 20px; padding: 15px; background-color: #1ca7a2; color: white; border-radius: 5px; display: none;">
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    function checkNotifications() {
+        fetch("/notifications")
+            .then(response => response.json())
+            .then(data => {
+                if (data.message && data.id) {
+                    showNotification(data.message, data.id); // Passer l'ID du rendez-vous
+                }
+            })
+            .catch(error => console.error("Erreur de notification :", error));
+
+        setTimeout(checkNotifications, 5000); // Vérifie toutes les 5 secondes
+    }
+
+    function showNotification(message, id) {
+        let notificationDiv = document.getElementById("notification-container");
+        notificationDiv.innerHTML = `
+            <div>
+                <p>${message}</p>
+                <button id="confirm-btn" style="margin-right: 10px; padding: 5px; background-color: green; color: white; border: none; border-radius: 3px; cursor: pointer;">Confirmer</button>
+                <button id="cancel-btn" style="padding: 5px; background-color: red; color: white; border: none; border-radius: 3px; cursor: pointer;">Annuler</button>
+            </div>
+        `;
+        notificationDiv.style.display = "block";
+
+        // Ajouter l'ID du rendez-vous aux requêtes
+        document.getElementById("confirm-btn").addEventListener("click", () => {
+            fetch(`/confirm-rdv/${id}`, { // Ajout de l'ID ici
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Rendez-vous confirmé et email envoyé !");
+                    } else {
+                        alert("Erreur : " + data.message);
+                    }
+                })
+                .catch(error => console.error("Erreur :", error));
+
+            notificationDiv.style.display = "none";
+        });
+
+        document.getElementById("cancel-btn").addEventListener("click", () => {
+            fetch(`/cancel-rdv/${id}`, { // Ajout de l'ID ici
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Rendez-vous annulé et email envoyé !");
+                    } else {
+                        alert("Erreur : " + data.message);
+                    }
+                })
+                .catch(error => console.error("Erreur :", error));
+
+            notificationDiv.style.display = "none";
+        });
+
+        setTimeout(() => {
+            notificationDiv.style.display = "none";
+        }, 5000);
+    }
+
+    checkNotifications();
+});
+</script>
+
 </main>
 
 {% endblock %}

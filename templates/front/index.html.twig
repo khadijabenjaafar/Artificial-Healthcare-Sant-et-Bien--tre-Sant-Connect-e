@@ -41,7 +41,7 @@
           <img src="{{ asset('front/img/hero-carousel/hero-carousel-3.jpg') }}" alt="">
           <div class="container">
             <h2>Notre engagement envers l’innovation</h2>
-            <p>A ClinicFlow, Nous utilisons les dernières avancées en matière de diagnostics et de traitements pour garantir que vous receviez les soins les plus efficaces. Notre engagement à l’amélioration continue que nous sommes toujours prêts à relever de nouveaux défis de santé avec les meilleurs outils disponibles.</p>
+            <p>A ClinicFlow, Nous utilisons les dernières avancées en matière de diagnostics et de traitements pour garantir que vous receviez les soins les plus efficaces. Notre engagement à l’amélioration continue signifie que nous sommes toujours prêts à relever de nouveaux défis de santé avec les meilleurs outils disponibles.</p>
             <a href="#about" class="btn-get-started">En savoir plus</a>
           </div>
         </div><!-- End Carousel Item -->
@@ -526,11 +526,8 @@ function updatePlanificationStatus(planifId, status) {
         <input type="hidden" id="freelancerId" name="freelancerId">
         <input type="hidden" id="utilisateurId" name="utilisateurId" value="{{ app.user.id }}">
 
-
-         
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required>
-
+            <input type="hidden" id="freelancerId" name="freelancerId">
+            
             <label for="adresse">Adresse:</label>
             <input type="text" id="adresse" name="adresse" required>
 
@@ -539,8 +536,6 @@ function updatePlanificationStatus(planifId, status) {
               <option value="présentiel">Présentiel</option>
               <option value="en ligne">En ligne</option>
             </select>
-
-           
 
             <button type="submit" class="btn btn-success">Confirmer</button>
         </form>

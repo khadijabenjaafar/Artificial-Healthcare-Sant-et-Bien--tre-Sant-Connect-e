@@ -15,6 +15,26 @@ class RendezVousRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, RendezVous::class);
     }
+    
+    public function searchRendezVous(string $searchTerm)
+{
+    return $this->createQueryBuilder('r')
+        ->where('r.date_heure LIKE :search OR r.motif LIKE :search OR r.statut LIKE :search')
+        ->setParameter('search', '%' . $searchTerm . '%')
+        ->orderBy('r.date_heure', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
+public function countByDay(): array
+{
+    return $this->createQueryBuilder('r')
+        ->select("DATE(r.date_heure) as jour, COUNT(r.id) as total")
+        ->groupBy('jour')
+        ->orderBy('jour', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
 
 //    /**
 //     * @return RendezVous[] Returns an array of RendezVous objects

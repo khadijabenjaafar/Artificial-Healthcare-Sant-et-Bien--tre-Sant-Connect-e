@@ -39,14 +39,11 @@ class RendezVous
     #[Assert\Length(max: 255, maxMessage: "Le commentaire ne doit pas dépasser 255 caractères.")]
     private ?string $commantaire = null;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'rendezVousPatient')]
-    #[ORM\JoinColumn(name: "id_patient", referencedColumnName: "id", nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'id_medecin')]
     private ?Utilisateur $id_patient = null;
-    
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'rendezVousMedecin')]
-    #[ORM\JoinColumn(name: "id_medecin", referencedColumnName: "id", nullable: true)]
+
+    #[ORM\ManyToOne(inversedBy: 'rendezVouses')]
     private ?Utilisateur $id_medecin = null;
-    
 
     public function getId(): ?int
     {
@@ -138,32 +135,32 @@ class RendezVous
     }
 
     #[Assert\Callback('validateDateHeure')]
-    public function validateDateHeure(ExecutionContextInterface $context): void
-{
-    if ($this->date_heure === null) {
-        return;
+    public function validateDateHeure(ExecutionContextInterface $context ): void
+    {
+        if ($this->date_heure === null) {
+            return;
+        }
+
+        $now = new \DateTime();
+        $hour = (int) $this->date_heure->format('H');
+
+        if ($this->date_heure < $now) {
+            $context->buildViolation("La date du rendez-vous doit être dans le futur.")
+                ->atPath('date_heure')
+                ->addViolation();
+        }
+
+        if ($hour < 8 || $hour > 16) {
+            $context->buildViolation("L'heure du rendez-vous doit être entre 08:00 et 16:00.")
+                ->atPath('date_heure')
+                ->addViolation();
+        }
     }
 
-    $now = new \DateTime();
-    $hour = (int) $this->date_heure->format('H');
-
-    if ($this->date_heure < $now) {
-        $context->buildViolation("La date du rendez-vous doit être dans le futur.")
-            ->atPath('date_heure')
-            ->addViolation();
+    public function __construct()
+    {
+        $this->date_heure = new \DateTime(); // Définit la date actuelle par défaut
     }
-
-    if ($hour < 8 || $hour > 16) {
-        $context->buildViolation("L'heure du rendez-vous doit être entre 08:00 et 16:00.")
-            ->atPath('date_heure')
-            ->addViolation();
-    }
-}
-
-public function __construct()
-{
-    $this->date_heure = new \DateTime(); // Définit la date actuelle par défaut
-}
 
 
 

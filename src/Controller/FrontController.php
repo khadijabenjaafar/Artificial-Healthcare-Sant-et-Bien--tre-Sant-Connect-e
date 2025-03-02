@@ -41,6 +41,7 @@ use App\Entity\CommentaireVote; // ✅ Vérifie que cette ligne est bien présen
 use Symfony\Component\HttpFoundation\JsonResponse ;
 use Snipe\BanBuilder\CensorWords;
 
+
 class FrontController extends AbstractController
 {
    
@@ -312,6 +313,7 @@ public function doctorMatchingAjout(UtilisateurRepository $utilisateurRepository
             'articles' => $articles,
             'commentaireRepository' => $commentaireRepository]);
     }
+
     #[Route('/essai', name: 'app_essai')]
     public function index_essai()
     {
@@ -332,11 +334,6 @@ public function doctorMatchingAjout(UtilisateurRepository $utilisateurRepository
         return $this->render('front/profil.html.twig', [
             'articles' => $articles]);
     }
-
-
-
-
-
 
     #[Route('/doctor', name: 'doctor_index')]
     public function doctor(UtilisateurRepository $utilisateurRepository,Security $security,EntityManagerInterface $entityManager,Request $request2,SluggerInterface $slugger): Response
@@ -376,6 +373,7 @@ public function doctorMatchingAjout(UtilisateurRepository $utilisateurRepository
             $entityManager->flush();
             $this->addFlash('success', 'Article ajouté avec succès !');
             return $this->redirectToRoute('doctor_article_Aff'); // Redirige après soumission
+
         }
         else {
             $this->addFlash('error', 'Veuillez remplir correctement le formulaire.');
@@ -384,7 +382,6 @@ public function doctorMatchingAjout(UtilisateurRepository $utilisateurRepository
             'form2' => $form2->createView(),
         ]);
     }
-
 
     #[Route('/exemple', name: 'app_exemple')]
     public function indexDoc(EntityManagerInterface $entityManager): Response
@@ -457,9 +454,6 @@ if ($lang !== $detectedLang) {
 
         // Lire `reply_to` depuis les paramètres GET
         $reply_to = $request->query->getInt('reply_to', 0);
-
-
-    
         $commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $commentaire);
     
@@ -469,8 +463,6 @@ if ($lang !== $detectedLang) {
             if (!$user) {
                 throw $this->createAccessDeniedException("Vous devez être connecté pour commenter.");
             }
-
-
            // $lang = $request->query->get('lang', 'fr'); // Langue cible par défaut : français
         //if ($lang !== 'fr') {
         //$translatedText = $translationService->translate($article->getContenue(), 'fr', $lang);
@@ -906,17 +898,10 @@ public function editArticle(
        // $user=$security->getUser();
         
         $commentaire = $commentaireRepository->find($id);
-
-
-      
-
         if (!$commentaire) {
             $this->addFlash('error', 'Commentaire non trouvé.');
             return $this->redirectToRoute('doctor_index');
         }
-
-
-        
 
         $entityManager->remove($commentaire);
         $entityManager->flush();
@@ -971,6 +956,7 @@ public function editArticle(
 
 
 
+
     #[Route('/commentaire/vote', name: 'commentaire_vote', methods: ['POST'])]
 public function voteCommentaire(
     Request $request,
@@ -1022,4 +1008,5 @@ public function voteCommentaire(
         'dislikes' => $commentaire->getDislikes()
     ]);
 }
+
 }

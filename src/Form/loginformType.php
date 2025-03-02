@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class loginformType extends AbstractType
@@ -43,6 +42,7 @@ class loginformType extends AbstractType
             'label'    => 'Utiliser la reconnaissance faciale',
             'required' => false,
             'mapped'   => false, // Important : ce champ n'est pas lié à l'entité
+
         ])
         ->add('submit', SubmitType::class, [
             'attr' => ['class' => 'btn btn-primary', 'name' => "login_submit"]

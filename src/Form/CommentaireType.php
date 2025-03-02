@@ -29,10 +29,6 @@ class CommentaireType extends AbstractType
             'label' => 'Commentaire anonyme ?',
             'required' => false
         ]);
-
-
-
-
         //->add('rating', ChoiceType::class, [
           //  'choices' => [
             //    '⭐' => 1,
@@ -56,12 +52,6 @@ class CommentaireType extends AbstractType
             //'placeholder' => 'Répondre à un commentaire', // Optionnel, pour laisser vide par défaut
             //'required' => false,
         //]);
-
-
-
-       
-    
-
         //->add('submit', SubmitType::class, [
            // 'label' => 'Envoyer',
         //])

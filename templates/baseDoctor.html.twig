@@ -9,6 +9,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
         <style>
             body {
                 background-color:rgb(255, 255, 255);
@@ -147,6 +149,15 @@
             <aside class="sidebar12 p-3">
                 <div class="sidebar-header">
                     <h3>{{ app.user.nom }}</h3>
+                    {% if app.user and app.user.image1 %}
+                        <a href="{{ path('profile_user') }}">
+                            <img src="{{ asset('utilisateur/img/' ~ app.user.image) }}" alt="Photo de profil" class="profile-icon">
+                        </a>
+                    {% else %}
+                        <a href="{{ path('profile_user') }}">
+                            <i class="bi bi-person-circle profile-icon"></i>
+                        </a>
+                    {% endif %}
                 </div>
                 <nav>
                     <ul class="list-unstyled">
@@ -460,8 +471,8 @@
                                 </div>
                             </form>
                             <ul class="navbar-nav ms-auto align-items-center">
-                            <li class="nav-item dropdown">
-                                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
+                                <li class="nav-item">
+                                     <a class="nav-link" href="{{ asset('/calendar')}}" role="button" data-bs-toggle="modal" data-bs-target="#calendarModal">
                                         <i class="bi bi-calendar"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -470,8 +481,8 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
-                                        <i class="bi bi-envelope"></i>
+                                    <a class="nav-link" href="/video-call" role="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-video"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li class="dropdown-header">Messages</li>

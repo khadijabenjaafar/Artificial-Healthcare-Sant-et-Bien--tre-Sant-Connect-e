@@ -52,7 +52,7 @@ class Planification
     #[ORM\JoinColumn(nullable: true)]
     #[Assert\NotNull(message: "L'utilisateur ne peut pas être nul.")]
     private ?Utilisateur $utilisateur = null;
-    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -140,4 +140,5 @@ class Planification
         $this->utilisateur = $utilisateur;
         return $this;
     }
+
 }

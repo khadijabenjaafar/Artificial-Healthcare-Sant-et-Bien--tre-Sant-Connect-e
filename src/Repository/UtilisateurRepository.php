@@ -15,7 +15,6 @@ class UtilisateurRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Utilisateur::class);
     }
-
     public function countUsersByRole(string $role): int
     {
         return $this->createQueryBuilder('u')
@@ -41,12 +40,12 @@ class UtilisateurRepository extends ServiceEntityRepository
         $user1 = $this->findOneBy(['mot_de_passe' => $Password]);
         // Vérifier si l'utilisateur existe
         if ($user == $user1) {
+
             return $user;
         }
 
         return null; // Retourner null si l'utilisateur n'est pas trouvé ou si les mots de passe ne correspondent pas
     }
-
     //    /**
     //     * @return Utilisateur[] Returns an array of Utilisateur objects
     //     */
@@ -71,4 +70,5 @@ class UtilisateurRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
 }

@@ -18,12 +18,22 @@ use Symfony\Component\Routing\Attribute\Route;
 final class RendezVousController extends AbstractController
 {
     #[Route(name: 'app_rendez_vous_index', methods: ['GET'])]
-    public function index(RendezVousRepository $rendezVousRepository): Response
-    {
-        return $this->render('rendez_vous/index.html.twig', [
-            'rendez_vouses' => $rendezVousRepository->findAll(),
-        ]);
+    public function index(Request $request, RendezVousRepository $rendezVousRepository): Response
+{
+    $searchTerm = $request->query->get('search'); // Récupère la recherche
+
+    if ($searchTerm) {
+        // Recherche par date, motif ou statut
+        $rendezVouses = $rendezVousRepository->searchRendezVous($searchTerm);
+    } else {
+        $rendezVouses = $rendezVousRepository->findAll();
     }
+
+    return $this->render('rendez_vous/index.html.twig', [
+        'rendez_vouses' => $rendezVouses,
+        'searchTerm' => $searchTerm, // Garde la recherche affichée
+    ]);
+}
 
     #[Route('/new', name: 'app_rendez_vous_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -35,8 +45,15 @@ final class RendezVousController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $rendezVou->setMotif($form->get('motif')->getData());
+
+
             $rendezVou->setStatut($form->get('statut')->getData());
+
+
             $rendezVou->setMode($form->get('mode')->getData());
+
+            
+
             $entityManager->persist($rendezVou);
             $entityManager->flush();
 
@@ -69,6 +86,7 @@ final class RendezVousController extends AbstractController
                 $this->addFlash('danger', 'Le commentaire est obligatoire.');
                 return $this->redirectToRoute('app_rendez_vous_edit', ['id' => $rendezVou->getId()]);
             }
+            
             if (
                 $originalData->getMotif() === $rendezVou->getMotif() &&
                 $originalData->getStatut() === $rendezVou->getStatut() &&
@@ -118,4 +136,16 @@ public function showPatientAppointments(int $patientId, RendezVousRepository $re
         'rendez_vouses' => $rendezVouses,
     ]);
 }
+#[Route('/calendar', name: 'app_rendez_vous_calendar', methods: ['GET'])]
+public function calendar(RendezVousRepository $rendezVousRepository): Response
+{
+    $rendezvous = $rendezVousRepository->findAll(); // Récupère tous les rendez-vous
+
+    return $this->render('calendar/index.html.twig', [
+        'rendezvous' => $rendezvous
+    ]);
+}
+
+
+
 }
