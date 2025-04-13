@@ -1,0 +1,18 @@
+.label {
+    -fx-text-fill: #1ca7a2;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.text-field {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #1ca7a2;
+    -fx-border-width: 2;
+    -fx-background-color: white;
+    -fx-text-fill: #333;
+}
+
+.image-view {
+    -fx-effect: dropshadow(gaussian, #1ca7a2, 10, 0.2, 0, 2);
+}
