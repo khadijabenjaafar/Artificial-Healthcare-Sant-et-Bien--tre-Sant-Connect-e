@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controllers.ModifArticleController">
+   <children>
+      <ScrollPane layoutY="59.0" prefHeight="581.0" prefWidth="664.0">
+      
+          <content>
+      
+              <VBox fx:id="articlesContainer" prefHeight="631.0" prefWidth="775.0" spacing="15.0" style="-fx-background-color: #f4f7f9;">
+                  <padding>
+                      <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
+                  </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+              </VBox>
+      
+      
+          </content>
+      
+      </ScrollPane>
+      <Label prefHeight="26.0" prefWidth="83.0" text="Label" />
+      <ComboBox fx:id="comboUtilisateur" layoutX="215.0" layoutY="1.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

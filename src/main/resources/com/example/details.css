@@ -1,0 +1,16 @@
+.label {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-text-fill: #333;
+}
+
+.text-area {
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: #ccc;
+}
+
+.button {
+    -fx-background-color: #0078D7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+}
