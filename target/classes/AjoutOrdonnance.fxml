@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.AjouterOrdonnanceController"
+            prefWidth="600" prefHeight="500"
+            style="-fx-background-color: #F4F4F9;">
+
+    <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <Label text="Ajouter une Ordonnance"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+
+        <GridPane hgap="15" vgap="15">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Médicaments:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="medicamentsField" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                       promptText="Ex : Paracétamol"
+                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;"/>
+            <Label fx:id="medicamentErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                   style="-fx-text-fill: red;" visible="false" />
+
+            <Label text="Commentaire:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextArea fx:id="commentaireField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefRowCount="3"
+                      promptText="Commentaire"
+                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="commentaireErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                   style="-fx-text-fill: red;" visible="false" />
+
+            <Label text="Durée d'utilisation:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="dureeUtilisationField" GridPane.columnIndex="1" GridPane.rowIndex="4"
+                       promptText="Ex : 5 jours"
+                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="dureeErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="5"
+                   style="-fx-text-fill: red;" visible="false" />
+
+            <Label text="Quantité d'utilisation:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <TextField fx:id="quantiteUtilisationField" GridPane.columnIndex="1" GridPane.rowIndex="6"
+                       promptText="Ex : 2 fois par jour"
+                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="quantiteErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="7"
+                   style="-fx-text-fill: red;" visible="false" />
+
+            <Label text="Consultation associée:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+            <ComboBox fx:id="consultationComboBox" GridPane.columnIndex="1" GridPane.rowIndex="8"
+                      promptText="Sélectionnez une consultation"
+                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="consultationErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="9"
+                   style="-fx-text-fill: red;" visible="false" />
+
+            <Label text="Date de prescription:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+            <DatePicker fx:id="date" GridPane.columnIndex="1" GridPane.rowIndex="10"
+                        style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="dateErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="11"
+                   style="-fx-text-fill: red;" visible="false" />
+
+        </GridPane>
+
+        <HBox spacing="20" alignment="CENTER">
+            <Button text="Ajouter" onAction="#ajouterOrdonnance"
+                    style="-fx-background-color: #22c1a4; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;" />
+            <Button text="Annuler"
+                    style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;" />
+        </HBox>
+    </VBox>
+</AnchorPane>

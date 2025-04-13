@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.AjouterFacturationController"
+            prefWidth="600" prefHeight="500"
+            style="-fx-background-color: #F4F4F9;">
+
+    <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <Label text="Ajouter une Facturation"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+
+        <GridPane hgap="15" vgap="15">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Ordonnance associée:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <ComboBox fx:id="ordonnanceComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                      promptText="Sélectionnez une ordonnance"
+                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="ordonnanceErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                   style="-fx-text-fill: red;" visible="false" />
+
+            <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <DatePicker fx:id="dateFacture" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                        style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="dateErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                   style="-fx-text-fill: red;" visible="false" />
+
+            <Label text="Montant:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="tfMontant" GridPane.columnIndex="1" GridPane.rowIndex="4"
+                       promptText="Ex : 49.99"
+                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="montantErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="5"
+                   style="-fx-text-fill: red;" visible="false" />
+
+            <Label text="Méthode de Paiement:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <ComboBox fx:id="cbMethodePaiement" GridPane.columnIndex="1" GridPane.rowIndex="6"
+                      promptText="Choisissez une méthode"
+                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="methodeErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="7"
+                   style="-fx-text-fill: red;" visible="false" />
+
+            <Label text="Statut:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+            <ComboBox fx:id="cbStatut" GridPane.columnIndex="1" GridPane.rowIndex="8"
+                      promptText="Choisissez un statut"
+                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" />
+            <Label fx:id="statutErrorLabel" GridPane.columnIndex="1" GridPane.rowIndex="9"
+                   style="-fx-text-fill: red;" visible="false" />
+        </GridPane>
+
+        <HBox spacing="20" alignment="CENTER">
+            <Button fx:id="btnAjouter" text="Ajouter" onAction="#ajouterFacturation"
+                    style="-fx-background-color: #22c1a4; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;" />
+            <Button text="Annuler" onAction="#annulerFormulaire"
+                    style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;" />
+        </HBox>
+    </VBox>
+</AnchorPane>
