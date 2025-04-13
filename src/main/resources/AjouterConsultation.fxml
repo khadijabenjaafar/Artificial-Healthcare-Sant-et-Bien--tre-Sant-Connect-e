@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="700.0" spacing="20.0"
+      style="-fx-background-color: #1ca7a2;"
+      xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controllers.AjouterConsultation">
+
+    <children>
+        <!-- Titre -->
+        <Label style="-fx-text-fill: white; -fx-font-family: 'MS Roman'; -fx-font-size: 32px; -fx-font-weight: bold;"
+               text="Ajouter une consultation" />
+
+        <!-- Diagnostic -->
+        <HBox alignment="CENTER" spacing="20.0">
+            <Label text="Diagnostic :" style="-fx-text-fill: white; -fx-font-size: 16px;">
+                <HBox.margin><Insets right="100.0" /></HBox.margin>
+            </Label>
+            <TextField fx:id="diagnosticField" prefWidth="300.0"
+                       style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
+        </HBox>
+
+        <!-- Traitement -->
+        <HBox alignment="CENTER" spacing="20.0">
+            <Label text="Traitement :" style="-fx-text-fill: white; -fx-font-size: 16px;">
+                <HBox.margin><Insets right="95.0" /></HBox.margin>
+            </Label>
+            <TextField fx:id="traitementField" prefWidth="300.0"
+                       style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
+        </HBox>
+
+        <!-- Observation -->
+        <HBox alignment="CENTER" spacing="20.0">
+            <Label text="Observation :" style="-fx-text-fill: white; -fx-font-size: 16px;">
+                <HBox.margin><Insets right="82.0" /></HBox.margin>
+            </Label>
+            <TextArea fx:id="observationArea" prefWidth="300.0" prefHeight="80.0"
+                      style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
+        </HBox>
+
+        <!-- Prix -->
+        <HBox alignment="CENTER" spacing="20.0">
+            <Label text="Prix :" style="-fx-text-fill: white; -fx-font-size: 16px;">
+                <HBox.margin><Insets right="145.0" /></HBox.margin>
+            </Label>
+            <TextField fx:id="prixField" prefWidth="300.0"
+                       style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
+        </HBox>
+
+        <!-- Prochain rendez-vous -->
+        <HBox alignment="CENTER" spacing="20.0">
+            <Label text="Prochain RDV :" style="-fx-text-fill: white; -fx-font-size: 16px;">
+                <HBox.margin><Insets right="60.0" /></HBox.margin>
+            </Label>
+            <DatePicker fx:id="prochainRdvPicker"
+                        style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
+        </HBox>
+
+        <!-- Durée -->
+        <HBox alignment="CENTER" spacing="20.0">
+            <Label text="Durée :" style="-fx-text-fill: white; -fx-font-size: 16px;">
+                <HBox.margin><Insets right="140.0" /></HBox.margin>
+            </Label>
+            <TextField fx:id="dureeField" prefWidth="300.0"
+                       style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
+        </HBox>
+
+        <!-- Rendez-vous lié -->
+        <HBox alignment="CENTER" spacing="20.0">
+            <Label text="Rendez-vous :" style="-fx-text-fill: white; -fx-font-size: 16px;">
+                <HBox.margin><Insets right="83.0" /></HBox.margin>
+            </Label>
+            <ComboBox fx:id="comboRendezVous" prefWidth="300.0"
+                      style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
+        </HBox>
+
+        <!-- Bouton Ajouter -->
+        <Button fx:id="btnAjouterConsultation"
+                text="Ajouter Consultation"
+                prefWidth="500.0"
+                onAction="#ajouterConsultation"
+                style="-fx-background-color: white; -fx-text-fill: #2e7d32; -fx-font-family: 'MS Roman'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10 24;" />
+    </children>
+</VBox>
