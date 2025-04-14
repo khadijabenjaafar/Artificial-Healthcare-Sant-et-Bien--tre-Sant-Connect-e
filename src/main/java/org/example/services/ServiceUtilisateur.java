@@ -1,6 +1,7 @@
 package org.example.services;
 
 import org.example.entities.EnumRole;
+import org.example.entities.Matching;
 import org.example.entities.Status;
 import org.example.entities.Utilisateur;
 import org.example.utils.MyDataBase;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 public class ServiceUtilisateur implements IService <Utilisateur> {
+
     private static Connection connection = MyDataBase.getInstance().getMyConnection();
 
 
@@ -19,6 +21,7 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
     }
     @Override
     public void ajouter(Utilisateur utilisateur) throws SQLException {
+
             String sql = "INSERT INTO `utilisateur` (`nom`, `prenom`, `email`, `password`, `date_naissance`, `role`, `adresse`, `genre`, `image`, `is_verified`, `reset_token`, `num_tel`, `tel_verified`, `status`, `image1`) " +
                     "VALUES ('" + utilisateur.getNom() + "', " +
                     "'" + utilisateur.getPrenom() + "', " +
@@ -44,6 +47,7 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
     @Override
     public void modifier(Utilisateur utilisateur) throws SQLException {
         String sql ="UPDATE `utilisateur` SET `nom`=? ,`prenom`=? ,`email`=?  ,`date_naissance`=? ,`role`=? ,`adresse`=? ,`genre`=? ,`num_tel`=?  ,`status`=? ,`image1`=?  WHERE id = ?";
+
         PreparedStatement pst = connection.prepareStatement(sql);
         pst.setString(1, utilisateur.getNom());
         pst.setString(2, utilisateur.getPrenom());
@@ -77,9 +81,13 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
         ps.executeUpdate();
 
     }
+        public Utilisateur findById(int id) throws SQLException {
+            return null;
+        }
 
     @Override
     public List<Utilisateur> afficher() throws SQLException {
+
         List<Utilisateur> utilisateurs = new ArrayList<>();
         try {
             String sql = "Select * from utilisateur";
@@ -103,6 +111,7 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
                     rs.getString(11),
                             status
                     );
+
 
                     utilisateurs.add(u);
                 }
@@ -130,6 +139,7 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
                 user.setnumTel(rs.getString("num_tel"));
                 user.setGenre(rs.getString("genre"));
                 user.setAdresse(rs.getString("adresse"));
+
                 // Convert String to Status enum
                 String statusStr = rs.getString("status");
                 user.setImage1(rs.getString("image1"));
@@ -244,4 +254,46 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
 
         return patients;
     }
+    public static List<Utilisateur> findFreelancers() throws SQLException {
+        List<Utilisateur> freelancers = new ArrayList<>();
+
+        String query = "SELECT * FROM utilisateur WHERE role = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, EnumRole.ROLE_FREELANCER.name());
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Utilisateur u = new Utilisateur(
+                    rs.getInt("id"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    rs.getString("email"),
+                    EnumRole.valueOf(rs.getString("role")),
+                    rs.getDate("date_naissance").toLocalDate(),
+                    rs.getString("password"),
+                    rs.getString("adresse"),
+                    rs.getString("genre"),
+                    rs.getString("numTel")
+            );
+
+            // Charger Matching
+            String matchingQuery = "SELECT * FROM matching WHERE utilisateur_id = ?";
+            PreparedStatement ps2 = connection.prepareStatement(matchingQuery);
+            ps2.setInt(1, u.getId());
+            ResultSet rs2 = ps2.executeQuery();
+
+            if (rs2.next()) {
+                Matching m = new Matching();
+                m.setId(rs2.getInt("id"));
+                m.setCompetences(rs2.getString("competences"));
+                m.setDescription(rs2.getString("description"));
+                m.setUtilisateur(u);  // Lier le user à son matching
+                u.setMatching(m);     // Lier le matching à l'utilisateur
+            }
+            freelancers.add(u);
+        }
+
+        return freelancers;
+    }
+
 }

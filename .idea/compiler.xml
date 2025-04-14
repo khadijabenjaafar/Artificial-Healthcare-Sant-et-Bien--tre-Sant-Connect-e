@@ -7,8 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="pi" />
-        <module name="Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.controllers.PlanificationController"
+            stylesheets="@styles.css">
+
+    <children>
+        <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Planifications" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Button fx:id="btnAddPlanification" text="Add Planification" onAction="#handleAddPlanification"/>
+            </HBox>
+
+            <HBox spacing="20" styleClass="search-box">
+                <TextField fx:id="searchField" promptText="Search..."/>
+                <ComboBox fx:id="statusFilter" promptText="Filter by status"/>
+            </HBox>
+
+            <!-- Replace TableView with ListView -->
+            <ListView fx:id="planificationListView" styleClass="list-view">
+                <!-- Custom cell factory will be set in controller -->
+            </ListView>
+        </VBox>
+    </children>
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+</AnchorPane>

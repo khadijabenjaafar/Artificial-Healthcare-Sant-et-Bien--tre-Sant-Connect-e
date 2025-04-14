@@ -6,6 +6,8 @@ import java.util.Locale;
 
 public class Utilisateur {
 
+    private Matching matching;
+
     private int id;
     private String nom = null;
     private String prenom = null;
@@ -16,6 +18,7 @@ public class Utilisateur {
     private EnumRole role;
     private String adresse;
     private String genre;
+
    private String image = null;
     private String numTel ;
     private boolean is_verified = false;
@@ -63,6 +66,7 @@ public class Utilisateur {
         this.id=id;
         this.nom = nom;
         this.prenom = prenom;
+
         this.email = email;
         this.role=role;
         this.date_naissance=date_naissance;
@@ -86,6 +90,21 @@ public class Utilisateur {
         this.genre = genre;
         this.numTel = numTel;
         this.status=status;
+
+    }
+    public Utilisateur(int id, String nom, String prenom, String email,EnumRole role,LocalDate date_naissance, String password, String adresse, String genre, String numTel) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+
+        this.role=role;
+        this.date_naissance=date_naissance;
+        this.password = password;
+        this.adresse = adresse;
+        this.genre = genre;
+        this.numTel = numTel;
+
     }
     public Utilisateur(int id, String nom, String prenom, String email,EnumRole role,LocalDate date_naissance, String password, String adresse, String genre, String image, String numTel, boolean is_verified, String resetToken, boolean tel_verified, Status status, String image1) {
         this.id = id;
@@ -250,4 +269,14 @@ public class Utilisateur {
     public void setImage1(String image1) {
         this.image1 = image1;
     }
+
+
+    public Matching getMatching() {
+        return matching;
+    }
+
+    public void setMatching(Matching matching) {
+        this.matching = matching;
+    }
+
 }

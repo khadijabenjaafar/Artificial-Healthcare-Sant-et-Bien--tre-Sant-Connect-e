@@ -154,5 +154,7 @@
          </children>
       </HBox>
       <fx:include source="AjouterRendezVous.fxml" />
+      <fx:include source="freelancer.fxml" />
+
    </VBox>
 </ScrollPane>
