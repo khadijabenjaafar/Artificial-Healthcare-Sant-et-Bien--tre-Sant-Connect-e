@@ -7,6 +7,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.controllers.PlanificationController"
             stylesheets="@styles.css">
+
     <children>
         <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
             <HBox spacing="10" alignment="CENTER_LEFT">

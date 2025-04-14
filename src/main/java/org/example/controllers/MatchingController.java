@@ -45,6 +45,7 @@ import org.example.entities.Matching;
 import org.example.services.ServiceUtilisateur;
 import org.example.entities.EnumRole;
 import org.example.services.ServicesPlanification;
+import org.example.utils.NavigationUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -153,7 +154,11 @@ public class MatchingController implements Initializable {
                 "-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"
         );
 
-        requestConsultationBtn.setOnAction(event -> openPlanificationForm(freelancer));
+        // On passe le Stage en paramètre à openPlanificationForm
+        requestConsultationBtn.setOnAction(event -> {
+            Stage currentStage = (Stage) requestConsultationBtn.getScene().getWindow();
+            openPlanificationForm(freelancer, currentStage);
+        });
 
         VBox modalContent = new VBox(15, imageView, name, gender, specialty, requestConsultationBtn);
         modalContent.setAlignment(Pos.CENTER);
@@ -166,7 +171,8 @@ public class MatchingController implements Initializable {
         modalStage.initModality(Modality.APPLICATION_MODAL);
         modalStage.showAndWait();
     }
-    private void openPlanificationForm(Utilisateur freelancer) {
+//hi!
+    private void openPlanificationForm(Utilisateur freelancer, Stage parentStage) {
         // Champs de saisie
         DatePicker datePicker = new DatePicker();
         TextField adresseField = new TextField();
@@ -179,11 +185,19 @@ public class MatchingController implements Initializable {
         Button submitBtn = new Button("Envoyer la demande");
         submitBtn.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;");
 
+        // Bouton Retour
+        Button backBtn = new Button("Retour");
+        backBtn.setStyle("-fx-background-color: #f44336; -fx-text-fill: white;");
+        backBtn.setOnAction(event -> {
+            // On revient à la vue précédente
+            showDetailsModal(freelancer);
+            parentStage.close(); // Ferme le stage actuel
+        });
+
         submitBtn.setOnAction(event -> {
             if (datePicker.getValue() == null || adresseField.getText().isEmpty() || modeComboBox.getValue() == null) {
                 new Alert(Alert.AlertType.ERROR, "Veuillez remplir tous les champs.").showAndWait();
             } else {
-                // Créer une planification
                 Planification planification = new Planification();
                 planification.setDate(datePicker.getValue());
                 planification.setAdresse(adresseField.getText());
@@ -191,26 +205,22 @@ public class MatchingController implements Initializable {
                 planification.setStatut("en attente");
                 planification.setReponse(null);
                 planification.setFreelancer(freelancer);
-/*
-                // Ici tu dois avoir l'utilisateur connecté
-                Utilisateur currentUser = ServiceUtilisateur.getConnectedUser();  // Cette méthode tu dois l’implémenter !
-                planification.setUtilisateur(currentUser);
-*/
+
                 if (planification.getUtilisateur() != null) {
                     int idUtilisateur = planification.getUtilisateur().getId();
                     System.out.println("L'utilisateur ID est : " + idUtilisateur);
-                    // continue le traitement ici
                 } else {
                     System.out.println("⚠️ Aucun utilisateur assigné à cette planification.");
-                    // ici tu peux soit ignorer, soit mettre un utilisateur par défaut pour les tests :
                     Utilisateur fakeUser = new Utilisateur();
-                    fakeUser.setId(1); // ID fictif pour test
+                    fakeUser.setId(1);
                     planification.setUtilisateur(fakeUser);
                 }
+
                 ServicesPlanification service = new ServicesPlanification();
                 try {
                     service.add(planification);
                     new Alert(Alert.AlertType.INFORMATION, "Demande envoyée avec succès !").showAndWait();
+                    parentStage.close(); // Ferme le formulaire après envoi
                 } catch (SQLException e) {
                     e.printStackTrace();
                     new Alert(Alert.AlertType.ERROR, "Erreur lors de l'enregistrement !").showAndWait();
@@ -222,17 +232,14 @@ public class MatchingController implements Initializable {
                 new Label("Choisissez la date :"), datePicker,
                 new Label("Adresse :"), adresseField,
                 new Label("Mode :"), modeComboBox,
-                submitBtn
+                new HBox(10, backBtn, submitBtn) // On met les boutons côte à côte
         );
         form.setPadding(new Insets(20));
         form.setAlignment(Pos.CENTER);
 
-        Scene formScene = new Scene(form, 400, 350);
-        Stage formStage = new Stage();
-        formStage.setTitle("Demande de Consultation");
-        formStage.setScene(formScene);
-        formStage.initModality(Modality.APPLICATION_MODAL);
-        formStage.showAndWait();
+        // On utilise le même Stage mais on change la Scene
+        parentStage.setScene(new Scene(form, 400, 350));
+        parentStage.setTitle("Demande de Consultation");
     }
     @FXML private TextField txtTitre;
     @FXML private DatePicker dateDebut;
@@ -243,7 +250,7 @@ public class MatchingController implements Initializable {
     @FXML
     private void onBtnValiderClicked(ActionEvent event) {
         if (validerChamps()) {
-            // ici tu enregistres la planification si tout est OK
+
             enregistrerPlanification();
         }
     }
@@ -293,33 +300,47 @@ public class MatchingController implements Initializable {
     @FXML
     private void handleAfficherMatching(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MatchingView.fxml"));
-            Parent root = fxmlLoader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MatchingView.fxml"));
+            Parent newView = loader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("Liste des Matchings");
-            stage.setScene(new Scene(root));
-            stage.show();
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            NavigationUtil.switchScene(stage, newView);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+
     @FXML
     private void handleAfficherPlanification(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/PlanificationView.fxml"));
-            Parent root = fxmlLoader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanificationView.fxml"));
+            Parent newView = loader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("Liste des Planifications");
-            stage.setScene(new Scene(root));
-            stage.show();
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            NavigationUtil.switchScene(stage, newView);
 
         } catch (IOException e) {
             e.printStackTrace();
-
         }
+    }
+
+
+
+    private void loadSceneWithFade(Parent newRoot, Stage stage) {
+        Scene scene = new Scene(newRoot);
+
+        // Animation Fade In
+        newRoot.setOpacity(0);
+        stage.setScene(scene);
+        stage.show();
+
+        javafx.animation.FadeTransition fadeIn = new javafx.animation.FadeTransition(javafx.util.Duration.millis(500), newRoot);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
     }
 
 

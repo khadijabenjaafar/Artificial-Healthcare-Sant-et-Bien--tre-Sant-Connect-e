@@ -8,6 +8,7 @@
     <children>
     <ScrollPane fx:id="scrollPane" layoutX="10.0" layoutY="10.0" prefWidth="780.0" prefHeight="280.0" />
     </children>
+
     <Button fx:id="btnAfficherMatchings"
             text="Afficher les Matchings"
             onAction="#handleAfficherMatching"
