@@ -11,17 +11,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="org.example.controllers.AjouterConsultation">
-    <fx:include source="doctor.fxml" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1140.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterConsultation">
 
     <children>
-        <VBox alignment="CENTER" layoutX="215.0" layoutY="9.0" prefHeight="778.0" prefWidth="925.0" spacing="20.0" style="-fx-background-color: #1ca7a2;">
+        <VBox alignment="CENTER" layoutX="97.0" layoutY="74.0" prefHeight="653.0" prefWidth="925.0" spacing="20.0" style="-fx-background-color: #ebf0f1;">
             <children>
-                <Label style="-fx-text-fill: white; -fx-font-family: 'MS Roman'; -fx-font-size: 32px; -fx-font-weight: bold;" text="Ajouter une consultation" />
+                <Label style="-fx-text-fill: black; -fx-font-family: 'MS Roman'; -fx-font-size: 32px; -fx-font-weight: bold;" text="Ajouter une consultation" />
                 <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Diagnostic :">
+                        <Label style="-fx-text-fill: black; -fx-font-size: 16px;" text="Diagnostic :">
                             <HBox.margin>
                                 <Insets right="100.0" />
                             </HBox.margin>
@@ -31,7 +29,7 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Traitement :">
+                        <Label style="-fx-text-fill: black; -fx-font-size: 16px;" text="Traitement :">
                             <HBox.margin>
                                 <Insets right="95.0" />
                             </HBox.margin>
@@ -41,7 +39,7 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Observation :">
+                        <Label style="-fx-text-fill: black; -fx-font-size: 16px;" text="Observation :">
                             <HBox.margin>
                                 <Insets right="82.0" />
                             </HBox.margin>
@@ -51,7 +49,7 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Prix :">
+                        <Label style="-fx-text-fill: black; -fx-font-size: 16px;" text="Prix :">
                             <HBox.margin>
                                 <Insets right="145.0" />
                             </HBox.margin>
@@ -61,7 +59,7 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Prochain RDV :">
+                        <Label style="-fx-text-fill: black; -fx-font-size: 16px;" text="Prochain RDV :">
                             <HBox.margin>
                                 <Insets right="60.0" />
                             </HBox.margin>
@@ -71,7 +69,7 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Durée :">
+                        <Label style="-fx-text-fill: black; -fx-font-size: 16px;" text="Durée :">
                             <HBox.margin>
                                 <Insets right="140.0" />
                             </HBox.margin>
@@ -81,7 +79,7 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Rendez-vous :">
+                        <Label style="-fx-text-fill: black; -fx-font-size: 16px;" text="Rendez-vous :">
                             <HBox.margin>
                                 <Insets right="83.0" />
                             </HBox.margin>
@@ -89,7 +87,7 @@
                         <ComboBox fx:id="comboRendezVous" prefWidth="300.0" style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
                     </children>
                 </HBox>
-                <Button fx:id="btnAjouterConsultation" onAction="#ajouterConsultation" prefWidth="500.0" style="-fx-background-color: white; -fx-text-fill: #2e7d32; -fx-font-family: 'MS Roman'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10 24;" text="Ajouter Consultation" />
+                <Button fx:id="btnAjouterConsultation" onAction="#ajouterConsultation" prefWidth="500.0" style="-fx-background-color: #80b4bc; -fx-text-fill: white; -fx-font-family: 'MS Roman'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10 24;" text="Ajouter Consultation" />
             </children>
         </VBox>
     </children>

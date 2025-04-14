@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 
 public class DoctorController {
@@ -16,21 +17,6 @@ public class DoctorController {
 
 
 
-    @FXML
-    private void handleAjouterArticle(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void handleMesArticles(ActionEvent event) {
-
-    }
-
-
-    @FXML
-    private void handlemodifArticles(ActionEvent event) {
-
-    }
     @FXML
     public void NavigateToCardRendezVous() throws IOException {
         try {
@@ -41,6 +27,7 @@ public class DoctorController {
             Stage stage = (Stage) contentPane.getScene().getWindow(); // Assurez-vous que 'nom' est un contrôle valide
             stage.setScene(new Scene(root));
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,60 +35,117 @@ public class DoctorController {
 
     public void rdv(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CardRendezVous.fxml"));
-            Parent root = loader.load();
-
-            // Get the current stage from the button (if applicable)
-            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Afficher les utilisateurs");
-            stage.show();
+            Parent fxml = FXMLLoader.load(getClass().getResource("/CardRendezVous.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
         } catch (IOException e) {
-            e.printStackTrace(); // Handle exception if the FXML loading fails
+            e.printStackTrace();
         }
     }
 
     public void cs(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterConsultation.fxml"));
-            Parent root = loader.load();
-
-            // Get the current stage from the button (if applicable)
-            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Afficher les utilisateurs");
-            stage.show();
+            Parent fxml = FXMLLoader.load(getClass().getResource("/AjouterConsultation.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
         } catch (IOException e) {
-            e.printStackTrace(); // Handle exception if the FXML loading fails
+            e.printStackTrace();
         }
     }
 
     public void css(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CardConsultation.fxml"));
-            Parent root = loader.load();
-
-            // Get the current stage from the button (if applicable)
-            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Afficher les utilisateurs");
-            stage.show();
+            Parent fxml = FXMLLoader.load(getClass().getResource("/CardConsultation.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
         } catch (IOException e) {
-            e.printStackTrace(); // Handle exception if the FXML loading fails
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @FXML
+    private void handleMesArticles(ActionEvent event) {
+        try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("/mesarticles.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+
+    @FXML
+    private void handlemodifArticles(ActionEvent event) {
+        try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("/avant-modif-article.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    private void handelajouterFacture(ActionEvent event) {
+        try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("/AjouterFacturation.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    private void handleAjouterArticle(ActionEvent event) {
+        try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("/ajout-article.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    private void handleAjouterOrdonnance(ActionEvent event) {
+        try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("/AjoutOrdonnance.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    private void handleAfficherOrdonnances(ActionEvent event) {
+        try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("/AfficheOrdonnance.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    private void handleAfficherFacture(ActionEvent event) {
+        try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("/AfficheFacturation.fxml"));
+            contentPane.getChildren().removeAll();
+            contentPane.getChildren().setAll(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -9,4 +9,5 @@ public interface IService <T>{
     void supprimer(int id) throws SQLException;
     List<T> afficher() throws SQLException;
 
+
 }

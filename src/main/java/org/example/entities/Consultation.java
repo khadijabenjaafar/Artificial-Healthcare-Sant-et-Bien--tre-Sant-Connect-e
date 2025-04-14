@@ -12,6 +12,7 @@ public class Consultation {
     private String duree;
     private RendezVous rendezVous;
 
+
     public Consultation(int id) {
         this.id = id;
     }
@@ -21,6 +22,7 @@ public class Consultation {
     }
 
     public Consultation(int id, String diagnostic, String traitement, String observation, String prix, LocalDate prochainRdv, String duree, RendezVous rendezVous) {
+
         this.id = id;
         this.diagnostic = diagnostic;
         this.traitement = traitement;
@@ -30,6 +32,17 @@ public class Consultation {
         this.duree = duree;
         this.rendezVous = rendezVous;
     }
+    public Consultation(int id, String diagnostic, String traitement, String observation, String prix, LocalDate prochainRdv, String duree) {
+            this.id = id;
+            this.diagnostic = diagnostic;
+            this.traitement = traitement;
+            this.observation = observation;
+            this.prix = prix;
+            this.prochainRdv = prochainRdv;
+            this.duree = duree;
+            this.rendezVous = rendezVous;
+        }
+
 
     public Consultation(String diagnostic, String traitement, String observation, String prix, LocalDate prochainRdv, String duree, RendezVous rendezVous) {
         this.diagnostic = diagnostic;
@@ -39,6 +52,15 @@ public class Consultation {
         this.prochainRdv = prochainRdv;
         this.duree = duree;
         this.rendezVous = rendezVous;
+    }
+    public Consultation(String diagnostic, String traitement, String observation, String prix, LocalDate prochainRdv, String duree) {
+        this.diagnostic = diagnostic;
+        this.traitement = traitement;
+        this.observation = observation;
+        this.prix = prix;
+        this.prochainRdv = prochainRdv;
+        this.duree = duree;
+
     }
 
     public Consultation() {
@@ -108,6 +130,7 @@ public class Consultation {
         this.rendezVous = rendezVous;
     }
 
+
     @Override
     public String toString() {
         return "Consultation{" +
@@ -119,6 +142,7 @@ public class Consultation {
                 ", prochainRdv=" + prochainRdv +
                 ", duree='" + duree + '\'' +
                 ", rendezVous=" + rendezVous +
+
                 '}';
     }
 }

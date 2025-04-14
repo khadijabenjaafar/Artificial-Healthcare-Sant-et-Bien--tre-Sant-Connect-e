@@ -17,7 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import org.example.entities.Matching;
+import org.example.entities.*;
 
 import java.sql.*;
 
@@ -39,11 +39,8 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.example.entities.Utilisateur;
-import org.example.entities.Planification;
 import org.example.entities.Matching;
 import org.example.services.ServiceUtilisateur;
-import org.example.entities.EnumRole;
 import org.example.services.ServicesPlanification;
 import org.example.utils.NavigationUtil;
 
@@ -54,6 +51,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MatchingController implements Initializable {
+    public Utilisateur CurrentUser= UserConnecter.getInstance().getUserConnecter();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -173,6 +171,7 @@ public class MatchingController implements Initializable {
     }
 //hi!
     private void openPlanificationForm(Utilisateur freelancer, Stage parentStage) {
+
         // Champs de saisie
         DatePicker datePicker = new DatePicker();
         TextField adresseField = new TextField();
@@ -205,7 +204,8 @@ public class MatchingController implements Initializable {
                 planification.setStatut("en attente");
                 planification.setReponse(null);
                 planification.setFreelancer(freelancer);
-
+                planification.setUtilisateur(CurrentUser);
+                System.out.println(CurrentUser);
                 if (planification.getUtilisateur() != null) {
                     int idUtilisateur = planification.getUtilisateur().getId();
                     System.out.println("L'utilisateur ID est : " + idUtilisateur);

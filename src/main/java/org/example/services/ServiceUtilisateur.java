@@ -17,12 +17,12 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
 
 
     public ServiceUtilisateur(){
+
         connection = MyDataBase.getInstance().getMyConnection();
     }
     @Override
     public void ajouter(Utilisateur utilisateur) throws SQLException {
-
-            String sql = "INSERT INTO `utilisateur` (`nom`, `prenom`, `email`, `password`, `date_naissance`, `role`, `adresse`, `genre`, `image`, `is_verified`, `reset_token`, `num_tel`, `tel_verified`, `status`, `image1`) " +
+         String sql = "INSERT INTO `utilisateur` (`nom`, `prenom`, `email`, `password`, `date_naissance`, `role`, `adresse`, `genre`, `image`, `is_verified`, `reset_token`, `num_tel`, `tel_verified`, `status`, `image1`) " +
                     "VALUES ('" + utilisateur.getNom() + "', " +
                     "'" + utilisateur.getPrenom() + "', " +
                     "'" + utilisateur.getEmail() + "', " +
@@ -42,6 +42,7 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
             System.out.println(sql); // Pour voir la requête générée (utile pour debug)
             Statement stm = connection.createStatement();
             stm.executeUpdate(sql);
+
     }
 
     @Override
@@ -70,6 +71,7 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
         pst.setString(10,utilisateur.getImage1());
         pst.setInt(11,utilisateur.getId());
         pst.executeUpdate();
+
 
     }
 
@@ -273,7 +275,7 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
                     rs.getString("password"),
                     rs.getString("adresse"),
                     rs.getString("genre"),
-                    rs.getString("numTel")
+                    rs.getString("num_tel")
             );
 
             // Charger Matching
@@ -297,3 +299,4 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
     }
 
 }
+

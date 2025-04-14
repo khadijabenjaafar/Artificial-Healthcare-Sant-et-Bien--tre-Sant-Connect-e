@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1021.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterOrdonnanceController">
+
+    <VBox alignment="CENTER" layoutX="20.0" layoutY="44.0" spacing="20" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="44.0">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Ajouter une Ordonnance" />
+
+        <GridPane alignment="CENTER" hgap="15" vgap="15">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+
+            <Label text="Médicaments:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="medicamentsField" prefHeight="32.0" prefWidth="527.0" promptText="Ex : Paracétamol" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label fx:id="medicamentErrorLabel" style="-fx-text-fill: red;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label text="Commentaire:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextArea fx:id="commentaireField" prefHeight="82.0" prefRowCount="3" prefWidth="499.0" promptText="Commentaire" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="commentaireErrorLabel" style="-fx-text-fill: red;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <Label text="Durée d'utilisation:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="dureeUtilisationField" promptText="Ex : 5 jours" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="dureeErrorLabel" style="-fx-text-fill: red;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+            <Label text="Quantité d'utilisation:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <TextField fx:id="quantiteUtilisationField" promptText="Ex : 2 fois par jour" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="quantiteErrorLabel" style="-fx-text-fill: red;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+            <Label text="Consultation associée:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+            <ComboBox fx:id="consultationComboBox" promptText="Sélectionnez une consultation" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="consultationErrorLabel" style="-fx-text-fill: red;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
+            <Label text="Date de prescription:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+            <DatePicker fx:id="date" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="dateErrorLabel" style="-fx-text-fill: red;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+         <columnConstraints>
+            <ColumnConstraints maxWidth="197.0" minWidth="142.0" prefWidth="197.0" />
+            <ColumnConstraints maxWidth="522.0" minWidth="467.0" prefWidth="467.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+         <VBox.margin>
+            <Insets top="50.0" />
+         </VBox.margin>
+
+        </GridPane>
+
+        <HBox alignment="CENTER" prefHeight="41.0" prefWidth="1034.0" spacing="20">
+            <Button onAction="#ajouterOrdonnance" prefHeight="30.0" prefWidth="218.0" style="-fx-background-color: #80b4bc; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;" text="Ajouter" />
+            <Button prefHeight="30.0" prefWidth="203.0" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;" text="Annuler" />
+        </HBox>
+    </VBox>
+</AnchorPane>

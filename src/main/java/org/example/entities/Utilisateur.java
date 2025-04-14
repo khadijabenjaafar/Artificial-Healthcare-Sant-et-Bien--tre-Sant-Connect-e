@@ -143,6 +143,7 @@ public class Utilisateur {
     }
 
 
+
     public int getId() {
         return id;
     }
@@ -195,6 +196,7 @@ public class Utilisateur {
     }
 
     public void setRole(EnumRole role) {
+
         this.role = role;
     }
 
@@ -221,6 +223,7 @@ public class Utilisateur {
     public void setImage(String image) {
         this.image = image;
     }
+
 
     public String getnumTel() {
         return numTel;
@@ -278,5 +281,6 @@ public class Utilisateur {
     public void setMatching(Matching matching) {
         this.matching = matching;
     }
+
 
 }

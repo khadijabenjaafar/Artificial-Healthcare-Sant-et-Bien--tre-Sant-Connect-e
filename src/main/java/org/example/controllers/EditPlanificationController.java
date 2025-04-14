@@ -92,21 +92,24 @@ public class EditPlanificationController {
                 planification.setFreelancer(freelancerComboBox.getValue());
                 planification.setUtilisateur(utilisateurComboBox.getValue());
 
-                // Save to database
+                if (planification.getId() == null) {
+                    showAlert("Internal Error", "Impossible de modifier une planification sans ID.");
+                    return;
+                }
+
                 servicesPlanification.update(planification);
 
-                // Refresh the main view if callback exists
                 if (refreshCallback != null) {
                     refreshCallback.run();
                 }
 
-                // Close the window
                 closeWindow();
             } catch (SQLException e) {
                 showAlert("Database Error", "Failed to update planification: " + e.getMessage());
             }
         }
     }
+
 
     @FXML
     private void handleCancel() {
