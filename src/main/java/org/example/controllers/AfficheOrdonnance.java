@@ -5,10 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -88,7 +85,6 @@ public class AfficheOrdonnance implements Initializable {
     }
 
     private void showDetailsModal(Ordonnance ordonnance) {
-        // Format personnalisé pour la date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         Label date = new Label("Date : " + ordonnance.getDate().format(formatter));
@@ -99,67 +95,46 @@ public class AfficheOrdonnance implements Initializable {
 
         Button modifierBtn = new Button("Modifier");
         modifierBtn.setStyle("-fx-background-color: #f0ad4e; -fx-text-fill: white;");
-        modifierBtn.setOnAction(event -> {
-            // Ouvrir un formulaire de modification
-            showModificationForm(ordonnance);
-        });
+        modifierBtn.setOnAction(event -> showModificationForm(ordonnance));
 
         Button supprimerBtn = new Button("Supprimer");
         supprimerBtn.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white;");
         supprimerBtn.setOnAction(event -> {
-            // Créer une boîte de dialogue de confirmation avant suppression
-            Stage confirmationStage = new Stage();
-            confirmationStage.initModality(Modality.APPLICATION_MODAL);
-            confirmationStage.setTitle("Confirmation de Suppression");
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirmation de Suppression");
+            confirmationAlert.setHeaderText("Êtes-vous sûr ?");
+            confirmationAlert.setContentText("Supprimer cette ordonnance ?");
 
-            Label confirmationLabel = new Label("Êtes-vous sûr de vouloir supprimer cette ordonnance ?");
-            confirmationLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+            confirmationAlert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    try {
+                        ServiceOrdonnance service = new ServiceOrdonnance();
+                        service.supprimer(ordonnance.getId());
+                        initialize(null, null); // Recharger les données (carousel)
 
-            Button yesButton = new Button("Oui");
-            yesButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white;");
-            yesButton.setOnAction(e -> {
-                try {
-                    ServiceOrdonnance service = new ServiceOrdonnance();
-                    service.supprimer(ordonnance.getId());
-                    System.out.println("Ordonnance supprimée !");
-                    confirmationStage.close(); // Ferme la fenêtre de confirmation
-                    modalStage.close(); // Ferme la fenêtre modale
-                    initialize(null, null); // Recharge les ordonnances dans le carousel
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                        successAlert.setTitle("Succès");
+                        successAlert.setHeaderText("✅ Suppression réussie !");
+                        successAlert.setContentText("L'ordonnance a été supprimée avec succès.");
+                        successAlert.showAndWait();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             });
-
-            Button noButton = new Button("Non");
-            noButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white;");
-            noButton.setOnAction(e -> confirmationStage.close()); // Ferme simplement la fenêtre de confirmation
-
-            HBox buttonsBox = new HBox(10, yesButton, noButton);
-            buttonsBox.setAlignment(Pos.CENTER);
-
-            VBox modalContent = new VBox(10, confirmationLabel, buttonsBox);
-            modalContent.setAlignment(Pos.CENTER_LEFT);
-            modalContent.setPadding(new Insets(20));
-
-            Scene modalScene = new Scene(modalContent, 300, 150);
-            confirmationStage.setScene(modalScene);
-            confirmationStage.showAndWait();
         });
 
         HBox buttonsBox = new HBox(10, modifierBtn, supprimerBtn);
         buttonsBox.setAlignment(Pos.CENTER);
 
-        VBox modalContent = new VBox(10, date, medicaments, commentaire, duree, quantite, buttonsBox);
-        modalContent.setAlignment(Pos.CENTER_LEFT);
-        modalContent.setPadding(new Insets(20));
+        VBox detailContent = new VBox(10, date, medicaments, commentaire, duree, quantite, buttonsBox);
+        detailContent.setAlignment(Pos.CENTER_LEFT);
+        detailContent.setPadding(new Insets(20));
 
-        Scene modalScene = new Scene(modalContent, 400, 350);
-        modalStage = new Stage();
-        modalStage.setTitle("Détails de l'Ordonnance");
-        modalStage.setScene(modalScene);
-        modalStage.initModality(Modality.APPLICATION_MODAL);
-        modalStage.showAndWait();
+        // ⬇️ Affichage dans l'interface principale (ScrollPane ou autre conteneur)
+        scrollPane.setContent(detailContent);
     }
+
 
     private void showModificationForm(Ordonnance ordonnance) {
         // Créer une nouvelle fenêtre pour la modification des informations

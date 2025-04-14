@@ -13,12 +13,12 @@ public class Mainfx extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        // ✅ TEST ACTIF : Afficher la liste des facturations en vue carousel
+        /* ✅ TEST ACTIF : Afficher la liste des facturations en vue carousel
         Parent root = FXMLLoader.load(getClass().getResource("/AfficheFacturation.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Liste des Facturations");
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show();*/
 
         /*
         // ❌ TEST INACTIF : Ajouter une Facturation
@@ -39,14 +39,14 @@ public class Mainfx extends Application {
         primaryStage.show();
         */
 
-        /*
+
         // ❌ TEST INACTIF : Afficher les Ordonnances (vue en carousel)
         Parent root = FXMLLoader.load(getClass().getResource("/AfficheOrdonnance.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Ordonnances - Vue en Carousel");
         primaryStage.setScene(scene);
         primaryStage.show();
-        */
+
     }
 
     public static void main(String[] args) {
