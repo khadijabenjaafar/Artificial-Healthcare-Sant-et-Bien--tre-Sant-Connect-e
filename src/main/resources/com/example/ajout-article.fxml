@@ -15,17 +15,17 @@
     </padding>
    <children>
       <Label graphicTextGap="1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="33.0" text="titre" />
-      <TextField fx:id="titreField" minHeight="-Infinity" prefHeight="28.0" prefWidth="390.0" />
+      <TextField fx:id="titreField" minHeight="-Infinity" prefHeight="28.0" prefWidth="390.0" promptText="Titre" />
       <Label fx:id="errorTitre" style="-fx-text-fill: red;" />
       <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="66.0" text="Contenue" />
-      <TextArea fx:id="contenueArea" prefHeight="39.0" prefWidth="390.0" text="&#10;" />
+      <TextArea fx:id="contenueArea" prefHeight="39.0" prefWidth="390.0" promptText="Contenue" text="&#10;" />
       <Label fx:id="errorContenue" style="-fx-text-fill: red;" />
       <Label prefHeight="20.0" prefWidth="48.0" text="image" />
       <HBox prefHeight="30.0" prefWidth="226.0">
          <children>
             <HBox spacing="20.0">
                <children>
-                  <Button fx:id="btnChoisirImage" minHeight="20.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="71.0" text="inserer" />
+                  <Button fx:id="btnChoisirImage" minHeight="20.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="87.0" text="inserer" />
                   <Label fx:id="labelImage" text="url-image">
                      <padding>
                         <Insets top="4.0" />

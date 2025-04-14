@@ -8,9 +8,59 @@
     -fx-border-color: #ccc;
 }
 
-.button {
-    -fx-background-color: #0078D7;
-    -fx-text-fill: white;
+.root {
+    -fx-background-color: #F8FAFC;
+    -fx-padding: 20;
+}
+
+.label-titre {
+    -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-background-radius: 8px;
+    -fx-alignment: center;
+    -fx-text-fill: #222;
+}
+
+.image-article {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.3, 0, 4);
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+}
+
+.contenu-article {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-padding: 10 0 10 0;
+}
+
+.date-article {
+    -fx-font-size: 12px;
+    -fx-text-fill: gray;
+    -fx-alignment: bottom-right;
+}
+
+.section-commentaires {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-text-fill: #444;
+    -fx-padding: 10 0 5 0;
+}
+
+.commentaire-box {
+    -fx-background-color: #E8EAF6;
+    -fx-padding: 10;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-spacing: 5;
+    -fx-effect: dropshadow(gaussian, lightgrey, 4, 0.3, 0, 1);
+}
+
+.nom-utilisateur {
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.commentaire-date {
+    -fx-font-size: 10px;
+    -fx-text-fill: #888;
 }
