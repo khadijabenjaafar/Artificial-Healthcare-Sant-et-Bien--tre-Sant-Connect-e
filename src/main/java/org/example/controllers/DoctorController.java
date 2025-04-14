@@ -5,8 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.entities.UserConnecter;
+import org.example.entities.Utilisateur;
+import org.example.utils.NavigationUtil;
 
 
 import java.io.IOException;
@@ -14,7 +22,35 @@ import java.io.IOException;
 public class DoctorController {
     @FXML
     private AnchorPane contentPane;
+    @FXML
+    private Label nom;
 
+    @FXML
+    private ImageView photo;
+    public Utilisateur CurrentUser=UserConnecter.getInstance().getUserConnecter();
+    @FXML
+    public void initialize() {
+        if (CurrentUser != null) {
+            if (nom != null) {
+                nom.setText(CurrentUser.getNom());
+            } else {
+                System.err.println("Le label 'nom' est null !");
+            }
+
+            if (photo != null && CurrentUser.getImage1() != null) {
+                try {
+                    photo.setImage(new Image(CurrentUser.getImage1()));
+                } catch (Exception e) {
+                    System.err.println("Erreur lors du chargement de l'image : " + CurrentUser.getImage1());
+                    e.printStackTrace();
+                }
+            } else {
+                System.err.println("L'image 'photo' est null ou le chemin de l'image est null !");
+            }
+        } else {
+            System.err.println("Aucun utilisateur connecté.");
+        }
+    }
 
 
     @FXML
@@ -33,6 +69,27 @@ public class DoctorController {
         }
     }
 
+    @FXML
+    private void handleAfficherMatching(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MatchingView.fxml"));
+            Parent newView = loader.load();
+            contentPane.getChildren().setAll(newView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleAfficherPlanification(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanificationView.fxml"));
+            Parent newView = loader.load();
+            contentPane.getChildren().setAll(newView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void rdv(ActionEvent actionEvent) {
         try {
             Parent fxml = FXMLLoader.load(getClass().getResource("/CardRendezVous.fxml"));
@@ -146,6 +203,20 @@ public class DoctorController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void Deconnecter (ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+        Parent root = loader.load();
+
+        // Get the current stage (window)
+        Stage stage = (Stage) contentPane.getScene().getWindow();
+
+        // Set the new scene with the home.fxml content
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 
 }

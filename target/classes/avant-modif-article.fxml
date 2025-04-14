@@ -26,7 +26,5 @@
           </content>
       
       </ScrollPane>
-      <Label layoutX="49.0" layoutY="33.0" prefHeight="26.0" prefWidth="83.0" text="Label" />
-      <ComboBox fx:id="comboUtilisateur" layoutX="535.0" layoutY="28.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

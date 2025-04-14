@@ -1,9 +1,14 @@
 package org.example.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.example.entities.RendezVous;
+import org.example.entities.UserConnecter;
 import org.example.entities.Utilisateur;
 import org.example.enums.Mode;
 import org.example.enums.Motif;
@@ -13,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import org.example.services.ServiceUtilisateur;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -36,8 +42,6 @@ public class AjouterRendezVous {
      private TextArea commentaireArea;
      @FXML
      private ComboBox<Utilisateur> comboMedecin;
-     @FXML
-     private ComboBox<Utilisateur> comboPatient;
      @FXML
      private Button btnAjouter;
     @FXML
@@ -71,10 +75,8 @@ public class AjouterRendezVous {
         // Remplir les ComboBox avec les utilisateurs (médecins et patients)
         ServiceUtilisateur serviceUtilisateur = new ServiceUtilisateur();
         List<Utilisateur> medecins = serviceUtilisateur.getMedecins();  // Récupérer les médecins
-        List<Utilisateur> patients = serviceUtilisateur.getPatients();  // Récupérer les patients
 
         comboMedecin.getItems().setAll(medecins);
-        comboPatient.getItems().setAll(patients);
 
         // Afficher les noms dans les ComboBox
         comboMedecin.setCellFactory(param -> new ListCell<Utilisateur>() {
@@ -85,17 +87,32 @@ public class AjouterRendezVous {
             }
         });
 
-        comboPatient.setCellFactory(param -> new ListCell<Utilisateur>() {
-            @Override
-            protected void updateItem(Utilisateur item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty ? "" : item.getNom() + " " + item.getPrenom());
-            }
-        });
     } catch (Exception e) {
         e.printStackTrace();
     }
 
+    }
+
+
+
+    // Méthode pour réinitialiser les labels d'erreur
+    private void resetErrorLabels() {
+        dateErrorLabel.setVisible(false);
+        motifErrorLabel.setVisible(false);
+        statutErrorLabel.setVisible(false);
+        modeErrorLabel.setVisible(false);
+        labelErrorCommentaire.setVisible(false);
+        medecinErrorLabel.setVisible(false);
+        patientErrorLabel.setVisible(false);
+    }
+
+    // Méthode pour afficher une alerte
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
@@ -103,6 +120,28 @@ public class AjouterRendezVous {
         resetErrorLabels();
         boolean hasError = false;
         StringBuilder messageErreur = new StringBuilder();
+
+        Utilisateur currentUser = UserConnecter.getInstance().getUserConnecter();
+
+        if (currentUser == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Connexion requise");
+            alert.setHeaderText(null);
+            alert.setContentText("❗ Vous devez être connecté pour prendre un rendez-vous.");
+            alert.showAndWait();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+                Parent loginView = loader.load();
+                Stage stage = (Stage) commentaireArea.getScene().getWindow();
+                Scene scene = new Scene(loginView);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
 
         try {
             if (datePicker.getValue() == null || spinnerHeure.getValue() == null || spinnerMinute.getValue() == null) {
@@ -170,23 +209,15 @@ public class AjouterRendezVous {
                 hasError = true;
             }
 
-            Utilisateur patient = comboPatient.getValue();
-            if (patient == null) {
-                patientErrorLabel.setText("Veuillez sélectionner un patient.");
-                patientErrorLabel.setVisible(true);
-                messageErreur.append("- Veuillez sélectionner un patient.\n");
-                hasError = true;
-            }
-
             if (hasError) {
                 showAlert(Alert.AlertType.WARNING, "Champs manquants", messageErreur.toString());
                 return;
             }
 
-            // Si tout est ok : créer et enregistrer le rendez-vous
+            // Création du rendez-vous avec le currentUser comme patient
             RendezVous rdv = new RendezVous(
                     LocalDateTime.of(datePicker.getValue(), LocalTime.of(spinnerHeure.getValue(), spinnerMinute.getValue())),
-                    motif, statut, mode, commentaire, medecin, patient
+                    motif, statut, mode, commentaire, medecin, currentUser
             );
 
             ServiceRendezVous service = new ServiceRendezVous();
@@ -196,27 +227,5 @@ public class AjouterRendezVous {
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue : " + e.getMessage());
         }
-
-    }
-
-
-    // Méthode pour réinitialiser les labels d'erreur
-    private void resetErrorLabels() {
-        dateErrorLabel.setVisible(false);
-        motifErrorLabel.setVisible(false);
-        statutErrorLabel.setVisible(false);
-        modeErrorLabel.setVisible(false);
-        labelErrorCommentaire.setVisible(false);
-        medecinErrorLabel.setVisible(false);
-        patientErrorLabel.setVisible(false);
-    }
-
-    // Méthode pour afficher une alerte
-    private void showAlert(Alert.AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

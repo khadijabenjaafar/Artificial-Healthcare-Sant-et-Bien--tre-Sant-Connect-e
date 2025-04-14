@@ -11,10 +11,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1140.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterConsultation">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1021.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterConsultation">
 
     <children>
-        <VBox alignment="CENTER" layoutX="97.0" layoutY="74.0" prefHeight="653.0" prefWidth="925.0" spacing="20.0" style="-fx-background-color: #ebf0f1;">
+        <VBox alignment="CENTER" layoutX="48.0" layoutY="74.0" prefHeight="653.0" prefWidth="925.0" spacing="20.0" style="-fx-background-color: #ebf0f1;">
             <children>
                 <Label style="-fx-text-fill: black; -fx-font-family: 'MS Roman'; -fx-font-size: 32px; -fx-font-weight: bold;" text="Ajouter une consultation" />
                 <HBox alignment="CENTER" spacing="20.0">

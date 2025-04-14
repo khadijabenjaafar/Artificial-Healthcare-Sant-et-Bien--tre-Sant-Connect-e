@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import org.example.entities.Article;
+import org.example.entities.UserConnecter;
 import org.example.entities.Utilisateur;
 import org.example.services.ServiceArticle;
 import org.example.services.ServiceUtilisateur;
@@ -15,72 +16,52 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 
 public class ModifArticleController {
-
     @FXML
     private VBox articlesContainer;
 
-    //@FXML
-   // private Label errorLabel;
+    public Utilisateur CurrentUser = UserConnecter.getInstance().getUserConnecter();
 
-
-    @FXML
-    private ComboBox<Utilisateur> comboUtilisateur;
-
-
+// Plus besoin de ComboBox
+// @FXML
+// private ComboBox<Utilisateur> comboUtilisateur;
 
     private final ServiceArticle service = new ServiceArticle();
-    private final ServiceUtilisateur serviceUtilisateur = new ServiceUtilisateur();
 
     @FXML
     public void initialize() {
         try {
-            List<Utilisateur> utilisateurs = serviceUtilisateur.afficher();
-           // System.out.println("Utilisateurs chargés : " + utilisateurs); // 🔍 debug ici
-           // comboUtilisateur.setItems(FXCollections.observableArrayList(utilisateurs));
-            //comboUtilisateur.setOnAction(e -> afficherArticlesUtilisateur(comboUtilisateur.getValue()));
-            ObservableList<Utilisateur> observableList = FXCollections.observableArrayList(utilisateurs) ;
-            comboUtilisateur.setItems(observableList);
-
-            comboUtilisateur.setOnAction(e -> {
-                Utilisateur selectedUser = comboUtilisateur.getValue();
-                if (selectedUser != null) {
-                    afficherArticlesUtilisateur(selectedUser);
-                }
-            });
-
-
+            // Chargement automatique des articles de l'utilisateur connecté
+            afficherArticlesUtilisateur(CurrentUser);
         } catch (Exception e) {
             e.printStackTrace();
-           // errorLabel.setText("Erreur de chargement utilisateurs");
+            // Optionnel : afficher une erreur visuelle
+            // errorLabel.setText("Erreur de chargement des articles.");
         }
-
     }
 
-
-
-
-
     private void afficherArticlesUtilisateur(Utilisateur utilisateur) {
-        articlesContainer.getChildren().clear(); // VBox
+        articlesContainer.getChildren().clear();
 
         try {
             List<Article> articles = service.getArticlesByUser(utilisateur.getId());
-            System.out.println("Articles trouvés : " + articles.size()); // 🪵 pour débug
+            System.out.println("Articles trouvés : " + articles.size());
 
             for (Article article : articles) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/articleItem1.fxml"));
                 Parent card = loader.load();
 
                 ArticleItem1Controller controller = loader.getController();
-                controller.setArticle(article); // très important
+                controller.setArticle(article);
 
                 articlesContainer.getChildren().add(card);
             }
         } catch (Exception e) {
-          //  errorLabel.setText("Erreur lors du chargement des articles.");
             e.printStackTrace();
+            // Optionnel : afficher une erreur visuelle
+            // errorLabel.setText("Erreur lors du chargement des articles.");
         }
     }
+
 
 
     public void refreshAfterModification(Utilisateur utilisateur) {

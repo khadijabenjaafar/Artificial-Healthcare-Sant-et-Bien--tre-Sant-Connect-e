@@ -2,6 +2,7 @@ package org.example.controllers;
 
 
 import org.example.entities.Article;
+import org.example.entities.UserConnecter;
 import org.example.entities.Utilisateur;
 import org.example.services.ServiceArticle;
 import org.example.services.ServiceUtilisateur;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ArticleajoutController {
+    public Utilisateur CurrentUser = UserConnecter.getInstance().getUserConnecter();
 
     @FXML
     private TextField titreField;
@@ -33,10 +35,6 @@ public class ArticleajoutController {
 
     @FXML
     private Label labelImage;
-
-    @FXML
-    private ComboBox<Utilisateur> comboUtilisateur;
-
 
     @FXML
     private Label errorTitre;
@@ -58,14 +56,7 @@ public class ArticleajoutController {
 
     @FXML
     public void initialize() {
-        // Charger la liste des utilisateurs depuis la base
-        try {
-            List<Utilisateur> utilisateurs = serviceUtilisateur.afficher();
-            ObservableList<Utilisateur> observableList = FXCollections.observableArrayList(utilisateurs) ;
-            comboUtilisateur.setItems(observableList);
-        } catch (SQLException e) {
-            showAlert("❌ Erreur lors du chargement des utilisateurs : " + e.getMessage());
-        }
+
 
         // Choisir image
         btnChoisirImage.setOnAction(e -> {
@@ -101,36 +92,17 @@ public class ArticleajoutController {
 
     private void enregistrerArticle() throws SQLException {
 
-        // Réinitialiser le message
+        // Réinitialiser les messages d'erreur
         errorTitre.setText("");
         errorContenue.setText("");
         errorImage.setText("");
 
-
         String titre = titreField.getText();
         String contenue = contenueArea.getText();
-    Utilisateur utilisateur = comboUtilisateur.getValue();
 
-
-
-        if (titre.isEmpty() || contenue.isEmpty() || utilisateur == null || imageChoisie == null) {
-          showAlert("⚠️ Tous les champs sont obligatoires.");
-         return;
-        }
-
-
-
-
-
-
-
+        // Vérification des champs
         if (titre.isEmpty()) {
             errorTitre.setText("Le titre est requis.");
-            return;
-        }
-
-        if (contenue.isEmpty()) {
-            errorContenue.setText("Le contenu est requis.");
             return;
         }
 
@@ -139,40 +111,38 @@ public class ArticleajoutController {
             return;
         }
 
+        if (contenue.isEmpty()) {
+            errorContenue.setText("Le contenu est requis.");
+            return;
+        }
+
         if (contenue.length() < 10) {
             errorContenue.setText("Le contenu est trop court.");
             return;
         }
 
-
         if (imageChoisie == null) {
-            errorImage.setText("Selectionner une photo");
+            errorImage.setText("Sélectionner une photo.");
             return;
         }
 
-
-
-
-
-        //if (titre.isEmpty() || contenue.isEmpty() || utilisateur == null || imageChoisie == null) {
-          //  showAlert("⚠️ Tous les champs sont obligatoires.");
-           // return;
-        //}
-
+        // Création de l'article
         Article article = new Article();
-        article.setTitre(titre); // si ton entité a un champ titre
+        article.setTitre(titre);
         article.setContenue(contenue);
-        article.setUrlimagearticle("images/" + imageChoisie.getName());
         article.setDateArticle(Date.valueOf(LocalDate.now()));
         article.setNbreVue(0);
-        article.setUrlimagearticle(imageChoisie.getAbsolutePath()); // ou juste le nom si tu préfères
-        article.setUtilisateur(utilisateur);
+        article.setUrlimagearticle("images/" + imageChoisie.getName()); // ou imageChoisie.getAbsolutePath() si besoin
+        article.setUtilisateur(CurrentUser); // ✅ utilisateur connecté
 
+        // Enregistrement
         serviceArticle.ajouter(article);
         showAlert("✅ Article ajouté avec succès !");
         System.out.println(article);
-        resetForm();
+
+        resetForm(); // nettoyage du formulaire
     }
+
 
     private void showAlert(String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -184,7 +154,6 @@ public class ArticleajoutController {
         titreField.clear();
         contenueArea.clear();
         labelImage.setText("");
-        comboUtilisateur.getSelectionModel().clearSelection();
         imageChoisie = null;
     }
 }
