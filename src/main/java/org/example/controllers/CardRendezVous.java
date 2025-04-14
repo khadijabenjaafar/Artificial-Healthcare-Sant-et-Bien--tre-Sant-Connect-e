@@ -1,80 +1,109 @@
 package org.example.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import org.example.entities.RendezVous;
-import javafx.animation.PauseTransition;
-import javafx.util.Duration;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import org.example.entities.RendezVous;
 import org.example.services.ServiceRendezVous;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class CardRendezVous {
-    @FXML
-    private Label labelDate;
-    @FXML
-    private Label labelMotif;
-    @FXML
-    private Label labelStatut;
-    @FXML
-    private Label labelMode;
-    @FXML
-    private Label labelMedecin;
-    @FXML
-    private Label labelPatient;
-    @FXML
-    private Label labelCommentaire;
-    @FXML
-    private Button btnSupprimer;
-    @FXML
-    private Button btnModifier;
-    @FXML
-    private AnchorPane rootPane; // pour éventuellement supprimer visuellement la carte
+public class CardRendezVous implements Initializable {
 
-    private RendezVous rendezVous; // pour stocker l'objet courant
+    @FXML
+    private VBox rootVBox; // Reference to the root VBox in FXML
+
+    @FXML
+    private GridPane grid; // Reference to the GridPane in FXML
+
     private final ServiceRendezVous service = new ServiceRendezVous();
 
-    public void setData(RendezVous rv) {
-        this.rendezVous = rv;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        labelDate.setText("Date : " + rv.getDateHeure().format(formatter));
-        labelMotif.setText(" Motif : " + rv.getMotif());
-        labelStatut.setText(" Statut : " + rv.getStatut());
-        labelMode.setText(" Mode : " + rv.getMode());
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            List<RendezVous> rendezVousList = service.afficher();
+            int column = 0;
+            int row = 0;
 
-        if (rv.getMedecin() != null)
-            labelMedecin.setText("Médecin : " + rv.getMedecin().getNom());
+            for (RendezVous rv : rendezVousList) {
+                VBox card = createCard(rv);
+                grid.add(card, column, row);
 
-        if (rv.getPatient() != null)
-            labelPatient.setText(" Patient : " + rv.getPatient().getNom());
+                column++;
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+            }
 
-        labelCommentaire.setText(" Commentaire : " + rv.getCommentaire());
-        btnSupprimer.setOnAction(e -> supprimerRendezVous());
-        btnModifier.setOnAction(e -> modifierRendezVous());
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void supprimerRendezVous() {
+    private VBox createCard(RendezVous rv) {
+        VBox card = new VBox(8);
+        card.setPadding(new Insets(15));
+        card.setStyle("-fx-background-color: white; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)");
+
+        // Date format for the label
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        // Create labels for each piece of information
+        Label labelDate = new Label("Date : " + rv.getDateHeure().format(formatter));
+        labelDate.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+        Label labelMotif = new Label("Motif : " + rv.getMotif());
+        Label labelStatut = new Label("Statut : " + rv.getStatut());
+        Label labelMode = new Label("Mode : " + rv.getMode());
+        Label labelMedecin = new Label("Médecin : " + (rv.getMedecin() != null ? rv.getMedecin().getNom() : "Inconnu"));
+        Label labelPatient = new Label("Patient : " + (rv.getPatient() != null ? rv.getPatient().getNom() : "Inconnu"));
+        Label labelCommentaire = new Label("Commentaire : " + rv.getCommentaire());
+
+        Button btnModifier = new Button("Modifier");
+        btnModifier.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+        btnModifier.setOnAction(e -> {
+            try {
+                ModifierRendezVous.afficherFenetre(rv,this);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("Erreur");
+                error.setHeaderText(null);
+                error.setContentText("Impossible d'ouvrir la fenêtre de modification !");
+                error.showAndWait();
+            }
+        });
+
+
+        Button btnSupprimer = new Button("Supprimer");
+        btnSupprimer.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        btnSupprimer.setOnAction(e -> supprimerRendezVous(rv, card));
+
+        // Add all the labels to the card
+        card.getChildren().addAll(labelDate, labelMotif, labelStatut, labelMode, labelMedecin, labelPatient, labelCommentaire,btnSupprimer, btnModifier);
+
+        return card;
+    }
+    private void supprimerRendezVous(RendezVous rv, VBox card) {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation");
         confirmation.setHeaderText(null);
         confirmation.setContentText("Voulez-vous vraiment supprimer ce rendez-vous ?");
 
         confirmation.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
+            if (response.getButtonData().isDefaultButton()) {
                 try {
-                    service.supprimer(rendezVous.getId());
+                    service.supprimer(rv.getId());
 
                     Alert info = new Alert(Alert.AlertType.INFORMATION);
                     info.setTitle("Succès");
@@ -82,11 +111,8 @@ public class CardRendezVous {
                     info.setContentText("Rendez-vous supprimé avec succès !");
                     info.showAndWait();
 
-                    // Supprimer proprement le nœud de l'affichage
-                    if (rootPane.getParent() instanceof Pane parent) {
-                        parent.getChildren().remove(rootPane);
-                        parent.requestLayout(); // Force le recalcul du layout
-                    }
+                    grid.getChildren().remove(card);
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                     Alert error = new Alert(Alert.AlertType.ERROR);
@@ -98,48 +124,28 @@ public class CardRendezVous {
             }
         });
     }
-    private void modifierRendezVous() {
+
+    void rafraichirAffichage() {
+        grid.getChildren().clear();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierRendezVous.fxml"));
-            Parent root = loader.load();
+            List<RendezVous> rendezVousList = service.afficher();
+            int column = 0;
+            int row = 0;
 
-            ModifierRendezVous controller = loader.getController();
-            controller.setRendezVous(rendezVous); // Donne-lui le rendez-vous à modifier
-            controller.setParentCard(this);       // Donne-lui la carte à rafraîchir
+            for (RendezVous rv : rendezVousList) {
+                VBox card = createCard(rv);
+                grid.add(card, column, row);
 
-            Stage stage = new Stage();
-            stage.setTitle("Modifier Rendez-vous");
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
+                column++;
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(null);
-            alert.setContentText("Impossible d'ouvrir le formulaire de modification !");
-            alert.showAndWait();
         }
     }
-
-    public void refreshData() {
-        setData(this.rendezVous); // réutilise setData pour re-remplir les champs avec les données mises à jour
-    }
-    public void setHighlighted(boolean highlight) {
-        if (highlight) {
-            rootPane.getStyleClass().add("highlighted-card");
-
-            // Supprimer la coloration après 2 secondes
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
-            pause.setOnFinished(e -> rootPane.getStyleClass().remove("highlighted-card"));
-            pause.play();
-        } else {
-            rootPane.getStyleClass().remove("highlighted-card");
-        }
-    }
-
-
-
 
 
 }

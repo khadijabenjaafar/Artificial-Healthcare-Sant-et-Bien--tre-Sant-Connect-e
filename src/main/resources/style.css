@@ -1,7 +1,6 @@
 .highlighted-card {
-    -fx-background-color: #d4fcd4 !important; /* vert clair */
-    -fx-border-color: #34c759;
-    -fx-border-width: 2px;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
+    -fx-background-color: #cce5ff !important;
+    -fx-border-color: #66b0ff;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
 }

@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-public class MainFx extends Application {
+/*public class MainFx extends Application {
     @FXML
     private VBox root;
 
@@ -34,7 +34,7 @@ public class MainFx extends Application {
         primaryStage.setTitle("Prendre un rendez-vous");
         primaryStage.setScene(scene);
         primaryStage.show();
-        /*VBox root = new VBox();
+        VBox root = new VBox();
         root.setSpacing(20);
         root.setStyle("-fx-padding: 20; -fx-background-color: #f0f0f0;");
 
@@ -128,10 +128,38 @@ public class MainFx extends Application {
         primaryStage.show();*/
 
 
-    }
-
+    /*}
     public static void main(String[] args) {
         launch(args);
+    }
+}*/
+
+
+import javafx.stage.StageStyle;
+import org.example.controllers.IndexFront;
+
+public class MainFx extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/indexFront.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+
+        // 💡 Détection de la touche Échap
+        scene.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ESCAPE -> primaryStage.close();
+            }
+        });
+
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        IndexFront controller = loader.getController();
+        controller.setStage(primaryStage);
     }
 
 }

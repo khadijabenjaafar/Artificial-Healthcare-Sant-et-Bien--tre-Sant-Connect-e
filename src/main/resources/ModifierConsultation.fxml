@@ -1,88 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="700.0" spacing="20.0"
-      style="-fx-background-color: #1ca7a2;"
-      xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.controllers.ModifierConsultation">
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controllers.ModifierConsultation"
+      spacing="15" alignment="TOP_CENTER" prefWidth="600" prefHeight="600"
+      style="-fx-background-color: #f9f9f9; -fx-padding: 30;">
 
-    <children>
-        <!-- Titre -->
-        <Label style="-fx-text-fill: white; -fx-font-family: 'MS Roman'; -fx-font-size: 32px; -fx-font-weight: bold;"
-               text="Modifier la consultation" />
+    <Label text="Modifier Consultation" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
 
-        <!-- Diagnostic -->
-        <HBox alignment="CENTER" spacing="20.0">
-            <Label text="Diagnostic :" style="-fx-text-fill: white; -fx-font-size: 16px;">
-                <HBox.margin><Insets right="100.0" /></HBox.margin>
-            </Label>
-            <TextField fx:id="diagnosticField" prefWidth="300.0"
-                       style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
-        </HBox>
+    <HBox spacing="10">
+        <Label text="Observation :" prefWidth="120" />
+        <TextField fx:id="observationField" prefWidth="400" />
+    </HBox>
 
-        <!-- Traitement -->
-        <HBox alignment="CENTER" spacing="20.0">
-            <Label text="Traitement :" style="-fx-text-fill: white; -fx-font-size: 16px;">
-                <HBox.margin><Insets right="95.0" /></HBox.margin>
-            </Label>
-            <TextField fx:id="traitementField" prefWidth="300.0"
-                       style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
-        </HBox>
+    <HBox spacing="10">
+        <Label text="Prix :" prefWidth="120" />
+        <TextField fx:id="prixField" prefWidth="400" />
+    </HBox>
 
-        <!-- Observation -->
-        <HBox alignment="CENTER" spacing="20.0">
-            <Label text="Observation :" style="-fx-text-fill: white; -fx-font-size: 16px;">
-                <HBox.margin><Insets right="82.0" /></HBox.margin>
-            </Label>
-            <TextArea fx:id="observationArea" prefWidth="300.0" prefHeight="80.0"
-                      style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
-        </HBox>
+    <HBox spacing="10">
+        <Label text="Durée :" prefWidth="120" />
+        <TextField fx:id="dureeField" prefWidth="400" />
+    </HBox>
 
-        <!-- Prix -->
-        <HBox alignment="CENTER" spacing="20.0">
-            <Label text="Prix :" style="-fx-text-fill: white; -fx-font-size: 16px;">
-                <HBox.margin><Insets right="145.0" /></HBox.margin>
-            </Label>
-            <TextField fx:id="prixField" prefWidth="300.0"
-                       style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
-        </HBox>
+    <HBox spacing="10">
+        <Label text="Prochain RDV :" prefWidth="120" />
+        <DatePicker fx:id="prochainRdvPicker" prefWidth="400" />
+    </HBox>
 
-        <!-- Prochain rendez-vous -->
-        <HBox alignment="CENTER" spacing="20.0">
-            <Label text="Prochain RDV :" style="-fx-text-fill: white; -fx-font-size: 16px;">
-                <HBox.margin><Insets right="60.0" /></HBox.margin>
-            </Label>
-            <DatePicker fx:id="prochainRdvPicker"
-                        style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
-        </HBox>
+    <HBox spacing="10">
+        <Label text="Diagnostic :" prefWidth="120" />
+        <TextArea fx:id="diagnosticArea" prefWidth="400" prefHeight="60" wrapText="true" />
+    </HBox>
 
-        <!-- Durée -->
-        <HBox alignment="CENTER" spacing="20.0">
-            <Label text="Durée :" style="-fx-text-fill: white; -fx-font-size: 16px;">
-                <HBox.margin><Insets right="140.0" /></HBox.margin>
-            </Label>
-            <TextField fx:id="dureeField" prefWidth="300.0"
-                       style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
-        </HBox>
+    <HBox spacing="10">
+        <Label text="Traitement :" prefWidth="120" />
+        <TextArea fx:id="traitementArea" prefWidth="400" prefHeight="60" wrapText="true" />
+    </HBox>
 
-        <!-- Rendez-vous lié -->
-        <HBox alignment="CENTER" spacing="20.0">
-            <Label text="Rendez-vous :" style="-fx-text-fill: white; -fx-font-size: 16px;">
-                <HBox.margin><Insets right="83.0" /></HBox.margin>
-            </Label>
-            <ComboBox fx:id="comboRendezVous" prefWidth="300.0"
-                      style="-fx-background-radius: 8; -fx-background-color: white; -fx-padding: 6;" />
-        </HBox>
+    <Button text="Enregistrer les modifications" onAction="#handleSave"
+            style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;" />
 
-        <!-- Bouton Modifier -->
-        <Button fx:id="btnModifierConsultation"
-                text="Modifier Consultation"
-                prefWidth="500.0"
-                onAction="#modifierConsultation"
-                style="-fx-background-color: white; -fx-text-fill: #1565c0; -fx-font-family: 'MS Roman'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10 24;" />
-    </children>
 </VBox>

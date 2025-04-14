@@ -1,0 +1,54 @@
+/* Style général */
+.root {
+    -fx-background-color: #f4f7f9;
+}
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: #4ebaaa;
+    -fx-padding: 20;
+    -fx-spacing: 15;
+   /*#4ebaaa*/
+}
+
+/* Image de profil */
+.sidebar .image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0.0, 0.0);
+    -fx-clip: null;
+}
+
+/* Nom utilisateur */
+.sidebar .label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Boutons de la sidebar */
+.sidebar .button {
+    -fx-background-color: white;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-width: 180px;
+}
+
+.sidebar .button:hover {
+    -fx-background-color: #e3f1ef;
+}
+
+/* Zone principale */
+.main-content {
+    -fx-padding: 30;
+    -fx-background-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+/* Titres */
+.title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2a4d69;
+}

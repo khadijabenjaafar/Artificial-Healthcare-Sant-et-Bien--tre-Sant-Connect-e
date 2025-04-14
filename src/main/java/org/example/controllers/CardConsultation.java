@@ -2,125 +2,127 @@ package org.example.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.entities.Consultation;
 import org.example.entities.RendezVous;
 import org.example.services.ServiceConsultation;
 
-import javafx.scene.control.Label;  // Correct
-import org.example.services.ServiceRendezVous;
-
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
 
+public class CardConsultation implements Initializable {
 
-public class CardConsultation {
     @FXML
-    private Label labelDate;
-    @FXML
-    private Label labelCommentaire;
-    @FXML
-    private Label labelPrix;
-    @FXML
-    private Label labelDuree;
-    @FXML
-    private Label labelProchainRdv;
-    @FXML
-    private Button btnModifier;
-    @FXML
-    private Button btnSupprimer;
-    private Consultation consultation;
-    private ServiceConsultation serviceConsultation;
-    @FXML
-    private Pane rootPane;
+    private VBox rootVBox;
 
-    public CardConsultation() {
-        serviceConsultation = new ServiceConsultation(); // Initialisation du service
-    }
+    @FXML
+    private GridPane grid;
 
-    // Méthode pour initialiser les données de la consultation
-    public void initialize(Consultation consultation) {
-        this.consultation = consultation;  // Ensure the consultation object is set
-        if (consultation != null) {
-            labelDate.setText("Date: " + consultation.getRendezVous().getDateHeure().toLocalDate()); // Affiche uniquement la date
-            labelCommentaire.setText("Commentaire: " + consultation.getObservation());
-            labelPrix.setText("Prix: " + consultation.getPrix());
-            labelDuree.setText("Durée: " + consultation.getDuree());
-            labelProchainRdv.setText("Prochain RDV: " + consultation.getProchainRdv());
-        } else {
-            // Handle the case where consultation is null
-            labelDate.setText("Date: N/A");
-            labelCommentaire.setText("Commentaire: N/A");
-            labelPrix.setText("Prix: N/A");
-            labelDuree.setText("Durée: N/A");
-            labelProchainRdv.setText("Prochain RDV: N/A");
+    private final ServiceConsultation service = new ServiceConsultation();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            List<Consultation> consultations = service.afficher();
+            int column = 0;
+            int row = 0;
+
+            for (Consultation c : consultations) {
+                VBox card = createCard(c);
+                grid.add(card, column, row);
+
+                column++;
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    private void supprimerConsultation() {
-        if (consultation == null) {
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("Erreur");
-            error.setHeaderText(null);
-            error.setContentText("Aucune consultation à supprimer.");
-            error.showAndWait();
-            return;
-        }
+    private VBox createCard(Consultation c) {
+        VBox card = new VBox(8);
+        card.setPadding(new Insets(15));
+        card.setStyle("-fx-background-color: white; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)");
 
+        // Labels for consultation details
+        Label labelDate = new Label("Date : " + (c.getRendezVous() != null ? c.getRendezVous().getDateHeure().toLocalDate() : "N/A"));
+        labelDate.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+        Label labelObservation = new Label("Observation : " + (c.getObservation() != null ? c.getObservation() : "N/A"));
+        Label labelPrix = new Label("Prix : " + c.getPrix());
+        Label labelDuree = new Label("Durée : " + c.getDuree());
+        Label labelProchainRdv = new Label("Prochain RDV : " + c.getProchainRdv());
+        Label labelDiagnostic = new Label("Diagnostic : " + (c.getDiagnostic() != null ? c.getDiagnostic() : "N/A"));
+        Label labelTraitement = new Label("Traitement : " + (c.getTraitement() != null ? c.getTraitement() : "N/A"));
+
+
+        Button btnSupprimer = new Button("Supprimer");
+        btnSupprimer.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        btnSupprimer.setOnAction(e -> supprimerRendezVous(c, card));
+        Button btnModifier = new Button("Modifier");
+        btnModifier.setStyle("-fx-background-color: #007bff; -fx-text-fill: white;");
+        btnModifier.setOnAction(e -> modifierConsultation(c));
+
+        // Add all labels to the card
+        card.getChildren().addAll(labelDate, labelObservation, labelPrix, labelDuree, labelProchainRdv, labelDiagnostic, labelTraitement, btnSupprimer, btnModifier);
+
+        return card;
+    }
+    private void supprimerRendezVous(Consultation c, VBox card) {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation");
         confirmation.setHeaderText(null);
         confirmation.setContentText("Voulez-vous vraiment supprimer cette consultation ?");
 
         confirmation.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
+            if (response.getButtonData().isDefaultButton()) {
                 try {
-                    serviceConsultation.supprimer(consultation.getId()); // Remplacer par le service approprié pour Consultation
+                    service.supprimer(c.getId());
 
                     Alert info = new Alert(Alert.AlertType.INFORMATION);
                     info.setTitle("Succès");
                     info.setHeaderText(null);
-                    info.setContentText("Consultation supprimée avec succès !");
+                    info.setContentText("Consultation supprimé avec succès !");
                     info.showAndWait();
 
-                    // Supprimer proprement le nœud de l'affichage
-                    if (rootPane.getParent() instanceof Pane parent) {
-                        parent.getChildren().remove(rootPane);
-                        parent.requestLayout(); // Force le recalcul du layout
-                    }
+                    grid.getChildren().remove(card);
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                     Alert error = new Alert(Alert.AlertType.ERROR);
                     error.setTitle("Erreur");
                     error.setHeaderText(null);
-                    error.setContentText("Erreur lors de la suppression de la consultation !");
+                    error.setContentText("Erreur lors de la suppression !");
                     error.showAndWait();
                 }
             }
         });
     }
-    @FXML
-    private void modifierConsultation() {
+    private void modifierConsultation(Consultation c) {
         try {
-            // Charger le fichier FXML pour ModifierConsultation
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierConsultation.fxml"));
             Parent root = loader.load();
 
-            // Récupérer le contrôleur associé au fichier FXML
+            // Passer la consultation au contrôleur
             ModifierConsultation controller = loader.getController();
+            controller.setConsultation(c); // méthode à créer dans le contrôleur
+            controller.setParentController(this); // 🔁 On passe le parent ici
 
-            // Passer la consultation à modifier au contrôleur
-            controller.setConsultation(consultation); // Vous devez remplacer 'consultation' par l'objet de la consultation à modifier
-            controller.setParentCard(this); // Passer la carte à rafraîchir (si nécessaire)
-
-            // Créer une nouvelle fenêtre pour afficher la modification de la consultation
             Stage stage = new Stage();
             stage.setTitle("Modifier Consultation");
             stage.setScene(new Scene(root));
@@ -128,12 +130,26 @@ public class CardConsultation {
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Afficher une alerte en cas d'erreur
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(null);
-            alert.setContentText("Impossible d'ouvrir le formulaire de modification de la consultation !");
-            alert.showAndWait();
+        }
+    }
+    public void rafraichirAffichage() {
+        try {
+            grid.getChildren().clear(); // Vide le contenu du GridPane
+            List<Consultation> consultations = service.afficher(); // Recharge les données
+            int column = 0;
+            int row = 0;
+
+            for (Consultation c : consultations) {
+                VBox card = createCard(c);
+                grid.add(card, column, row);
+                column++;
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
