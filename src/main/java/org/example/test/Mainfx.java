@@ -41,7 +41,7 @@ public class Mainfx extends Application {
 
 
         // ❌ TEST INACTIF : Afficher les Ordonnances (vue en carousel)
-        Parent root = FXMLLoader.load(getClass().getResource("/AfficheOrdonnance.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/doctor.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Ordonnances - Vue en Carousel");
         primaryStage.setScene(scene);

@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e" target="1.5" />
       <module name="pi" target="17" />
     </bytecodeTargetLevel>
   </component>
