@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.entities.EnumRole;
 import org.example.entities.UserConnecter;
 import org.example.entities.Utilisateur;
 import org.example.utils.NavigationUtil;
@@ -25,6 +26,31 @@ public class DoctorController {
     @FXML
     private Label nom;
 
+    @FXML
+    private Hyperlink rdv;
+    @FXML
+    private Hyperlink cs;
+    @FXML
+    private Hyperlink css;
+    @FXML
+    private Hyperlink handelajouterFacture;
+    @FXML
+    private Hyperlink handleAfficherFacture;
+    @FXML
+    private Hyperlink handleAjouterOrdonnance;
+    @FXML
+    private Hyperlink handleAfficherOrdonnances;
+    @FXML
+    private Hyperlink handleAjouterArticle;
+    @FXML
+    private Hyperlink handleMesArticles;
+    @FXML
+    private Hyperlink handleAfficherPlanification;
+    @FXML
+    private Hyperlink handleAfficherMatching;
+
+    @FXML
+    private Hyperlink handlemodifArticles;
     @FXML
     private ImageView photo;
     public Utilisateur CurrentUser=UserConnecter.getInstance().getUserConnecter();
@@ -46,6 +72,49 @@ public class DoctorController {
                 }
             } else {
                 System.err.println("L'image 'photo' est null ou le chemin de l'image est null !");
+            }
+            if (CurrentUser.getRole()== EnumRole.ROLE_MEDECIN)
+            {
+                rdv.setVisible(true);
+                cs.setVisible(true);
+                css.setVisible(true);
+                handleAjouterOrdonnance.setVisible(true);
+                handleAfficherOrdonnances.setVisible(true);
+                handelajouterFacture.setVisible(false);
+                handleAfficherFacture.setVisible(false);
+                handleAjouterArticle.setVisible(true);
+                handlemodifArticles.setVisible(true);
+                handleAfficherMatching.setVisible(false);
+                handleAfficherPlanification.setVisible(false);
+              //  handleMesArticles.setVisible(true);
+            }
+            else if (CurrentUser.getRole()== EnumRole.ROLE_PHARMACIEN)
+            {
+                rdv.setVisible(false);
+                cs.setVisible(false);
+                css.setVisible(false);
+                handleAjouterOrdonnance.setVisible(false);
+                handleAfficherOrdonnances.setVisible(true);
+                handelajouterFacture.setVisible(true);
+                handleAfficherFacture.setVisible(true);
+                handleAjouterArticle.setVisible(true);
+                handlemodifArticles.setVisible(true);
+                handleAfficherMatching.setVisible(false);
+                handleAfficherPlanification.setVisible(false);
+              //  handleMesArticles.setVisible(true);
+            }else {
+                rdv.setVisible(false);
+                cs.setVisible(false);
+                css.setVisible(false);
+                handleAjouterOrdonnance.setVisible(false);
+                handleAfficherOrdonnances.setVisible(false);
+                handelajouterFacture.setVisible(false);
+                handleAfficherFacture.setVisible(false);
+                handleAjouterArticle.setVisible(true);
+                handlemodifArticles.setVisible(true);
+                handleAfficherMatching.setVisible(true);
+                handleAfficherPlanification.setVisible(true);
+               // handleMesArticles.setVisible(true);
             }
         } else {
             System.err.println("Aucun utilisateur connecté.");

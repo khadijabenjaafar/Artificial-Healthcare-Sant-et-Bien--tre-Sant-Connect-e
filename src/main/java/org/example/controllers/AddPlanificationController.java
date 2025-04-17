@@ -5,6 +5,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.entities.Planification;
 import org.example.entities.Utilisateur;
+import org.example.entities.UserConnecter;
+
 import org.example.services.ServicesPlanification;
 import org.example.services.ServiceUtilisateur;
 
@@ -18,7 +20,7 @@ public class AddPlanificationController {
     @FXML private TextField adresseField;
     @FXML private ComboBox<String> modeComboBox;
     @FXML private ComboBox<Utilisateur> freelancerComboBox;
-    @FXML private ComboBox<Utilisateur> utilisateurComboBox;
+    public Utilisateur CurrentUser=UserConnecter.getInstance().getUserConnecter();
 
     private Runnable refreshCallback;
     private ServicesPlanification servicesPlanification = new ServicesPlanification();
@@ -35,7 +37,6 @@ public class AddPlanificationController {
             List<Utilisateur> freelancers = serviceUtilisateur.findFreelancers();
             List<Utilisateur> users = serviceUtilisateur.afficher(); // Or findClients() if you have that method
             freelancerComboBox.getItems().addAll(freelancers);
-            utilisateurComboBox.getItems().addAll(users);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,12 +76,7 @@ public class AddPlanificationController {
                 return;
             }
 
-            // Validate Utilisateur (Client)
-            Utilisateur utilisateur = utilisateurComboBox.getValue();
-            if (utilisateur == null) {
-                showAlert("Validation Error", "Please select a user.");
-                return;
-            }
+
 
             // If all inputs are valid, create and save the planification
             Planification planification = new Planification();
@@ -89,7 +85,7 @@ public class AddPlanificationController {
             planification.setMode(mode);
             planification.setStatut("en attente");
             planification.setFreelancer(freelancer);
-            planification.setUtilisateur(utilisateur);
+            planification.setUtilisateur(CurrentUser);
 
             servicesPlanification.add(planification);
 

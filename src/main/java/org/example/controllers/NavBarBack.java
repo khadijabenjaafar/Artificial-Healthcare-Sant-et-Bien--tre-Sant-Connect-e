@@ -69,7 +69,7 @@ public class NavBarBack {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Afficher les utilisateurs");
+            stage.setTitle("Afficher les rendez_vous");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace(); // Handle exception if the FXML loading fails
@@ -105,10 +105,97 @@ public class NavBarBack {
             Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("Afficher les consultations");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception if the FXML loading fails
+        }
+    }
+
+    public void afficher(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ArticleAdmin.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage from the button (if applicable)
+            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
             stage.setTitle("Afficher les utilisateurs");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace(); // Handle exception if the FXML loading fails
         }
     }
+    @FXML
+    public void ordonnance(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheOrdonnanceBack.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage from the button (if applicable)
+            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Afficher les ordonnances");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception if the FXML loading fails
+        }
+    }
+    @FXML
+    public void facturation(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheFacturationBack.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage from the button (if applicable)
+            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Afficher les facturations");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception if the FXML loading fails
+        }
+    }
+
+    @FXML
+    public void plannification(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanificationViewBack.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage from the button (if applicable)
+            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Afficher les facturations");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception if the FXML loading fails
+        }
+    }
+    @FXML
+    public void matching(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MatchingViewBack.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage from the button (if applicable)
+            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Afficher les facturations");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception if the FXML loading fails
+        }
+    }
+
+
+
+
+
+
 }

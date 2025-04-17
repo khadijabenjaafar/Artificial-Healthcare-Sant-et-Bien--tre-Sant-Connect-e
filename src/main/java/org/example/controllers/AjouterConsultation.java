@@ -48,6 +48,16 @@ public class AjouterConsultation {
             showAlert(Alert.AlertType.ERROR, "Erreur lors du chargement des rendez-vous : " + e.getMessage());
             e.printStackTrace(); // utile pour debug
         }
+        prochainRdvPicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date.isBefore(LocalDate.now().plusDays(1))) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // facultatif : couleur rouge clair
+                }
+            }
+        });
     }
 
 
@@ -74,6 +84,17 @@ public class AjouterConsultation {
             showAlert(Alert.AlertType.ERROR, "Le prix doit être un nombre valide.");
             return;
         }
+        try {
+            int dureeInt = Integer.parseInt(duree);
+            if (dureeInt <= 0) {
+                showAlert(Alert.AlertType.ERROR, "La durée doit être un nombre entier strictement positif.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "La durée doit être un nombre entier valide.");
+            return;
+        }
+
 
 
         Consultation consultation = new Consultation();

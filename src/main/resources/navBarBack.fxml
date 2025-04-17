@@ -51,31 +51,31 @@
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="ordonnance" alignment="CENTER" text="Liste Des Ordonnances" textFill="#1ca7a2">
+        <Hyperlink fx:id="ordonnance" onAction="#ordonnance" alignment="CENTER" text="Liste Des Ordonnances" textFill="#1ca7a2">
             <font>
                 <Font size="18.0"/>
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="facturation" alignment="CENTER" text="Liste Des Facturations" textFill="#1ca7a2">
+        <Hyperlink fx:id="facturation" onAction="#facturation" alignment="CENTER" text="Liste Des Facturations" textFill="#1ca7a2">
             <font>
                 <Font size="18.0"/>
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="matching" alignment="CENTER" text="Liste Des Matching" textFill="#1ca7a2">
+        <Hyperlink fx:id="matching" onAction="#matching" alignment="CENTER" text="Liste Des Matching" textFill="#1ca7a2">
             <font>
                 <Font size="18.0"/>
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="plannification" alignment="CENTER" text="Liste Des Planifications" textFill="#1ca7a2">
+        <Hyperlink fx:id="plannification" onAction="#plannification" alignment="CENTER" text="Liste Des Planifications" textFill="#1ca7a2">
             <font>
                 <Font size="18.0"/>
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="article" alignment="CENTER" text="Liste Des Articles" textFill="#1ca7a2">
+        <Hyperlink fx:id="article" alignment="CENTER"  onAction="#afficher" text="Liste Des Articles" textFill="#1ca7a2">
             <font>
                 <Font size="18.0"/>
             </font>

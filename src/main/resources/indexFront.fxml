@@ -173,6 +173,7 @@
       </HBox>
       <fx:include source="AjouterRendezVous.fxml" />
       <fx:include source="freelancer.fxml" />
+      <fx:include source="mesarticles.fxml" />
 
    </VBox>
 </ScrollPane>

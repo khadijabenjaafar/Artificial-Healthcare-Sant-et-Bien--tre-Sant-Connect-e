@@ -10,6 +10,7 @@ C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\j
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\services\IServices.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\test\Mainfx.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\AfficheOrdonnance.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\AfficheOrdonnanceBack.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\entities\Consultation.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\AfficherMatchingController.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\ArticledetailsController.java
@@ -43,6 +44,7 @@ C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\j
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\test\Main.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\ArticleItem1Controller.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\EditPlanificationController.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\ArticleAdminBack.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\AffichageRendezVous.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\ModifUser.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\services\ServiceArticle.java
@@ -66,5 +68,6 @@ C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\j
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\Login.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\MatchingController.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\entities\Commentaire.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\AfficheFacturationBack.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\VoirUser.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\entities\Facturation.java

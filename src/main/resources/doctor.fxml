@@ -31,18 +31,17 @@
                </padding></Label>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                <children>
-                  <Hyperlink onAction="#rdv" text="Mes rendez vous" textFill="WHITE" />
-                  <Hyperlink onAction="#cs" text="Ajouter consultation" textFill="WHITE" />
-                  <Hyperlink onAction="#css" text="Les consultations " textFill="WHITE" />
-                  <Hyperlink onAction="#handelajouterFacture" text="Ajouter facture" textFill="WHITE" />
-                  <Hyperlink onAction="#handleAfficherFacture" text="Mes factures " textFill="WHITE" />
-                  <Hyperlink onAction="#handleAjouterOrdonnance" text="Ajouter ordonnance" textFill="WHITE" />
-                  <Hyperlink onAction="#handleAfficherOrdonnances" text="Les ordonnances" textFill="WHITE" />
-                  <Hyperlink onAction="#handleAjouterArticle" text="Ajouter Article" textFill="WHITE" />
-                  <Hyperlink onAction="#handleMesArticles" text="Mes articles" textFill="WHITE" />
-                  <Hyperlink onAction="#handlemodifArticles" text="Modifier mes articles" textFill="WHITE" />
-                  <Hyperlink onAction="#handleAfficherMatching" text="Afficher les Matchings" textFill="WHITE" />
-                  <Hyperlink onAction="#handleAfficherPlanification" text="Afficher les Planifications" textFill="WHITE" />
+                  <Hyperlink onAction="#rdv" fx:id="rdv" text="Mes rendez vous" textFill="WHITE" />
+                  <Hyperlink onAction="#cs" fx:id="cs" text="Ajouter consultation" textFill="WHITE" />
+                  <Hyperlink onAction="#css" fx:id="css" text="Les consultations " textFill="WHITE" />
+                  <Hyperlink onAction="#handelajouterFacture" fx:id="handelajouterFacture" text="Ajouter facture" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAfficherFacture" fx:id="handleAfficherFacture" text="Mes factures " textFill="WHITE" />
+                  <Hyperlink onAction="#handleAjouterOrdonnance" fx:id="handleAjouterOrdonnance" text="Ajouter ordonnance" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAfficherOrdonnances" fx:id="handleAfficherOrdonnances" text="Les ordonnances" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAjouterArticle" fx:id="handleAjouterArticle" text="Ajouter Article" textFill="WHITE" />
+                  <Hyperlink onAction="#handlemodifArticles" fx:id="handlemodifArticles" text="Modifier mes articles" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAfficherMatching" fx:id="handleAfficherMatching" text="Afficher les Matchings" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAfficherPlanification" fx:id="handleAfficherPlanification" text="Afficher les Planifications" textFill="WHITE" />
 
                </children>
                <VBox.margin>
