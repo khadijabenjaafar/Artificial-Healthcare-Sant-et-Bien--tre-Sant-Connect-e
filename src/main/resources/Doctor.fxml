@@ -1,14 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.controllers.Doctor"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane maxHeight="-Infinity" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@style1.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.DoctorController">
+   <left>
+      <VBox maxHeight="1200.0" minHeight="600.0" prefHeight="1280.0" prefWidth="192.0" spacing="2.0" style="-fx-background-color: #1ca7a2;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="photo" fitHeight="113.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets left="50.0" top="20.0" />
+               </VBox.margin>
+            </ImageView>
+            <Label fx:id="nom" alignment="CENTER" prefHeight="17.0" prefWidth="148.0" style="-fx-font-weight: bold;" textAlignment="RIGHT" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="35.0" />
+               </padding></Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <Hyperlink onAction="#rdv" fx:id="rdv" text="Mes rendez vous" textFill="WHITE" />
+                  <Hyperlink onAction="#cs" fx:id="cs" text="Ajouter consultation" textFill="WHITE" />
+                  <Hyperlink onAction="#css" fx:id="css" text="Les consultations " textFill="WHITE" />
+                  <Hyperlink onAction="#handelajouterFacture" fx:id="handelajouterFacture" text="Ajouter facture" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAfficherFacture" fx:id="handleAfficherFacture" text="Mes factures " textFill="WHITE" />
+                  <Hyperlink onAction="#handleAjouterOrdonnance" fx:id="handleAjouterOrdonnance" text="Ajouter ordonnance" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAfficherOrdonnances" fx:id="handleAfficherOrdonnances" text="Les ordonnances" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAjouterArticle" fx:id="handleAjouterArticle" text="Ajouter Article" textFill="WHITE" />
+                  <Hyperlink onAction="#handlemodifArticles" fx:id="handlemodifArticles" text="Modifier mes articles" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAfficherMatching" fx:id="handleAfficherMatching" text="Afficher les Matchings" textFill="WHITE" />
+                  <Hyperlink onAction="#handleAfficherPlanification" fx:id="handleAfficherPlanification" text="Afficher les Planifications" textFill="WHITE" />
 
-</AnchorPane>
+               </children>
+               <VBox.margin>
+                  <Insets left="30.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#Deconnecter" prefHeight="43.0" prefWidth="163.0" style="-fx-text-fill: #1ca7a2; -fx-border-color: #1ca7a2; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-color: white; -fx-background-radius: 6;" text="Se deconnecter">
+               <VBox.margin>
+                  <Insets left="15.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox minWidth="-Infinity" prefHeight="779.0" prefWidth="1061.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="contentPane" minWidth="-Infinity" prefHeight="795.0" prefWidth="1075.0">
+               <padding>
+                  <Insets left="200.0" top="70.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin></AnchorPane>
+         </children>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

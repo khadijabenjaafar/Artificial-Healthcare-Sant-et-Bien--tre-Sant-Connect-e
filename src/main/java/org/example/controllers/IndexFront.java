@@ -52,17 +52,32 @@ public class IndexFront {
     @FXML
     void NavigateTosignUp(ActionEvent event) throws IOException {
         try {
-            // Load the home.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CreerCompte.fxml"));
-            Parent root = loader.load();
+            if (CurrentUser!= null && CurrentUser.getRole() == EnumRole.ROLE_PATIENT) {
+                // Load the home.fxml file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+                Parent root = loader.load();
 
-            // Get the current stage (window)
-            Stage stage = (Stage) inscrire.getScene().getWindow();
+                // Get the current stage (window)
+                Stage stage = (Stage) inscrire.getScene().getWindow();
 
-            // Set the new scene with the home.fxml content
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+                // Set the new scene with the home.fxml content
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();}
+            else {
+                // Load the home.fxml file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/CreerCompte.fxml"));
+                Parent root = loader.load();
+
+                // Get the current stage (window)
+                Stage stage = (Stage) inscrire.getScene().getWindow();
+
+                // Set the new scene with the home.fxml content
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -114,8 +129,10 @@ public class IndexFront {
 
     public void checkUserConnection() {
         if (CurrentUser!= null && "ROLE_PATIENT".equals(CurrentUser.getRole().toString())) {
+            inscrire.setText("Se deconnecter");
             seConnecter.setText("Profile");
         } else {
+            inscrire.setText("S'inscrire");
             seConnecter.setText("Se connecter");
         }
     }
