@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
@@ -35,34 +35,24 @@
                     </Label>
 
                     <!-- Barre de recherche -->
-                    <HBox alignment="CENTER_RIGHT" spacing="100.0">
+                    <HBox alignment="CENTER_RIGHT" spacing="20.0">
                         <children>
                             <TextField fx:id="searchField" prefHeight="42.0" prefWidth="472.0" />
-                            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" text="Rechercher">
-                                <font>
-                                    <Font size="18.0" />
-                                </font>
-                            </Button>
+                     <ComboBox fx:id="filtre" prefHeight="39.0" prefWidth="151.0" promptText="Par role" />
                         </children>
                     </HBox>
                     <HBox spacing="15" style="-fx-padding: 10; -fx-background-color: #f0f0f0;">
-                        <Label text="Nom" prefWidth="100"/>
-                        <Label text="Prénom" prefWidth="100"/>
-                        <Label text="Email" prefWidth="150"/>
-                        <Label text="Téléphone" prefWidth="100"/>
-                        <Label text="Statut" prefWidth="100"/>
-                        <Label text="Genre" prefWidth="100"/>
-                        <Label text="Rôle" prefWidth="100"/>
-                        <Label text="Action" prefWidth="100"/>
+                        <Label prefWidth="100" text="Nom" />
+                        <Label prefWidth="100" text="Prénom" />
+                        <Label prefWidth="150" text="Email" />
+                        <Label prefWidth="100" text="Téléphone" />
+                        <Label prefWidth="100" text="Statut" />
+                        <Label prefWidth="100" text="Genre" />
+                        <Label prefWidth="100" text="Rôle" />
+                        <Label prefWidth="100" text="Action" />
                     </HBox>
-
-
-                    <!-- Liste des utilisateurs -->
-                    <ListView fx:id="UsersList" prefHeight="500.0" prefWidth="950.0">
-                        <padding>
-                            <Insets bottom="10.0" />
-                        </padding>
-                    </ListView>
+               <VBox fx:id="container" prefHeight="736.0" prefWidth="931.0" />
+               <ListView fx:id="UsersList" prefHeight="634.0" prefWidth="931.0" />
 
                     <!-- Bouton Ajouter Admin -->
                     <Button fx:id="AddAdmin" onAction="#NavigateToAddAdmin" prefWidth="150" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white;" text="Ajouter un utilisateur" />

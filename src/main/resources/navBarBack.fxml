@@ -38,6 +38,14 @@
                 <Insets top="30.0"/>
             </padding>
         </Hyperlink>
+        <Hyperlink fx:id="users2" onAction="#user2" alignment="CENTER" text="Statistiques Des Utilisateurs" textFill="#1ca7a2">
+            <font>
+                <Font size="18.0"/>
+            </font>
+            <padding>
+                <Insets top="30.0"/>
+            </padding>
+        </Hyperlink>
 
         <Hyperlink fx:id="rdv" alignment="CENTER" text="Liste Des Rendez-vous" onAction="#rdv" textFill="#1ca7a2">
             <font>

@@ -57,6 +57,19 @@ public class Utilisateur {
         this.numTel = numTel;
         this.image1=image1;
     }
+    public Utilisateur(String nom, String prenom, String email, String password, LocalDate date_naissance, EnumRole role, String adresse, String genre, String numTel,String image1,String image) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.role=role;
+        this.date_naissance=date_naissance;
+        this.password = password;
+        this.adresse = adresse;
+        this.genre = genre;
+        this.numTel = numTel;
+        this.image1=image1;
+        this.image= image;
+    }
     public Utilisateur(int id, String nom, String prenom) {
         this.id = id;
         this.nom = nom;

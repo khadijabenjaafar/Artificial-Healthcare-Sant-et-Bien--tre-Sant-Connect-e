@@ -1,4 +1,14 @@
+org\example\controllers\Reinitialiser.class
 org\example\controllers\AfficheOrdonnanceBack.class
+org\example\api\mailler$2.class
+org\example\controllers\ForgetPassword.class
+org\example\api\mailler$1.class
+org\example\api\CameraCapture.class
+org\example\api\PasswordUtils.class
+org\example\controllers\StatistiqueUser.class
+org\example\controllers\CreerAdmin.class
+org\example\api\mailler.class
 org\example\controllers\ArticleAdminBack.class
+org\example\api\FaceID.class
 org\example\controllers\AfficheFacturationBack.class
 org\example\controllers\AjouterConsultation$1.class

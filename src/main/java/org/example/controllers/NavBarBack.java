@@ -42,6 +42,9 @@ public class NavBarBack {
 
     @FXML
     private Hyperlink users;
+    @FXML
+    private Hyperlink users2;
+
 
     @FXML
     void user(ActionEvent event) {
@@ -193,8 +196,21 @@ public class NavBarBack {
         }
     }
 
+    @FXML
+    void user2(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatistiqueUser.fxml"));
+            Parent root = loader.load();
 
+            // Get the current stage from the button (if applicable)
 
+            Stage stage = (Stage) users.getScene().getWindow(); // ou un autre bouton si ModifProf n'existe pas
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception if the FXML loading fails
+        }
+    }
 
 
 

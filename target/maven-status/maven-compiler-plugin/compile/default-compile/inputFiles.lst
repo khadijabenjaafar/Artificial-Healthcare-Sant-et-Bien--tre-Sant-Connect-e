@@ -18,8 +18,11 @@ C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\j
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\entities\Utilisateur.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\services\ServiceUtilisateur.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\AddMatchingController.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\StatistiqueUser.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\entities\Planification.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\Reinitialiser.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\entities\Article.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\api\PasswordUtils.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\ArticleItemController.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\enums\Motif.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\services\IService.java
@@ -32,6 +35,7 @@ C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\j
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\utils\MyDataBase.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\CreerCompte.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\entities\Status.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\api\mailler.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\services\ServicesPlanification.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\services\ServiceFacturation.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\services\ServiceOrdonnance.java
@@ -40,9 +44,12 @@ C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\j
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\EditMatchingController.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\mesArticlesController.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\entities\Ordonnance.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\api\CameraCapture.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\ForgetPassword.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\enums\Statut.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\test\Main.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\ArticleItem1Controller.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\CreerAdmin.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\EditPlanificationController.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\ArticleAdminBack.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\AffichageRendezVous.java
@@ -64,6 +71,7 @@ C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\j
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\DoctorController.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\Profile.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\services\ServiceRendezVous.java
+C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\api\FaceID.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\CardRendezVous.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\Login.java
 C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers\MatchingController.java
