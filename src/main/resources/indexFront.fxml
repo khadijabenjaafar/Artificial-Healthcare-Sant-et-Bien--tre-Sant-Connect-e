@@ -12,6 +12,7 @@
 
 <?import javafx.scene.control.ListView?>
 
+<?import javafx.scene.layout.StackPane?>
 <ScrollPane fx:id="scrollPane" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.IndexFront">
 
 
@@ -24,22 +25,26 @@
             <image>
                <Image url="@img/logo.png" />
             </image>
-            
+
             <HBox.margin>
                <Insets />
             </HBox.margin>
          </ImageView>
          <!-- Icône Chat -->
-         <ImageView fx:id="chatIcon" fitHeight="30.0" fitWidth="30.0"
-                    pickOnBounds="true" preserveRatio="true"
-                    onMouseClicked="#handleChatClick">
-            <image>
-               <Image url="@img/chat.png" />
-            </image>
-            <HBox.margin>
-               <Insets right="10.0" />
-            </HBox.margin>
-         </ImageView>
+         <StackPane>
+            <ImageView fx:id="chatIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true"
+                       preserveRatio="true" onMouseClicked="#handleChatClick">
+               <image>
+                  <Image url="@img/icons8-chat-50.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="chatBadge" text="8" visible="true"
+                   style="-fx-background-color: #FF3B30; -fx-text-fill: white;
+              -fx-font-size: 10px; -fx-font-weight: bold;
+              -fx-background-radius: 10px; -fx-padding: 1 4 1 4;
+              -fx-margin: -10 0 0 -10;"
+                   StackPane.alignment="TOP_RIGHT"/>  <!-- Adjusted these values -->
+         </StackPane>
 
          <!-- Titre -->
          <Label prefHeight="73.0" prefWidth="202.0" style="-fx-font-size: 40px; -fx-text-fill: #1ca7a2; -fx-font-weight: bold;" text="ClinicFlow">
@@ -50,11 +55,20 @@
          <!-- Boutons -->
         <!-- <Label fx:id="messageCount" text="0" style="-fx-background-color: red; -fx-text-fill: #11d5d5; -fx-padding: 5; -fx-shape: 'circle';" />-->
 
-         <ImageView fx:id="notificationIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleNotificationClick">
-            <image>
-               <Image url="@img/bell.png" />
-            </image>
-         </ImageView>
+         <StackPane>
+            <ImageView fx:id="notificationIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleNotificationClick">
+               <image>
+                  <Image url="@img/bell.png" />
+               </image>
+            </ImageView>
+
+            <Label fx:id="notificationBadge" text="" visible="false"
+                   style="-fx-background-color: red; -fx-text-fill: white;
+                  -fx-font-size: 10px; -fx-alignment: center;
+                  -fx-shape: 'circle'; -fx-min-width: 15px;
+                  -fx-min-height: 15px; -fx-background-radius: 50%;" />
+         </StackPane>
+
 
          <Button fx:id="seConnecter" onAction="#NavigateTosignIn" style="-fx-background-color: transparent; -fx-text-fill: #1ca7a2; -fx-border-color: #1ca7a2; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 18px; -fx-padding: 5 20;" text="Se connecter">
             <font>

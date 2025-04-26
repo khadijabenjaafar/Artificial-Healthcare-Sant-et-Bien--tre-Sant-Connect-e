@@ -77,21 +77,36 @@ public class ServiceMessage {
         }
     }
 
-    public boolean hasUnreadMessages(int receiverId, int senderId) {
-        String sql = "SELECT COUNT(*) FROM message_socket WHERE receiver_id = ? AND sender_id = ? AND is_read = false";
+
+    public boolean hasUnreadMessages(int receiverId) {
+        String sql = "SELECT COUNT(*) FROM message_socket WHERE receiver_id = ? AND is_read = false";
         try (Connection con = MyDataBase.getInstance().getMyConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, receiverId);
-            ps.setInt(2, senderId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0;
+                int count = rs.getInt(1);
+                System.out.println("Unread messages count: " + count); // Debug log
+                return count > 0;
             }
         } catch (SQLException e) {
+            System.err.println("Error checking unread messages: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
     }
 
 
+    public int getUnreadCount(int receiverId) {
+        String sql = "SELECT COUNT(*) FROM message_socket WHERE receiver_id = ? AND is_read = false";
+        try (Connection con = MyDataBase.getInstance().getMyConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, receiverId);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

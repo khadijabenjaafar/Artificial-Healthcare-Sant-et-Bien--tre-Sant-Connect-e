@@ -85,7 +85,14 @@ public class PlanificationController implements Initializable {
                     VBox detailsBox = new VBox(5);
                     Label modeLabel = new Label("Mode: " + planification.getMode());
                     Label addressLabel = new Label("Address: " + planification.getAdresse());
+                    addressLabel.setStyle("-fx-text-fill: blue; -fx-underline: true;"); // Make it look like a link
 
+                    addressLabel.setOnMouseClicked(event -> {
+                        String address = planification.getAdresse();
+                        if (address != null && !address.isEmpty()) {
+                            openInMap(address);
+                        }
+                    });
                     // People
                     HBox peopleBox = new HBox(15);
                     String freelancerInfo = "Freelancer: ";
@@ -160,6 +167,18 @@ public class PlanificationController implements Initializable {
         }
     }
 
+    private void openInMap(String address) {
+        try {
+            // Encode the address to URL format
+            String encodedAddress = java.net.URLEncoder.encode(address, "UTF-8");
+            String mapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodedAddress;
+
+            // Open the default web browser
+            java.awt.Desktop.getDesktop().browse(new java.net.URI(mapUrl));
+        } catch (Exception e) {
+            showAlert("Error", "Could not open the map: " + e.getMessage());
+        }
+    }
 
     private void setupSearchAndFilters() {
         statusFilter.getItems().addAll("Tous", "en attente", "confirmée", "annulée");
