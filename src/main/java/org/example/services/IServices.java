@@ -1,3 +1,4 @@
+
 package org.example.services;
 
 import java.sql.SQLException;
@@ -10,3 +11,4 @@ public interface IServices<T> {
     T findById(int id) throws SQLException;
     List<T> findAll() throws SQLException;
 }
+

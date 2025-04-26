@@ -1,3 +1,4 @@
+
 package org.example.services;
 
 import org.example.entities.EnumRole;
@@ -312,6 +313,35 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
             e.printStackTrace();
         }
         return list;
+    }
+    public Utilisateur getById(int id) {
+        Utilisateur user = null;
+        String sql = "SELECT * FROM utilisateur WHERE id = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                user = new Utilisateur();
+                user.setId(rs.getInt("id"));
+                user.setNom(rs.getString("nom"));
+                user.setPrenom(rs.getString("prenom"));
+                user.setEmail(rs.getString("email"));
+                user.setRole(EnumRole.valueOf(rs.getString("role"))); // si tu utilises EnumRole
+                user.setImage1(rs.getString("image")); // ou le nom exact de ta colonne d'image
+                // ajoute d'autres setters si tu as plus d'infos à récupérer
+            }
+
+            rs.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 
 }

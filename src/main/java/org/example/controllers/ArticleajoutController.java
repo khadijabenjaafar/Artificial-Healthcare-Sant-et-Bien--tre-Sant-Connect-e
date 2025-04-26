@@ -1,6 +1,10 @@
 package org.example.controllers;
-
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.example.entities.Article;
 import org.example.entities.UserConnecter;
 import org.example.entities.Utilisateur;
@@ -50,9 +54,16 @@ public class ArticleajoutController {
     @FXML
     private Button btnEnregistrer;
 
+
     private File imageChoisie;
     private final ServiceArticle serviceArticle = new ServiceArticle();
     private final ServiceUtilisateur serviceUtilisateur = new ServiceUtilisateur();
+
+    private Pane contentPane;
+
+    public void setContentPane(Pane contentPane) {
+        this.contentPane = contentPane;
+    }
 
     @FXML
     public void initialize() {
@@ -84,6 +95,7 @@ public class ArticleajoutController {
         btnEnregistrer.setOnAction(e -> {
             try {
                 enregistrerArticle();
+                GoToMesArticles();
             } catch (SQLException ex) {
                 showAlert("❌ Erreur SQL : " + ex.getMessage());
             }
@@ -99,6 +111,12 @@ public class ArticleajoutController {
 
         String titre = titreField.getText();
         String contenue = contenueArea.getText();
+
+
+
+        if(titre.isEmpty()||contenue.isEmpty()||imageChoisie==null) {
+            showAlert("Veuillez remplir tous les champs");
+        }
 
         // Vérification des champs
         if (titre.isEmpty()) {
@@ -156,4 +174,24 @@ public class ArticleajoutController {
         labelImage.setText("");
         imageChoisie = null;
     }
-}
+
+    private void GoToMesArticles() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ArticleDoctor.fxml"));
+            Parent fxml = loader.load();
+
+            ArticlesDoctorController controller = loader.getController();
+            controller.setContentPane(contentPane); // ✅ Très important !
+
+            contentPane.getChildren().clear();
+            contentPane.getChildren().setAll(fxml);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    }
+
+

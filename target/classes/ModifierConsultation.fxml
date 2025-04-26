@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controllers.ModifierConsultation"
+      spacing="15" alignment="TOP_CENTER" prefWidth="600" prefHeight="600"
+      style="-fx-background-color: #f9f9f9; -fx-padding: 30;">
+
+    <Label text="Modifier Consultation" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <HBox spacing="10">
+        <Label text="Observation :" prefWidth="120" />
+        <TextField fx:id="observationField" prefWidth="400" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Prix :" prefWidth="120" />
+        <TextField fx:id="prixField" prefWidth="400" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Durée :" prefWidth="120" />
+        <TextField fx:id="dureeField" prefWidth="400" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Prochain RDV :" prefWidth="120" />
+        <DatePicker fx:id="prochainRdvPicker" prefWidth="400" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Diagnostic :" prefWidth="120" />
+        <TextArea fx:id="diagnosticArea" prefWidth="400" prefHeight="60" wrapText="true" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Traitement :" prefWidth="120" />
+        <TextArea fx:id="traitementArea" prefWidth="400" prefHeight="60" wrapText="true" />
+    </HBox>
+
+    <Button text="Enregistrer les modifications" onAction="#handleSave"
+            style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;" />
+
+</VBox>

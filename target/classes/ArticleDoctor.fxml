@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="811.0" prefWidth="994.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ArticlesDoctorController">
+   <children>
+      <ScrollPane layoutX="-18.0" layoutY="59.0" prefHeight="789.0" prefWidth="986.0" AnchorPane.bottomAnchor="-37.0" AnchorPane.leftAnchor="-18.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="59.0">
+      
+          <content>
+      
+              <VBox fx:id="articlesContainer" prefHeight="695.0" prefWidth="1171.0" spacing="15.0" style="-fx-background-color: #f4f7f9;">
+                  <padding>
+                      <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
+                  </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+              </VBox>
+      
+      
+          </content>
+      
+      </ScrollPane>
+   </children>
+</AnchorPane>

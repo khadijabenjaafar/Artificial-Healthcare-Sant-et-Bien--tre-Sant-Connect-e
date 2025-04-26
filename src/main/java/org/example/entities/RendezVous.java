@@ -1,3 +1,4 @@
+
 package org.example.entities;
 
 import org.example.enums.Mode;
@@ -142,3 +143,5 @@ public class RendezVous {
                 '}';
     }
 }
+
+

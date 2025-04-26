@@ -1,7 +1,9 @@
+
 package org.example.entities;
 
 import java.sql.Date;
 import java.sql.Time;
+
 
 public class Commentaire {
 
@@ -12,10 +14,10 @@ public class Commentaire {
     private Date dateCommentaire;
     private boolean status;
     private Time heure;
-    private Integer parentId;
-    private Integer rating;
+    private int rating;
     private int likes;
     private int dislikes;
+    private int parent_id ;
 
 
     public Commentaire(int idCommentaire, Utilisateur utilisateur, Article article, String contenue, Date dateCommentaire, boolean status, Time heure, Integer parentId) {
@@ -26,10 +28,21 @@ public class Commentaire {
         this.dateCommentaire = dateCommentaire;
         this.status = status;
         this.heure = heure;
-        this.parentId = parentId;
+        this.parent_id = parentId;
     }
 
     public Commentaire(){}
+
+
+
+    public int getParentId() {
+        return parent_id;
+    }
+
+    // Setter
+    public void setParentId(int parent_id) {
+        this.parent_id = parent_id;
+    }
 
 
     public int getIdCommentaire() {
@@ -88,15 +101,7 @@ public class Commentaire {
         this.heure = heure;
     }
 
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
-
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 
@@ -120,3 +125,4 @@ public class Commentaire {
         this.dislikes = dislikes;
     }
 }
+

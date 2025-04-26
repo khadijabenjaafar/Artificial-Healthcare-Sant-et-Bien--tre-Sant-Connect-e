@@ -1,3 +1,4 @@
+
 package org.example.utils;
 
 import java.sql.Connection;
@@ -44,3 +45,4 @@ public class MyDataBase {
     }
 
 }
+

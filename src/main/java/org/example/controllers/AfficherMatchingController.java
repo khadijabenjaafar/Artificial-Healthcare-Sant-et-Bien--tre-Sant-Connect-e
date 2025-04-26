@@ -1,3 +1,4 @@
+
 package org.example.controllers;
 
 import javafx.collections.FXCollections;
@@ -25,9 +26,12 @@ import java.util.ResourceBundle;
 
 public class AfficherMatchingController implements Initializable {
 
-    @FXML private ListView<Matching> matchingListView;
-    @FXML private TextField searchField;
-    @FXML private ComboBox<String> availabilityFilter;
+    @FXML
+    private ListView<Matching> matchingListView;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ComboBox<String> availabilityFilter;
 
     private ServiceMatching serviceMatching;
     private ObservableList<Matching> masterData = FXCollections.observableArrayList();
@@ -218,3 +222,4 @@ public class AfficherMatchingController implements Initializable {
     }
 
 }
+

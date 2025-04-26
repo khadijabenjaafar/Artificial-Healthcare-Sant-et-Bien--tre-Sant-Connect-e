@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,7 +14,6 @@ import javafx.stage.Stage;
 import org.example.entities.EnumRole;
 import org.example.entities.UserConnecter;
 import org.example.entities.Utilisateur;
-import org.example.utils.NavigationUtil;
 
 
 import java.io.IOException;
@@ -25,6 +23,11 @@ public class DoctorController {
     private AnchorPane contentPane;
     @FXML
     private Label nom;
+
+
+
+
+
 
     @FXML
     private Hyperlink rdv;
@@ -206,9 +209,13 @@ public class DoctorController {
     @FXML
     private void handlemodifArticles(ActionEvent event) {
         try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/avant-modif-article.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ArticleDoctor.fxml")); // ✅ créer un vrai loader
+            Parent fxml = loader.load();
+
+            ArticlesDoctorController controller = loader.getController(); // ✅ accessible ici
+            controller.setContentPane(contentPane); // 💡 tu lui donnes le contentPane
+
+            contentPane.getChildren().setAll(fxml); // 🔄 affiche la page dans la zone
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -229,9 +236,15 @@ public class DoctorController {
     @FXML
     private void handleAjouterArticle(ActionEvent event) {
         try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/ajout-article.fxml"));
-            contentPane.getChildren().removeAll();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajout-article.fxml")); // ✅ créer l'instance
+            Parent fxml = loader.load(); // ✅ charger le fichier FXML
+
+            ArticleajoutController controller = loader.getController(); // ✅ accéder au contrôleur
+            controller.setContentPane(contentPane); // ✅ transmettre le contentPane
+
+            contentPane.getChildren().clear(); // ou removeAll()
             contentPane.getChildren().setAll(fxml);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -289,3 +302,4 @@ public class DoctorController {
 
 
 }
+

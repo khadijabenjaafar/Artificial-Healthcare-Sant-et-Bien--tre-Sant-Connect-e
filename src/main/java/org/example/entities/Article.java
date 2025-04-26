@@ -1,3 +1,4 @@
+
 package org.example.entities;
 
 import java.sql.Date;
@@ -80,3 +81,4 @@ public class Article {
         this.nbreVue = nbreVue;
     }
 }
+

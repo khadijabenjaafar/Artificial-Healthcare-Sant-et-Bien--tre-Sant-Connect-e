@@ -4,3 +4,4 @@ public enum Mode {
     EN_LIGNE,
     SUR_PLACE
 }
+

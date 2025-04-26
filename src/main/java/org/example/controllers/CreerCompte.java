@@ -1,3 +1,4 @@
+
 package org.example.controllers;
 
 import javafx.collections.FXCollections;
@@ -190,12 +191,12 @@ public class CreerCompte {
             String imageUrl1 = file.toURI().toString();
             Image image = new Image(imageUrl1);
             imageView.setImage(image);
-            imageUrl=imageUrl1;
+            imageUrl = imageUrl1;
         } else {
             // Tu peux afficher une alerte si tu veux :
             showAlert(Alert.AlertType.WARNING, "Aucune image sélectionnée", "Veuillez choisir une image.");
         }
     }
-
-
 }
+
+

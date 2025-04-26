@@ -1,3 +1,4 @@
+
 package org.example.entities;
 
 public enum EnumRole {

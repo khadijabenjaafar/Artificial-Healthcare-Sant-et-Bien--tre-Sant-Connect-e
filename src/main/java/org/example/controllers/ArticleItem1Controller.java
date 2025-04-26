@@ -1,8 +1,7 @@
-
-
-
 package org.example.controllers;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import org.example.entities.Article;
 import org.example.services.ServiceArticle;
 import javafx.fxml.FXML;
@@ -44,26 +43,46 @@ public class ArticleItem1Controller{
     private Runnable onClick;
 
     @FXML
-    VBox maincontainer;
+    HBox maincontainer;
 
 
+    @FXML
+    private ImageView eyeIcon;
+
+    @FXML
+    private Label viewsLabel;
 
 
+    private Pane contentPane;
 
+    //ServiceArticle serviceArticle;
 
-
-
-
+    public void setContentPane(Pane contentPane) {
+        this.contentPane = contentPane;
+        maincontainer.setOnMouseClicked(event -> handleClick());
+    }
 
 
 
 
     // méthode appelée depuis le controller parent
-    public void setArticle(Article article) {
+    public void setArticle(Article article) throws SQLException {
         this.article = article; // <--- cette ligne manquait !
         titleLabel.setText(article.getTitre());
         contentLabel.setText(article.getContenue());
+        System.out.println(article.getNbreVue());
         dateLabel.setText(article.getDateArticle().toString());
+
+
+
+        // Afficher le nombre de vues
+       // int nouvellesVues = serviceArticle.getNombreVuesById(article.getId());
+        viewsLabel.setText(String.valueOf(article.getNbreVue())); //
+
+
+
+
+
 
         // Affichage de l’image
         if (article.getUrlimagearticle() != null) {
@@ -76,7 +95,18 @@ public class ArticleItem1Controller{
                 System.out.println("Image not found at: " + file.getAbsolutePath());
             }
         }
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -95,32 +125,29 @@ public class ArticleItem1Controller{
 
 
     public void handleClick() {
+        if (contentPane == null) {
+           // System.out.println("🛑 YA WELDY contentPane is still null.");
+            return;
+        }
 
-        if (article != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/modif_article.fxml"));
-                Parent root = loader.load();
+        if (article == null) {
+            //System.out.println("🛑 YA WELDY article is null too.");
+            return;
+        }
 
-                ModifierArticleController controller = loader.getController();
-                controller.setArticle(article); // envoie l'article à modifier
-                //System.out.println(article.getTitre());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/modif_article.fxml"));
+            Parent fxml = loader.load();
 
+            ModifierArticleController controller = loader.getController();
+            controller.setArticle(article);
+            controller.setContentPane(contentPane);
 
-               // controller.setOnModificationDone(() -> {
-                //   parentController.refreshAfterModification(utilisateur);
-               // });
-
-                Stage stage = (Stage) imageView.getScene().getWindow();
-                stage.setTitle("Modifier l'article");
-                stage.setScene(new Scene(root));
-                stage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            contentPane.getChildren().setAll(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 
 
     @FXML
@@ -164,12 +191,16 @@ public class ArticleItem1Controller{
             ArticledetailsController controller = loader.getController();
             controller.setArticle(article); // passe l'article sélectionné
 
-            Stage stage = new Stage();
-            stage.setTitle("Détails de l'article");
-            stage.setScene(new Scene(root));
-            stage.show();
+            controller.setContentPane(contentPane);
+            contentPane.getChildren().setAll(root);
+
+           // Stage stage = new Stage();
+           // stage.setTitle("Détails de l'article");
+           // stage.setScene(new Scene(root));
+            //stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+
