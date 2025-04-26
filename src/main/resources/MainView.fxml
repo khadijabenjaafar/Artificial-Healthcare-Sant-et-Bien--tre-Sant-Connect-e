@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.controllers.MainController" fx:id="rootLayout">
+    <!-- MenuBar placé en haut -->
+    <top>
+        <MenuBar fx:id="menuBar" />
+    </top>
+
+    <!-- Zone centrale pour afficher le contenu -->
+    <center>
+        <Label text="Contenu Principal" />
+    </center>
+
+    <!-- Zone en bas (facultative) -->
+    <bottom>
+        <Label text="Footer ou autre contenu" />
+    </bottom>
+</BorderPane>

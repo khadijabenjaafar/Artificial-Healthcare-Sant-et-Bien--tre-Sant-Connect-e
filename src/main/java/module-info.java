@@ -1,13 +1,20 @@
-module com.example {
+module org.example.test {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.desktop;
+    requires org.json;
+    requires javafx.media;
 
 
-    opens com.example to javafx.fxml;
-   // exports com.example.demo;
-    exports com.example.Controllers;
-    opens com.example.Controllers to javafx.fxml;
-    exports com.example.test;
-    opens com.example.test to javafx.fxml;
+    opens org.example.controllers to javafx.fxml;
+
+    opens org.example.test to javafx.fxml;
+    exports org.example.test;
+
+
+    opens org.example.entities to javafx.fxml;
+
+    // Pour lancer l'application JavaFX
 }
+

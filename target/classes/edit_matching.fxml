@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.EditMatchingController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox spacing="10" alignment="TOP_CENTER" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <Label text="Edit Matching" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+
+        <GridPane hgap="10" vgap="10">
+            <Label text="CIN:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="cinField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextArea fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <DatePicker fx:id="dateField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label text="Compétences:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <TextField fx:id="competencesField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+            <Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+            <Label text="CV Path:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+            <TextField fx:id="cvField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+            <Label text="Available:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+            <CheckBox fx:id="availabilityField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+        </GridPane>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Save" onAction="#handleSave" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            <Button text="Cancel" onAction="#handleCancel" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

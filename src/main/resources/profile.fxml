@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #f8f8f8;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.Profile">
+   <children>
+      <VBox alignment="CENTER" layoutX="6.0" prefHeight="807.0" prefWidth="1274.0" spacing="20.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="73.0" prefWidth="929.0" style="-fx-font-size: 50;" text="Votre Profile" textAlignment="CENTER">
+               <font>
+                  <Font size="80.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="130.0" />
+               </VBox.margin>
+            </Label>
+
+            <!-- ImageView rond -->
+            <StackPane alignment="CENTER">
+               <children>
+                  <ImageView fx:id="profileImage" cache="true" fitHeight="150.0" fitWidth="150.0" preserveRatio="false">
+                     <StackPane.margin>
+                        <Insets left="130.0" />
+                     </StackPane.margin></ImageView>
+               </children>
+            </StackPane>
+
+            <HBox alignment="CENTER" spacing="100.0">
+               <children>
+                  <Label text="Nom :" />
+                  <TextField fx:id="nom" editable="false" prefHeight="37.0" prefWidth="501.0" />
+               </children>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="80.0">
+               <children>
+                  <Label text="Prenom :" />
+                  <TextField fx:id="prenom" editable="false" prefHeight="37.0" prefWidth="501.0" />
+               </children>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="80.0">
+               <children>
+                  <Label text="Adresse :" />
+                  <TextField fx:id="adresse" editable="false" prefHeight="37.0" prefWidth="501.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></TextField>
+               </children>
+            </HBox>
+
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Numero de telephone :">
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin></Label>
+                  <TextField fx:id="numtel" editable="false" prefHeight="37.0" prefWidth="501.0">
+                     <HBox.margin>
+                        <Insets right="100.0" />
+                     </HBox.margin></TextField>
+               </children>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="100.0">
+               <children>
+                  <Label text="Email :" />
+                  <TextField fx:id="email" editable="false" prefHeight="37.0" prefWidth="501.0" />
+               </children>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="100.0">
+               <children>
+                  <Label text="Date :" />
+                  <DatePicker fx:id="date" editable="false" prefHeight="37.0" prefWidth="501.0" />
+               </children>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="100.0">
+               <children>
+                  <Label text="Genre :" />
+                  <TextField fx:id="genre" editable="false" prefHeight="37.0" prefWidth="501.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="700.0">
+               <children>
+                  <Button fx:id="accueil" mnemonicParsing="false" onAction="#NavigateToFront" style="-fx-background-color: #1ca7a2; -fx-text-fill: white;" text="Retourner a l'accueil">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="ModifProf" mnemonicParsing="false" onAction="#NavigateToModifProfile" style="-fx-background-color: #1ca7a2; -fx-text-fill: white;" text="Modifier Votre Profile">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </HBox>
+
+
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

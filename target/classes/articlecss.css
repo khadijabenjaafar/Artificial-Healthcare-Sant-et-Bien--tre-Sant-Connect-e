@@ -1,0 +1,7 @@
+.button {
+    -fx-cursor: hand;
+}
+
+.label {
+    -fx-font-family: "Arial";
+}

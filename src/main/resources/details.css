@@ -1,0 +1,59 @@
+.article-container {
+    -fx-padding: 30;
+    -fx-spacing: 25;
+    -fx-background-color: #f9fbfc;
+    -fx-alignment: center;
+}
+
+.article-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2a2a2a;
+    -fx-alignment: center;
+}
+
+.article-image {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0, 1);
+    -fx-border-radius: 10;
+}
+
+.article-contenu {
+    -fx-font-size: 15px;
+    -fx-text-fill: #333;
+    -fx-line-spacing: 8;
+    -fx-padding: 10;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+}
+
+.article-date {
+    -fx-font-size: 12px;
+    -fx-text-fill: #888;
+    -fx-alignment: center-right;
+}
+
+.section-titre {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 0 0 0;
+}
+
+.commentaires-box {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+    -fx-spacing: 15;
+    -fx-border-radius: 8;
+}
+
+.btn-poster {
+    -fx-background-color: #7fbdc8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 6 20;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.btn-poster:hover {
+    -fx-background-color: #62a8b3;
+}
