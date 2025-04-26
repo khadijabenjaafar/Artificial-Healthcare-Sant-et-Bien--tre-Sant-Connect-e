@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.controllers.AfficherMatchingController"
-            prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AfficherMatchingController">
 
-
-    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="Matchings" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-            <Button fx:id="btnAddMatching" text="Add Matching" onAction="#handleAddMatching"/>
+    <VBox layoutX="3.0" layoutY="41.0" prefHeight="718.0" prefWidth="1064.0" spacing="10" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="213.0" AnchorPane.topAnchor="41.0">
+        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="980.0" spacing="50.0">
+            <Label style="-fx-font-size: 30px; -fx-font-weight: bold;" text="Matchings">
+            <font>
+               <Font size="46.0" />
+            </font></Label>
+            <Button fx:id="btnAddMatching" onAction="#handleAddMatching" text="Add Matching">
+            <HBox.margin>
+               <Insets right="-50.0" />
+            </HBox.margin></Button>
         </HBox>
 
-        <HBox spacing="20" styleClass="search-box">
-            <TextField fx:id="searchField" promptText="Search by CIN, skills..."/>
-            <ComboBox fx:id="availabilityFilter" promptText="Filter by availability"/>
+        <HBox alignment="CENTER_RIGHT" spacing="100.0" styleClass="search-box">
+            <TextField fx:id="searchField" prefHeight="39.0" prefWidth="297.0" promptText="Search by CIN, skills...">
+            <font>
+               <Font size="17.0" />
+            </font></TextField>
+            <ComboBox fx:id="availabilityFilter" prefHeight="30.0" prefWidth="174.0" promptText="Filter by availability" />
         </HBox>
 
-        <ListView fx:id="matchingListView" styleClass="list-view"/>
+        <ListView fx:id="matchingListView" prefHeight="583.0" prefWidth="1259.0" styleClass="list-view" />
     </VBox>
 </AnchorPane>

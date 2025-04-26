@@ -19,8 +19,6 @@
                 <Label text="Freelancer:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
                 <ComboBox fx:id="freelancerComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-                <Label text="Utilisateur:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                <ComboBox fx:id="utilisateurComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
                 <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <children>

@@ -17,7 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import org.example.entities.Matching;
+import org.example.entities.*;
 
 import java.sql.*;
 
@@ -39,11 +39,8 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.example.entities.Utilisateur;
-import org.example.entities.Planification;
 import org.example.entities.Matching;
 import org.example.services.ServiceUtilisateur;
-import org.example.entities.EnumRole;
 import org.example.services.ServicesPlanification;
 import org.example.utils.NavigationUtil;
 
@@ -54,6 +51,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MatchingController implements Initializable {
+    public Utilisateur CurrentUser= UserConnecter.getInstance().getUserConnecter();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -148,17 +146,30 @@ public class MatchingController implements Initializable {
                 (freelancer.getMatching() != null && freelancer.getMatching().getCompetences() != null
                         ? freelancer.getMatching().getCompetences() : "N/A"));
 
-        // Bouton Demander une Consultation
         Button requestConsultationBtn = new Button("Demander une consultation");
         requestConsultationBtn.setStyle(
                 "-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"
         );
 
-        // On passe le Stage en paramètre à openPlanificationForm
         requestConsultationBtn.setOnAction(event -> {
+            Utilisateur currentUser = UserConnecter.getInstance().getUserConnecter();
+
             Stage currentStage = (Stage) requestConsultationBtn.getScene().getWindow();
-            openPlanificationForm(freelancer, currentStage);
+
+            if (currentUser == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Connexion requise");
+                alert.setHeaderText(null);
+                alert.setContentText("❗ Vous devez être connecté pour demander une consultation.");
+                alert.showAndWait();
+
+
+            } else {
+                // L'utilisateur est connecté, ouvrir le formulaire de planification
+                openPlanificationForm(freelancer, currentStage);
+            }
         });
+
 
         VBox modalContent = new VBox(15, imageView, name, gender, specialty, requestConsultationBtn);
         modalContent.setAlignment(Pos.CENTER);
@@ -173,6 +184,7 @@ public class MatchingController implements Initializable {
     }
 //hi!
     private void openPlanificationForm(Utilisateur freelancer, Stage parentStage) {
+
         // Champs de saisie
         DatePicker datePicker = new DatePicker();
         TextField adresseField = new TextField();
@@ -205,7 +217,8 @@ public class MatchingController implements Initializable {
                 planification.setStatut("en attente");
                 planification.setReponse(null);
                 planification.setFreelancer(freelancer);
-
+                planification.setUtilisateur(CurrentUser);
+                System.out.println(CurrentUser);
                 if (planification.getUtilisateur() != null) {
                     int idUtilisateur = planification.getUtilisateur().getId();
                     System.out.println("L'utilisateur ID est : " + idUtilisateur);
@@ -297,35 +310,6 @@ public class MatchingController implements Initializable {
         // traitement d'enregistrement ici
     }
 
-    @FXML
-    private void handleAfficherMatching(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MatchingView.fxml"));
-            Parent newView = loader.load();
-
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            NavigationUtil.switchScene(stage, newView);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    @FXML
-    private void handleAfficherPlanification(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanificationView.fxml"));
-            Parent newView = loader.load();
-
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            NavigationUtil.switchScene(stage, newView);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 

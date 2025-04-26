@@ -1,29 +1,43 @@
-package org.example.test;
+ package org.example.test;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import org.example.controllers.IndexFront;
+
+import java.io.IOException;
+
 public class MainFx extends Application {
 
     @Override
+    public void start(Stage primaryStage) throws IOException {
 
-    public void start(Stage primaryStage) throws Exception {
-        Parent root= FXMLLoader.load(getClass().getResource("/freelancer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/indexFront.fxml"));
+            Parent root = loader.load();
 
-        Scene scene=new Scene(root);
+            Scene scene = new Scene(root);
 
-        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+            // 💡 Détection de la touche Échap
+            scene.setOnKeyPressed(event -> {
+                switch (event.getCode()) {
+                    case ESCAPE -> primaryStage.close();
+                }
+            });
 
-        primaryStage.setScene(scene);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.setScene(scene);
+            primaryStage.show();
 
-        primaryStage.show();
+            IndexFront controller = loader.getController();
+            controller.setStage(primaryStage);
+        }
 
-        primaryStage.setTitle("first Scene");
-    }
 
 
     public static void main(String[] args) {
-        launch(args);
+        launch(args); // Lancer l'application JavaFX
     }
 }

@@ -1,4 +1,5 @@
 package org.example.services;
+
 import org.example.entities.EnumRole;
 import org.example.entities.Matching;
 import org.example.entities.Status;
@@ -9,17 +10,19 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-public class ServiceUtilisateur implements IServices <Utilisateur> {
+public class ServiceUtilisateur implements IService <Utilisateur> {
+
     private static Connection connection = MyDataBase.getInstance().getMyConnection();
 
 
 
     public ServiceUtilisateur(){
+
         connection = MyDataBase.getInstance().getMyConnection();
     }
     @Override
-    public void add(Utilisateur utilisateur) throws SQLException {
-            String sql = "INSERT INTO `utilisateur` (`nom`, `prenom`, `email`, `password`, `date_naissance`, `role`, `adresse`, `genre`, `image`, `is_verified`, `reset_token`, `num_tel`, `tel_verified`, `status`, `image1`) " +
+    public void ajouter(Utilisateur utilisateur) throws SQLException {
+         String sql = "INSERT INTO `utilisateur` (`nom`, `prenom`, `email`, `password`, `date_naissance`, `role`, `adresse`, `genre`, `image`, `is_verified`, `reset_token`, `num_tel`, `tel_verified`, `status`, `image1`) " +
                     "VALUES ('" + utilisateur.getNom() + "', " +
                     "'" + utilisateur.getPrenom() + "', " +
                     "'" + utilisateur.getEmail() + "', " +
@@ -39,11 +42,13 @@ public class ServiceUtilisateur implements IServices <Utilisateur> {
             System.out.println(sql); // Pour voir la requête générée (utile pour debug)
             Statement stm = connection.createStatement();
             stm.executeUpdate(sql);
+
     }
 
     @Override
-    public void update(Utilisateur utilisateur) throws SQLException {
-        String sql ="UPDATE `utilisateur` SET `nom`=? ,`prenom`=? ,`email`=?  ,`date_naissance`=? ,`role`=? ,`adresse`=? ,`genre`=? ,`image`=? ,`is_verified`=? ,`reset_token`=? ,`num_tel`=? ,`tel_verified`=? ,`status`=? ,`image1`=?  WHERE id = ?";
+    public void modifier(Utilisateur utilisateur) throws SQLException {
+        String sql ="UPDATE `utilisateur` SET `nom`=? ,`prenom`=? ,`email`=?  ,`date_naissance`=? ,`role`=? ,`adresse`=? ,`genre`=? ,`num_tel`=?  ,`status`=? ,`image1`=?  WHERE id = ?";
+
         PreparedStatement pst = connection.prepareStatement(sql);
         pst.setString(1, utilisateur.getNom());
         pst.setString(2, utilisateur.getPrenom());
@@ -57,34 +62,34 @@ public class ServiceUtilisateur implements IServices <Utilisateur> {
         pst.setString(5, utilisateur.getRole().name());
         pst.setString(6,utilisateur.getAdresse());
         pst.setString(7,utilisateur.getGenre());
-        pst.setString(8,utilisateur.getImage());
-        pst.setBoolean(9,utilisateur.isIs_verified());
-        pst.setString(10,utilisateur.getResetToken());
-        pst.setString(11,utilisateur.getnumTel());
-        pst.setBoolean(12,utilisateur.isTel_verified());
-        pst.setString(13,utilisateur.getStatus().toString());
-        pst.setString(14,utilisateur.getImage1());
-        pst.setInt(15,utilisateur.getId());
+        pst.setString(8,utilisateur.getnumTel());
+        if (utilisateur.getStatus() != null) {
+            pst.setString(9, utilisateur.getStatus().toString());
+        } else {
+            pst.setNull(9, java.sql.Types.VARCHAR); // ou tu mets "INACTIF", "BANNED", etc.
+        }
+        pst.setString(10,utilisateur.getImage1());
+        pst.setInt(11,utilisateur.getId());
         pst.executeUpdate();
 
+
     }
 
     @Override
-    public Utilisateur findById(int id) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public void delete(int id) throws SQLException {
+    public void supprimer(int id) throws SQLException {
         String sql = "DELETE FROM `utilisateur` WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1,id);
         ps.executeUpdate();
 
     }
+        public Utilisateur findById(int id) throws SQLException {
+            return null;
+        }
 
     @Override
-    public List<Utilisateur> findAll() throws SQLException {
+    public List<Utilisateur> afficher() throws SQLException {
+
         List<Utilisateur> utilisateurs = new ArrayList<>();
         try {
             String sql = "Select * from utilisateur";
@@ -92,6 +97,7 @@ public class ServiceUtilisateur implements IServices <Utilisateur> {
             ResultSet rs =statement.executeQuery(sql);
                 while (rs.next()){
                     EnumRole role = EnumRole.valueOf(rs.getString("role"));
+                    Status status =Status.valueOf(rs.getString("status"));
                     java.sql.Date sqlDate = rs.getDate(6);
                     LocalDate dateNaissance = (sqlDate != null) ? sqlDate.toLocalDate() : null;
                     Utilisateur u = new Utilisateur(
@@ -104,8 +110,11 @@ public class ServiceUtilisateur implements IServices <Utilisateur> {
                     rs.getString(5),
                     rs.getString(8),
                     rs.getString(9),
-                    rs.getString(13)
+                    rs.getString(11),
+                            status
                     );
+
+
                     utilisateurs.add(u);
                 }
         } catch (SQLException ex) {
@@ -130,6 +139,9 @@ public class ServiceUtilisateur implements IServices <Utilisateur> {
                 user.setEmail(rs.getString("Email"));
                 user.setPassword(rs.getString("Password"));
                 user.setnumTel(rs.getString("num_tel"));
+                user.setGenre(rs.getString("genre"));
+                user.setAdresse(rs.getString("adresse"));
+
                 // Convert String to Status enum
                 String statusStr = rs.getString("status");
                 user.setImage1(rs.getString("image1"));
@@ -153,6 +165,97 @@ public class ServiceUtilisateur implements IServices <Utilisateur> {
 
         return user;
     }
+
+    public void bannir(int id) throws SQLException {
+        String query = "UPDATE utilisateur SET status = 'BANNED' WHERE id = ?";
+        PreparedStatement pst = connection.prepareStatement(query);
+        pst.setInt(1, id);
+        pst.executeUpdate();
+    }
+
+    public void debannir(int id) throws SQLException {
+        String query = "UPDATE utilisateur SET status = 'ACTIVE' WHERE id = ?";
+        PreparedStatement pst = connection.prepareStatement(query);
+        pst.setInt(1, id);
+        pst.executeUpdate();
+    }
+    public Utilisateur getPatientByNom(String nom) throws SQLException {
+        Utilisateur patient = null;
+
+        String query = "SELECT * FROM patients WHERE nom = ?";
+
+             PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, nom);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                patient = new Utilisateur();
+                patient.setId(rs.getInt("id"));
+                patient.setNom(rs.getString("nom"));
+                patient.setPrenom(rs.getString("prenom"));
+                // Ajouter d'autres propriétés selon votre modèle Patient
+            }
+
+        return patient;
+
+    }
+    public Utilisateur getMedecinByNom(String nom) throws SQLException {
+        Utilisateur medecin = null;
+
+        String query = "SELECT * FROM medecins WHERE nom = ?";
+
+             PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, nom);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                medecin = new Utilisateur();
+                medecin.setId(rs.getInt("id"));
+                medecin.setNom(rs.getString("nom"));
+                medecin.setPrenom(rs.getString("prenom"));
+                // Ajouter d'autres propriétés selon votre modèle Medecin
+            }
+
+        return medecin;
+
+        }
+    public List<Utilisateur> getMedecins() throws SQLException {
+        List<Utilisateur> medecins = new ArrayList<>();
+        String sql = "SELECT `id`, `nom`, `prenom` FROM `utilisateur` ";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        while (rs.next()) {
+            Utilisateur medecin = new Utilisateur(
+                    rs.getInt("id"),
+                    rs.getString("nom"),
+                    rs.getString("prenom")
+            );
+            medecins.add(medecin);
+        }
+
+        return medecins;
+    }
+
+    public List<Utilisateur> getPatients() throws SQLException {
+        List<Utilisateur> patients = new ArrayList<>();
+        String sql = "SELECT `id`, `nom`, `prenom` FROM `utilisateur`";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        while (rs.next()) {
+            Utilisateur patient = new Utilisateur(
+                    rs.getInt("id"),
+                    rs.getString("nom"),
+                    rs.getString("prenom")
+            );
+            patients.add(patient);
+        }
+
+        return patients;
+    }
     public static List<Utilisateur> findFreelancers() throws SQLException {
         List<Utilisateur> freelancers = new ArrayList<>();
 
@@ -172,7 +275,7 @@ public class ServiceUtilisateur implements IServices <Utilisateur> {
                     rs.getString("password"),
                     rs.getString("adresse"),
                     rs.getString("genre"),
-                    rs.getString("numTel")
+                    rs.getString("num_tel")
             );
 
             // Charger Matching
@@ -194,5 +297,22 @@ public class ServiceUtilisateur implements IServices <Utilisateur> {
 
         return freelancers;
     }
+    public List<Utilisateur> getAllUsersExcept(int myId) {
+        List<Utilisateur> list = new ArrayList<>();
+        String sql = "SELECT id, nom, prenom FROM utilisateur WHERE id != ?";
+        try (Connection con = MyDataBase.getInstance().getMyConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, myId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Utilisateur u = new Utilisateur(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 }
+

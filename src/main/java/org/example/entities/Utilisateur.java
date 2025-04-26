@@ -1,9 +1,11 @@
 package org.example.entities;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 
 public class Utilisateur {
+
     private Matching matching;
 
     private int id;
@@ -14,8 +16,9 @@ public class Utilisateur {
     private LocalDate date_naissance;
 
     private EnumRole role;
-    private String adresse = null;
-    private String genre = null;
+    private String adresse;
+    private String genre;
+
    private String image = null;
     private String numTel ;
     private boolean is_verified = false;
@@ -54,10 +57,16 @@ public class Utilisateur {
         this.numTel = numTel;
         this.image1=image1;
     }
-    public Utilisateur(int id, String nom, String prenom, String email,EnumRole role,LocalDate date_naissance, String password, String adresse, String genre, String numTel) {
+    public Utilisateur(int id, String nom, String prenom) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
+    }
+    public Utilisateur(int id,String nom, String prenom, String email, String password, LocalDate date_naissance, EnumRole role, String adresse, String genre, String numTel,String image1,Status status) {
+        this.id=id;
+        this.nom = nom;
+        this.prenom = prenom;
+
         this.email = email;
         this.role=role;
         this.date_naissance=date_naissance;
@@ -65,6 +74,37 @@ public class Utilisateur {
         this.adresse = adresse;
         this.genre = genre;
         this.numTel = numTel;
+        this.image1=image1;
+        this.status=status;
+    }
+    public Utilisateur(int id, String nom, String prenom, String email,EnumRole role,LocalDate date_naissance, String password, String adresse, String genre, String numTel,Status status) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+
+        this.role=role;
+        this.date_naissance=date_naissance;
+        this.password = password;
+        this.adresse = adresse;
+        this.genre = genre;
+        this.numTel = numTel;
+        this.status=status;
+
+    }
+    public Utilisateur(int id, String nom, String prenom, String email,EnumRole role,LocalDate date_naissance, String password, String adresse, String genre, String numTel) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+
+        this.role=role;
+        this.date_naissance=date_naissance;
+        this.password = password;
+        this.adresse = adresse;
+        this.genre = genre;
+        this.numTel = numTel;
+
     }
     public Utilisateur(int id, String nom, String prenom, String email,EnumRole role,LocalDate date_naissance, String password, String adresse, String genre, String image, String numTel, boolean is_verified, String resetToken, boolean tel_verified, Status status, String image1) {
         this.id = id;
@@ -101,6 +141,7 @@ public class Utilisateur {
         this.status = status;
         this.image1 = image1;
     }
+
 
 
     public int getId() {
@@ -142,6 +183,7 @@ public class Utilisateur {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public LocalDate getDate_naissance() {
         return date_naissance;
     }
@@ -154,8 +196,10 @@ public class Utilisateur {
     }
 
     public void setRole(EnumRole role) {
+
         this.role = role;
     }
+
     public String getAdresse() {
         return adresse;
     }
@@ -179,6 +223,7 @@ public class Utilisateur {
     public void setImage(String image) {
         this.image = image;
     }
+
 
     public String getnumTel() {
         return numTel;
@@ -228,6 +273,7 @@ public class Utilisateur {
         this.image1 = image1;
     }
 
+
     public Matching getMatching() {
         return matching;
     }
@@ -235,5 +281,6 @@ public class Utilisateur {
     public void setMatching(Matching matching) {
         this.matching = matching;
     }
+
 
 }

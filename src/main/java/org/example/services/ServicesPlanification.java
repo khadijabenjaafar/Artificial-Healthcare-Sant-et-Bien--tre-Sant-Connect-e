@@ -35,6 +35,10 @@ public class ServicesPlanification implements IServices<Planification> {
 
     @Override
     public void update(Planification planification) throws SQLException {
+        if (planification.getId() == null) {
+            throw new IllegalArgumentException("Planification ID must not be null for update.");
+        }
+
         String sql = "UPDATE planification SET statut = ?, date = ?, adresse = ?, reponse = ?, mode = ?, freelancer_id = ?, utilisateur_id = ? " +
                 "WHERE id = ?";
 
@@ -46,10 +50,11 @@ public class ServicesPlanification implements IServices<Planification> {
             pstmt.setString(5, planification.getMode());
             pstmt.setLong(6, planification.getFreelancer().getId());
             pstmt.setLong(7, planification.getUtilisateur().getId());
-            pstmt.setLong(8, planification.getId());
+            pstmt.setLong(8, planification.getId()); // ici c’est safe après le check
             pstmt.executeUpdate();
         }
     }
+
 
     @Override
     public void delete(int id) throws SQLException {
@@ -78,6 +83,7 @@ public class ServicesPlanification implements IServices<Planification> {
                 p.setAdresse(rs.getString("adresse"));
                 p.setReponse(rs.getString("reponse"));
                 p.setMode(rs.getString("mode"));
+                p.setId(rs.getLong("id")); // ➕ à ajouter ici
 
                 // You’ll need to fetch the Utilisateur objects by ID if needed
                 // For now, we can just set dummy Utilisateur with only ID set
@@ -110,7 +116,7 @@ public class ServicesPlanification implements IServices<Planification> {
                 p.setAdresse(rs.getString("adresse"));
                 p.setReponse(rs.getString("reponse"));
                 p.setMode(rs.getString("mode"));
-
+                p.setId(rs.getLong("id"));
                 var freelancer = new org.example.entities.Utilisateur();
                 freelancer.setId(rs.getInt("freelancer_id"));
                 p.setFreelancer(freelancer);
