@@ -25,115 +25,17 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class IndexFront {
-    @FXML
-    private Button inscrire;
+
 
     @FXML
     private ScrollPane scrollPane;
 
-    @FXML
-    private Button seConnecter;
-
-    public Utilisateur CurrentUser=UserConnecter.getInstance().getUserConnecter();
-
-    private Stage currentStage;
-
-    public void setStage(Stage stage) {
-        this.currentStage = stage;
-    }
-
-
-    @FXML
-    public void initialize() {
-        checkUserConnection();
-    }
-
-
-    @FXML
-    void NavigateTosignUp(ActionEvent event) throws IOException {
-        try {
-            if (CurrentUser!= null && CurrentUser.getRole() == EnumRole.ROLE_PATIENT) {
-                // Load the home.fxml file
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
-                Parent root = loader.load();
-
-                // Get the current stage (window)
-                Stage stage = (Stage) inscrire.getScene().getWindow();
-
-                // Set the new scene with the home.fxml content
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();}
-            else {
-                // Load the home.fxml file
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/CreerCompte.fxml"));
-                Parent root = loader.load();
-
-                // Get the current stage (window)
-                Stage stage = (Stage) inscrire.getScene().getWindow();
-
-                // Set the new scene with the home.fxml content
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-    }
-    @FXML
-    void NavigateTosignIn(ActionEvent event) throws SQLException, IOException {
-        try {
-            System.out.println("CurrentUser = " + CurrentUser);
-            if (CurrentUser != null) {
-                System.out.println("Role = " + CurrentUser.getRole());
-            }
-            if (CurrentUser!= null && CurrentUser.getRole() == EnumRole.ROLE_PATIENT) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/profile.fxml"));
-                    Parent parent = loader.load();
-                    Profile profilControllers= loader.getController();
-                    profilControllers.setNom(CurrentUser.getNom());
-                    profilControllers.setPrenom(CurrentUser.getPrenom());
-                    profilControllers.setAdresse(CurrentUser.getAdresse());
-                    profilControllers.setEmail(CurrentUser.getEmail());
-                    profilControllers.setImage1(CurrentUser.getImage1());
-
-
-                    profilControllers.setGenre(CurrentUser.getGenre());
-                    profilControllers.setNumtel(CurrentUser.getnumTel());
-                    profilControllers.setDate(CurrentUser.getDate_naissance());
-
-                    Stage stage = (Stage) seConnecter.getScene().getWindow();
-                    Scene scene = new Scene(parent);
-                    stage.setScene(scene);
-                    stage.show();
-            } else {
-                // Redirige vers login.fxml si l'utilisateur n'est pas connecté
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
-                Parent root = loader.load();
-
-                Stage stage = (Stage) seConnecter.getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
 
-    public void checkUserConnection() {
-        if (CurrentUser!= null && "ROLE_PATIENT".equals(CurrentUser.getRole().toString())) {
-            inscrire.setText("Se deconnecter");
-            seConnecter.setText("Profile");
-        } else {
-            inscrire.setText("S'inscrire");
-            seConnecter.setText("Se connecter");
-        }
-    }
+
+
+
+
 }

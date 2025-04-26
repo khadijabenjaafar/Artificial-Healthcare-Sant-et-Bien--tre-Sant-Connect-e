@@ -196,6 +196,10 @@ public class CreerAdmin {
             showAlert(Alert.AlertType.WARNING, "Aucune image sélectionnée", "Veuillez choisir une image.");
         }
     }
+    @FXML
+    private void cancel(){
+
+    }
 
 
 }

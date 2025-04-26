@@ -1,13 +1,18 @@
 package org.example.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.example.entities.RendezVous;
 import org.example.services.ServiceRendezVous;
 
@@ -147,5 +152,19 @@ public class CardRendezVous implements Initializable {
         }
     }
 
+    @FXML
+    void AjouterRDV(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterRendezVous.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la fenêtre actuelle et changer la scène
+            Stage stage = (Stage) grid.getScene().getWindow(); // Assurez-vous que 'nom' est un contrôle valide
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

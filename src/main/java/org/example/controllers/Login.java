@@ -173,7 +173,7 @@ ServiceUtilisateur serviceUtilisateur=new ServiceUtilisateur();
     private void navigateToHome() {
         try {
             // Load the home.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/indexFront.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Newindex.fxml"));
             Parent root = loader.load();
 
             // Get the current stage (window)
