@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.StackPane?>
+<ScrollPane fx:id="scrollPane" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.IndexFront">
+
+
+   <VBox alignment="TOP_CENTER" prefWidth="800" spacing="10.0" style="-fx-background-color: #ffffff;">
+
+      <!-- Logo et Titre -->
+      <HBox alignment="CENTER" prefHeight="83.0" prefWidth="1278.0" spacing="20" style="-fx-background-color: #F4F7FA; -fx-padding: 0 30 0 30;">
+         <!-- Icône Chatbot -->
+         <Button fx:id="chatButton" onAction="#openChatWindow" style="-fx-background-color: transparent;">
+            <graphic>
+               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/chatgpt-icon.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <!-- Logo -->
+         <ImageView fitHeight="61.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@img/logo.png" />
+            </image>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+         </ImageView>
+
+         <!-- Titre -->
+         <Label prefHeight="73.0" prefWidth="202.0" style="-fx-font-size: 40px; -fx-text-fill: #1ca7a2; -fx-font-weight: bold;" text="ClinicFlow">
+            <HBox.margin>
+               <Insets right="150.0" />
+            </HBox.margin></Label>
+
+         <!-- Boutons -->
+         <Button fx:id="seConnecter" onAction="#NavigateTosignIn" style="-fx-background-color: transparent; -fx-text-fill: #1ca7a2; -fx-border-color: #1ca7a2; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 18px; -fx-padding: 5 20;" text="Se connecter">
+            <font>
+               <Font size="16.0" />
+            </font>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin></Button>
+
+         <Button fx:id="inscrire" onAction="#NavigateTosignUp" style="-fx-background-color: #1ca7a2; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 5; -fx-padding: 5 20;" text="S'inscrire">
+            <HBox.margin>
+               <Insets right="-500.0" />
+            </HBox.margin></Button>
+      </HBox>
+
+      <HBox prefHeight="235.0" prefWidth="1262.0" spacing="50.0">
+         <children>
+            <ImageView fitHeight="254.0" fitWidth="587.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/gallery-1.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="254.0" fitWidth="438.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/gallery-8.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="254.0" fitWidth="426.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/hero-carousel-1.jpg" />
+               </image>
+            </ImageView>
+         </children>
+         <VBox.margin>
+            <Insets left="30.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+
+      <!-- À propos -->
+      <VBox alignment="CENTER" spacing="5.0">
+         <Label alignment="CENTER" prefHeight="45.0" prefWidth="370.0" style="-fx-font-weight: bold; -fx-font-size: 30px;" text="À propos ClinicFlow">
+            <font>
+               <Font size="32.0" />
+            </font></Label>
+         <Label maxWidth="1308.0" prefHeight="104.0" prefWidth="1262.0" text="ClinicFlow est une plateforme de services de santé innovante, conçue pour faciliter l’accès aux soins médicaux et simplifier la gestion des services. Notre mission est d’améliorer le bien-être de nos utilisateurs en offrant une solution complète et accessible à tous." wrapText="true">
+            <font>
+               <Font size="22.0" />
+            </font>
+            <padding>
+               <Insets left="30.0" right="30.0" />
+            </padding></Label>
+         <Label maxWidth="1311.0" prefHeight="97.0" prefWidth="1262.0" text="Grâce à une technologie de pointe, nous permettons à nos utilisateurs de prendre des rendez-vous en ligne, de gérer la maintenance des équipements médicaux, de soumettre des réclamations et de commander des médicaments en toute simplicité." wrapText="true">
+            <font>
+               <Font size="22.0" />
+            </font>
+            <padding>
+               <Insets left="30.0" right="30.0" />
+            </padding></Label>
+      </VBox>
+
+      <!-- Statistiques -->
+      <HBox alignment="CENTER" spacing="30">
+
+         <VBox alignment="CENTER" prefHeight="195.0" prefWidth="218.0" style="-fx-background-color: #F4F7FA; -fx-padding: 10 20 30 40; -fx-border-radius: 10; -fx-background-radius: 10;">
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="192.0">
+               <children>
+                  <Label prefHeight="24.0" prefWidth="24.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="25">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label text="Docteurs">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+         </VBox>
+
+         <VBox alignment="CENTER" prefHeight="195.0" prefWidth="218.0" style="-fx-background-color: #F4F7FA; -fx-padding: 10 20 30 40; -fx-border-radius: 10; -fx-background-radius: 10;">
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="15" />
+            <Label text="Départements">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+         </VBox>
+
+         <VBox alignment="CENTER" prefWidth="218.0" style="-fx-background-color: #F4F7FA; -fx-padding: 10 20 30 40; -fx-border-radius: 10; -fx-background-radius: 10;">
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="8" />
+            <Label text="Laboratoires">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+         </VBox>
+
+         <VBox alignment="CENTER" prefWidth="218.0" style="-fx-background-color: #F4F7FA; -fx-padding: 10 20 30 40; -fx-border-radius: 10; -fx-background-radius: 10;">
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="150" />
+            <Label text="Récompenses">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+         </VBox>
+      </HBox>
+      <HBox prefHeight="247.0" prefWidth="1262.0" spacing="20.0">
+         <children>
+      
+            <!-- Mission -->
+            <VBox alignment="CENTER_LEFT" spacing="10">
+               <Label style="-fx-font-weight: bold; -fx-font-size: 32px;" text="Notre Mission:">
+                  <font>
+                     <Font size="32.0" />
+                  </font>
+                  <padding>
+                     <Insets left="30.0" />
+                  </padding>
+               </Label>
+               <Label maxWidth="700" text="Chez ClinicFlow, nous croyons que la santé doit être accessible à tous. C’est pourquoi nous avons créé une plateforme tout-en-un qui permet de faciliter l’interaction entre les patients, les professionnels de santé, et les équipements médicaux." wrapText="true">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+                  <padding>
+                     <Insets left="30.0" />
+                  </padding>
+               </Label>
+            </VBox>
+            <ImageView fitHeight="312.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/gallery-3.jpg" />
+               </image>
+               <HBox.margin>
+                  <Insets left="70.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+
+
+      <fx:include source="AjouterRendezVous.fxml" />
+      <fx:include source="freelancer.fxml" />
+      <fx:include source="mesarticles.fxml" />
+
+   </VBox>
+</ScrollPane>

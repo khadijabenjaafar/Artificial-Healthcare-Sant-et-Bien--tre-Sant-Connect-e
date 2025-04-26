@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ModifProfile">
+   <children>
+      <HBox minWidth="900.0" prefHeight="116.0" prefWidth="1280.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" minWidth="900.0" prefHeight="89.0" prefWidth="1280.0" text="Modifier Votre Compte" textAlignment="CENTER">
+               <font>
+                  <Font name="Eras Demi ITC" size="40.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </HBox>
+      <GridPane layoutX="127.0" layoutY="80.0" prefHeight="685.0" prefWidth="1049.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.0" minWidth="10.0" prefWidth="469.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="714.0" minWidth="627.0" prefWidth="628.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Nom :">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nom" alignment="CENTER" prefHeight="47.0" prefWidth="414.0" promptText="Ecrire votre nom" GridPane.columnIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label text="Prenom :" textAlignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <TextField fx:id="prenom" alignment="CENTER" prefHeight="47.0" prefWidth="444.0" promptText="Ecrire votre prenom" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label text="Adresse :" GridPane.rowIndex="2">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <TextField fx:id="Adresse" alignment="CENTER" prefHeight="57.0" prefWidth="627.0" promptText="Ecrire votre adresse" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label text="Numero de telephone : " textAlignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <TextField fx:id="telephone" alignment="CENTER" prefHeight="47.0" prefWidth="444.0" promptText="Ecrire votre numero de telephone" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label minWidth="148.0" prefHeight="31.0" prefWidth="183.0" text="Date de naissance :" textAlignment="CENTER" GridPane.rowIndex="4">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="date_naissance" prefHeight="47.0" prefWidth="444.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Genre :" GridPane.rowIndex="5">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="genreHomme" mnemonicParsing="false" text="Homme" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets right="50.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton fx:id="genreFemme" mnemonicParsing="false" text="Femme" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="300.0" />
+               </GridPane.margin>
+            </RadioButton>
+            <Label text="Email :" GridPane.rowIndex="6">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <TextField fx:id="Email" alignment="CENTER" prefHeight="47.0" prefWidth="444.0" promptText="Ecrire votre email" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label text="Mot de passe :" GridPane.rowIndex="7">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="mot_de_passe" alignment="CENTER" prefHeight="47.0" prefWidth="444.0" promptText="Ecrire votre mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </PasswordField>
+            <Label text="Role :" GridPane.rowIndex="8">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="role" prefHeight="47.0" prefWidth="444.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="ROLE_PATIENT" />
+                     <String fx:value="ROLE_FREELANCER" />
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
+            <Label text="Votre image de profile : " GridPane.rowIndex="9">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Button fx:id="Modifier" minWidth="332.0" mnemonicParsing="false" onAction="#Submit" prefHeight="45.0" prefWidth="332.0" style="-fx-background-color: #80b4bc;" text="Modifier" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="10">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="45.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="liste" minWidth="332.0" mnemonicParsing="false" onAction="#listeV" prefHeight="45.0" prefWidth="328.0" style="-fx-background-color: #80b4bc;" text="Retourner à l'accueil" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="10">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="155.0" />
+               </GridPane.margin>
+            </Button>
+            <HBox alignment="CENTER" prefHeight="111.0" prefWidth="627.0" spacing="200.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+               <children>
+                  <ImageView id="image" fx:id="imageView" fitHeight="70.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button id="importer" mnemonicParsing="false" onAction="#importer" style="-fx-background-color: #80b4bc;" text="Importer Image" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9973b7ce-0f7f-441c-8d12-b03e967770f8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturationBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheOrdonnanceBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticleAdminBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/CalendrierController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ChatbotController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/MessageChat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceChat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/AfficheFacturationBack.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnanceBack.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ArticleAdmin.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Calendrier.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/MatchingViewBack.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/PlanificationViewBack.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/articlecss.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/calendrier.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/chatbot.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/chatbot.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AddPlanificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AddPlanificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterConsultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterConsultation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/DoctorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/DoctorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/IndexFront.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/IndexFront.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/NavBarBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/NavBarBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/PlanificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/PlanificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/MyDataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/MyDataBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/add_planification.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/add_planification.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/articleItem.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/articleItem.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/articleItem1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/articleItem1.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/indexFront.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/indexFront.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/navBarBack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/navBarBack.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/articleItem.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/articleItem.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/articleItem1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/articleItem1.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/doctor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/doctor.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/controllers/DoctorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/controllers/DoctorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/utils/MyDataBase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/utils/MyDataBase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2viaBecopaLSrDHy1pUdgElIUb1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;mayssa&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/maysa/IdeaProjects/Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example.controllers" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Mainfx">
+    <configuration name="MainFx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.test.MainFx" />
+      <module name="pi" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Mainfx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.test.Mainfx" />
+      <module name="Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\openjfx-17.0.14_windows-x64_bin-sdk\javafx-sdk-17.0.14\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="pi [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.MainFx" />
+      <item itemvalue="Application.Mainfx" />
+      <item itemvalue="Maven.pi [javafx:run]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Mainfx" />
+        <item itemvalue="Maven.pi [javafx:run]" />
+        <item itemvalue="Application.MainFx" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9973b7ce-0f7f-441c-8d12-b03e967770f8" name="Changes" comment="" />
+      <created>1744630213395</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744630213395</updated>
+      <workItem from="1744630214405" duration="3283000" />
+      <workItem from="1744633545147" duration="38000" />
+      <workItem from="1744633594035" duration="10774000" />
+      <workItem from="1744652904347" duration="53000" />
+      <workItem from="1744652974114" duration="12871000" />
+      <workItem from="1744701193865" duration="51000" />
+      <workItem from="1744701258088" duration="965000" />
+      <workItem from="1744706153741" duration="49000" />
+      <workItem from="1744706220697" duration="15529000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/controllers/PlanificationController.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

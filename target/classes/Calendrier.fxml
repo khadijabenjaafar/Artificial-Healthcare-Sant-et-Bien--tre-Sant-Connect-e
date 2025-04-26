@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.calendarfx.view.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="751.0" prefWidth="1024.0" stylesheets="@calendrier.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="org.example.controllers.CalendrierController">
+    <!-- Un Calendrier simple -->
+    <CalendarView fx:id="calendarView" layoutY="30.0" prefHeight="776.0" prefWidth="1018.0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="30.0" />
+</AnchorPane>
