@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -9,68 +10,51 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.Login">
-   <Label alignment="CENTER" prefHeight="122.0" prefWidth="1280.0" text="Se connecter" textAlignment="CENTER" textFill="#1ca7a2">
-      <font>
-         <Font size="50.0" />
-      </font>
-   </Label>
-   <AnchorPane layoutX="214.0" layoutY="118.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="863.0" style="-fx-background-color: #1ca7a2; -fx-background-radius: 30;">
-      <children>
-          <VBox alignment="CENTER" blendMode="HARD_LIGHT" layoutX="-1.0" layoutY="-2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="863.0" spacing="15" style="-fx-background-color: transparent;">
-            <Label text="Ecrire Votre Email" textFill="WHITE">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="863.0">
-               <children>
-                      <TextField fx:id="Email" alignment="CENTER" prefHeight="49.0" prefWidth="471.0" promptText="Email" styleClass="input-field">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </HBox>
-            <Label text="Ecrire Votre mot de passe" textFill="WHITE">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                      <PasswordField fx:id="password" alignment="CENTER" prefHeight="49.0" prefWidth="471.0" promptText="Password" styleClass="input-field">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </PasswordField>
-               </children>
-            </HBox>
-      
-              <!-- Forgot Password Link (Updated color) -->
-              <Label styleClass="forgot-password-link" text="Forgot Password?" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-      
-              <!-- Login Button -->
-              <Button fx:id="loginBtn" onAction="#Submit" prefHeight="30.0" prefWidth="115.0" styleClass="login-button" text="Login" />
-      
-              <!-- Register Link -->
-              <HBox alignment="CENTER" prefHeight="54.0" prefWidth="863.0" spacing="5">
-                  <Label alignment="CENTER" style="-fx-text-fill: #F2F2F5; -fx-font-size: 18px;" text="Tu n'as pas de compte?" textAlignment="CENTER">
-                  <font>
-                     <Font size="18.0" />
-                  </font>
-               </Label>
-                  <Label fx:id="navsignup" onMouseClicked="#navigateToSignUp" prefHeight="27.0" prefWidth="139.0" text="Creer un compte" textAlignment="CENTER">
-                  <font>
-                     <Font size="18.0" />
-                  </font>
-               </Label>        </HBox>
-          </VBox>
-      </children>
-   </AnchorPane>
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(to bottom, #f7f8fc, #dff3f5);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.Login">
 
+    <!-- Titre principal -->
+    <Label alignment="CENTER" layoutY="40.0" prefWidth="1280.0" text="Se connecter" textAlignment="CENTER" textFill="#1ca7a2">
+        <font>
+            <Font size="50.0" />
+        </font>
+    </Label>
+
+    <!-- Conteneur central type "card" -->
+    <AnchorPane layoutX="330.0" layoutY="140.0" prefHeight="520.0" prefWidth="620.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 4);">
+        <children>
+            <VBox alignment="CENTER" layoutX="50.0" layoutY="30.0" prefWidth="520.0" spacing="25">
+
+                <Label text="Adresse Email" textFill="#2d2d2d">
+                    <font><Font size="20.0" /></font>
+                </Label>
+                <TextField fx:id="Email" promptText="Entrez votre email" style="-fx-background-color: #f1f1f1; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 16;">
+                </TextField>
+
+                <Label text="Mot de passe" textFill="#2d2d2d">
+                    <font><Font size="20.0" /></font>
+                </Label>
+                <PasswordField fx:id="password" promptText="Entrez votre mot de passe" style="-fx-background-color: #f1f1f1; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 16;">
+                </PasswordField>
+
+                <Hyperlink onAction="#oublier" style="-fx-font-size: 14px; -fx-underline: true; -fx-cursor: hand;" text="Mot de passe oublié ?" textFill="#1ca7a2" />
+            <HBox alignment="CENTER" prefHeight="29.0" prefWidth="520.0" spacing="150.0">
+               <children>
+                  <Button fx:id="faceId" onAction="#faceId" style="-fx-background-color: #1ca7a2; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 12; -fx-padding: 10 20;" text="Prendre une photo" />
+               </children>
+            </HBox>
+
+                      <Button fx:id="loginBtn" onAction="#Submit" style="-fx-background-color: #1ca7a2; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 12; -fx-padding: 10 20;" text="Connexion">
+                </Button>
+
+                <HBox alignment="CENTER" spacing="8">
+                    <Label text="Tu n'as pas de compte ?" textFill="#666666">
+                        <font><Font size="16.0" /></font>
+                    </Label>
+                    <Label fx:id="navsignup" onMouseClicked="#navigateToSignUp" style="-fx-text-fill: #1ca7a2; -fx-font-size: 16px; -fx-underline: true; -fx-cursor: hand;" text="Créer un compte">
+                    </Label>
+                </HBox>
+
+            </VBox>
+        </children>
+    </AnchorPane>
 </AnchorPane>

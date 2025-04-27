@@ -23,30 +23,21 @@ import org.example.utils.NavigationUtil;
 import java.io.IOException;
 import java.sql.SQLException;
 
+
 public class DoctorController {
-    @FXML
-    private AnchorPane contentPane;
+
     @FXML
     private Label nom;
 
     @FXML
-    private Hyperlink rdv;
-    @FXML
-    private Hyperlink cs;
-    @FXML
     private Hyperlink css;
-    @FXML
-    private Hyperlink handelajouterFacture;
+
     @FXML
     private Hyperlink handleAfficherFacture;
-    @FXML
-    private Hyperlink handleAjouterOrdonnance;
+
     @FXML
     private Hyperlink handleAfficherOrdonnances;
-    @FXML
-    private Hyperlink handleAjouterArticle;
-    @FXML
-    private Hyperlink handleMesArticles;
+
     @FXML
     private Hyperlink handleAfficherPlanification;
     @FXML
@@ -56,9 +47,6 @@ public class DoctorController {
     private Hyperlink handlemodifArticles;
     @FXML
     private CalendarView calendarView;
-
-    // si tu veux ajouter dynamiquement un autre composant
-
     @FXML
     private ImageView photo;
     public Utilisateur CurrentUser=UserConnecter.getInstance().getUserConnecter();
@@ -83,14 +71,10 @@ public class DoctorController {
             }
             if (CurrentUser.getRole()== EnumRole.ROLE_MEDECIN)
             {
-                rdv.setVisible(true);
-                cs.setVisible(true);
+
                 css.setVisible(true);
-                handleAjouterOrdonnance.setVisible(true);
                 handleAfficherOrdonnances.setVisible(true);
-                handelajouterFacture.setVisible(false);
                 handleAfficherFacture.setVisible(false);
-                handleAjouterArticle.setVisible(true);
                 handlemodifArticles.setVisible(true);
                 handleAfficherMatching.setVisible(false);
                 handleAfficherPlanification.setVisible(false);
@@ -98,27 +82,17 @@ public class DoctorController {
             }
             else if (CurrentUser.getRole()== EnumRole.ROLE_PHARMACIEN)
             {
-                rdv.setVisible(false);
-                cs.setVisible(false);
                 css.setVisible(false);
-                handleAjouterOrdonnance.setVisible(false);
                 handleAfficherOrdonnances.setVisible(true);
-                handelajouterFacture.setVisible(true);
                 handleAfficherFacture.setVisible(true);
-                handleAjouterArticle.setVisible(true);
                 handlemodifArticles.setVisible(true);
                 handleAfficherMatching.setVisible(false);
                 handleAfficherPlanification.setVisible(false);
               //  handleMesArticles.setVisible(true);
             }else {
-                rdv.setVisible(false);
-                cs.setVisible(false);
                 css.setVisible(false);
-                handleAjouterOrdonnance.setVisible(false);
                 handleAfficherOrdonnances.setVisible(false);
-                handelajouterFacture.setVisible(false);
                 handleAfficherFacture.setVisible(false);
-                handleAjouterArticle.setVisible(true);
                 handlemodifArticles.setVisible(true);
                 handleAfficherMatching.setVisible(true);
                 handleAfficherPlanification.setVisible(true);
@@ -130,85 +104,75 @@ public class DoctorController {
     }
 
 
-    @FXML
-    public void NavigateToCardRendezVous() throws IOException {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CardRendezVous.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la fenêtre actuelle et changer la scène
-            Stage stage = (Stage) contentPane.getScene().getWindow(); // Assurez-vous que 'nom' est un contrôle valide
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
-    private void handleAfficherMatching(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MatchingView.fxml"));
-            Parent newView = loader.load();
-            contentPane.getChildren().setAll(newView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void handleAfficherMatching(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MatchingView.fxml"));
+        Parent root = loader.load();
+
+        // Get the current stage (window)
+        Stage stage = (Stage) css.getScene().getWindow();
+
+        // Set the new scene with the home.fxml content
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    private void handleAfficherPlanification(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanificationView.fxml"));
-            Parent newView = loader.load();
-            contentPane.getChildren().setAll(newView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void rdv(ActionEvent actionEvent) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/CardRendezVous.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void handleAfficherPlanification(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlanificationView.fxml"));
+        Parent root = loader.load();
+
+        // Get the current stage (window)
+        Stage stage = (Stage) css.getScene().getWindow();
+
+        // Set the new scene with the home.fxml content
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    public void cs(ActionEvent actionEvent) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/AjouterConsultation.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public void css(ActionEvent actionEvent) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/CardConsultation.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void css(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CardConsultation.fxml"));
+        Parent root = loader.load();
 
+        // Get the current stage (window)
+        Stage stage = (Stage) css.getScene().getWindow();
+
+        // Set the new scene with the home.fxml content
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
-    private void handleAfficherCalendrier() {
-        try {
+    private void handleAfficherCalendrier() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Calendrier.fxml"));
+        Parent root = loader.load();
 
-            Parent fxml = FXMLLoader.load(getClass().getResource("/Calendrier.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
+        // Get the current stage (window)
+        Stage stage = (Stage) css.getScene().getWindow();
+
+        // Set the new scene with the home.fxml content
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML
+    private void handlemodifArticles(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/avant-modif-article.fxml"));
+        Parent root = loader.load();
+
+        // Get the current stage (window)
+        Stage stage = (Stage) css.getScene().getWindow();
+
+        // Set the new scene with the home.fxml content
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 
@@ -217,85 +181,32 @@ public class DoctorController {
 
 
     @FXML
-    private void handleMesArticles(ActionEvent event) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/mesarticles.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void handleAfficherOrdonnances(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheOrdonnance.fxml"));
+        Parent root = loader.load();
+
+        // Get the current stage (window)
+        Stage stage = (Stage) css.getScene().getWindow();
+
+        // Set the new scene with the home.fxml content
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 
     @FXML
-    private void handlemodifArticles(ActionEvent event) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/avant-modif-article.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private void handleAfficherFacture(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheFacturation.fxml"));
+        Parent root = loader.load();
 
+        // Get the current stage (window)
+        Stage stage = (Stage) css.getScene().getWindow();
 
-    @FXML
-    private void handelajouterFacture(ActionEvent event) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/AjouterFacturation.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    @FXML
-    private void handleAjouterArticle(ActionEvent event) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/ajout-article.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    private void handleAjouterOrdonnance(ActionEvent event) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/AjoutOrdonnance.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    private void handleAfficherOrdonnances(ActionEvent event) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/AfficheOrdonnance.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    private void handleAfficherFacture(ActionEvent event) {
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/AfficheFacturation.fxml"));
-            contentPane.getChildren().removeAll();
-            contentPane.getChildren().setAll(fxml);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Set the new scene with the home.fxml content
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
     private void Deconnecter (ActionEvent event) throws IOException {
@@ -303,13 +214,14 @@ public class DoctorController {
         Parent root = loader.load();
 
         // Get the current stage (window)
-        Stage stage = (Stage) contentPane.getScene().getWindow();
+        Stage stage = (Stage) css.getScene().getWindow();
 
         // Set the new scene with the home.fxml content
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
 
 
 

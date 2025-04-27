@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -58,8 +59,15 @@ public class CardConsultation implements Initializable {
     private VBox createCard(Consultation c) {
         VBox card = new VBox(8);
         card.setPadding(new Insets(15));
-        card.setStyle("-fx-background-color: white; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)");
+        String cardStyle = "-fx-background-color: white; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)";
 
+        card.setStyle("-fx-background-color: white; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)");
+// Ici vous pouvez vérifier si la consultation est expirée ou non
+        // Par exemple, si le prochain rendez-vous est passé, vous pouvez le considérer comme expiré
+        if (c.getProchainRdv() != null && c.getProchainRdv().isBefore(java.time.LocalDate.now())) {
+            cardStyle = "-fx-background-color: #FFCDD2; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)";
+        }
+        card.setStyle(cardStyle);
         // Labels for consultation details
         Label labelDate = new Label("Date : " + (c.getRendezVous() != null ? c.getRendezVous().getDateHeure().toLocalDate() : "N/A"));
         labelDate.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
@@ -149,6 +157,20 @@ public class CardConsultation implements Initializable {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void AjouterC(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterConsultation.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la fenêtre actuelle et changer la scène
+            Stage stage = (Stage) grid.getScene().getWindow(); // Assurez-vous que 'nom' est un contrôle valide
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

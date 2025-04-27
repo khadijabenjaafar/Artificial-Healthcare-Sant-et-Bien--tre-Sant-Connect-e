@@ -1,12 +1,17 @@
 package org.example.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.example.entities.Consultation;
 import org.example.entities.RendezVous;
 import org.example.services.ServiceConsultation;
 import org.example.services.ServiceRendezVous;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -44,10 +49,39 @@ public class AjouterConsultation {
         try {
             List<RendezVous> rendezVousList = serviceRendezVous.afficher();
             comboRendezVous.getItems().addAll(rendezVousList);
+
+            // Modifier l'affichage du ComboBox pour n'afficher que la dateHeure
+            comboRendezVous.setCellFactory(param -> new ListCell<RendezVous>() {
+                @Override
+                protected void updateItem(RendezVous item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        // Afficher uniquement la dateHeure du RendezVous
+                        setText(item.getDateHeure().toString());
+                    }
+                }
+            });
+
+            // Afficher uniquement la dateHeure dans la sélection du ComboBox
+            comboRendezVous.setButtonCell(new ListCell<RendezVous>() {
+                @Override
+                protected void updateItem(RendezVous item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(item.getDateHeure().toString());
+                    }
+                }
+            });
+
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur lors du chargement des rendez-vous : " + e.getMessage());
             e.printStackTrace(); // utile pour debug
         }
+
         prochainRdvPicker.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
@@ -59,6 +93,7 @@ public class AjouterConsultation {
             }
         });
     }
+
 
 
     @FXML
@@ -107,8 +142,23 @@ public class AjouterConsultation {
         consultation.setRendezVous(selectedRdv);
 
         serviceConsultation.ajouter(consultation);
-        showAlert(Alert.AlertType.INFORMATION, "Consultation ajoutée avec succès !");
-        clearFields();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Succès");
+        alert.setHeaderText(null);
+        alert.setContentText("Consultation ajoutée avec succès !");
+        alert.showAndWait();  // <-- ATTEND que l'utilisateur ferme avant de continuer
+
+        // Après la fermeture de l'alerte
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CardConsultation.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) dureeField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(Alert.AlertType type, String message) {
@@ -127,7 +177,5 @@ public class AjouterConsultation {
         comboRendezVous.setValue(null);
     }
 
-    public void setDateProchaineConsultation(LocalDate date) {
-        this.prochainRdvPicker.setValue(date);
-    }
+
 }

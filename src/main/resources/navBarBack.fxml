@@ -1,98 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="287.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.NavBarBack">
+<AnchorPane prefHeight="762.0" prefWidth="287.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.NavBarBack">
     <VBox alignment="TOP_CENTER" prefHeight="764.0" prefWidth="287.0" spacing="10.0">
         <padding>
-            <Insets bottom="20.0" top="20.0"/>
+            <Insets bottom="20.0" top="20.0" />
         </padding>
         <!-- Logo + Nom -->
         <HBox alignment="CENTER" spacing="15.0">
             <ImageView fitHeight="56.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@img/logo.png"/>
+                <Image url="@img/logo.png" />
             </ImageView>
             <Label text="ClinicFlow" textFill="#1ca7a2">
                 <font>
-                    <Font size="27.0"/>
+                    <Font size="27.0" />
                 </font>
             </Label>
         </HBox>
 
         <!-- Hyperlinks -->
-        <Hyperlink fx:id="users" onAction="#user" alignment="CENTER" text="Liste Des Utilisateurs" textFill="#1ca7a2">
+
+        <Hyperlink fx:id="users" alignment="CENTER" onAction="#user" text="Utilisateurs" textFill="#1ca7a2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
             <padding>
-                <Insets top="30.0"/>
+                <Insets top="30.0" />
             </padding>
         </Hyperlink>
-
-        <Hyperlink fx:id="rdv" alignment="CENTER" text="Liste Des Rendez-vous" onAction="#rdv" textFill="#1ca7a2">
+        <Hyperlink fx:id="rdv" alignment="CENTER" onAction="#rdv" text="Rendez-vous" textFill="#1ca7a2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="consultation" alignment="CENTER" text="Liste Des Consultations" onAction="#cs" textFill="#1ca7a2">
+        <Hyperlink fx:id="consultation" alignment="CENTER" onAction="#cs" text="Consultations" textFill="#1ca7a2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="ordonnance" onAction="#ordonnance" alignment="CENTER" text="Liste Des Ordonnances" textFill="#1ca7a2">
+        <Hyperlink fx:id="ordonnance" alignment="CENTER" onAction="#ordonnance" text="Ordonnances" textFill="#1ca7a2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="facturation" onAction="#facturation" alignment="CENTER" text="Liste Des Facturations" textFill="#1ca7a2">
+        <Hyperlink fx:id="facturation" alignment="CENTER" onAction="#facturation" text="Facturations" textFill="#1ca7a2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="matching" onAction="#matching" alignment="CENTER" text="Liste Des Matching" textFill="#1ca7a2">
+        <Hyperlink fx:id="matching" alignment="CENTER" onAction="#matching" text="Matching" textFill="#1ca7a2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="plannification" onAction="#plannification" alignment="CENTER" text="Liste Des Planifications" textFill="#1ca7a2">
+        <Hyperlink fx:id="plannification" alignment="CENTER" onAction="#plannification" text="Planifications" textFill="#1ca7a2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="article" alignment="CENTER"  onAction="#afficher" text="Liste Des Articles" textFill="#1ca7a2">
+        <Hyperlink fx:id="article" alignment="CENTER" onAction="#afficher" text="Articles" textFill="#1ca7a2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="commentaire" alignment="CENTER" text="Liste Des Commentaires" textFill="#1ca7a2">
+        <Hyperlink fx:id="commentaire" alignment="CENTER" text="Commentaires" textFill="#1ca7a2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Hyperlink>
 
         <!-- Déconnexion -->
-        <Button fx:id="deconnecter" onAction="#Deconnecter" mnemonicParsing="false" prefHeight="47.0" prefWidth="190.0"
-                style="-fx-background-color: #1ca7a2; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 5; -fx-padding: 5 20;"
-                text="Se Deconnecter">
+        <Button fx:id="deconnecter" mnemonicParsing="false" onAction="#Deconnecter" prefHeight="47.0" prefWidth="190.0" style="-fx-background-color: #1ca7a2; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 5; -fx-padding: 5 20;" text="Se Deconnecter">
             <VBox.margin>
-                <Insets top="200.0"/>
+                <Insets top="200.0" />
             </VBox.margin>
         </Button>
 

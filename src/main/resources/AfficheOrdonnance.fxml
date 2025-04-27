@@ -7,4 +7,7 @@
     <children>
         <ScrollPane fx:id="scrollPane" layoutX="24.0" layoutY="28.0" prefHeight="308.0" prefWidth="328.0" />
     </children>
+
+    <fx:include source="BoutonRetour.fxml" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20" />
+
 </AnchorPane>

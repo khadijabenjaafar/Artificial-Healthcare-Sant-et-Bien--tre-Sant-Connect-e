@@ -10,6 +10,7 @@
             fx:controller="org.example.controllers.AddMatchingController"
             prefHeight="400.0" prefWidth="600.0"
             style="-fx-background-color: #F4F4F9;">
+    <fx:include source="Doctor.fxml" />
 
     <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
         <Label text="Add New Matching" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />

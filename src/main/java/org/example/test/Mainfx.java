@@ -7,15 +7,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.example.controllers.IndexFront;
+import org.example.controllers.Newindex;
 
 import java.io.IOException;
 
-public class Mainfx extends Application {
+public class MainFx extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/indexFront.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Newindex.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
@@ -31,7 +32,7 @@ public class Mainfx extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            IndexFront controller = loader.getController();
+            Newindex controller = loader.getController();
             controller.setStage(primaryStage);
         }
 

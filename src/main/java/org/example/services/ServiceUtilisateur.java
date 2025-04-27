@@ -298,5 +298,68 @@ public class ServiceUtilisateur implements IService <Utilisateur> {
         return freelancers;
     }
 
+    public Utilisateur getUserByEmail(String email) {
+        String req = "SELECT * FROM utilisateur WHERE email = ?";
+
+        try (PreparedStatement psmt = connection.prepareStatement(req)) {
+            psmt.setString(1, email);
+            try (ResultSet rs = psmt.executeQuery()) {
+
+                if (rs.next()) {
+                    Utilisateur user = new Utilisateur();
+
+                    user.setId(rs.getInt("id"));
+                    user.setNom(rs.getString("nom"));
+                    user.setPassword(rs.getString("password"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPrenom(rs.getString("prenom"));
+                    user.setnumTel(rs.getString("num_tel"));
+                    user.setGenre(rs.getString("genre"));
+                    user.setDate_naissance(rs.getDate("date_naissance").toLocalDate());
+                    user.setAdresse(rs.getString("adresse"));
+                    user.setImage(rs.getString("image"));
+                    user.setImage1(rs.getString("image1"));
+
+                    // Convertir les chaînes en enums
+                    try {
+                        user.setStatus(Status.valueOf(rs.getString("status")));
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Valeur de statut inconnue : " + rs.getString("status"));
+                        user.setStatus(null); // ou un statut par défaut
+                    }
+
+                    try {
+                        user.setRole(EnumRole.valueOf(rs.getString("role")));
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Valeur de rôle inconnue : " + rs.getString("role"));
+                        user.setRole(null); // ou un rôle par défaut
+                    }
+
+                    return user;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null; // Aucun utilisateur trouvé
+    }
+    public boolean updatePassword(int id, String hashedPassword) {
+        String sql = "UPDATE utilisateur SET password = ? WHERE id = ?";
+        try (
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, hashedPassword);
+            stmt.setInt(2, id);
+
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
 

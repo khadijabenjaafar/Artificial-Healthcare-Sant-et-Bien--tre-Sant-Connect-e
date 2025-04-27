@@ -193,9 +193,4 @@ public class NavBarBack {
         }
     }
 
-
-
-
-
-
 }

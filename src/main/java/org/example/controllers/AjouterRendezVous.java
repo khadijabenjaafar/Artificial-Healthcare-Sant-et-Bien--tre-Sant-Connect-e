@@ -78,20 +78,38 @@ public class AjouterRendezVous {
 
         comboMedecin.getItems().setAll(medecins);
 
-        // Afficher les noms dans les ComboBox
+        // Afficher les noms et prénoms dans le ComboBox des médecins
         comboMedecin.setCellFactory(param -> new ListCell<Utilisateur>() {
             @Override
             protected void updateItem(Utilisateur item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty ? "" : item.getNom() + " " + item.getPrenom());
+                // Afficher uniquement le nom et prénom
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getNom() + " " + item.getPrenom());
+                }
+            }
+        });
+
+        // Afficher le nom et prénom du médecin sélectionné dans le bouton du ComboBox
+        comboMedecin.setButtonCell(new ListCell<Utilisateur>() {
+            @Override
+            protected void updateItem(Utilisateur item, boolean empty) {
+                super.updateItem(item, empty);
+                // Afficher uniquement le nom et prénom
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getNom() + " " + item.getPrenom());
+                }
             }
         });
 
     } catch (Exception e) {
         e.printStackTrace();
     }
-
-    }
+}
 
 
 
@@ -122,26 +140,6 @@ public class AjouterRendezVous {
         StringBuilder messageErreur = new StringBuilder();
 
         Utilisateur currentUser = UserConnecter.getInstance().getUserConnecter();
-
-        if (currentUser == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Connexion requise");
-            alert.setHeaderText(null);
-            alert.setContentText("❗ Vous devez être connecté pour prendre un rendez-vous.");
-            alert.showAndWait();
-
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
-                Parent loginView = loader.load();
-                Stage stage = (Stage) commentaireArea.getScene().getWindow();
-                Scene scene = new Scene(loginView);
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return;
-        }
 
         try {
             if (datePicker.getValue() == null || spinnerHeure.getValue() == null || spinnerMinute.getValue() == null) {
@@ -224,6 +222,17 @@ public class AjouterRendezVous {
             service.ajouter(rdv);
 
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Rendez-vous ajouté avec succès !");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/CardRendezVous.fxml"));
+                Parent root = loader.load();
+
+                // Récupérer la fenêtre actuelle et changer la scène
+                Stage stage = (Stage) datePicker.getScene().getWindow(); // Assurez-vous que 'nom' est un contrôle valide
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue : " + e.getMessage());
         }

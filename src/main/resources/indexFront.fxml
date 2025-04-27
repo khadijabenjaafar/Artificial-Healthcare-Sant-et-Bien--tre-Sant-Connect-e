@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -9,8 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Button?>
 <ScrollPane fx:id="scrollPane" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.IndexFront">
 
 
@@ -19,7 +17,7 @@
       <!-- Logo et Titre -->
       <HBox alignment="CENTER" prefHeight="83.0" prefWidth="1278.0" spacing="20" style="-fx-background-color: #F4F7FA; -fx-padding: 0 30 0 30;">
          <!-- Icône Chatbot -->
-         <Button fx:id="chatButton" onAction="#openChatWindow" style="-fx-background-color: transparent;">
+         <Button fx:id="chatButton"  style="-fx-background-color: transparent;">
             <graphic>
                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -39,24 +37,13 @@
          </ImageView>
 
          <!-- Titre -->
-         <Label prefHeight="73.0" prefWidth="202.0" style="-fx-font-size: 40px; -fx-text-fill: #1ca7a2; -fx-font-weight: bold;" text="ClinicFlow">
-            <HBox.margin>
-               <Insets right="150.0" />
-            </HBox.margin></Label>
-
-         <!-- Boutons -->
-         <Button fx:id="seConnecter" onAction="#NavigateTosignIn" style="-fx-background-color: transparent; -fx-text-fill: #1ca7a2; -fx-border-color: #1ca7a2; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 18px; -fx-padding: 5 20;" text="Se connecter">
-            <font>
-               <Font size="16.0" />
-            </font>
+         <Label prefHeight="73.0" prefWidth="207.0" text="ClinicFlow" textFill="#1ca7a2">
             <HBox.margin>
                <Insets />
-            </HBox.margin></Button>
-
-         <Button fx:id="inscrire" onAction="#NavigateTosignUp" style="-fx-background-color: #1ca7a2; -fx-text-fill: white; -fx-font-size: 18px; -fx-background-radius: 5; -fx-padding: 5 20;" text="S'inscrire">
-            <HBox.margin>
-               <Insets right="-500.0" />
-            </HBox.margin></Button>
+            </HBox.margin>
+            <font>
+               <Font name="Arial Nova Bold" size="40.0" />
+            </font></Label>
       </HBox>
 
       <HBox prefHeight="235.0" prefWidth="1262.0" spacing="50.0">
@@ -182,11 +169,5 @@
             </ImageView>
          </children>
       </HBox>
-
-
-      <fx:include source="AjouterRendezVous.fxml" />
-      <fx:include source="freelancer.fxml" />
-      <fx:include source="mesarticles.fxml" />
-
    </VBox>
 </ScrollPane>

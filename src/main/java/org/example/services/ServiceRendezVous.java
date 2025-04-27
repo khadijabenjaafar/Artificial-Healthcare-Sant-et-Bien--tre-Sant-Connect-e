@@ -10,7 +10,9 @@ import org.example.utils.MyDataBase;
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceRendezVous implements IService<RendezVous> {
     private Connection connection;
@@ -135,5 +137,21 @@ public class ServiceRendezVous implements IService<RendezVous> {
         }
         return liste;
     }
+    public Map<String, Integer> countRendezVousByMotif() throws SQLException {
+        Map<String, Integer> motifCount = new HashMap<>();
+        String sql = "SELECT motif, COUNT(*) AS count FROM rendez_vous GROUP BY motif";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        while (rs.next()) {
+            String motif = rs.getString("motif");
+            int count = rs.getInt("count");
+            motifCount.put(motif, count);
+        }
+
+        return motifCount;
+    }
+
 
 }

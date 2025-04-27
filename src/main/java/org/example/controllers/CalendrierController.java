@@ -41,6 +41,36 @@ public class CalendrierController implements Initializable {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            // --------- Ajout du listener sur clic de date ----------
+            calendarView.setOnMouseClicked(event -> {
+                // Vérifie si c'est un double-clic pour éviter de déclencher au mauvais moment
+                if (event.getClickCount() == 2) { // 2 pour double-clic, tu peux mettre 1 pour simple clic si tu préfères
+                    LocalDateTime clickedDateTime = calendarView.getDate().atTime(10, 0); // Heure 10h00
+
+                    try {
+                        // Créer une nouvelle Consultation
+                        Consultation consultation = new Consultation();
+                        consultation.setProchainRdv(clickedDateTime.toLocalDate());
+                        consultation.setDiagnostic("Nouveau diagnostic");
+
+                        // Sauvegarder dans la base
+                        serviceConsultation.ajouter(consultation);
+
+                        // Ajouter dans le CalendarView
+                        Entry<String> entry = new Entry<>("Consultation : " + consultation.getDiagnostic());
+                        entry.changeStartDate(consultation.getProchainRdv());
+                        entry.changeStartTime(clickedDateTime.toLocalTime());
+                        entry.changeEndDate(consultation.getProchainRdv());
+                        entry.changeEndTime(clickedDateTime.toLocalTime().plusMinutes(30));
+
+                        // Ajoute l'entrée au calendrier Consultation
+                        calendarView.getCalendarSources().get(0).getCalendars().get(1).addEntry(entry);
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 

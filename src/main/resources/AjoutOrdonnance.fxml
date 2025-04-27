@@ -16,6 +16,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1021.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterOrdonnanceController">
+    <fx:include source="Doctor.fxml" />
 
     <VBox alignment="CENTER" layoutX="20.0" layoutY="44.0" spacing="20" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="44.0">
         <Label style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Ajouter une Ordonnance">
