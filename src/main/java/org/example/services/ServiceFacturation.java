@@ -5,7 +5,10 @@ import org.example.utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 public class ServiceFacturation implements IService<Facturation> {
 
     private Connection connection;
@@ -118,6 +121,47 @@ public class ServiceFacturation implements IService<Facturation> {
         return facturations;
     }
 
+    public double getTotalFacture() throws SQLException {
+        String query = "SELECT SUM(montant) FROM facturation";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            ResultSet rs = pst.executeQuery();
+            return rs.next() ? rs.getDouble(1) : 0;
+        }
+    }
+
+    public double getTotalImpaye() throws SQLException {
+        String query = "SELECT SUM(montant) FROM facturation WHERE statut != 'Payé'";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            ResultSet rs = pst.executeQuery();
+            return rs.next() ? rs.getDouble(1) : 0;
+        }
+    }
+
+    public Map<String, Long> getCountByPaymentMethod() throws SQLException {
+        Map<String, Long> stats = new LinkedHashMap<>();
+        String query = "SELECT methode_paiement, COUNT(*) FROM facturation GROUP BY methode_paiement";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                stats.put(rs.getString(1), rs.getLong(2));
+            }
+        }
+        return stats;
+    }
+
+    public Map<String, Double> getMontantsParMois() throws SQLException {
+        Map<String, Double> stats = new LinkedHashMap<>();
+        String query = "SELECT DATE_FORMAT(date_facturation, '%Y-%m') as mois, SUM(montant) "
+                + "FROM facturation GROUP BY DATE_FORMAT(date_facturation, '%Y-%m') "
+                + "ORDER BY DATE_FORMAT(date_facturation, '%Y-%m')";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                stats.put(rs.getString(1), rs.getDouble(2));
+            }
+        }
+        return stats;
+    }
 
 }
 

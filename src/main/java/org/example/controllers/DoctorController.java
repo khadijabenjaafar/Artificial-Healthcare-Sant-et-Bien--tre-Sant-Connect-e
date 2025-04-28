@@ -47,6 +47,9 @@ public class DoctorController {
     private Hyperlink handlemodifArticles;
     @FXML
     private CalendarView calendarView;
+
+    @FXML
+    private Hyperlink handleAfficherCalendrier;
     @FXML
     private ImageView photo;
     public Utilisateur CurrentUser=UserConnecter.getInstance().getUserConnecter();
@@ -79,6 +82,7 @@ public class DoctorController {
                 handleAfficherMatching.setVisible(false);
                 handleAfficherPlanification.setVisible(false);
               //  handleMesArticles.setVisible(true);
+                handleAfficherCalendrier.setVisible(true);
             }
             else if (CurrentUser.getRole()== EnumRole.ROLE_PHARMACIEN)
             {
@@ -89,6 +93,8 @@ public class DoctorController {
                 handleAfficherMatching.setVisible(false);
                 handleAfficherPlanification.setVisible(false);
               //  handleMesArticles.setVisible(true);
+                handleAfficherCalendrier.setVisible(false);
+
             }else {
                 css.setVisible(false);
                 handleAfficherOrdonnances.setVisible(false);
@@ -97,6 +103,8 @@ public class DoctorController {
                 handleAfficherMatching.setVisible(true);
                 handleAfficherPlanification.setVisible(true);
                // handleMesArticles.setVisible(true);
+                handleAfficherCalendrier.setVisible(false);
+
             }
         } else {
             System.err.println("Aucun utilisateur connecté.");

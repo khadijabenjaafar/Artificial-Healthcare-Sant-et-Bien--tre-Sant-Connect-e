@@ -5,52 +5,53 @@
 
 <AnchorPane prefWidth="600" prefHeight="500" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ModifierRendezVous"
-            style="-fx-background-color: #f5f5f5; -fx-padding: 20px;">
-    <VBox alignment="CENTER" spacing="15.0" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" style="-fx-padding: 30px; -fx-background-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-font-family: 'Arial', sans-serif; -fx-font-size: 16px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+            style="-fx-background-color: #f0f4f7; -fx-padding: 20px;">
+    <VBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
+          style="-fx-background-color: white; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-padding: 30px; -fx-spacing: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 5); -fx-font-family: 'Segoe UI', Arial, sans-serif;">
 
         <!-- Label Titre -->
-        <Label text="Modifier Rendez-vous" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+        <Label text="Modifier Rendez-vous" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50; -fx-padding: 10px 0;"/>
 
         <!-- Date -->
-        <HBox spacing="10">
-            <Label text="Date:" style="-fx-font-size: 16px; -fx-text-fill: #333333;"/>
-            <DatePicker fx:id="datePicker" promptText="Date du rendez-vous" style="-fx-font-size: 16px; -fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-radius: 5px; -fx-padding: 8px;"/>
+        <HBox spacing="15" style="-fx-alignment: center-left;">
+            <Label text="Date:" style="-fx-text-fill: #34495E; -fx-font-size: 16px;"/>
+            <DatePicker fx:id="datePicker" promptText="Date du rendez-vous" style="-fx-background-color: #ffffff; -fx-border-color: #BDC3C7; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 16px;"/>
         </HBox>
 
         <!-- Heure et Minute -->
-        <HBox spacing="15">
-            <Label text="Heure:" style="-fx-font-size: 16px; -fx-text-fill: #333333;"/>
-            <Spinner fx:id="heureSpinner" prefWidth="80" style="-fx-font-size: 16px; -fx-padding: 8px; -fx-border-color: #cccccc; -fx-border-radius: 5px;"/>
-            <Label text="Minute:" style="-fx-font-size: 16px; -fx-text-fill: #333333;"/>
-            <Spinner fx:id="minuteSpinner" prefWidth="80" style="-fx-font-size: 16px; -fx-padding: 8px; -fx-border-color: #cccccc; -fx-border-radius: 5px;"/>
+        <HBox spacing="15" style="-fx-alignment: center-left;">
+            <Label text="Heure:" style="-fx-text-fill: #34495E; -fx-font-size: 16px;"/>
+            <Spinner fx:id="heureSpinner" prefWidth="80" style="-fx-background-color: #ffffff; -fx-border-color: #BDC3C7; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 16px;"/>
+            <Label text="Minute:" style="-fx-text-fill: #34495E; -fx-font-size: 16px;"/>
+            <Spinner fx:id="minuteSpinner" prefWidth="80" style="-fx-background-color: #ffffff; -fx-border-color: #BDC3C7; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 16px;"/>
         </HBox>
 
         <!-- Motif -->
-        <HBox spacing="10">
-            <Label text="Motif:" style="-fx-font-size: 16px; -fx-text-fill: #333333;"/>
-            <ComboBox fx:id="motifCombo" promptText="Motif" style="-fx-font-size: 16px; -fx-padding: 8px; -fx-border-color: #cccccc; -fx-border-radius: 5px;"/>
+        <HBox spacing="15" style="-fx-alignment: center-left;">
+            <Label text="Motif:" style="-fx-text-fill: #34495E; -fx-font-size: 16px;"/>
+            <ComboBox fx:id="motifCombo" promptText="Motif" style="-fx-background-color: #ffffff; -fx-border-color: #BDC3C7; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 16px;"/>
         </HBox>
 
         <!-- Statut -->
-        <HBox spacing="10">
-            <Label text="Statut:" style="-fx-font-size: 16px; -fx-text-fill: #333333;"/>
-            <ComboBox fx:id="statutCombo" promptText="Statut" style="-fx-font-size: 16px; -fx-padding: 8px; -fx-border-color: #cccccc; -fx-border-radius: 5px;"/>
+        <HBox spacing="15" style="-fx-alignment: center-left;">
+            <Label text="Statut:" style="-fx-text-fill: #34495E; -fx-font-size: 16px;"/>
+            <ComboBox fx:id="statutCombo" promptText="Statut" style="-fx-background-color: #ffffff; -fx-border-color: #BDC3C7; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 16px;"/>
         </HBox>
 
         <!-- Mode -->
-        <HBox spacing="10">
-            <Label text="Mode:" style="-fx-font-size: 16px; -fx-text-fill: #333333;"/>
-            <ComboBox fx:id="modeCombo" promptText="Mode" style="-fx-font-size: 16px; -fx-padding: 8px; -fx-border-color: #cccccc; -fx-border-radius: 5px;"/>
+        <HBox spacing="15" style="-fx-alignment: center-left;">
+            <Label text="Mode:" style="-fx-text-fill: #34495E; -fx-font-size: 16px;"/>
+            <ComboBox fx:id="modeCombo" promptText="Mode" style="-fx-background-color: #ffffff; -fx-border-color: #BDC3C7; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 16px;"/>
         </HBox>
 
         <!-- Commentaire -->
-        <HBox spacing="10">
-            <Label text="Commentaire:" style="-fx-font-size: 16px; -fx-text-fill: #333333;"/>
-            <TextField fx:id="commentaireField" promptText="Commentaire" style="-fx-font-size: 16px; -fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-radius: 5px; -fx-padding: 8px;"/>
+        <HBox spacing="15" style="-fx-alignment: center-left;">
+            <Label text="Commentaire:" style="-fx-text-fill: #34495E; -fx-font-size: 16px;"/>
+            <TextField fx:id="commentaireField" promptText="Commentaire" style="-fx-background-color: #ffffff; -fx-border-color: #BDC3C7; -fx-border-radius: 5px; -fx-padding: 8px; -fx-font-size: 16px;"/>
         </HBox>
 
         <!-- Bouton Modifier -->
         <Button fx:id="modifierButton" text="Modifier" onAction="#handleModifierRendezVous"
-                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-border-radius: 5px; -fx-padding: 10px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);"/>
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-border-radius: 5px; -fx-padding: 10px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5); -fx-transition: background-color 0.3s ease;"/>
     </VBox>
 </AnchorPane>

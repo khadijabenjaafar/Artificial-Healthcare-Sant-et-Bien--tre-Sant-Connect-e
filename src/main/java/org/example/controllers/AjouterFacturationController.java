@@ -2,14 +2,20 @@ package org.example.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.example.entities.Facturation;
 import org.example.entities.Ordonnance;
 import org.example.services.ServiceFacturation;
 import org.example.services.ServiceOrdonnance;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -54,10 +60,15 @@ public class AjouterFacturationController implements Initializable {
                     setText((empty || item == null) ? null : String.valueOf(item.getId()));
                 }
             });
+            dateFacture.setValue(LocalDate.now());
 
             // ✅ Ajout des options aux ComboBox
-            cbMethodePaiement.setItems(FXCollections.observableArrayList("Carte", "Espèces", "Chèque", "Virement"));
-            cbStatut.setItems(FXCollections.observableArrayList("Payé", "En attente", "Annulé"));
+            cbMethodePaiement.setItems(FXCollections.observableArrayList("Carte", "Espèces"));
+
+            // Set default value for status and make it non-editable
+            cbStatut.setItems(FXCollections.observableArrayList("En attente", "Payé", "Annulé"));
+            cbStatut.setValue("En attente");
+            cbStatut.setDisable(true); // This makes the ComboBox non-editable
 
         } catch (SQLException e) {
             System.out.println("Erreur lors du chargement des ordonnances : " + e.getMessage());
@@ -82,10 +93,10 @@ public class AjouterFacturationController implements Initializable {
 
             double montant = Double.parseDouble(tfMontant.getText().trim());
             String methode = cbMethodePaiement.getValue();
-            String statut = cbStatut.getValue();
+            String statut = "En attente";
 
-            if (methode == null || statut == null) {
-                showAlert("Erreur", "Veuillez choisir une méthode de paiement et un statut.");
+            if (methode == null) {
+                showAlert("Erreur", "Veuillez choisir une méthode de paiement.");
                 return;
             }
 
@@ -98,6 +109,21 @@ public class AjouterFacturationController implements Initializable {
             alert.setContentText("Facturation ajoutée avec succès !");
             alert.showAndWait();
 
+            // ✅ Charger la nouvelle page après succès
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheFacturation.fxml"));
+                Parent root = loader.load();
+
+                // Récupérer la fenêtre actuelle et changer la scène
+                Stage stage = (Stage) dateFacture.getScene().getWindow(); // Assurez-vous que 'nom' est un contrôle valide
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
         } catch (NumberFormatException e) {
             showAlert("Erreur de format", "Veuillez entrer une valeur numérique valide pour le montant.");
         } catch (SQLException e) {
@@ -106,6 +132,7 @@ public class AjouterFacturationController implements Initializable {
         }
     }
 
+
     @FXML
     private void annulerFormulaire() {
         dateFacture.setValue(null);
@@ -113,6 +140,7 @@ public class AjouterFacturationController implements Initializable {
         cbMethodePaiement.getSelectionModel().clearSelection();
         cbStatut.getSelectionModel().clearSelection();
         ordonnanceComboBox.getSelectionModel().clearSelection();
+
     }
 
     private void showAlert(String title, String message) {
@@ -121,5 +149,21 @@ public class AjouterFacturationController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+
+    public void annulerRendezVous(ActionEvent actionEvent) {
+        // ✅ Charger la nouvelle page après succès
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheFacturation.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la fenêtre actuelle et changer la scène
+            Stage stage = (Stage) dateFacture.getScene().getWindow(); // Assurez-vous que 'nom' est un contrôle valide
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

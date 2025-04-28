@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1021.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterOrdonnanceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterOrdonnanceController">
     <fx:include source="Doctor.fxml" />
 
-    <VBox alignment="CENTER" layoutX="20.0" layoutY="44.0" spacing="20" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="44.0">
-        <Label style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Ajouter une Ordonnance">
+    <VBox alignment="CENTER" layoutX="172.0" layoutY="32.0" prefHeight="725.0" prefWidth="1090.0" spacing="20" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="18.40000000000009" AnchorPane.topAnchor="32.0">
+        <Label style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Ajouter une Ordonnance" textFill="#178d87">
          <font>
             <Font size="35.0" />
          </font></Label>
@@ -107,14 +107,14 @@
         </GridPane>
 
         <HBox alignment="CENTER" prefHeight="41.0" prefWidth="1034.0" spacing="20">
-            <Button onAction="#ajouterOrdonnance" prefHeight="39.0" prefWidth="209.0" style="-fx-background-color: #80b4bc; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 18px;" text="Ajouter">
+            <Button onAction="#ajouterOrdonnance" prefHeight="147.0" prefWidth="210.0" style="-fx-background-color: #80b4bc; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 18px;" text="Ajouter">
             <font>
                <Font size="18.0" />
             </font></Button>
-            <Button prefHeight="30.0" prefWidth="203.0" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 18px;" text="Annuler">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font></Button>
+            <Button fx:id="btnAnnuler" onAction="#annulerRendezVous" prefHeight="0.0" prefWidth="234.0" style="-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-family: 'MS Roman'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10 24;" text="Annuler" />
+
         </HBox>
+
     </VBox>
+
 </AnchorPane>

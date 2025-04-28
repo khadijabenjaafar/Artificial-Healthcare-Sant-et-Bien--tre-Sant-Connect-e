@@ -9,21 +9,28 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.FileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.example.entities.EnumRole;
 import org.example.entities.Ordonnance;
-import org.example.entities.UserConnecter;
-import org.example.entities.Utilisateur;
 import org.example.services.ServiceOrdonnance;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,30 +41,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class AfficheOrdonnance implements Initializable {
+public class AfficheOrdonnanceP implements Initializable {
 
     private static final String MAIN_COLOR = "#10D2A0";
     private static final String LIGHT_BG = "#F5FDFA";
     private static final String CARD_BG = "#FFFFFF";
-    public Utilisateur CurrentUser= UserConnecter.getInstance().getUserConnecter();
 
     @FXML
     private ScrollPane scrollPane;
-    @FXML
-    private Button ajou;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (CurrentUser.getRole()== EnumRole.ROLE_MEDECIN)
-        {
-            ajou.setVisible(true);
-        }
-        else {
-            ajou.setVisible(false);
-        }
         scrollPane.setStyle("-fx-background:" + LIGHT_BG + ";");
         loadOrdonnances();
     }
-
 
     private void loadOrdonnances() {
         try {
@@ -128,40 +125,70 @@ public class AfficheOrdonnance implements Initializable {
         TextArea commentArea = new TextArea(ordonnance.getCommantaire());
         setupTextArea(commentArea, 5);
         content.add(commentArea, 0, 6, 2, 1);
-if (CurrentUser.getRole()== EnumRole.ROLE_MEDECIN) {
-    // Buttons
-    HBox buttonBox = new HBox(10);
-    buttonBox.setAlignment(Pos.CENTER_RIGHT);
-    buttonBox.setPadding(new Insets(15, 15, 10, 15));
 
-    Button editBtn = createActionButton("Modifier");
-    editBtn.setOnAction(e -> editOrdonnance(ordonnance));
+        // Buttons
+        HBox buttonBox = new HBox(10);
+        buttonBox.setAlignment(Pos.CENTER_RIGHT);
+        buttonBox.setPadding(new Insets(15, 15, 10, 15));
 
-    Button pdfBtn = createActionButton("PDF");
-    pdfBtn.setOnAction(e -> generatePDF(ordonnance));
+        Button pdfBtn = createActionButton("PDF");
+        pdfBtn.setOnAction(e -> generatePDF(ordonnance));
 
-    Button deleteBtn = createActionButton("Supprimer");
-    deleteBtn.setOnAction(e -> deleteOrdonnance(ordonnance));
+        Button qrBtn = createActionButton("QR Code");
+        qrBtn.setOnAction(e -> showQRCode(ordonnance));
 
-    buttonBox.getChildren().addAll(editBtn, pdfBtn, deleteBtn);
-    card.getChildren().addAll(header, content, buttonBox);
-    card.setPrefWidth(400);
+        buttonBox.getChildren().addAll(pdfBtn, qrBtn);
+        card.getChildren().addAll(header, content, buttonBox);
+        card.setPrefWidth(400);
 
-    return card;
-}
-else{
-    HBox buttonBox = new HBox(10);
-    buttonBox.setAlignment(Pos.CENTER_RIGHT);
-    buttonBox.setPadding(new Insets(15, 15, 10, 15));
-    Button pdfBtn = createActionButton("PDF");
-    pdfBtn.setOnAction(e -> generatePDF(ordonnance));
-    buttonBox.getChildren().addAll(pdfBtn);
-    card.getChildren().addAll(header, content, buttonBox);
-    card.setPrefWidth(400);
+        return card;
+    }
 
-    return card;
-}
+    private void showQRCode(Ordonnance ordonnance) {
+        // Créer une fenêtre modale pour afficher le QR code
+        Stage qrStage = new Stage();
+        qrStage.initModality(Modality.APPLICATION_MODAL);
+        qrStage.setTitle("QR Code - Ordonnance #" + ordonnance.getId());
 
+        // Créer le contenu du QR code
+        String qrContent = "Ordonnance #" + ordonnance.getId() + "\n" +
+                "Date: " + ordonnance.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "\n" +
+                "Médicaments: " + ordonnance.getMedicaments() + "\n" +
+                "Durée: " + ordonnance.getDureeUtilisation() + "\n" +
+                "Quantité: " + ordonnance.getQuantiteUtilisation() + "\n" +
+                "Commentaire: " + ordonnance.getCommantaire();
+
+        // Générer le QR code
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        int width = 300;
+        int height = 300;
+        try {
+            BitMatrix bitMatrix = qrCodeWriter.encode(qrContent, BarcodeFormat.QR_CODE, width, height);
+
+            // Créer une image JavaFX à partir du BitMatrix
+            javafx.scene.image.WritableImage image = new javafx.scene.image.WritableImage(width, height);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    image.getPixelWriter().setColor(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+
+            ImageView qrImageView = new ImageView(image);
+
+            // Ajouter des informations supplémentaires
+            Label infoLabel = new Label("Scannez ce QR code pour voir les détails de l'ordonnance");
+            infoLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+
+            VBox vbox = new VBox(20, infoLabel, qrImageView);
+            vbox.setAlignment(Pos.CENTER);
+            vbox.setPadding(new Insets(20));
+
+            Scene scene = new Scene(vbox, 350, 400);
+            qrStage.setScene(scene);
+            qrStage.show();
+        } catch (WriterException e) {
+            showAlert("Erreur", "Impossible de générer le QR code", Alert.AlertType.ERROR);
+        }
     }
 
     private void editOrdonnance(Ordonnance ordonnance) {
@@ -263,7 +290,6 @@ else{
                 content.fill();
 
                 // Logo et info cabinet
-                // Logo et info cabinet
                 try {
                     PDImageXObject logo = PDImageXObject.createFromFileByExtension(
                             new File("C:/Users/maysa/Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e/src/main/resources/img/logo.png"), document);
@@ -275,6 +301,7 @@ else{
                     content.showText("CLINIQUE MEDICALE");
                     content.endText();
                 }
+
                 content.beginText();
                 content.setFont(fontBold, 16);
                 content.setNonStrokingColor(255, 255, 255);
@@ -460,6 +487,7 @@ else{
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     @FXML
     void AjouterO(ActionEvent event) {
         try {

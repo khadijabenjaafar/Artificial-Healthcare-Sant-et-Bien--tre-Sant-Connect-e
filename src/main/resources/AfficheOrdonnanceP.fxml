@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.ScrollPane?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AfficheOrdonnanceP">
+    <children>
+        <ScrollPane fx:id="scrollPane" layoutX="24.0" layoutY="28.0" prefHeight="700.0" prefWidth="1100.0" />
+    </children>
+
+    <fx:include source="BoutonRetour.fxml" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" />
+    <!-- Bouton Ajouter un peu en haut et un peu à gauche par rapport au bord droit -->
+
+</AnchorPane>

@@ -202,7 +202,7 @@ public class Newindex {
             return;
         }
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheFacturation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheFacturationP.fxml"));
             Parent root = loader.load();
 
             // Récupérer la fenêtre actuelle et changer la scène
@@ -270,7 +270,7 @@ public class Newindex {
             return;
         }
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheOrdonnance.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheOrdonnanceP.fxml"));
             Parent root = loader.load();
 
             // Récupérer la fenêtre actuelle et changer la scène
@@ -334,6 +334,25 @@ public class Newindex {
 
     @FXML
     private void openJitsiCall() {
+        if (CurrentUser == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Connexion requise");
+            alert.setHeaderText(null);
+            alert.setContentText("❗ Vous devez être connecté.");
+            alert.showAndWait();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+                Parent loginView = loader.load();
+                Stage stage = (Stage) inscrire.getScene().getWindow();
+                Scene scene = new Scene(loginView);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
         try {
             java.awt.Desktop.getDesktop().browse(new java.net.URI("https://meet.jit.si/ClinicFlow"));
             System.out.println("Jitsi meeting opened in external browser!");

@@ -1,28 +1,23 @@
 package org.example.controllers;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import java.sql.SQLException;
-import java.util.Map;
+
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.stripe.model.Token;
 import com.stripe.model.checkout.Session;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -38,17 +33,18 @@ import org.example.entities.UserConnecter;
 import org.example.entities.Utilisateur;
 import org.example.services.ServiceFacturation;
 import org.example.utils.QRCodeUtil;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.List;
-import static org.example.services.TwilioService.sendPaymentConfirmation;
+//import static org.example.services.TwilioService.sendPaymentConfirmation;
 
-public class AfficheFacturation implements Initializable {
+public class AfficheFacturationP implements Initializable {
 
     @FXML
     private ScrollPane scrollPane;
@@ -124,10 +120,20 @@ public class AfficheFacturation implements Initializable {
         pdfBtn.setStyle("-fx-background-color: #007bff; -fx-text-fill: white;");
         pdfBtn.setOnAction(e -> exportPDF(facturation));
 
+        // ✅ Payer Button - Disabled if already paid
+        Button payerBtn = new Button();
 
+        if ("Payé".equals(facturation.getStatut())) {
+            payerBtn.setText("✅ Déjà Payé");
+            payerBtn.setStyle("-fx-background-color: #6c757d; -fx-text-fill: white;");
+            payerBtn.setDisable(true);
+        } else {
+            payerBtn.setText("💳 Payer");
+            payerBtn.setStyle("-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold;");
+            payerBtn.setOnAction(e -> payerFacturation(facturation));
+        }
 
-
-        VBox card = new VBox(10, title, montantLabel, dateLabel, methodePLabel, statutLabel, qrImageView, viewDetailsBtn, pdfBtn);
+        VBox card = new VBox(10, title, montantLabel, dateLabel, methodePLabel, statutLabel, qrImageView, viewDetailsBtn, pdfBtn, payerBtn);
         card.setAlignment(Pos.CENTER_LEFT);
         card.setPadding(new Insets(15));
         card.setPrefWidth(250);
@@ -220,37 +226,9 @@ public class AfficheFacturation implements Initializable {
         HBox buttonBox = new HBox(15);
         buttonBox.setAlignment(Pos.CENTER);
 
-        // Bouton Modifier
-        Button editBtn = new Button("Modifier");
-        editBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;");
-        editBtn.setGraphic(new Label("✏️"));
-        editBtn.setOnAction(e -> {
-            modalStage.close();
-            showModificationForm(facturation);
-        });
 
-        // Bouton Supprimer
-        Button deleteBtn = new Button("Supprimer");
-        deleteBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;");
-        deleteBtn.setGraphic(new Label("🗑️"));
-        deleteBtn.setOnAction(e -> {
-            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-            confirm.setTitle("Confirmation");
-            confirm.setHeaderText("Supprimer la facturation #" + facturation.getId() + " ?");
-            confirm.setContentText("Cette action est irréversible.");
 
-            Optional<ButtonType> result = confirm.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                try {
-                    new ServiceFacturation().supprimer(facturation.getId());
-                    showInfo("Facturation supprimée avec succès !");
-                    modalStage.close();
-                    initialize(null, null); // Rafraîchir l'affichage
-                } catch (SQLException ex) {
-                    showError("Erreur lors de la suppression : " + ex.getMessage());
-                }
-            }
-        });
+
 
         // Bouton PDF
         Button pdfBtn = new Button("Exporter PDF");
@@ -267,7 +245,7 @@ public class AfficheFacturation implements Initializable {
         closeBtn.setGraphic(new Label("✕"));
         closeBtn.setOnAction(e -> modalStage.close());
 
-        buttonBox.getChildren().addAll(editBtn, deleteBtn, pdfBtn, closeBtn);
+        buttonBox.getChildren().addAll( pdfBtn, closeBtn);
 
         // Assemblage final
         mainContainer.getChildren().addAll(titleBox, infoCard, buttonBox);
@@ -616,7 +594,7 @@ public class AfficheFacturation implements Initializable {
         facturation.setStatut("Payé");
         new ServiceFacturation().modifier(facturation);
         System.out.println(CurrentUser.getnumTel());
-        sendPaymentConfirmation(CurrentUser.getnumTel(),facturation.getMontant(), facturation.getId());
+        //sendPaymentConfirmation(CurrentUser.getnumTel(),facturation.getMontant(), facturation.getId());
         System.out.println("aaaaaaaaaaa");
 
         showInfo("✅ Paiement réussi!\nID de transaction: " + charge.getId());
@@ -655,7 +633,7 @@ public class AfficheFacturation implements Initializable {
                             try {
                                 // Update facturation status
                                 facturation.setStatut("Payé");
-                                sendPaymentConfirmation(CurrentUser.getnumTel(),facturation.getMontant(), facturation.getId());
+                                //sendPaymentConfirmation(CurrentUser.getnumTel(),facturation.getMontant(), facturation.getId());
                                 new ServiceFacturation().modifier(facturation);
 
                                 // Show success interface

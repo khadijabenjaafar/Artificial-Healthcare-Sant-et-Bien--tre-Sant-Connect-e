@@ -2,14 +2,20 @@ package org.example.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.example.entities.Consultation;
 import org.example.entities.Ordonnance;
 import org.example.services.ServiceConsultation;
 import org.example.services.ServiceFacturation;
 import org.example.services.ServiceOrdonnance;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -114,6 +120,17 @@ public class AjouterOrdonnanceController {
             // Message succès
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Ordonnance ajoutée avec succès !");
             resetFields();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheOrdonnance.fxml"));
+                Parent root = loader.load();
+
+                // Récupérer la fenêtre actuelle et changer la scène
+                Stage stage = (Stage) medicamentsField.getScene().getWindow(); // Assurez-vous que 'nom' est un contrôle valide
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());
@@ -147,5 +164,19 @@ public class AjouterOrdonnanceController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void annulerRendezVous(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheOrdonnance.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la fenêtre actuelle et changer la scène
+            Stage stage = (Stage) medicamentsField.getScene().getWindow(); // Assurez-vous que 'nom' est un contrôle valide
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,10 +4,31 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #f0f0f0;" stylesheets="@cardc.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AffichageConsultation">
-    <fx:include source="navBarBack.fxml" />
-    <VBox fx:id="rootVBox" layoutX="289.0" prefHeight="758.0" prefWidth="990.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f0f0;">
-        <GridPane fx:id="grid" hgap="20" vgap="20" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
-    </VBox>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.HBox?>
 
+
+<AnchorPane fx:id="rootPane" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AffichageConsultation">
+    <fx:include source="navBarBack.fxml" />
+
+    <VBox fx:id="rootVBox" layoutX="289.0" prefHeight="758.0" prefWidth="990.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f0f0;">
+
+        <!-- HBox pour la recherche et le ComboBox -->
+        <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10;">
+            <!-- Champ de recherche à droite -->
+            <TextField fx:id="searchField" promptText="Rechercher..." style="-fx-font-size: 12px; -fx-padding: 8; -fx-pref-width: 200px;" />
+
+            <!-- ComboBox pour choisir un mois, à côté de la recherche -->
+            <ComboBox fx:id="monthComboBox" promptText="Mois" style="-fx-font-size: 12px; -fx-padding: 8; -fx-pref-width: 150px;" />
+        </HBox>
+
+        <!-- Grille des cartes -->
+        <GridPane fx:id="grid" hgap="20" vgap="20" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+
+    </VBox>
+    <fx:include source="BoutonRetourBack.fxml" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" />
 </AnchorPane>
+
+
+

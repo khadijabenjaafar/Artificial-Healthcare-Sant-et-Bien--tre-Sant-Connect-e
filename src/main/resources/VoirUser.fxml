@@ -53,7 +53,6 @@
                     </HBox>
                <VBox fx:id="container" prefHeight="736.0" prefWidth="931.0" />
                <ListView fx:id="UsersList" prefHeight="634.0" prefWidth="931.0" />
->>>>>>> origin/khadijaJava
 
                     <!-- Bouton Ajouter Admin -->
                     <Button fx:id="AddAdmin" onAction="#NavigateToAddAdmin" prefWidth="150" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white;" text="Ajouter un utilisateur" />
@@ -61,4 +60,6 @@
             </VBox>
         </children>
     </HBox>
+    <fx:include source="BoutonRetourBack.fxml" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" />
+
 </AnchorPane>

@@ -14,10 +14,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1021.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterFacturationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #ebf0f1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterFacturationController">
     <fx:include source="Doctor.fxml" />
 
-    <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="78.0" prefHeight="636.0" prefWidth="981.0" spacing="20" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="78.0">
+    <VBox alignment="TOP_CENTER" layoutX="119.0" layoutY="80.0" prefHeight="636.0" prefWidth="981.0" spacing="20" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="-79.0" AnchorPane.topAnchor="80.0">
         <Label style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Ajouter une Facturation">
          <font>
             <Font size="26.0" />
@@ -84,8 +84,9 @@
         </GridPane>
 
         <HBox alignment="CENTER" spacing="20">
-            <Button fx:id="btnAjouter" onAction="#ajouterFacturation" prefHeight="30.0" prefWidth="182.0" style="-fx-background-color: #80b4bc; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 18px;" text="Ajouter" />
-            <Button onAction="#annulerFormulaire" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 18px;" text="Annuler" />
+            <Button fx:id="btnAjouter" onAction="#ajouterFacturation" prefHeight="50.0" prefWidth="182.0" style="-fx-background-color: #80b4bc; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 18px;" text="Ajouter" />
+            <Button fx:id="btnAnnuler" onAction="#annulerRendezVous" prefHeight="30.0" prefWidth="233.0" style="-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-family: 'MS Roman'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 12px; -fx-padding: 10 24;" text="Annuler" />
+
         </HBox>
     </VBox>
 </AnchorPane>
