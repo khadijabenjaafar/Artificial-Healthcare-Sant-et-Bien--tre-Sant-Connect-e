@@ -616,7 +616,7 @@ public class AfficheFacturation implements Initializable {
         facturation.setStatut("Payé");
         new ServiceFacturation().modifier(facturation);
         System.out.println(CurrentUser.getnumTel());
-        sendPaymentConfirmation(CurrentUser.getnumTel(),facturation.getMontant(), facturation.getId());
+        //sendPaymentConfirmation(CurrentUser.getnumTel(),facturation.getMontant(), facturation.getId());
         System.out.println("aaaaaaaaaaa");
 
         showInfo("✅ Paiement réussi!\nID de transaction: " + charge.getId());
@@ -655,7 +655,7 @@ public class AfficheFacturation implements Initializable {
                             try {
                                 // Update facturation status
                                 facturation.setStatut("Payé");
-                                sendPaymentConfirmation(CurrentUser.getnumTel(),facturation.getMontant(), facturation.getId());
+                                //sendPaymentConfirmation(CurrentUser.getnumTel(),facturation.getMontant(), facturation.getId());
                                 new ServiceFacturation().modifier(facturation);
 
                                 // Show success interface
