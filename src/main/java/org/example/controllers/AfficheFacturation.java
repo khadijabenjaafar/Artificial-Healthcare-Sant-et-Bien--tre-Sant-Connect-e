@@ -46,7 +46,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
-import static org.example.services.TwilioService.sendPaymentConfirmation;
+//import static org.example.services.TwilioService.sendPaymentConfirmation;
 
 public class AfficheFacturation implements Initializable {
 
