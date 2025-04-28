@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9973b7ce-0f7f-441c-8d12-b03e967770f8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/TwilioConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/TwilioConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/TwilioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/TwilioService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" afterDir="false" />
     </list>
