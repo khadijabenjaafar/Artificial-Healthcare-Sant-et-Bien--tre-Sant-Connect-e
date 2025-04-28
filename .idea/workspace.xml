@@ -5,46 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9973b7ce-0f7f-441c-8d12-b03e967770f8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/TwilioConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturationP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheOrdonnanceP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/BoutonRetourBack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/StripeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/TwilioService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/PDF.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/QRCodeUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/AfficheFacturationP.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnanceP.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/BoutonRetourBack.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/blanc.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/api/faceid.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/api/faceid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AffichageConsultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AffichageConsultation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AffichageRendezVous.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AffichageRendezVous.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheOrdonnance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheOrdonnance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterConsultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterConsultation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterFacturationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterFacturationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterOrdonnanceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterOrdonnanceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterRendezVous.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterRendezVous.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/DoctorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/DoctorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/Newindex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/Newindex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceFacturation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceFacturation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/TwilioConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/TwilioConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AffichageConsultation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AffichageConsultation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AffichageRendezVous.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AffichageRendezVous.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheFacturation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheFacturation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheFacturationBack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheFacturationBack.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnance.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnance.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnanceBack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnanceBack.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjoutOrdonnance.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjoutOrdonnance.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterConsultation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterConsultation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterFacturation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterFacturation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterRendezVous.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterRendezVous.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/VoirUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/VoirUser.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
