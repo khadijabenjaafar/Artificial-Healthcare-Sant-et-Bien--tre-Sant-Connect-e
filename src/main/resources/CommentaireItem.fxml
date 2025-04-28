@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.scene.control.Label?>
+        <?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="commentContainer" prefHeight="78.0" prefWidth="31.0" spacing="5" style="-fx-background-color: #f4f4f4; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.CommentaireItemController">
+
+    <Label fx:id="nomUtilisateurLabel" style="-fx-font-weight: bold;" />
+    <Label fx:id="contenuLabel" wrapText="true" />
+    <Label fx:id="dateLabel" style="-fx-font-size: 11; -fx-text-fill: gray;" />
+</VBox>

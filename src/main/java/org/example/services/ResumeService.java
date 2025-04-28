@@ -14,14 +14,14 @@ import java.net.URLEncoder;
 public class ResumeService {
 
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
-    private static final String API_KEY = "Bearer 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"; // Remplace par ta vraie clé API OpenRouter
+  //  private static final String API_KEY = "Bearer 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"; // Remplace par ta vraie clé API OpenRouter
 
     public static String resumerArticle(String texte) {
         try {
             URL url = new URL(API_URL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
-            con.setRequestProperty("Authorization", API_KEY);
+        //    con.setRequestProperty("Authorization", API_KEY);
             con.setRequestProperty("Content-Type", "application/json");
             con.setDoOutput(true);
 

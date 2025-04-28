@@ -193,7 +193,23 @@ public class NavBarBack {
             e.printStackTrace(); // Handle exception if the FXML loading fails
         }
     }
+    @FXML
+    void backCommentaire(ActionEvent event) {
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherCommentaire.fxml"));
+            Parent root = loader.load();
+            System.out.println("ooooooo");
+            // Get the current stage from the button (if applicable)
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Afficher les utilisateurs");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception if the FXML loading fails
+        }
+    }
 
 
 

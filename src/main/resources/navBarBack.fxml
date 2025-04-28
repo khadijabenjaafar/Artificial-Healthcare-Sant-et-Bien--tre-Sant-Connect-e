@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
@@ -82,7 +81,7 @@
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="commentaire" alignment="CENTER" text="Liste Des Commentaires" textFill="#1ca7a2">
+        <Hyperlink fx:id="commentaire" alignment="CENTER" onAction="#backCommentaire" text="Liste Des Commentaires" textFill="#1ca7a2">
             <font>
                 <Font size="18.0"/>
             </font>

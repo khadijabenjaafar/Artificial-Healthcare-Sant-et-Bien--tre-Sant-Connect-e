@@ -89,39 +89,44 @@ public class ServiceArticle implements IService<Article> {
 
 
     public void ajouterOuMettreAJourRating(int idUtilisateur, int idArticle, int note) throws SQLException {
-       // Connection conn = MyConnection.getInstance().getCnx();
+        // Ouvre une nouvelle connexion propre
+        try (Connection cnx = MyDataBase.getInstance().getMyConnection()) {
 
-        String checkSql = "SELECT rating FROM article_rating WHERE user_id = ? AND article_id = ?";
-        PreparedStatement checkStmt = connection.prepareStatement(checkSql);
-        checkStmt.setInt(1, idUtilisateur);
-        checkStmt.setInt(2, idArticle);
-        ResultSet rs = checkStmt.executeQuery();
+            String checkSql = "SELECT rating FROM article_rating WHERE user_id = ? AND article_id = ?";
+            try (PreparedStatement checkStmt = cnx.prepareStatement(checkSql)) {
+                checkStmt.setInt(1, idUtilisateur);
+                checkStmt.setInt(2, idArticle);
+                try (ResultSet rs = checkStmt.executeQuery()) {
 
-        if (rs.next()) {
-            int ancienneNote = rs.getInt("rating");
-            if (ancienneNote != note) {
-                // Mise à jour uniquement si la note est différente
-                String updateSql = "UPDATE article_rating SET rating = ?, date_rating = NOW() WHERE user_id = ? AND article_id = ?";
-                PreparedStatement updateStmt = connection.prepareStatement(updateSql);
-                updateStmt.setInt(1, note);
-                updateStmt.setInt(2, idUtilisateur);
-                updateStmt.setInt(3, idArticle);
-                updateStmt.executeUpdate();
-                System.out.println("🔁 Rating mis à jour !");
-            } else {
-                System.out.println("✅ Même rating, aucune modification.");
+                    if (rs.next()) {
+                        int ancienneNote = rs.getInt("rating");
+                        if (ancienneNote != note) {
+                            String updateSql = "UPDATE article_rating SET rating = ?, date_rating = NOW() WHERE user_id = ? AND article_id = ?";
+                            try (PreparedStatement updateStmt = cnx.prepareStatement(updateSql)) {
+                                updateStmt.setInt(1, note);
+                                updateStmt.setInt(2, idUtilisateur);
+                                updateStmt.setInt(3, idArticle);
+                                updateStmt.executeUpdate();
+                                System.out.println("🔁 Rating mis à jour !");
+                            }
+                        } else {
+                            System.out.println("✅ Même rating, aucune modification.");
+                        }
+                    } else {
+                        String insertSql = "INSERT INTO article_rating (user_id, article_id, rating, date_rating) VALUES (?, ?, ?, NOW())";
+                        try (PreparedStatement insertStmt = cnx.prepareStatement(insertSql)) {
+                            insertStmt.setInt(1, idUtilisateur);
+                            insertStmt.setInt(2, idArticle);
+                            insertStmt.setInt(3, note);
+                            insertStmt.executeUpdate();
+                            System.out.println("🆕 Nouveau rating ajouté !");
+                        }
+                    }
+                }
             }
-        } else {
-            // Pas encore de note, on insère
-            String insertSql = "INSERT INTO article_rating (user_id, article_id, rating, date_rating) VALUES (?, ?, ?, NOW())";
-            PreparedStatement insertStmt = connection.prepareStatement(insertSql);
-            insertStmt.setInt(1, idUtilisateur);
-            insertStmt.setInt(2, idArticle);
-            insertStmt.setInt(3, note);
-            insertStmt.executeUpdate();
-            System.out.println("🆕 Nouveau rating ajouté !");
         }
     }
+
 
 
     public double getMoyenneRating(int idArticle) throws SQLException {
