@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9973b7ce-0f7f-441c-8d12-b03e967770f8" name="Changes" comment="">
+    <list default="true" id="9973b7ce-0f7f-441c-8d12-b03e967770f8" name="Changes" comment="user+rdv+ord">
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" afterDir="false" />
     </list>
@@ -172,6 +172,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="user+rdv+ord" />
+    <option name="LAST_COMMIT_MESSAGE" value="user+rdv+ord" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
