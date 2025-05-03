@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controllers.AfficheOrdonnance"
+            prefWidth="1280.0" prefHeight="800.0">
+
+    <children>
+        <!-- ScrollPane existant -->
+        <ScrollPane fx:id="scrollPane" layoutX="24.0" layoutY="28.0" prefHeight="590.0" prefWidth="918.0"/>
+
+        <!-- Champ de texte pour entrer le prompt -->
+        <TextField fx:id="promptField" layoutX="980.0" layoutY="50.0" prefWidth="250.0" promptText="Décris l'image..."/>
+        <Button fx:id="generateButton" layoutX="980.0" layoutY="100.0" text="Générer Image"/>
+
+
+        <!-- Zone d'affichage de l’image -->
+        <ImageView fx:id="generatedImageView" layoutX="980.0" layoutY="140.0" fitWidth="250.0" fitHeight="250.0" preserveRatio="true"/>
+    </children>
+</AnchorPane>

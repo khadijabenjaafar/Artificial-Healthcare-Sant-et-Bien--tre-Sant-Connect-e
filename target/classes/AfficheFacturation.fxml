@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="824.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AfficheFacturation">
+    <children>
+        <ScrollPane fx:id="scrollPane" layoutX="12.0" layoutY="8.0" prefHeight="452.0" prefWidth="1123.0" />
+
+
+    </children>
+</AnchorPane>

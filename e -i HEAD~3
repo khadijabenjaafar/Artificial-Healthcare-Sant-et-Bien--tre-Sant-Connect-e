@@ -1,0 +1,48 @@
+[33mb112385[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mapi[m[33m)[m ordonnance+facturation3
+[33m1646cb8[m ordonnance+facturation3
+[33maa6d491[m ordonnance+facturation3
+[33me30705e[m ordonnance+facturation2
+[33md335bed[m ordonnance+facturation
+[33m1b6c75d[m[33m ([m[1;31morigin/nourJava[m[33m, [m[1;31morigin/api[m[33m)[m integrationNourEya
+[33mbdd1eb2[m crud2
+[33m80bd39e[m crud2
+[33m5710aab[m crud
+[33md1758a1[m crud
+[33mbf9764b[m[33m ([m[1;31morigin/main.c[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain.c[m[33m)[m user+Article+Matching+Rendez_vous+Ordonnances
+[33m89ff97b[m user+Article+Matching+Rendez_vous
+[33m06fe738[m user+Article+Matching
+[33m3a27db6[m user+Article+Matching
+[33md0545f8[m[33m ([m[1;31morigin/nour[m[33m)[m pidv validation
+[33m2979291[m pidv validation
+[33me576fa3[m projet
+[33md3531a1[m article+user
+[33m7deb810[m article+user
+[33m2dbd716[m[33m ([m[1;31morigin/hana[m[33m)[m metier+bundel+api
+[33m23360bb[m Merge branch 'user-khadijabenjaafar' into main.c
+[33mc1e34fd[m suppression
+[33mb0860c1[m Merge branch 'main.c' of https://github.com/khadijabenjaafar/Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e into main.c
+[33mfac150a[m api+metier+bundel
+[33m0dc3015[m[33m ([m[1;31morigin/eyatababi[m[33m)[m Delete .DS_Store
+[33mcb23f19[m Delete README.md
+[33m0d9ad89[m Delete templates directory
+[33m6e4d07a[m Delete src directory
+[33m8352f77[m metier+api+bundel
+[33me2f3c68[m Ajout du dossier pidr
+[33mf63faf2[m[33m ([m[1;31morigin/user-khadijabenjaafar[m[33m, [m[1;32muser-khadijabenjaafar[m[33m)[m api+metier+bundel
+[33m7aaab5c[m api+metier+bundel
+[33m190089d[m metier+API+bundelexterne
+[33m825b627[m metiers
+[33m8733ec7[m Add files via upload
+[33m6f9fea3[m Add files via upload
+[33m0e1de53[m Add files via upload
+[33m5f33152[m template+crud+controleSaisie
+[33m0589c64[m Delete templates directory
+[33m76b2073[m Delete src directory
+[33m59a1af5[m prem
+[33med0a98e[m[33m ([m[1;31morigin/matching[m[33m)[m Add files via upload
+[33m406ce34[m CRUD+templates
+[33mc956334[m[33m ([m[1;31morigin/gestion-utilisateurs-khadijabenjaafar[m[33m)[m CRUD+controle de saisie+ integration template
+[33mb307f85[m Add webapp packages
+[33m5729db9[m Add initial set of files
+[33mf780290[m premier essai la template+login+signup)
+[33m135f725[m[33m ([m[1;31morigin/gestion-utilisateurs-(khadijabenjaafar)[m[33m, [m[1;32mgestion-utilisateur-khadijabenjaafar[m[33m)[m Initial commit

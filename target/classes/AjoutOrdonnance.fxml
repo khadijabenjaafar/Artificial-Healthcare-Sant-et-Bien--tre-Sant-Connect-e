@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1021.0" style="-fx-background-color: #f5f9fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AjouterOrdonnanceController">
+
+    <VBox alignment="CENTER" layoutX="20.0" layoutY="44.0" spacing="20" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="44.0">
+        <Label style="-fx-text-fill: #2a6f97; -fx-font-weight: bold;" text="Ajouter une Ordonnance">
+            <font>
+                <Font name="System Bold" size="28.0" />
+            </font>
+            <padding>
+                <Insets bottom="10.0" />
+            </padding>
+        </Label>
+
+        <GridPane alignment="CENTER" hgap="15" prefHeight="571.0" prefWidth="981.0" vgap="15" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+            <padding>
+                <Insets bottom="20" left="30" right="30" top="30" />
+            </padding>
+
+            <Label text="Médicaments:" style="-fx-text-fill: #014f86;" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="medicamentsField" prefHeight="40.0" prefWidth="527.0" promptText="Ex : Paracétamol"
+                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #a3c4d3; -fx-border-width: 1.5; -fx-padding: 8px; -fx-background-color: #f8fbfc;"
+                       GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </TextField>
+            <Label fx:id="medicamentErrorLabel" style="-fx-text-fill: #e63946; -fx-font-size: 14;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label text="Commentaire:" style="-fx-text-fill: #014f86;" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
+            <TextArea fx:id="commentaireField" prefHeight="120.0" prefWidth="527.0" promptText="Commentaire"
+                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #a3c4d3; -fx-border-width: 1.5; -fx-padding: 8px; -fx-background-color: #f8fbfc;"
+                      GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </TextArea>
+            <Label fx:id="commentaireErrorLabel" style="-fx-text-fill: #e63946; -fx-font-size: 14;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <Label text="Durée d'utilisation:" style="-fx-text-fill: #014f86;" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="dureeUtilisationField" prefHeight="40.0" prefWidth="527.0" promptText="Ex : 5 jours"
+                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #a3c4d3; -fx-border-width: 1.5; -fx-padding: 8px; -fx-background-color: #f8fbfc;"
+                       GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </TextField>
+            <Label fx:id="dureeErrorLabel" style="-fx-text-fill: #e63946; -fx-font-size: 14;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+            <Label text="Quantité d'utilisation:" style="-fx-text-fill: #014f86;" GridPane.columnIndex="0" GridPane.rowIndex="6">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="quantiteUtilisationField" prefHeight="40.0" prefWidth="527.0" promptText="Ex : 2 fois par jour"
+                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #a3c4d3; -fx-border-width: 1.5; -fx-padding: 8px; -fx-background-color: #f8fbfc;"
+                       GridPane.columnIndex="1" GridPane.rowIndex="6">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </TextField>
+            <Label fx:id="quantiteErrorLabel" style="-fx-text-fill: #e63946; -fx-font-size: 14;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+            <Label text="Consultation associée:" style="-fx-text-fill: #014f86;" GridPane.columnIndex="0" GridPane.rowIndex="8">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
+            <ComboBox fx:id="consultationComboBox" prefHeight="40.0" prefWidth="527.0" promptText="Sélectionnez une consultation"
+                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #a3c4d3; -fx-border-width: 1.5; -fx-padding: 0 8px; -fx-background-color: #f8fbfc;"
+                      GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="consultationErrorLabel" style="-fx-text-fill: #e63946; -fx-font-size: 14;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
+            <Label text="Date de prescription:" style="-fx-text-fill: #014f86;" GridPane.columnIndex="0" GridPane.rowIndex="10">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
+            <DatePicker fx:id="date" prefHeight="40.0" prefWidth="235.0"
+                        style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #a3c4d3; -fx-border-width: 1.5; -fx-background-color: #f8fbfc;"
+                        GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="dateErrorLabel" style="-fx-text-fill: #e63946; -fx-font-size: 14;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+
+            <columnConstraints>
+                <ColumnConstraints maxWidth="197.0" minWidth="142.0" prefWidth="197.0" halignment="RIGHT" />
+                <ColumnConstraints maxWidth="522.0" minWidth="467.0" prefWidth="467.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="40" prefHeight="40" />
+                <RowConstraints minHeight="20" prefHeight="20" />
+                <RowConstraints minHeight="40" prefHeight="40" />
+                <RowConstraints minHeight="20" prefHeight="20" />
+                <RowConstraints minHeight="40" prefHeight="40" />
+                <RowConstraints minHeight="20" prefHeight="20" />
+                <RowConstraints minHeight="40" prefHeight="40" />
+                <RowConstraints minHeight="20" prefHeight="20" />
+                <RowConstraints minHeight="40" prefHeight="40" />
+                <RowConstraints minHeight="20" prefHeight="20" />
+                <RowConstraints minHeight="40" prefHeight="40" />
+                <RowConstraints minHeight="20" prefHeight="20" />
+            </rowConstraints>
+        </GridPane>
+
+        <HBox alignment="CENTER" prefHeight="41.0" prefWidth="1034.0" spacing="20" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+            <Button onAction="#ajouterOrdonnance" prefHeight="45.0" prefWidth="220.0"
+                    style="-fx-background-color: #2a6f97; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 16px; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);"
+                    text="Ajouter">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Button>
+            <Button prefHeight="45.0" prefWidth="220.0"
+                    style="-fx-background-color: #e63946; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 16px; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);"
+                    text="Annuler">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Button>
+        </HBox>
+    </VBox>
+</AnchorPane>
