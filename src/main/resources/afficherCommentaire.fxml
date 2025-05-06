@@ -4,11 +4,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controllers.afficherCommentaireController">
+<AnchorPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.afficherCommentaireController">
 
-    <ScrollPane layoutX="10" layoutY="10" prefHeight="580" prefWidth="838.0">
+    <fx:include source="navBarBack.fxml" />
+    <ScrollPane layoutX="297.0" layoutY="10" prefHeight="724.0" prefWidth="1062.0">
         <content>
             <VBox fx:id="articlesContainer" spacing="10" style="-fx-padding: 10;" />
         </content>
     </ScrollPane>
+    <fx:include source="BoutonRetourBack.fxml" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" />
+
 </AnchorPane>

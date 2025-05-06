@@ -40,4 +40,5 @@
             <Button text="Cancel" onAction="#handleCancel" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
         </HBox>
     </VBox>
+
 </AnchorPane>

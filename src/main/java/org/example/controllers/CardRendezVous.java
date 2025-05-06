@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.entities.RendezVous;
@@ -63,32 +64,47 @@ public class CardRendezVous implements Initializable {
         // Vérifier si le rendez-vous est expiré
         boolean isExpired = rv.getDateHeure().isBefore(java.time.LocalDateTime.now());
 
-        // Définir le style de la carte, rouge si expiré
+        // Définir le style de la carte
         String cardStyle = "-fx-background-color: white; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)";
         if (isExpired) {
             cardStyle = "-fx-background-color: #FFCDD2; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)";
         }
         card.setStyle(cardStyle);
 
-        // Date format for the label
+        // Format de date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        // Create labels for each piece of information
+        // Style commun pour les labels
+        String labelStyle = "-fx-font-size: 16px; -fx-text-fill: #333333;"; // Bleu foncé
+
+        // Créer les labels
         Label labelDate = new Label("Date : " + rv.getDateHeure().format(formatter));
-        labelDate.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+        labelDate.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #333333;"); // Titre plus fort
 
         Label labelMotif = new Label("Motif : " + rv.getMotif());
-        Label labelStatut = new Label("Statut : " + rv.getStatut());
-        Label labelMode = new Label("Mode : " + rv.getMode());
-        Label labelMedecin = new Label("Médecin : " + (rv.getMedecin() != null ? rv.getMedecin().getNom() : "Inconnu"));
-        Label labelPatient = new Label("Patient : " + (rv.getPatient() != null ? rv.getPatient().getNom() : "Inconnu"));
-        Label labelCommentaire = new Label("Commentaire : " + rv.getCommentaire());
+        labelMotif.setStyle(labelStyle);
 
+        Label labelStatut = new Label("Statut : " + rv.getStatut());
+        labelStatut.setStyle(labelStyle);
+
+        Label labelMode = new Label("Mode : " + rv.getMode());
+        labelMode.setStyle(labelStyle);
+
+        Label labelMedecin = new Label("Médecin : " + (rv.getMedecin() != null ? rv.getMedecin().getNom() : "Inconnu"));
+        labelMedecin.setStyle(labelStyle);
+
+        Label labelPatient = new Label("Patient : " + (rv.getPatient() != null ? rv.getPatient().getNom() : "Inconnu"));
+        labelPatient.setStyle(labelStyle);
+
+        Label labelCommentaire = new Label("Commentaire : " + rv.getCommentaire());
+        labelCommentaire.setStyle(labelStyle);
+
+        // Créer les boutons
         Button btnModifier = new Button("Modifier");
-        btnModifier.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+        btnModifier.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-border-radius: 5; -fx-padding: 5px 10px;");
         btnModifier.setOnAction(e -> {
             try {
-                ModifierRendezVous.afficherFenetre(rv,this);
+                ModifierRendezVous.afficherFenetre(rv, this);
             } catch (IOException ex) {
                 ex.printStackTrace();
                 Alert error = new Alert(Alert.AlertType.ERROR);
@@ -100,11 +116,15 @@ public class CardRendezVous implements Initializable {
         });
 
         Button btnSupprimer = new Button("Supprimer");
-        btnSupprimer.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        btnSupprimer.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-border-radius: 5; -fx-padding: 5px 10px;");
         btnSupprimer.setOnAction(e -> supprimerRendezVous(rv, card));
 
-        // Add all the labels to the card
-        card.getChildren().addAll(labelDate, labelMotif, labelStatut, labelMode, labelMedecin, labelPatient, labelCommentaire, btnSupprimer, btnModifier);
+        // Mettre les deux boutons côte à côte
+        HBox buttonsBox = new HBox(10); // 10px d'espacement
+        buttonsBox.getChildren().addAll(btnModifier, btnSupprimer);
+
+        // Ajouter tous les éléments à la carte
+        card.getChildren().addAll(labelDate, labelMotif, labelStatut, labelMode, labelMedecin, labelPatient, labelCommentaire, buttonsBox);
 
         return card;
     }

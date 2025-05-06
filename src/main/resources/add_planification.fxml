@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.controllers.AddPlanificationController">
+    <fx:include source="Doctor.fxml" />
+
     <children>
         <GridPane layoutX="10.0" layoutY="10.0">
             <children>
@@ -41,4 +43,5 @@
             </rowConstraints>
         </GridPane>
     </children>
+
 </AnchorPane>

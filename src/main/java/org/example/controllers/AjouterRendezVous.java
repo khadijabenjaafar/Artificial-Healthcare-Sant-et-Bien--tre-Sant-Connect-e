@@ -69,8 +69,28 @@ public class AjouterRendezVous {
         public void updateItem(LocalDate date, boolean empty) {
             super.updateItem(date, empty);
             setDisable(empty || date.isBefore(LocalDate.now()));
+
         }
     });
+    // Gestion de la sélection du statut
+    comboStatut.setCellFactory(param -> new ListCell<Statut>() {
+        @Override
+        protected void updateItem(Statut item, boolean empty) {
+            super.updateItem(item, empty);
+            if (item != null) {
+                // Pour rendre "annule" et "reporte" non cliquables
+                if (item == Statut.annule || item == Statut.reporte) {
+                    setStyle("-fx-opacity: 0.5;"); // Modifier la transparence pour indiquer qu'ils sont désactivés
+                    setDisable(true); // Empêcher l'interaction (cliquabilité)
+                } else {
+                    setStyle(""); // Remettre le style par défaut pour les autres éléments
+                    setDisable(false); // Rendre cliquables les autres éléments
+                }
+                setText(item.name());
+            }
+        }
+    });
+
     try {
         // Remplir les ComboBox avec les utilisateurs (médecins et patients)
         ServiceUtilisateur serviceUtilisateur = new ServiceUtilisateur();
@@ -237,7 +257,7 @@ public class AjouterRendezVous {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue : " + e.getMessage());
         }
     }
-
+@FXML
     public void annulerRendezVous(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/CardRendezVous.fxml"));

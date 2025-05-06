@@ -1,5 +1,4 @@
 package org.example.controllers;
-import org.example.api.CameraCapture;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +15,8 @@ import org.example.entities.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -74,19 +71,12 @@ public class CreerCompte {
     @FXML
     public void captureImageFromWebcam() {
         try {
-            imageUrl2 = "src/main/resources/faces/" + Email.getText() + ".jpg";
+            imageUrl2 = "src/main/resources/faces/" +Email.getText()+ ".jpg";
             String scriptPath = "src/main/java/org/example/api/capture_face.py";
             ProcessBuilder pb = new ProcessBuilder("python", scriptPath, imageUrl2);
 
             pb.redirectErrorStream(true);
             Process process = pb.start();
-
-            // Lire la sortie du script
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
 
             // Attente de la fin du script
             int exitCode = process.waitFor();
@@ -101,7 +91,6 @@ public class CreerCompte {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     void Submit(ActionEvent event) throws SQLException, IOException {
@@ -197,6 +186,7 @@ public class CreerCompte {
         Utilisateur newUser;
         newUser = new Utilisateur(nom1, prenom1, email, hashed, date, EnumRole.valueOf(role1), adresse1, genre1, phoneNumber, imageUrl,imageUrl2);
 
+
         userService.ajouter(newUser);
 
         showAlert("Success", "L'utilisateur a été créé avec succès");
@@ -291,6 +281,22 @@ public class CreerCompte {
         ErrorPrenom.setVisible(false);
     }
 
+    @FXML
+    void navigateToLogin(ActionEvent event) {
+        try {
+            // Charger le fichier fxml de la page d'accueil
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+            Parent root = loader.load();
+            // Récupérer la scène actuelle et changer de scène
+            Stage stage = (Stage) nom.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger la page d'accueil.");
+        }
+    }
 
 
 

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane stylesheets="@chatb.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.Newindex">
+<StackPane stylesheets="@chatb.css, @floatingbutton.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.Newindex">
     <!-- Toute ta page dans un BorderPane -->
     <BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800" prefWidth="1280.0">    <top>
         <HBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="1280.0" spacing="20" style="-fx-background-color: #1ca7a2;">
@@ -30,14 +30,33 @@
             <HBox.margin>
                <Insets left="-20.0" />
             </HBox.margin></Label>
-            <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="MIA Communication" />
             <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Bienvenue" />
+            <StackPane alignment="CENTER_RIGHT">
+                <ImageView fx:id="chatIcon" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleChatClick" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/icons8-chat-50.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="chatBadge" style="-fx-background-color: #FF3B30; -fx-text-fill: white;               -fx-font-size: 10px; -fx-font-weight: bold;               -fx-background-radius: 10px; -fx-padding: 1 4 1 4;               -fx-margin: -10 0 0 -10;" text="8" visible="true" StackPane.alignment="TOP_RIGHT" />
+               <HBox.margin>
+                  <Insets left="550.0" />
+               </HBox.margin>  <!-- Adjusted these values -->
+            </StackPane>
+            <StackPane>
+                <ImageView fx:id="notificationIcon" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleNotificationClick" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/bell.png" />
+                    </image>
+                </ImageView>
+
+                <Label fx:id="notificationBadge" style="-fx-background-color: red; -fx-text-fill: white;                   -fx-font-size: 10px; -fx-alignment: center;                   -fx-shape: 'circle'; -fx-min-width: 15px;                   -fx-min-height: 15px; -fx-background-radius: 50%;" text="" visible="false" />
+            </StackPane>
          <Button fx:id="seConnecter" onAction="#NavigateTosignIn" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 18px; -fx-padding: 5 20;" text="Se connecter" textFill="WHITE">
             <font>
                <Font size="16.0" />
             </font>
             <HBox.margin>
-               <Insets left="500.0" />
+               <Insets />
             </HBox.margin>
          </Button>
          <Button fx:id="inscrire" onAction="#NavigateTosignUp" style="-fx-background-color: white; -fx-text-fill: #1ca7a2; -fx-font-size: 18px; -fx-background-radius: 5; -fx-padding: 5 20;" text="S'inscrire" textFill="#1ca7a2" />
@@ -77,7 +96,7 @@
                     <Label style="-fx-font-size: 16px;" text="Mes Ordonnances" />
                 </VBox>
 
-                <VBox alignment="CENTER" onMouseClicked="#articles" style="-fx-background-color: white; -fx-border-color: lightgrey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);" GridPane.rowIndex="1">
+                <VBox alignment="CENTER" onMouseClicked="#articles" style="-fx-background-color: white; -fx-border-color: lightgrey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <ImageView fitHeight="60" fitWidth="60">
                      <image>
                         <Image url="@img/article.jpg" />
@@ -85,7 +104,7 @@
                     <Label style="-fx-font-size: 16px;" text="Les Articles" />
                 </VBox>
 
-                <VBox alignment="CENTER" onMouseClicked="#apropos" style="-fx-background-color: white; -fx-border-color: lightgrey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <VBox alignment="CENTER" onMouseClicked="#apropos" style="-fx-background-color: white; -fx-border-color: lightgrey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <ImageView fitHeight="60" fitWidth="60">
                      <image>
                         <Image url="@img/logo.png" />
@@ -93,21 +112,15 @@
                     <Label style="-fx-font-size: 16px;" text="A Propos" />
                 </VBox>
 
-                <VBox alignment="CENTER" style="-fx-background-color: white; -fx-border-color: lightgrey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                    <ImageView fitHeight="60" fitWidth="60" />
-                    <Label style="-fx-font-size: 16px;" text="Services" />
-                </VBox>
-
-                <VBox alignment="CENTER" onMouseClicked="#factures" style="-fx-background-color: white; -fx-border-color: lightgrey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);" GridPane.columnIndex="3">
+                <VBox alignment="CENTER" onMouseClicked="#factures" style="-fx-background-color: white; -fx-border-color: lightgrey; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);" GridPane.rowIndex="1">
                     <ImageView fitHeight="60" fitWidth="60">
                      <image>
-                        <Image url="@img/facture.jpg" />
+                        <Image url="@img/facture.png" />
                      </image></ImageView>
                     <Label style="-fx-font-size: 16px;" text="Mes Factures" />
                 </VBox>
 
                 <columnConstraints>
-                    <ColumnConstraints percentWidth="25" />
                     <ColumnConstraints percentWidth="25" />
                     <ColumnConstraints percentWidth="25" />
                     <ColumnConstraints percentWidth="25" />
@@ -141,22 +154,22 @@
             BOTTOM_RIGHT
         </StackPane.alignment>
     </Button>
-    <!-- Deuxième bouton à ajouter -->
-    <Button fx:id="videoCallButton" onAction="#openJitsiCall" style="-fx-background-color: transparent;">
+    <Button fx:id="videoCallButton" onAction="#openJitsiCall" styleClass="floating-button">
         <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@img/video-call-icon.png" />
                 </image>
             </ImageView>
         </graphic>
         <StackPane.margin>
-            <Insets bottom="60" right="20" /> <!-- Augmenter la valeur de bottom pour le déplacer vers le haut -->
+            <Insets bottom="80" right="20" /> <!-- Augmenter la valeur de bottom pour le déplacer vers le haut -->
         </StackPane.margin>
 
         <StackPane.alignment>
             BOTTOM_RIGHT
         </StackPane.alignment>
     </Button>
+
 
 </StackPane>

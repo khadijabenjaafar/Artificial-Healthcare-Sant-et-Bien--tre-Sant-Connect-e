@@ -1,50 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="629.0" prefWidth="649.0" style="-fx-padding: 20px;" stylesheets="@details.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ArticledetailsController">
-   <content>
-      <VBox prefHeight="552.0" prefWidth="582.0" spacing="20.0">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@details.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ArticledetailsController">
+   <top>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button text="⬅ Précédent" style="-fx-background-color: transparent; -fx-text-fill: #2c3e50; -fx-font-size: 14px;" />
-            <Label fx:id="labelTitre" style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Label" />
-            <ImageView fx:id="imageArticle" fitHeight="150.0" fitWidth="474.0" pickOnBounds="true" preserveRatio="true" style="-fx-fit-width: 400px; -fx-preserve-ratio: true;">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ImageView>
+            <fx:include source="Doctor.fxml" />
+            <ScrollPane fitToWidth="true" prefHeight="800" prefWidth="1000" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-            <TextFlow fx:id="contenuTextFlow" maxWidth="580.0" prefWidth="580.0" />            <Label fx:id="dateArticle" style="-fx-font-weight: bold;" text="Label" />
-            <Separator prefHeight="54.0" prefWidth="598.0" />
-            <Label prefHeight="33.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="Commentaires">
-               <padding>
-                  <Insets left="7.0" />
-               </padding>
-            </Label>
-            <VBox fx:id="commentairesContainer" layoutX="20.0" layoutY="450.0" prefWidth="600.0" spacing="10.0" />
+               <content>
+                  <VBox alignment="TOP_CENTER" prefHeight="832.0" prefWidth="1042.0" spacing="20" styleClass="article-container">
 
+                     <Button fx:id="btnRetour" onAction="#retourPagePrecedente" prefHeight="40.0" prefWidth="106.0" style="-fx-font-size: 18px; -fx-background-color: transparent; -fx-text-fill: black; -fx-cursor: hand;" text="✖">
+                        <VBox.margin>
+                           <Insets right="850.0" />
+                        </VBox.margin>
+                     </Button>
 
-            <Label prefHeight="17.0" prefWidth="140.0" text="AjouterCommentaires">
-               <padding>
-                  <Insets left="7.0" />
-               </padding>
-            </Label>
+                     <Label fx:id="labelTitre" styleClass="article-title" text="Titre de l’article" />
+                     <VBox fx:id="BoxVoice" spacing="15" />
 
-            <TextField fx:id="champCommentaire" />
-            <Label fx:id="errorCommentaire" style="-fx-text-fill: red;" />
-            <ComboBox fx:id="comboUtilisateur" prefWidth="150.0" />
-            <Button mnemonicParsing="false" onAction="#envoyerCommentaire" style="-fx-background-color: #7fbdc8; -fx-alignment: center;" text="Poster" />
+                     <ImageView fx:id="imageArticle" fitHeight="320" fitWidth="520" preserveRatio="true" styleClass="article-image" />
+
+                     <TextFlow fx:id="contenuTextFlow" maxWidth="800" styleClass="article-contenu" />
+
+                     <HBox fx:id="resumeBox" alignment="CENTER" spacing="5" />
+                     <Label fx:id="dateArticle" styleClass="article-date" text="Publié le : 2025-04-20" />
+
+                     <Separator prefWidth="800" />
+                     <HBox fx:id="ratingBox" spacing="5" />
+                     <Separator prefWidth="800" />
+
+                     <HBox fx:id="partageBox" spacing="5" />
+
+                     <ComboBox fx:id="langueComboBox" promptText="Choisir une langue" />
+                     <VBox fx:id="traductionContainer" alignment="CENTER_LEFT" spacing="10" />
+
+                     <Label styleClass="section-titre" text="Commentaires" />
+                     <VBox fx:id="commentairesContainer" spacing="12" styleClass="commentaires-box" />
+
+                     <Label styleClass="section-titre" text="Ajouter un commentaire" />
+                     <TextField fx:id="champCommentaire" prefWidth="500" />
+                     <Label fx:id="errorCommentaire" style="-fx-text-fill: red;" />
+
+                     <Button onAction="#envoyerCommentaire" styleClass="btn-poster" text="Poster" />
+
+                  </VBox>
+               </content>
+
+            </ScrollPane>
          </children>
+      </AnchorPane>
+   </top>
 
-      </VBox>
-   </content>
-</ScrollPane>
+</BorderPane>

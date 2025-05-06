@@ -4,44 +4,87 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.controllers.ModifierConsultation"
-      spacing="15" alignment="TOP_CENTER" prefWidth="600" prefHeight="600"
-      style="-fx-background-color: #f9f9f9; -fx-padding: 30;">
+<AnchorPane prefWidth="600" prefHeight="600" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controllers.ModifierConsultation"
+            style="-fx-background-color: #e6f0f2;">
 
-    <Label text="Modifier Consultation" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+    <VBox alignment="CENTER" spacing="20"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          style="-fx-background-color: white; -fx-border-radius: 15px; -fx-background-radius: 15px;
+                 -fx-padding: 30px; -fx-spacing: 20px;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);
+                 -fx-font-family: 'Segoe UI', Arial, sans-serif;">
 
-    <HBox spacing="10">
-        <Label text="Observation :" prefWidth="120" />
-        <TextField fx:id="observationField" prefWidth="400" />
-    </HBox>
+        <!-- Titre -->
+        <Label text="Modifier Consultation"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #178d87; -fx-padding: 10px 0;" />
 
-    <HBox spacing="10">
-        <Label text="Prix :" prefWidth="120" />
-        <TextField fx:id="prixField" prefWidth="400" />
-    </HBox>
+        <!-- Observation -->
+        <HBox spacing="20" style="-fx-alignment: CENTER_LEFT;">
+            <Label text="Observation :" minWidth="120"
+                   style="-fx-text-fill: #555555; -fx-font-size: 16px;" />
+            <TextField fx:id="observationField" promptText="Observation"
+                       style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;
+                              -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 8px;
+                              -fx-font-size: 15px;" prefWidth="400" />
+        </HBox>
 
-    <HBox spacing="10">
-        <Label text="Durée :" prefWidth="120" />
-        <TextField fx:id="dureeField" prefWidth="400" />
-    </HBox>
+        <!-- Prix -->
+        <HBox spacing="20" style="-fx-alignment: CENTER_LEFT;">
+            <Label text="Prix :" minWidth="120"
+                   style="-fx-text-fill: #555555; -fx-font-size: 16px;" />
+            <TextField fx:id="prixField" promptText="Prix"
+                       style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;
+                              -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 8px;
+                              -fx-font-size: 15px;" prefWidth="400" />
+        </HBox>
 
-    <HBox spacing="10">
-        <Label text="Prochain RDV :" prefWidth="120" />
-        <DatePicker fx:id="prochainRdvPicker" prefWidth="400" />
-    </HBox>
+        <!-- Durée -->
+        <HBox spacing="20" style="-fx-alignment: CENTER_LEFT;">
+            <Label text="Durée :" minWidth="120"
+                   style="-fx-text-fill: #555555; -fx-font-size: 16px;" />
+            <TextField fx:id="dureeField" promptText="Durée"
+                       style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;
+                              -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 8px;
+                              -fx-font-size: 15px;" prefWidth="400" />
+        </HBox>
 
-    <HBox spacing="10">
-        <Label text="Diagnostic :" prefWidth="120" />
-        <TextArea fx:id="diagnosticArea" prefWidth="400" prefHeight="60" wrapText="true" />
-    </HBox>
+        <!-- Prochain RDV -->
+        <HBox spacing="20" style="-fx-alignment: CENTER_LEFT;">
+            <Label text="Prochain RDV :" minWidth="120"
+                   style="-fx-text-fill: #555555; -fx-font-size: 16px;" />
+            <DatePicker fx:id="prochainRdvPicker"
+                        style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;
+                               -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 8px;
+                               -fx-font-size: 15px;" prefWidth="400" />
+        </HBox>
 
-    <HBox spacing="10">
-        <Label text="Traitement :" prefWidth="120" />
-        <TextArea fx:id="traitementArea" prefWidth="400" prefHeight="60" wrapText="true" />
-    </HBox>
+        <!-- Diagnostic -->
+        <HBox spacing="20" style="-fx-alignment: CENTER_LEFT;">
+            <Label text="Diagnostic :" minWidth="120"
+                   style="-fx-text-fill: #555555; -fx-font-size: 16px;" />
+            <TextArea fx:id="diagnosticArea" promptText="Diagnostic"
+                      style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;
+                             -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 8px;
+                             -fx-font-size: 15px;" prefWidth="400" prefHeight="80" wrapText="true" />
+        </HBox>
 
-    <Button text="Enregistrer les modifications" onAction="#handleSave"
-            style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16;" />
+        <!-- Traitement -->
+        <HBox spacing="20" style="-fx-alignment: CENTER_LEFT;">
+            <Label text="Traitement :" minWidth="120"
+                   style="-fx-text-fill: #555555; -fx-font-size: 16px;" />
+            <TextArea fx:id="traitementArea" promptText="Traitement"
+                      style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;
+                             -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 8px;
+                             -fx-font-size: 15px;" prefWidth="400" prefHeight="80" wrapText="true" />
+        </HBox>
 
-</VBox>
+        <!-- Bouton Enregistrer -->
+        <Button text="Modifier" onAction="#handleSave"
+                style="-fx-background-color: #178d87; -fx-text-fill: white;
+                       -fx-font-size: 16px; -fx-border-radius: 10px; -fx-background-radius: 10px;
+                       -fx-padding: 10px 20px; -fx-cursor: hand;
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" />
+    </VBox>
+</AnchorPane>

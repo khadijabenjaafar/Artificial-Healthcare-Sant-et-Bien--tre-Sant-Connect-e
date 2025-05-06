@@ -1,0 +1,17 @@
+#videoCallButton {
+    -fx-background-color: #0078D7; /* Couleur de fond bleue comme Messenger */
+    -fx-background-radius: 50%; /* Le bouton sera complètement rond */
+    -fx-min-width: 60px;
+    -fx-min-height: 60px;
+    -fx-max-width: 60px;
+    -fx-max-height: 60px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 4);
+    -fx-cursor: hand; /* Curseur main */
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-border-color: transparent;
+}
+
+#videoCallButton:hover {
+    -fx-background-color: #005fa3; /* Couleur plus foncée au survol */
+}

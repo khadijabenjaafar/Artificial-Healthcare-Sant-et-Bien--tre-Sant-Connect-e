@@ -51,7 +51,7 @@ public class CalendrierController implements Initializable {
                         // Créer une nouvelle Consultation
                         Consultation consultation = new Consultation();
                         consultation.setProchainRdv(clickedDateTime.toLocalDate());
-                        consultation.setDiagnostic("Nouveau diagnostic");
+                        consultation.setDiagnostic("Consultation");
 
                         // Sauvegarder dans la base
                         serviceConsultation.ajouter(consultation);

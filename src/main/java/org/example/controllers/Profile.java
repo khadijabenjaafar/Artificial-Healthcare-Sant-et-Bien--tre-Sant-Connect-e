@@ -118,7 +118,7 @@ public class Profile {
     @FXML
     public void NavigateToFront() throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/indexFront.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Newindex.fxml"));
             Parent root = loader.load();
 
             // Récupérer la fenêtre actuelle et changer la scène

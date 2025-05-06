@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.entities.Consultation;
@@ -57,37 +58,67 @@ public class CardConsultation implements Initializable {
     }
 
     private VBox createCard(Consultation c) {
-        VBox card = new VBox(8);
+        VBox card = new VBox(10);
         card.setPadding(new Insets(15));
-        String cardStyle = "-fx-background-color: white; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)";
 
-        card.setStyle("-fx-background-color: white; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)");
-// Ici vous pouvez vérifier si la consultation est expirée ou non
-        // Par exemple, si le prochain rendez-vous est passé, vous pouvez le considérer comme expiré
-        if (c.getProchainRdv() != null && c.getProchainRdv().isBefore(java.time.LocalDate.now())) {
-            cardStyle = "-fx-background-color: #FFCDD2; -fx-border-color: #dddddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4)";
+        // Vérifier si la consultation est expirée (prochain rendez-vous avant aujourd'hui)
+        boolean isExpired = c.getProchainRdv() != null && c.getProchainRdv().isBefore(java.time.LocalDate.now());
+
+        // Style de la carte
+        String cardStyle = "-fx-background-color: white; " +
+                "-fx-border-color: #dddddd; " +
+                "-fx-border-radius: 10; " +
+                "-fx-background-radius: 10; " +
+                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);";
+        if (isExpired) {
+            cardStyle = "-fx-background-color: #FFCDD2; " +  // Rouge clair pour consultation expirée
+                    "-fx-border-color: #dddddd; " +
+                    "-fx-border-radius: 10; " +
+                    "-fx-background-radius: 10; " +
+                    "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);";
         }
         card.setStyle(cardStyle);
-        // Labels for consultation details
+
+        // Style commun pour les labels
+        String labelStyle = "-fx-font-size: 16px; -fx-text-fill: #333333;";
+
+        // Créer les labels
         Label labelDate = new Label("Date : " + (c.getRendezVous() != null ? c.getRendezVous().getDateHeure().toLocalDate() : "N/A"));
-        labelDate.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+        labelDate.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #333333;");
+
         Label labelObservation = new Label("Observation : " + (c.getObservation() != null ? c.getObservation() : "N/A"));
+        labelObservation.setStyle(labelStyle);
+
         Label labelPrix = new Label("Prix : " + c.getPrix());
+        labelPrix.setStyle(labelStyle);
+
         Label labelDuree = new Label("Durée : " + c.getDuree());
-        Label labelProchainRdv = new Label("Prochain RDV : " + c.getProchainRdv());
+        labelDuree.setStyle(labelStyle);
+
+        Label labelProchainRdv = new Label("Prochain RDV : " + (c.getProchainRdv() != null ? c.getProchainRdv() : "N/A"));
+        labelProchainRdv.setStyle(labelStyle);
+
         Label labelDiagnostic = new Label("Diagnostic : " + (c.getDiagnostic() != null ? c.getDiagnostic() : "N/A"));
+        labelDiagnostic.setStyle(labelStyle);
+
         Label labelTraitement = new Label("Traitement : " + (c.getTraitement() != null ? c.getTraitement() : "N/A"));
+        labelTraitement.setStyle(labelStyle);
 
-
-        Button btnSupprimer = new Button("Supprimer");
-        btnSupprimer.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-        btnSupprimer.setOnAction(e -> supprimerRendezVous(c, card));
+        // Créer les boutons
         Button btnModifier = new Button("Modifier");
-        btnModifier.setStyle("-fx-background-color: #007bff; -fx-text-fill: white;");
+        btnModifier.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-border-radius: 5; -fx-padding: 5px 10px;");
         btnModifier.setOnAction(e -> modifierConsultation(c));
 
-        // Add all labels to the card
-        card.getChildren().addAll(labelDate, labelObservation, labelPrix, labelDuree, labelProchainRdv, labelDiagnostic, labelTraitement, btnSupprimer, btnModifier);
+        Button btnSupprimer = new Button("Supprimer");
+        btnSupprimer.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-border-radius: 5; -fx-padding: 5px 10px;");
+        btnSupprimer.setOnAction(e -> supprimerRendezVous(c, card));
+
+        // Mettre les boutons côte à côte
+        HBox buttonsBox = new HBox(10); // 10px d'espacement
+        buttonsBox.getChildren().addAll(btnModifier, btnSupprimer);
+
+        // Ajouter tous les éléments à la carte
+        card.getChildren().addAll(labelDate, labelObservation, labelPrix, labelDuree, labelProchainRdv, labelDiagnostic, labelTraitement, buttonsBox);
 
         return card;
     }

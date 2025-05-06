@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.ChatController"
+            prefWidth="800" prefHeight="600">
+    <stylesheets>
+        <URL value="@chat.css" />
+    </stylesheets>
+
+    <left>
+        <VBox spacing="10" style="-fx-background-color: #f0f0f0;" prefWidth="200">
+            <Label text="Utilisateurs"
+                   style="-fx-font-weight: bold; -fx-font-size: 16; -fx-padding: 10 0 0 10;" />
+            <ListView fx:id="userListView" />
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="5" style="-fx-padding: 10;">
+            <ScrollPane fx:id="chatScroll" fitToWidth="true" VBox.vgrow="ALWAYS">
+                <VBox fx:id="chatBox" spacing="5" style="-fx-padding: 5;" />
+            </ScrollPane>
+            <HBox spacing="5">
+                <TextField fx:id="chatInput" HBox.hgrow="ALWAYS" promptText="Écris ton message..." />
+                <Button text="Envoyer" fx:id="sendButton" onAction="#handleSend" />
+            </HBox>
+        </VBox>
+    </center>
+    <ListView fx:id="chatListView" prefHeight="300.0" />
+
+</BorderPane>

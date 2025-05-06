@@ -1,5 +1,7 @@
 package org.example.controllers;
 
+import javafx.scene.control.Alert;
+import javafx.scene.layout.Pane;
 import org.example.entities.Article;
 import org.example.services.ServiceArticle;
 import javafx.event.ActionEvent;
@@ -27,6 +29,14 @@ public class ModifierArticleController {
     private Article article;
 
 
+    private Pane contentPane;
+    private Article selectedArticle;
+
+    public void setContentPane(Pane contentPane) {
+        this.contentPane = contentPane;
+    }
+
+
     private Runnable onModificationDone;
 
      private final ServiceArticle serviceArticle=new ServiceArticle();
@@ -44,6 +54,7 @@ public class ModifierArticleController {
     //}
 
     public void setArticle(Article article) {
+        this.selectedArticle = article;
         this.article = article;
         titreField.setText(article.getTitre());
         contenuArea.setText(article.getContenue());
@@ -54,23 +65,38 @@ public class ModifierArticleController {
         article.setTitre(titreField.getText());
         article.setContenue(contenuArea.getText());
         try {
-
-           // ServiceArticle serviceArticle = null;
             serviceArticle.modifier(article);
             System.out.println("✅ Article modifié !");
-            NavigateToliste();
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ArticleDoctor.fxml"));
+            Parent root = loader.load();
+
+            // Aller vers la nouvelle page
+            Stage stage = (Stage) titreField.getScene().getWindow(); // on récupère la fenêtre actuelle
+            stage.setScene(new Scene(root));
+            stage.show();
+
+
+            // ArticlesDoctorController controller = loader.getController();
+            // controller.setContentPane(contentPane); // 🟢 transmettre le contentPane
+
+            // contentPane.getChildren().setAll(fxml); // 🔁 afficher la vue
 
             if (onModificationDone != null) {
-                onModificationDone.run(); // 🔁 Appelle le rafraîchissement
+                onModificationDone.run(); // 🔄 relancer une action si définie
             }
 
-
-
-
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
+            showAlert("❌ Erreur lors de la modification : " + e.getMessage());
         }
+    }
+
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 
@@ -100,7 +126,7 @@ public class ModifierArticleController {
 
     public void NavigateToliste()  {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/avant-modif-article.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ArticleDoctor.fxml"));
             Parent root = loader.load();
 
             // Récupérer la fenêtre actuelle et changer la scène
@@ -112,3 +138,4 @@ public class ModifierArticleController {
         }
     }
 }
+

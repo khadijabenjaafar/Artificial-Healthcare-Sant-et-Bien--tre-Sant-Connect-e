@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.StaticRendezVous">
-    <PieChart fx:id="pieChart" layoutX="50" layoutY="50" prefWidth="600" prefHeight="400"/>
-</AnchorPane>
+<AnchorPane prefHeight="450.0" prefWidth="459.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.controllers.StaticRendezVous">
+    <BarChart fx:id="barChart" layoutX="-3.0" layoutY="50.0" prefHeight="400" prefWidth="465.0">
+        <xAxis>
+            <CategoryAxis label="Motif" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis label="Nombre de rendez-vous" />
+        </yAxis>
+    </BarChart></AnchorPane>

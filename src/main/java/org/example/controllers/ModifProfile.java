@@ -168,9 +168,9 @@ public class ModifProfile {
 
     public void setImage1(String imageView1) {
         imageView.setImage(new Image(imageView1));
-    url=imageView1;}
+        url=imageView1;}
 
-public void setPassword(String password){this.mot_de_passe.setText(password);}
+    public void setPassword(String password){this.mot_de_passe.setText(password);}
 
     public void setNom(String nom) {
         this.nom.setText(nom);

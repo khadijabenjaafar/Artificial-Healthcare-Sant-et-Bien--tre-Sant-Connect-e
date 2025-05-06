@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import javafx.scene.control.Button;
 import org.example.entities.Article;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,8 @@ public class ArticleItemController {
 
 
     VBox mainContainer;
+    @FXML
+    private Button moreButton ;
 
 
 
@@ -83,11 +86,11 @@ public class ArticleItemController {
     @FXML
     private void handleReadMore() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Articledetails.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ArticledetailsP.fxml"));
             Parent root = loader.load();
 
             // Récupérer le controller de l'article details
-            ArticledetailsController controller = loader.getController();
+            ArticledetailsControllerP controller = loader.getController();
             controller.setArticle(article); // passe l'article sélectionné
 
             Stage stage = (Stage) imageView.getScene().getWindow();
@@ -99,3 +102,4 @@ public class ArticleItemController {
         }
     }
 }
+

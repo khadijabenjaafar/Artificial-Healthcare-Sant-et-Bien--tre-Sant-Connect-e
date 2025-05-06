@@ -1,66 +1,59 @@
-.label {
-    -fx-font-family: "Segoe UI", sans-serif;
-    -fx-text-fill: #333;
-}
-
-.text-area {
-    -fx-background-color: #f8f8f8;
-    -fx-border-color: #ccc;
-}
-
-.root {
-    -fx-background-color: #F8FAFC;
-    -fx-padding: 20;
-}
-
-.label-titre {
-    -fx-font-size: 22px;
-    -fx-font-weight: bold;
-    -fx-alignment: center;
-    -fx-text-fill: #222;
-}
-
-.image-article {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.3, 0, 4);
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
+.article-container {
+    -fx-padding: 30;
+    -fx-spacing: 25;
+    -fx-background-color: #f9fbfc;
     -fx-alignment: center;
 }
 
-.contenu-article {
-    -fx-font-size: 14px;
-    -fx-text-fill: #333;
-    -fx-padding: 10 0 10 0;
-}
-
-.date-article {
-    -fx-font-size: 12px;
-    -fx-text-fill: gray;
-    -fx-alignment: bottom-right;
-}
-
-.section-commentaires {
+.article-title {
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
-    -fx-font-size: 16px;
-    -fx-text-fill: #444;
-    -fx-padding: 10 0 5 0;
+    -fx-text-fill: #2a2a2a;
+    -fx-alignment: center;
 }
 
-.commentaire-box {
-    -fx-background-color: #E8EAF6;
+.article-image {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0, 1);
+    -fx-border-radius: 10;
+}
+
+.article-contenu {
+    -fx-font-size: 15px;
+    -fx-text-fill: #333;
+    -fx-line-spacing: 8;
     -fx-padding: 10;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-    -fx-spacing: 5;
-    -fx-effect: dropshadow(gaussian, lightgrey, 4, 0.3, 0, 1);
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
 }
 
-.nom-utilisateur {
-    -fx-font-weight: bold;
-    -fx-text-fill: #333;
-}
-
-.commentaire-date {
-    -fx-font-size: 10px;
+.article-date {
+    -fx-font-size: 12px;
     -fx-text-fill: #888;
+    -fx-alignment: center-right;
+}
+
+.section-titre {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 0 0 0;
+}
+
+.commentaires-box {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+    -fx-spacing: 15;
+    -fx-border-radius: 8;
+}
+
+.btn-poster {
+    -fx-background-color: #7fbdc8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 6 20;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.btn-poster:hover {
+    -fx-background-color: #62a8b3;
 }

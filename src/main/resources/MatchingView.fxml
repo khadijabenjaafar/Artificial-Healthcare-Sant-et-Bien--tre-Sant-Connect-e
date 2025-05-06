@@ -12,8 +12,9 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AfficherMatchingController">
+    <fx:include source="Doctor.fxml" />
 
-    <VBox layoutX="3.0" layoutY="41.0" prefHeight="718.0" prefWidth="1064.0" spacing="10" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="213.0" AnchorPane.topAnchor="41.0">
+    <VBox layoutX="231.0" layoutY="20.0" prefHeight="751.0" prefWidth="1041.0" spacing="10" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="20.0">
         <HBox alignment="CENTER" prefHeight="45.0" prefWidth="980.0" spacing="50.0">
             <Label style="-fx-font-size: 30px; -fx-font-weight: bold;" text="Matchings">
             <font>

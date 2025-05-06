@@ -1,3 +1,4 @@
+
 package org.example.controllers;
 
 import javafx.fxml.FXML;
@@ -10,11 +11,16 @@ import java.sql.SQLException;
 
 public class EditMatchingController {
 
-    @FXML private TextField cinField;
-    @FXML private TextArea descriptionField;
-    @FXML private DatePicker dateField;
-    @FXML private TextField competencesField;
-    @FXML private TextField priceField;
+    @FXML
+    private TextField cinField;
+    @FXML
+    private TextArea descriptionField;
+    @FXML
+    private DatePicker dateField;
+    @FXML
+    private TextField competencesField;
+    @FXML
+    private TextField priceField;
 
     private Matching matching;
     private Runnable refreshCallback;  // Changed from Consumer<Void> to Runnable
@@ -60,6 +66,7 @@ public class EditMatchingController {
             }
         }
     }
+
     private boolean validateFields() {
         StringBuilder errors = new StringBuilder();
 

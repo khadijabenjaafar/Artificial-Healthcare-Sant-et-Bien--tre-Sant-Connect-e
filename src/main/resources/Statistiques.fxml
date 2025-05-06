@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="809.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.StatistiquesController">
+
+    <children>
+      <VBox prefHeight="764.0" prefWidth="466.0" spacing="60.0">
+         <children>
+              <!-- PieChart pour afficher la répartition des factures payées et non payées -->
+              <VBox spacing="30.0">
+                  <PieChart fx:id="pieChart" prefHeight="294.0" prefWidth="403.0" title="Factures Payées vs Non Payées">
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+               </PieChart>
+               <VBox.margin>
+                  <Insets top="150.0" />
+               </VBox.margin>
+              </VBox>
+      
+              <!-- BarChart pour afficher les montants par mois -->
+              <VBox spacing="30.0">
+                  <BarChart fx:id="barChart" prefHeight="242.0" prefWidth="395.0" title="Montants par Mois">
+                      <xAxis>
+                          <CategoryAxis label="Mois" fx:id="xAxis" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis fx:id="yAxis" label="Montant" />
+                      </yAxis>
+                  </BarChart>
+              </VBox>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>

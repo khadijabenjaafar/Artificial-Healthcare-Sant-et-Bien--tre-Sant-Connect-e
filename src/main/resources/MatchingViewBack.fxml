@@ -20,10 +20,6 @@
             <font>
                <Font size="46.0" />
             </font></Label>
-            <Button fx:id="btnAddMatching" onAction="#handleAddMatching" text="Add Matching">
-            <HBox.margin>
-               <Insets right="-50.0" />
-            </HBox.margin></Button>
         </HBox>
 
         <HBox alignment="CENTER_RIGHT" spacing="100.0" styleClass="search-box">
@@ -36,4 +32,6 @@
 
         <ListView fx:id="matchingListView" prefHeight="583.0" prefWidth="1259.0" styleClass="list-view" />
     </VBox>
+    <fx:include source="BoutonRetourBack.fxml" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" />
+
 </AnchorPane>

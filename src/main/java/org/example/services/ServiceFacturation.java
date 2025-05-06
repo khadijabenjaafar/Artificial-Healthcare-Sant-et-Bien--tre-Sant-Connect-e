@@ -151,9 +151,9 @@ public class ServiceFacturation implements IService<Facturation> {
 
     public Map<String, Double> getMontantsParMois() throws SQLException {
         Map<String, Double> stats = new LinkedHashMap<>();
-        String query = "SELECT DATE_FORMAT(date_facturation, '%Y-%m') as mois, SUM(montant) "
-                + "FROM facturation GROUP BY DATE_FORMAT(date_facturation, '%Y-%m') "
-                + "ORDER BY DATE_FORMAT(date_facturation, '%Y-%m')";
+        String query = "SELECT DATE_FORMAT(date, '%Y-%m') as mois, SUM(montant) "
+                + "FROM facturation GROUP BY DATE_FORMAT(date, '%Y-%m') "
+                + "ORDER BY DATE_FORMAT(date, '%Y-%m')";
         try (PreparedStatement pst = connection.prepareStatement(query)) {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {

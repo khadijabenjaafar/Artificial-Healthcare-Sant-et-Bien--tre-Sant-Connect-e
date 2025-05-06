@@ -1,51 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1021.0" spacing="4.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ArticleajoutController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-   <children>
-      <Label graphicTextGap="1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="68.0" style="-fx-font-size: 28;" text="Titre">
-         <font>
-            <Font size="36.0" />
-         </font></Label>
-      <TextField fx:id="titreField" minHeight="-Infinity" prefHeight="44.0" prefWidth="1240.0" promptText="Titre" style="-fx-max-width: 600;" />
-      <Label fx:id="errorTitre" style="-fx-text-fill: red;" />
-      <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="115.0" style="-fx-font-size: 28;" text="Contenu" />
-      <TextArea fx:id="contenueArea" prefHeight="128.0" prefWidth="600.0" promptText="Contenue" style="-fx-max-width: 600;" text="&#10;" />
-      <Label fx:id="errorContenue" style="-fx-text-fill: red;" />
-      <Label prefHeight="34.0" prefWidth="89.0" style="-fx-font-size: 28;" text="image" />
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1240.0">
+<BorderPane prefHeight="800.0" prefWidth="1021.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ArticleajoutController">
+   <top>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="57.0" prefWidth="412.0" spacing="50.0">
-               <children>
-                  <Button fx:id="btnChoisirImage" minHeight="20.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="130.0" style="-fx-font-size: 20;" text="inserer">
-                     <font>
-                        <Font size="28.0" />
-                     </font></Button>
-                  <Label fx:id="labelImage" style="-fx-font-size: 20;" text="url-image">
-                     <padding>
-                        <Insets top="4.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="errorImage" prefHeight="37.0" prefWidth="90.0" style="-fx-text-fill: red;" />
-               </children>
-            </HBox>
+              <fx:include source="Doctor.fxml" />
+               <VBox alignment="CENTER" spacing="20" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
+   
+                   <Label style="-fx-font-size: 28px;" text="Titre" textFill="#178d87" />
+                   <TextField fx:id="titreField" prefHeight="40" prefWidth="1176.0" promptText="Titre" />
+                   <Label fx:id="errorTitre" style="-fx-text-fill: red;" />
+   
+                   <Label style="-fx-font-size: 28px;" text="Contenu" textFill="#178d87" />
+                   <TextArea fx:id="contenueArea" prefHeight="150" prefWidth="600" promptText="Contenu" />
+                   <Label fx:id="errorContenue" style="-fx-text-fill: red;" />
+   
+                   <Label style="-fx-font-size: 28px;" text="Image" textFill="#178d87" />
+                   <HBox alignment="CENTER" spacing="10">
+                       <Button fx:id="btnChoisirImage" prefHeight="40" prefWidth="100" text="Insérer" />
+                       <Label fx:id="labelImage" style="-fx-font-size: 15px;" text="url-image" />
+                       <Label fx:id="errorImage" style="-fx-text-fill: red;" />
+                   </HBox>
+   
+                   <Button fx:id="btnEnregistrer" prefHeight="40" prefWidth="250" style="-fx-font-size: 20px;" text="Enregistrer" />
+   
+               </VBox>
          </children>
-      </HBox>
-      <Button fx:id="btnEnregistrer" mnemonicParsing="false" prefHeight="43.0" prefWidth="312.0" style="-fx-font-size: 20;" text="Enregistrer" textAlignment="CENTER">
-         <VBox.margin>
-            <Insets top="29.0" />
-         </VBox.margin>
-      </Button>
-   </children>
-</VBox>
+      </AnchorPane>
+   </top>
+
+</BorderPane>

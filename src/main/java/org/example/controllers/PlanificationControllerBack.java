@@ -311,23 +311,7 @@ public class PlanificationControllerBack implements Initializable {
         }
     }
 
-    @FXML
-    private void handleAddPlanification() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/add_planification.fxml"));
-            Parent root = loader.load();
 
-            AddPlanificationController controller = loader.getController();
-            controller.setRefreshCallback(this::loadPlanificationData);
-
-            Stage stage = new Stage();
-            stage.setTitle("Add New Planification");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            showAlert("Error", "Could not load the add window: " + e.getMessage());
-        }
-    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

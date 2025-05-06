@@ -5,8 +5,123 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9973b7ce-0f7f-441c-8d12-b03e967770f8" name="Changes" comment="user+rdv+ord">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticledetailsControllerP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/StatAdmin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/StatistiquePlanification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/StatistiquesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Statistiques.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/articledetailsP.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/floatingbutton.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/comment-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/dislike.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/eye-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/like.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/planificationSta.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/statAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/api/PasswordUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/api/PasswordUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/TwilioConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/TwilioConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AddMatchingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AddMatchingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AddPlanificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AddPlanificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturationBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturationBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturationP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheFacturationP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheOrdonnanceBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficheOrdonnanceBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficherMatchingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficherMatchingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficherMatchingControllerBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AfficherMatchingControllerBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterRendezVous.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterRendezVous.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticleAdminBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticleAdminBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticleItem1Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticleItem1Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticleItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticleItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticleajoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticleajoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticledetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ArticledetailsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/CalendrierController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/CalendrierController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/CardConsultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/CardConsultation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/CardRendezVous.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/CardRendezVous.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/ChatbotController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ChatbotController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/CreerAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/CreerAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/CreerCompte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/CreerCompte.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/DoctorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/DoctorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/EditMatchingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/EditMatchingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/EditPlanificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/EditPlanificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/IndexFront.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/IndexFront.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/MatchingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/MatchingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifProfile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifierArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifierArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/NavBarBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/NavBarBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/Newindex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/Newindex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/PlanificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/PlanificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/PlanificationControllerBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/PlanificationControllerBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/StaticRendezVous.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/StaticRendezVous.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/StatistiqueConsultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/StatistiqueConsultation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/StatistiqueUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/StatistiqueUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/mesArticlesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/mesArticlesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/Commentaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Commentaire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/Matching.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Matching.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/Planification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Planification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceArticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceArticle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceCommentaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceCommentaire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceConsultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceConsultation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceFacturation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceFacturation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceMatching.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceMatching.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceUtilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceUtilisateur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ServicesPlanification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServicesPlanification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/StripeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/StripeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/TwilioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/TwilioService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/test/MainFx.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheFacturation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheFacturation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheFacturationBack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheFacturationBack.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheFacturationP.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheFacturationP.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnance.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnance.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnanceBack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnanceBack.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnanceP.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficheOrdonnanceP.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ArticleAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ArticleAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/BackAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/BackAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/CardConsultation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/CardConsultation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/CreerAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/CreerAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/CreerCompte.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/CreerCompte.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Doctor.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/MatchingView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MatchingView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/MatchingViewBack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MatchingViewBack.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifProfile.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifProfile.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierConsultation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierConsultation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierRendezVous.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierRendezVous.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Newindex.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Newindex.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/PlanificationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PlanificationView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/PlanificationViewBack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PlanificationViewBack.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/StaticConsultation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/StaticConsultation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/StaticRendezVous.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/StaticRendezVous.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/StatistiqueUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/StatistiqueUser.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/add_matching.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/add_matching.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/add_planification.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/add_planification.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/afficherCommentaire.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/afficherCommentaire.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ajout-article.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ajout-article.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/articleItem.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/articleItem.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/articleItem1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/articleItem1.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/articlecss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/articlecss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/articledetails.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/articledetails.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/avant-modif-article.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/avant-modif-article.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/chatbot.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chatbot.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/comparaison/eya.tababi@esprit.tn.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/comparaison/eya.tababi@esprit.tn.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/details.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/details.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edit_matching.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edit_matching.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edit_planification.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edit_planification.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/faces/.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/faces/.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/freelancer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/freelancer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/orchid.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/default.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/facture.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/indexFront.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/indexFront.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mesarticles.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mesarticles.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/modif.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/modif.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/modif_article.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/modif_article.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/navBarBack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/navBarBack.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +132,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="FxmlFile" />
         <option value="Setup Script" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -67,6 +182,10 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\maysa\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\resources" />
       <recent name="C:\Users\khadi\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\maysa\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\resources\images" />
+      <recent name="C:\Users\maysa\Artificial-Healthcare-Sant-et-Bien--tre-Sant-Connect-e\src\main\java\org\example\controllers" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.example.controllers" />
@@ -134,8 +253,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainFx" />
-        <item itemvalue="Application.Mainfx" />
         <item itemvalue="Maven.pi [javafx:run]" />
+        <item itemvalue="Application.Mainfx" />
       </list>
     </recent_temporary>
   </component>
@@ -176,16 +295,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="user+rdv+ord" />
     <option name="LAST_COMMIT_MESSAGE" value="user+rdv+ord" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/controllers/PlanificationController.java</url>
-          <line>106</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

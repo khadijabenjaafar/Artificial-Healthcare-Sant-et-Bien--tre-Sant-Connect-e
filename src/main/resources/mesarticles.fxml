@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="800.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.mesArticlesController">
-  <content>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="872.0" prefWidth="1180.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.LesArticlesController">
 
-            <VBox fx:id="articlesContainer" prefHeight="218.0" prefWidth="1154.0" spacing="15.0" style="-fx-background-color: #f4f7f9;">
-               <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="50.0" />
-               </padding>
-            </VBox>
+    <content>
+        <VBox alignment="TOP_CENTER" prefHeight="865.0" prefWidth="1173.0" spacing="20" style="-fx-background-color: #f4f7f9;">
+            <!-- Conteneur des articles -->
+            <FlowPane fx:id="articlesContainer" hgap="20" orientation="HORIZONTAL" prefWidth="1154.0" prefWrapLength="1100" vgap="20">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20" />
+                </padding>
+            </FlowPane>
 
-
-  </content>
-   <padding>
-      <Insets left="20.0" top="20.0" />
-   </padding>
+            <!-- Bouton de retour aligné à droite -->
+            <HBox alignment="CENTER_RIGHT" prefWidth="1154.0">
+                <children>
+                    <Button fx:id="homeButton" onAction="#retour" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 10 20;" text="Retour à l'accueil">
+                  <HBox.margin>
+                     <Insets top="300.0" />
+                  </HBox.margin></Button>
+                </children>
+                <padding>
+                    <Insets bottom="20" right="20" />
+                </padding>
+            </HBox>
+        </VBox>
+    </content>
 </ScrollPane>

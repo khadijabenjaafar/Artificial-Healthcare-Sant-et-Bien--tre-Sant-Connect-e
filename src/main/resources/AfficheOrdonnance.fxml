@@ -11,9 +11,9 @@
     <children>
           <fx:include source="Doctor.fxml" />
         <!-- HBox sans spacing pour coller les éléments -->
-        <HBox layoutX="223.0" layoutY="28.0" prefHeight="800.0" prefWidth="2182.0" spacing="0.0">
+        <HBox layoutX="225.0" layoutY="0.0" prefHeight="800.0" prefWidth="1280.0" spacing="0.0">
             <children>
-                <ScrollPane fx:id="scrollPane" prefHeight="762.0" prefWidth="1087.0" />
+                <ScrollPane fx:id="scrollPane" prefHeight="800.0" prefWidth="1087.0" />
             </children>
         </HBox>
 

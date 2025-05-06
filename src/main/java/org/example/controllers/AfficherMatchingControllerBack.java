@@ -126,23 +126,6 @@ public class AfficherMatchingControllerBack implements Initializable {
     }
 
 
-    @FXML
-    private void handleAddMatching() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/add_matching.fxml"));
-            Parent root = loader.load();
-
-            AddMatchingController controller = loader.getController();
-            controller.setRefreshCallback(this::loadMatchingData);
-
-            Stage stage = new Stage();
-            stage.setTitle("Add New Matching");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            showAlert("Error", "Could not load the add matching window: " + e.getMessage());
-        }
-    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

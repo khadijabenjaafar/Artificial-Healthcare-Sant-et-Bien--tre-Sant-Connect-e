@@ -1,3 +1,4 @@
+
 package org.example.controllers;
 
 import javafx.fxml.FXML;
@@ -67,22 +68,42 @@ public class ArticleAdminBack {
         labelTitle.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
         Label labelObservation = new Label("Contenu: " + c.getContenue());
 
-        // Créer l'image
-        Image image = new Image(c.getUrlimagearticle()); // Charger l'image depuis l'URL
-        ImageView imageView = new ImageView(image);
+        ImageView imageView;
+        try {
+            String urlImage = c.getUrlimagearticle();
+            Image image;
 
-        // Fixer la taille de l'image
-        imageView.setFitWidth(200);  // Largeur de l'image
-        imageView.setFitHeight(120); // Hauteur de l'image
-        imageView.setPreserveRatio(true);  // Maintenir le ratio d'aspect
+            System.out.println(c.getTitre());
+            System.out.println(urlImage);
 
-        // Créer le label pour la date
+            if (urlImage != null && !urlImage.trim().isEmpty()) {
+                image = new Image(urlImage, true); // True = charge en background
+                System.out.println(c.getTitre());
+                System.out.println("salut");
+            } else {
+                // Charger une image par défaut si l'url est vide
+
+                image = new Image(getClass().getResource("/images/default.png").toExternalForm());
+            }
+
+            imageView = new ImageView(image);
+
+        } catch (Exception e) {
+            // Si erreur lors du chargement de l'image ➔ image par défaut
+            Image defaultImage = new Image(getClass().getResource("/images/default.png").toExternalForm());
+            imageView = new ImageView(defaultImage);
+        }
+
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(120);
+        imageView.setPreserveRatio(true);
+
         Label labelDate = new Label("Date: " + c.getDateArticle().toString());
 
-        // Ajouter tous les éléments à la carte
         card.getChildren().addAll(labelTitle, labelObservation, imageView, labelDate);
 
         return card;
     }
 
 }
+

@@ -1,3 +1,4 @@
+
 package org.example.controllers;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -19,9 +20,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.example.entities.Notification;
 import org.example.entities.Planification;
 import org.example.entities.UserConnecter;
 import org.example.entities.Utilisateur;
+import org.example.services.ServiceNotification;
 import org.example.services.ServicesPlanification;
 import org.example.services.ServiceUtilisateur;
 
@@ -83,7 +86,14 @@ public class PlanificationController implements Initializable {
                     VBox detailsBox = new VBox(5);
                     Label modeLabel = new Label("Mode: " + planification.getMode());
                     Label addressLabel = new Label("Address: " + planification.getAdresse());
+                    addressLabel.setStyle("-fx-text-fill: blue; -fx-underline: true;"); // Make it look like a link
 
+                    addressLabel.setOnMouseClicked(event -> {
+                        String address = planification.getAdresse();
+                        if (address != null && !address.isEmpty()) {
+                            openInMap(address);
+                        }
+                    });
                     // People
                     HBox peopleBox = new HBox(15);
                     String freelancerInfo = "Freelancer: ";
@@ -158,6 +168,18 @@ public class PlanificationController implements Initializable {
         }
     }
 
+    private void openInMap(String address) {
+        try {
+            // Encode the address to URL format
+            String encodedAddress = java.net.URLEncoder.encode(address, "UTF-8");
+            String mapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodedAddress;
+
+            // Open the default web browser
+            java.awt.Desktop.getDesktop().browse(new java.net.URI(mapUrl));
+        } catch (Exception e) {
+            showAlert("Error", "Could not open the map: " + e.getMessage());
+        }
+    }
 
     private void setupSearchAndFilters() {
         statusFilter.getItems().addAll("Tous", "en attente", "confirmée", "annulée");
@@ -228,6 +250,12 @@ public class PlanificationController implements Initializable {
             System.out.println("Updating status from: " + planification.getStatut() + " to: " + newStatus);
             planification.setStatut(newStatus);
             servicesPlanification.update(planification);
+            Notification notification = new Notification();
+            notification.setMessage("Votre planification a été confirmée !");
+            notification.setIsRead(false);
+            notification.setReceiver(planification.getUtilisateur());
+            new ServiceNotification().add(notification);
+
             System.out.println("Update successful, new status: " + planification.getStatut());
 
             // Force refresh of the ListView
@@ -303,6 +331,12 @@ public class PlanificationController implements Initializable {
                 planification.setStatut("annulée");
                 planification.setReponse(result.get());
                 servicesPlanification.update(planification);
+                Notification notification = new Notification();
+                notification.setMessage("Votre planification a été annulée. Raison : " + result.get());
+                notification.setIsRead(false);
+                notification.setReceiver(planification.getUtilisateur());
+                new ServiceNotification().add(notification);
+
 
                 // Refresh the view
                 int index = masterData.indexOf(planification);
@@ -317,23 +351,7 @@ public class PlanificationController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleAddPlanification() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/add_planification.fxml"));
-            Parent root = loader.load();
 
-            AddPlanificationController controller = loader.getController();
-            controller.setRefreshCallback(this::loadPlanificationData);
-
-            Stage stage = new Stage();
-            stage.setTitle("Add New Planification");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            showAlert("Error", "Could not load the add window: " + e.getMessage());
-        }
-    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

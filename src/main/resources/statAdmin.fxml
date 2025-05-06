@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.StatAdmin">
+
+    <VBox fx:id="mainVBox" spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+        <!-- Header counters -->
+        <HBox spacing="20">
+            <VBox style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-background-radius: 10;">
+                <Label text="Total Articles" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label fx:id="totalArticlesLabel" text="0" style="-fx-font-size: 30px; -fx-text-fill: #0078D7;"/>
+            </VBox>
+
+            <VBox style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-background-radius: 10;">
+                <Label text="Total Commentaires" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label fx:id="totalCommentairesLabel" text="0" style="-fx-font-size: 30px; -fx-text-fill: #28a745;"/>
+            </VBox>
+        </HBox>
+
+        <!-- Charts -->
+        <HBox spacing="20">
+            <BarChart fx:id="barChart" title="Year Dynamics" style="-fx-background-color: white;"
+                      prefWidth="580" prefHeight="300">
+                <xAxis>
+                    <CategoryAxis />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis />
+                </yAxis>
+            </BarChart>
+
+            <AreaChart fx:id="areaChart" title="Comparison Chart" style="-fx-background-color: white;"
+                       prefWidth="580" prefHeight="300">
+                <xAxis>
+                    <CategoryAxis />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis />
+                </yAxis>
+            </AreaChart>
+        </HBox>
+
+        <!-- KPIs and Detailed Lines -->
+        <GridPane hgap="20" vgap="20">
+            <VBox spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-background-radius: 10;">
+                <Label text="Progression Articles" style="-fx-font-weight: bold;"/>
+                <ProgressBar fx:id="progressArticles" progress="0.5" prefWidth="300"/>
+                <Label text="Progression Commentaires" style="-fx-font-weight: bold;"/>
+                <ProgressBar fx:id="progressCommentaires" progress="0.7" prefWidth="300"/>
+            </VBox>
+
+            <VBox spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-background-radius: 10;">
+                <Label text="Monthly Evolution" style="-fx-font-weight: bold;"/>
+                <LineChart fx:id="lineChart" title="Evolution Mensuelle" prefWidth="500" prefHeight="200">
+                    <xAxis>
+                        <CategoryAxis />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis />
+                    </yAxis>
+                </LineChart>
+            </VBox>
+        </GridPane>
+
+    </VBox>
+
+</AnchorPane>

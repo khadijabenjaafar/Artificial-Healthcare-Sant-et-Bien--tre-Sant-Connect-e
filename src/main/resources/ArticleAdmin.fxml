@@ -9,5 +9,6 @@
     <VBox fx:id="rootVBox" layoutX="289.0" prefHeight="758.0" prefWidth="990.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f0f0;">
         <GridPane fx:id="grid" hgap="20" vgap="20" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
     </VBox>
+    <fx:include source="BoutonRetourBack.fxml" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" />
 
 </AnchorPane>

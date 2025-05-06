@@ -1,5 +1,4 @@
 package org.example.controllers;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,18 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import java.io.IOException;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.example.api.PasswordUtils;
@@ -42,8 +38,6 @@ public class Login {
     private PasswordField password;
     private int loginAttempts=0;
     ServiceUtilisateur serviceUtilisateur=new ServiceUtilisateur();
-
-
 
 
     private void showAlert(AlertType alertType, String title, String message) {
@@ -75,8 +69,20 @@ public class Login {
             return;
         }
         if (password1.isEmpty()) {
-            String imageUrl2 = "src/main/resources/comparaison/" + email + ".jpg";
 
+
+            String imageUrl2 = "src/main/resources/comparaison/" + email + ".jpg";
+            File capturedImage = new File("src/main/resources/comparaison/" + email + ".jpg");
+            if (!capturedImage.exists()) {
+                showAlert(AlertType.ERROR, "Erreur", "Veuillez d'abord capturer votre photo avant de vous connecter.");
+                return;
+            }
+            long lastModified = capturedImage.lastModified();
+            long now = System.currentTimeMillis();
+            if (now - lastModified > 2 * 60 * 1000) { // plus de 2 minutes
+                showAlert(AlertType.ERROR, "Erreur", "L'image est trop ancienne. Veuillez en capturer une nouvelle.");
+                return;
+            }
             // Script Python pour comparer les visages
             String scriptPath = "src/main/java/org/example/api/faceid.py";
 
@@ -100,7 +106,7 @@ public class Login {
                     navigateByRole(user);
                 } else {
                     loginAttempts++;
-                    if (loginAttempts >= 3) {
+                    if (loginAttempts > 3) {
                         captureImageAndSendMail();
                         loginAttempts = 0; // reset après l'envoi
                     } else {
@@ -153,28 +159,26 @@ public class Login {
     }
 
     public void captureImage(String imagePath){
-            try {
-                String scriptPath = "src/main/java/org/example/api/capture_face.py";
-                ProcessBuilder pb = new ProcessBuilder("python", scriptPath, imagePath);
+        try {
+            String scriptPath = "src/main/java/org/example/api/capture_face.py";
+            ProcessBuilder pb = new ProcessBuilder("python", scriptPath, imagePath);
 
-                pb.redirectErrorStream(true);
-                Process process = pb.start();
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
 
-                // Attente de la fin du script
-                int exitCode = process.waitFor();
-                if (exitCode == 0) {
-                    System.out.println("Image capturée avec succès !");
+            // Attente de la fin du script
+            int exitCode = process.waitFor();
+            if (exitCode == 0) {
+                System.out.println("Image capturée avec succès !");
 
-                    // Optionnel : afficher ou traiter l’image
-                    File imageFile = new File(imagePath);
-                } else {
-                    System.out.println("Erreur lors de la capture de l’image.");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                System.out.println("Erreur lors de la capture de l’image.");
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
     private void navigateToHome() {
         try {
@@ -297,4 +301,5 @@ public class Login {
             e.printStackTrace();
         }
     }
+
 }

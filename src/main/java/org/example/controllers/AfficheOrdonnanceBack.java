@@ -21,20 +21,115 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class AfficheOrdonnanceBack implements Initializable {
 
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ComboBox<String> filterComboBox;
+    @FXML
+    private ComboBox<String> sortComboBox;
+
     private Stage modalStage;
+    private List<Ordonnance> allOrdonnances;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setupUIComponents();
+        loadOrdonnances();
+    }
+
+    private void setupUIComponents() {
+        // Initialisation des combobox pour le tri et le filtre
+        filterComboBox.getItems().addAll("Toutes", "Aujourd'hui", "Cette semaine", "Ce mois");
+        filterComboBox.setValue("Toutes");
+
+        sortComboBox.getItems().addAll("Date (récent)", "Date (ancien)", "Médicaments (A-Z)", "Médicaments (Z-A)");
+        sortComboBox.setValue("Date (récent)");
+
+        // Écouteurs pour les changements
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterOrdonnances());
+        filterComboBox.valueProperty().addListener((observable, oldValue, newValue) -> filterOrdonnances());
+        sortComboBox.valueProperty().addListener((observable, oldValue, newValue) -> filterOrdonnances());
+    }
+
+    private void loadOrdonnances() {
         try {
-            List<Ordonnance> ordonnances = new ServiceOrdonnance().recuperer();
-            afficherCarousel(ordonnances);
+            allOrdonnances = new ServiceOrdonnance().recuperer();
+            filterOrdonnances();
         } catch (SQLException e) {
+            showAlert("Erreur", "Erreur lors du chargement des ordonnances", Alert.AlertType.ERROR);
             e.printStackTrace();
+        }
+    }
+
+    private void filterOrdonnances() {
+        if (allOrdonnances == null) return;
+
+        // Filtrage
+        List<Ordonnance> filtered = allOrdonnances.stream()
+                .filter(createSearchPredicate())
+                .filter(createDateFilterPredicate())
+                .collect(Collectors.toList());
+
+        // Tri
+        sortOrdonnances(filtered);
+
+        // Affichage
+        afficherCarousel(filtered);
+    }
+
+    private Predicate<Ordonnance> createSearchPredicate() {
+        String searchText = searchField.getText().toLowerCase();
+        return ordonnance ->
+                ordonnance.getMedicaments().toLowerCase().contains(searchText) ||
+                        ordonnance.getCommantaire().toLowerCase().contains(searchText) ||
+                        ordonnance.getDureeUtilisation().toLowerCase().contains(searchText);
+    }
+
+    private Predicate<Ordonnance> createDateFilterPredicate() {
+        String filterValue = filterComboBox.getValue();
+        LocalDate now = LocalDate.now();
+
+        return ordonnance -> {
+            if (filterValue == null || filterValue.equals("Toutes")) return true;
+
+            LocalDate date = ordonnance.getDate();
+            switch (filterValue) {
+                case "Aujourd'hui":
+                    return date.isEqual(now);
+                case "Cette semaine":
+                    return date.isAfter(now.minusDays(7));
+                case "Ce mois":
+                    return date.isAfter(now.minusMonths(1));
+                default:
+                    return true;
+            }
+        };
+    }
+
+    private void sortOrdonnances(List<Ordonnance> ordonnances) {
+        String sortValue = sortComboBox.getValue();
+        if (sortValue == null) return;
+
+        switch (sortValue) {
+            case "Date (récent)":
+                ordonnances.sort((o1, o2) -> o2.getDate().compareTo(o1.getDate()));
+                break;
+            case "Date (ancien)":
+                ordonnances.sort((o1, o2) -> o1.getDate().compareTo(o2.getDate()));
+                break;
+            case "Médicaments (A-Z)":
+                ordonnances.sort((o1, o2) -> o1.getMedicaments().compareToIgnoreCase(o2.getMedicaments()));
+                break;
+            case "Médicaments (Z-A)":
+                ordonnances.sort((o1, o2) -> o2.getMedicaments().compareToIgnoreCase(o1.getMedicaments()));
+                break;
         }
     }
 
@@ -44,9 +139,15 @@ public class AfficheOrdonnanceBack implements Initializable {
         hbox.setPadding(new Insets(20));
         hbox.setAlignment(Pos.CENTER_LEFT);
 
-        for (Ordonnance ordonnance : ordonnances) {
-            VBox card = createOrdonnanceCard(ordonnance);
-            hbox.getChildren().add(card);
+        if (ordonnances.isEmpty()) {
+            Label noResults = new Label("Aucune ordonnance trouvée");
+            noResults.setStyle("-fx-font-size: 16px; -fx-text-fill: gray;");
+            hbox.getChildren().add(noResults);
+        } else {
+            for (Ordonnance ordonnance : ordonnances) {
+                VBox card = createOrdonnanceCard(ordonnance);
+                hbox.getChildren().add(card);
+            }
         }
 
         scrollPane.setContent(hbox);
@@ -57,10 +158,8 @@ public class AfficheOrdonnanceBack implements Initializable {
     }
 
     private VBox createOrdonnanceCard(Ordonnance ordonnance) {
-        // Format personnalisé pour la date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        // Convertir la LocalDate en String avec le format désiré
         Label dateLabel = new Label("Date : " + ordonnance.getDate().format(formatter));
         dateLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
@@ -70,8 +169,11 @@ public class AfficheOrdonnanceBack implements Initializable {
         Label commentaireLabel = new Label("Commentaire : " + ordonnance.getCommantaire());
         commentaireLabel.setWrapText(true);
 
-        VBox card = new VBox(10, dateLabel, medicamentsLabel, commentaireLabel);
+        Button viewDetailsBtn = new Button("Voir Détails");
+        viewDetailsBtn.setStyle("-fx-background-color: #0fb5a7; -fx-text-fill: white;");
+        viewDetailsBtn.setOnAction(e -> showDetailsModal(ordonnance));
 
+        VBox card = new VBox(10, dateLabel, medicamentsLabel, commentaireLabel, viewDetailsBtn);
         card.setAlignment(Pos.CENTER_LEFT);
         card.setPadding(new Insets(10));
         card.setPrefWidth(200);
@@ -80,5 +182,69 @@ public class AfficheOrdonnanceBack implements Initializable {
         return card;
     }
 
+    private void showDetailsModal(Ordonnance ordonnance) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+        Label date = new Label("Date : " + ordonnance.getDate().format(formatter));
+        Label medicaments = new Label("Médicaments : " + ordonnance.getMedicaments());
+        Label commentaire = new Label("Commentaire : " + ordonnance.getCommantaire());
+        Label duree = new Label("Durée utilisation : " + ordonnance.getDureeUtilisation());
+        Label quantite = new Label("Quantité : " + ordonnance.getQuantiteUtilisation());
+
+
+        HBox buttonsBox = new HBox(10);
+        buttonsBox.setAlignment(Pos.CENTER);
+
+        VBox detailContent = new VBox(10, date, medicaments, commentaire, duree, quantite, buttonsBox);
+        detailContent.setAlignment(Pos.CENTER_LEFT);
+        detailContent.setPadding(new Insets(20));
+
+        scrollPane.setContent(detailContent);
+    }
+
+    private void showModificationForm(Ordonnance ordonnance) {
+        Stage modificationStage = new Stage();
+        modificationStage.initModality(Modality.APPLICATION_MODAL);
+        modificationStage.setTitle("Modifier Ordonnance");
+
+        DatePicker datePicker = new DatePicker(ordonnance.getDate());
+        TextField medicamentsField = new TextField(ordonnance.getMedicaments());
+        TextField commentaireField = new TextField(ordonnance.getCommantaire());
+        TextField dureeField = new TextField(ordonnance.getDureeUtilisation());
+        TextField quantiteField = new TextField(ordonnance.getQuantiteUtilisation());
+
+        Button saveBtn = new Button("Sauvegarder");
+        saveBtn.setOnAction(event -> {
+            ordonnance.setDate(datePicker.getValue());
+            ordonnance.setMedicaments(medicamentsField.getText());
+            ordonnance.setCommantaire(commentaireField.getText());
+            ordonnance.setDureeUtilisation(dureeField.getText());
+            ordonnance.setQuantiteUtilisation(quantiteField.getText());
+
+            try {
+                ServiceOrdonnance service = new ServiceOrdonnance();
+                service.modifier(ordonnance);
+                showAlert("Succès", "✅ Modification réussie !", Alert.AlertType.INFORMATION);
+                loadOrdonnances(); // Recharger les données après modification
+                modificationStage.close();
+            } catch (SQLException ex) {
+                showAlert("Erreur", "Erreur lors de la modification", Alert.AlertType.ERROR);
+                ex.printStackTrace();
+            }
+        });
+
+        VBox modificationForm = new VBox(10, datePicker, medicamentsField, commentaireField, dureeField, quantiteField, saveBtn);
+        modificationForm.setPadding(new Insets(20));
+
+        Scene modificationScene = new Scene(modificationForm, 400, 350);
+        modificationStage.setScene(modificationScene);
+        modificationStage.show();
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

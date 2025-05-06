@@ -1,11 +1,16 @@
+
 package org.example.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.entities.Matching;
 import org.example.services.ServiceMatching;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -90,11 +95,19 @@ public class AddMatchingController {
 
             serviceMatching.add(matching);
 
-            if (refreshCallback != null) {
-                refreshCallback.run();
-            }
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/MatchingView.fxml"));
+                Parent root = loader.load();
 
-            closeWindow();
+                // Get the current stage from the button (if applicable)
+                Stage stage = (Stage)  cinField.getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Afficher les rendez_vous");
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle exception if the FXML loading fails
+            }
 
         } catch (SQLException e) {
             showAlert("Database Error", "Failed to save matching: " + e.getMessage());
@@ -104,13 +117,20 @@ public class AddMatchingController {
 
     @FXML
     private void handleCancel() {
-        closeWindow();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MatchingView.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la fenêtre actuelle et changer la scène
+            Stage stage = (Stage) cinField.getScene().getWindow(); // ou un autre bouton si ModifProf n'existe pas
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void closeWindow() {
-        Stage stage = (Stage) cinField.getScene().getWindow();
-        stage.close();
-    }
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -118,4 +138,6 @@ public class AddMatchingController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 }

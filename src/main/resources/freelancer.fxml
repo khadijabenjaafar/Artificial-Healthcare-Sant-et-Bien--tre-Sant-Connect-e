@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.MatchingController">
     <children>
-    <ScrollPane fx:id="scrollPane" layoutX="10.0" layoutY="10.0" prefHeight="275.0" prefWidth="1263.0" />
+    <ScrollPane fx:id="scrollPane" layoutX="10.0" layoutY="68.0" prefHeight="294.0" prefWidth="1263.0" />
+      <Label layoutX="544.0" layoutY="24.0" text="Des Freelancers" textFill="#1ca7a2">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
     </children>
     <fx:include source="BoutonRetour.fxml" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" />
 

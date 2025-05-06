@@ -1,51 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.controllers.AddMatchingController"
-            prefHeight="400.0" prefWidth="600.0"
-            style="-fx-background-color: #F4F4F9;">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #F4F4F9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AddMatchingController">
     <fx:include source="Doctor.fxml" />
 
-    <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-        <Label text="Add New Matching" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+    <VBox alignment="TOP_CENTER" layoutX="231.2" prefHeight="779.0" prefWidth="1029.0" spacing="20" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Add New Matching" />
 
-        <GridPane hgap="15" vgap="15">
+        <GridPane hgap="15" prefHeight="490.0" prefWidth="1029.0" vgap="15">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
 
-            <Label text="CIN:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-size: 14px;"/>
-            <TextField fx:id="cinField" GridPane.columnIndex="1" GridPane.rowIndex="0"
-                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;"/>
+            <Label style="-fx-font-size: 14px;" text="CIN:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="cinField" prefHeight="27.0" prefWidth="683.0" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-            <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size: 14px;"/>
-            <TextArea fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefRowCount="3"
-                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;"/>
+            <Label style="-fx-font-size: 14px;" text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextArea fx:id="descriptionField" prefHeight="70.0" prefRowCount="3" prefWidth="908.0" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-            <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-size: 14px;"/>
-            <DatePicker fx:id="dateField" GridPane.columnIndex="1" GridPane.rowIndex="2"
-                        style="-fx-background-radius: 8; -fx-border-radius: 8;"/>
+            <Label style="-fx-font-size: 14px;" text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <DatePicker fx:id="dateField" style="-fx-background-radius: 8; -fx-border-radius: 8;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-            <Label text="Compétences:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-size: 14px;"/>
-            <TextField fx:id="competencesField" GridPane.columnIndex="1" GridPane.rowIndex="3"
-                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;"/>
+            <Label style="-fx-font-size: 14px;" text="Compétences:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="competencesField" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-            <Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-size: 14px;"/>
-            <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="4"
-                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;"/>
+            <Label style="-fx-font-size: 14px;" text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="priceField" prefHeight="30.0" prefWidth="683.0" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #CCCCCC;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
 
-        <HBox spacing="20" alignment="CENTER">
-            <Button text="Save" onAction="#handleSave"
-                    style="-fx-background-color: #22c1a4; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;"/>
-            <Button text="Cancel" onAction="#handleCancel"
-                    style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;"/>
+        <HBox alignment="CENTER" spacing="20">
+            <Button onAction="#handleSave" style="-fx-background-color: #22c1a4; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;" text="Save" />
+            <Button onAction="#handleCancel" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-size: 14px;" text="Cancel" />
         </HBox>
     </VBox>
 </AnchorPane>

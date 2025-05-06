@@ -75,7 +75,7 @@
             </font>
         </Hyperlink>
 
-        <Hyperlink fx:id="commentaire" alignment="CENTER" text="Commentaires" textFill="#1ca7a2">
+        <Hyperlink fx:id="commentaire" onAction="#backCommentaire" alignment="CENTER" text="Commentaires" textFill="#1ca7a2">
             <font>
                 <Font size="18.0" />
             </font>

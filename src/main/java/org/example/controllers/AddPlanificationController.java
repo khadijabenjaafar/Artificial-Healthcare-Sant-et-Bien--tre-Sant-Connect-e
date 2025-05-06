@@ -1,12 +1,15 @@
+
 package org.example.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.entities.Notification;
 import org.example.entities.Planification;
 import org.example.entities.Utilisateur;
 import org.example.entities.UserConnecter;
 
+import org.example.services.ServiceNotification;
 import org.example.services.ServicesPlanification;
 import org.example.services.ServiceUtilisateur;
 
@@ -88,6 +91,12 @@ public class AddPlanificationController {
             planification.setUtilisateur(CurrentUser);
 
             servicesPlanification.add(planification);
+            Notification notification = new Notification();
+            notification.setMessage("Nouvelle demande de planification de " + CurrentUser.getPrenom());
+            notification.setIsRead(false);
+            notification.setReceiver(freelancer);
+            new ServiceNotification().add(notification);
+
 
             if (refreshCallback != null) {
                 refreshCallback.run();

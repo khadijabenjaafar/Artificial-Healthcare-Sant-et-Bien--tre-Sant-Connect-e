@@ -1,15 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.collections.FXCollections?>
+
+<?import java.lang.String?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AfficheFacturationBack">
     <fx:include source="navBarBack.fxml" />
+
     <VBox fx:id="rootVBox" layoutX="289.0" prefHeight="758.0" prefWidth="990.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f0f0;">
         <children>
+            <!-- Bar de recherche, tri et filtrage -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="searchField" promptText="Rechercher..." prefWidth="300" />
+                <ComboBox fx:id="filterCombo" promptText="Filtrer par statut" prefWidth="150">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Tous" />
+                            <String fx:value="Payé" />
+                            <String fx:value="Non payé" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <ComboBox fx:id="sortCombo" promptText="Trier par" prefWidth="150">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Aucun" />
+                            <String fx:value="Montant croissant" />
+                            <String fx:value="Montant décroissant" />
+                            <String fx:value="Date récente" />
+                            <String fx:value="Date ancienne" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <!-- ScrollPane contenant les cartes de facturation -->
             <ScrollPane fx:id="scrollPane" prefHeight="337.0" prefWidth="374.0" />
         </children>
     </VBox>
     <fx:include source="BoutonRetourBack.fxml" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" />
+
 </AnchorPane>

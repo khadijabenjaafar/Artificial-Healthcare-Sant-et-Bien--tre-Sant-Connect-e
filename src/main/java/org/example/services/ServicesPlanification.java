@@ -1,5 +1,7 @@
 package org.example.services;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.example.entities.Planification;
 import org.example.entities.Utilisateur;
 import org.example.utils.MyDataBase;
@@ -99,6 +101,26 @@ public class ServicesPlanification implements IServices<Planification> {
             }
         }
         return null;
+    }
+    public ObservableList<Planification> afficher() throws SQLException {
+        ObservableList<Planification> list = FXCollections.observableArrayList();
+        String query = "SELECT * FROM planification";
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+
+        while (rs.next()) {
+            Planification planification = new Planification();
+            planification.setId(rs.getLong("id"));
+            planification.setDate(rs.getDate("date").toLocalDate());
+
+            planification.setStatut(rs.getString("statut"));
+            // Ajoute d'autres champs si nécessaire
+
+            list.add(planification);
+        }
+
+        return list;
     }
 
     @Override

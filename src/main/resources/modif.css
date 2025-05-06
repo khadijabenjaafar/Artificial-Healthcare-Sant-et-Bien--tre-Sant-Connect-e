@@ -1,37 +1,77 @@
-.title {
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #374151;
+.root {
+    -fx-background-color: #f4f6f8;
+    -fx-padding: 40;
+    -fx-font-family: "Segoe UI", "Helvetica", sans-serif;
 }
 
+.title {
+    -fx-font-size: 28px;
+    -fx-text-fill: #44cff2 ; /* 💡 bleu forcé */
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 20 0;
+}
+
+
 .input-field {
-    -fx-pref-width: 400px;
-    -fx-padding: 10px;
-    -fx-border-color: #CBD5E1;
-    -fx-background-radius: 6;
-    -fx-border-radius: 6;
+    -fx-pref-width: 600px;
+    -fx-pref-height: 44px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 0 10 0 10;
     -fx-font-size: 14px;
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
 }
 
 .textarea-field {
-    -fx-pref-width: 400px;
-    -fx-padding: 10px;
-    -fx-border-color: #CBD5E1;
-    -fx-background-radius: 6;
-    -fx-border-radius: 6;
+    -fx-pref-width: 600px;
     -fx-font-size: 14px;
+    -fx-padding: 10;
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 8px;
 }
 
 .image-label {
-    -fx-text-fill: #6B7280;
-    -fx-font-style: italic;
     -fx-font-size: 12px;
+    -fx-text-fill: #888;
 }
 
 .save-button {
-    -fx-background-color: #60A5FA;
+    -fx-background-color: linear-gradient(to right, #44cff2, #28b2d6);
     -fx-text-fill: white;
-    -fx-padding: 10 20;
-    -fx-background-radius: 8;
     -fx-font-weight: bold;
+    -fx-padding: 10 25 10 25;
+    -fx-background-radius: 20px;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+.save-button:hover {
+    -fx-background-color: linear-gradient(to right, #28b2d6, #199abf);
+}
+
+.button {
+    -fx-background-radius: 8px;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+
+.insert-button {
+    -fx-background-color: linear-gradient(to right, #f7f7f7, #e0e0e0);
+    -fx-text-fill: #333;
+    -fx-border-color: #bbb;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-padding: 8 16;
+}
+
+.insert-button:hover {
+    -fx-background-color: linear-gradient(to right, #e0e0e0, #d0d0d0);
 }

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <ScrollPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.BackAdmin">
@@ -16,78 +12,26 @@
                 <HBox layoutX="50" layoutY="50" spacing="20">
                     <!-- Carte 1 : Statistiques des Utilisateurs par Rôle -->
                     <VBox prefHeight="914.0" prefWidth="964.0" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
-                            <fx:include source="StatistiqueUser.fxml" />
-                        <VBox prefHeight="374.0" prefWidth="421.0" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
-                            <children>
-                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Statistiques des ordonnance " textFill="#1ca7a2" />
-                                <StackPane>
-                                    <children>
-                                        <LineChart fx:id="userChart1" prefHeight="220" prefWidth="360" title="">
-                                            <xAxis>
-                                                <NumberAxis label="" />
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis label="" />
-                                            </yAxis>
-                                        </LineChart>
-                                    </children>
-                                </StackPane>
-                        <VBox prefHeight="800.0" prefWidth="524.0" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
-                           <children>
-                               <fx:include source="StaticRendezVous.fxml" />
-                               <fx:include source="StaticConsultation.fxml" />
+                  <HBox prefHeight="400.0" prefWidth="910.0">
+                     <children>
+                                  <fx:include source="StatistiqueUser.fxml" />
+                         <fx:include source="planificationSta.fxml" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                         <fx:include source="StaticRendezVous.fxml" />
+                         <fx:include source="StaticConsultation.fxml" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+      
+                          <fx:include source="statAdmin.fxml" />
+                                <fx:include source="Statistiques.fxml" />
+                     </children>
+                  </HBox>
 
-                               <VBox prefHeight="300" prefWidth="400" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
-                                 <children>
-                                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Statistiques des matching" textFill="#1ca7a2" wrapText="true" />
-                                    <LineChart fx:id="userChart111" prefHeight="220" prefWidth="360" title="">
-                                       <xAxis>
-                                          <NumberAxis label="" />
-                                       </xAxis>
-                                       <yAxis>
-                                          <NumberAxis label="" />
-                                       </yAxis>
-                                    </LineChart>
-                                 </children>
-                              </VBox>
-                              <VBox prefHeight="371.0" prefWidth="400" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
-                                 <children>
-                                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Statistiques des commentaires" textFill="#1ca7a2" />
-                                    <StackPane>
-                                       <children>
-                                          <LineChart fx:id="userChart121" prefHeight="220" prefWidth="360" title="">
-                                             <xAxis>
-                                                <NumberAxis label="" />
-                                             </xAxis>
-                                             <yAxis>
-                                                <NumberAxis label="" />
-                                             </yAxis>
-                                          </LineChart>
-                                       </children>
-                                    </StackPane>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
-                            </children>
-                        </VBox>
-                        <VBox prefHeight="375.0" prefWidth="421.0" spacing="10" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
-                            <children>
-                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Statistiques des articles" textFill="#1ca7a2" />
-                                <StackPane>
-                                    <children>
-                                        <LineChart fx:id="userChart12" prefHeight="261.0" prefWidth="381.0" title="">
-                                            <xAxis>
-                                                <NumberAxis label="" />
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis label="" />
-                                            </yAxis>
-                                        </LineChart>
-                                    </children>
-                                </StackPane>
-                            </children>
-                        </VBox>
                     </VBox>
                 </HBox>
             </children>

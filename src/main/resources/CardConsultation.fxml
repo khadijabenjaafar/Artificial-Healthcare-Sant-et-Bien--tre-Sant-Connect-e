@@ -6,23 +6,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white;"  stylesheets="@cardc.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.CardConsultation">
+<AnchorPane fx:id="rootPane" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@cardc.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.CardConsultation">
 
     <!-- Sidebar du docteur -->
     <fx:include source="Doctor.fxml" />
 
     <!-- Partie Cards décalée vers la droite comme CalendarView -->
-    <VBox fx:id="rootVBox" layoutX="199.0" layoutY="9.0" prefHeight="782.0" prefWidth="1072.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f0f0; -fx-background-radius: 10;">
+    <VBox fx:id="rootVBox" layoutX="224.0" layoutY="9.0" prefHeight="782.0" prefWidth="1072.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #f0f0f0; -fx-background-radius: 10;">
         <GridPane fx:id="grid" hgap="20" vgap="20">
             <!-- Les cards seront ajoutées dynamiquement ici -->
         </GridPane>
     </VBox>
 
     <!-- Bouton Ajouter un peu en haut et un peu à gauche par rapport au bord droit -->
-    <Button layoutX="950.0" layoutY="700.0" mnemonicParsing="false" onAction="#AjouterC"
-            prefHeight="47.0" prefWidth="173.0"
-            style="-fx-background-color: #1ca7a2; -fx-background-radius: 20;"
-            text="Ajouter" textFill="WHITE">
+    <Button layoutX="950.0" layoutY="700.0" mnemonicParsing="false" onAction="#AjouterC" prefHeight="47.0" prefWidth="173.0" style="-fx-background-color: #1ca7a2; -fx-background-radius: 20;" text="Ajouter" textFill="WHITE">
         <font>
             <Font size="20.0" />
         </font>

@@ -1,8 +1,10 @@
+
 package org.example.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,9 +27,12 @@ import java.util.ResourceBundle;
 
 public class AfficherMatchingController implements Initializable {
 
-    @FXML private ListView<Matching> matchingListView;
-    @FXML private TextField searchField;
-    @FXML private ComboBox<String> availabilityFilter;
+    @FXML
+    private ListView<Matching> matchingListView;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ComboBox<String> availabilityFilter;
 
     private ServiceMatching serviceMatching;
     private ObservableList<Matching> masterData = FXCollections.observableArrayList();
@@ -81,19 +86,17 @@ public class AfficherMatchingController implements Initializable {
                     HBox actionBox = new HBox(10);
                     Button editBtn = new Button("Edit");
                     Button deleteBtn = new Button("Delete");
-                    Button viewCvBtn = new Button("View CV");
 
                     // Style buttons
                     editBtn.getStyleClass().add("edit-button");
                     deleteBtn.getStyleClass().add("delete-button");
-                    viewCvBtn.getStyleClass().add("view-button");
 
                     // Button actions
                     editBtn.setOnAction(e -> handleEditMatching(matching));
                     deleteBtn.setOnAction(e -> handleDeleteMatching(matching));
-                    viewCvBtn.setOnAction(e -> handleViewCv(matching));
 
-                    actionBox.getChildren().addAll(editBtn, deleteBtn, viewCvBtn);
+
+                    actionBox.getChildren().addAll(editBtn, deleteBtn);
 
                     container.getChildren().addAll(topRow, detailsBox, actionBox);
                     setGraphic(container);
@@ -143,18 +146,7 @@ public class AfficherMatchingController implements Initializable {
         }
     }
 
-    private void handleViewCv(Matching matching) {
-        if (matching.getCvPath() != null && !matching.getCvPath().isEmpty()) {
-            try {
-                // Open the CV file using the default system application
-                java.awt.Desktop.getDesktop().open(new java.io.File(matching.getCvPath()));
-            } catch (IOException e) {
-                showAlert("Error", "Could not open CV file: " + e.getMessage());
-            }
-        } else {
-            showAlert("Info", "No CV file available for this matching");
-        }
-    }
+
 
     @FXML
     private void handleAddMatching() {
@@ -181,7 +173,6 @@ public class AfficherMatchingController implements Initializable {
 
             EditMatchingController controller = loader.getController();
             controller.setMatching(matching);
-            controller.setRefreshCallback(this::loadMatchingData);
 
             Stage stage = new Stage();
             stage.setTitle("Edit Matching");
@@ -217,4 +208,20 @@ public class AfficherMatchingController implements Initializable {
         alert.showAndWait();
     }
 
+    @FXML
+    void handleAddMatching(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/add_matching.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage from the button (if applicable)
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception if the FXML loading fails
+        }
+    }
 }
+

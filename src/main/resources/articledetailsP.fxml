@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@details.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ArticledetailsControllerP">
+   <top>
+      <ScrollPane fitToWidth="true" prefHeight="800" prefWidth="1000">
+
+         <content>
+            <VBox alignment="TOP_CENTER" prefHeight="832.0" prefWidth="1042.0" spacing="20" styleClass="article-container">
+
+               <Button fx:id="btnRetour" onAction="#retourPagePrecedente" prefHeight="40.0" prefWidth="106.0" style="-fx-font-size: 18px; -fx-background-color: transparent; -fx-text-fill: black; -fx-cursor: hand;" text="✖">
+                  <VBox.margin>
+                     <Insets right="850.0" />
+                  </VBox.margin>
+               </Button>
+
+               <Label fx:id="labelTitre" styleClass="article-title" text="Titre de l’article" />
+               <VBox fx:id="BoxVoice" spacing="15" />
+
+               <ImageView fx:id="imageArticle" fitHeight="320" fitWidth="520" preserveRatio="true" styleClass="article-image" />
+
+               <TextFlow fx:id="contenuTextFlow" maxWidth="800" styleClass="article-contenu" />
+
+               <HBox fx:id="resumeBox" alignment="CENTER" spacing="5" />
+               <Label fx:id="dateArticle" styleClass="article-date" text="Publié le : 2025-04-20" />
+
+               <Separator prefWidth="800" />
+               <HBox fx:id="ratingBox" spacing="5" />
+               <Separator prefWidth="800" />
+
+               <HBox fx:id="partageBox" spacing="5" />
+
+               <ComboBox fx:id="langueComboBox" promptText="Choisir une langue" />
+               <VBox fx:id="traductionContainer" alignment="CENTER_LEFT" spacing="10" />
+
+               <Label styleClass="section-titre" text="Commentaires" />
+               <VBox fx:id="commentairesContainer" spacing="12" styleClass="commentaires-box" />
+
+               <Label styleClass="section-titre" text="Ajouter un commentaire" />
+               <TextField fx:id="champCommentaire" prefWidth="500" />
+               <Label fx:id="errorCommentaire" style="-fx-text-fill: red;" />
+
+               <Button onAction="#envoyerCommentaire" styleClass="btn-poster" text="Poster" />
+
+            </VBox>
+         </content>
+
+      </ScrollPane>
+   </top>
+
+</BorderPane>
