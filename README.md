@@ -78,7 +78,7 @@ Plateforme complète de gestion médicale développée dans le cadre du cours Pr
 - **Framework** : symfony
 - **Bibliothèques** :
   - FullCalendar pour les RDV
-  - i18next pour les traductions
+  - Googleapis pour les traductions
   - Chart.js pour les stats
 
 ### Services externes
@@ -92,7 +92,6 @@ Plateforme complète de gestion médicale développée dans le cadre du cours Pr
 ### Prérequis
 - PHP 8.2+
 - Composer
-- Node.js 18+
 - MySQL 8.0+
 
 ### Étapes
@@ -115,3 +114,5 @@ mysql -u root -p < database.sql
 # 5. Démarrer les serveurs
 symfony server:start
 npm run dev
+````
+## Captures d'écran
