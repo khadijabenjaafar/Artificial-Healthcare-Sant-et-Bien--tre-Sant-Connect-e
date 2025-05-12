@@ -116,3 +116,8 @@ symfony server:start
 npm run dev
 ````
 ## Captures d'écran
+**Authentification**	
+![image](https://github.com/user-attachments/assets/64b71a19-5e50-4dd1-98b0-e2b1f2d6fa49)
+**Calendrier Rendez_vous**
+![image](https://github.com/user-attachments/assets/0e653680-a28c-4d12-81d5-156c916a490c)
+
