@@ -121,3 +121,15 @@ npm run dev
 **Calendrier Rendez_vous**
 ![image](https://github.com/user-attachments/assets/0e653680-a28c-4d12-81d5-156c916a490c)
 
+🤝 Contributions
+Les contributions sont les bienvenues ! Suivez ce workflow :
+Forker le projet
+Créer une branche (git checkout -b feature/ma-fonctionnalite)
+Commiter vos changements (git commit -m 'Ajout d'une super fonctionnalité')
+Pousser vers la branche (git push origin feature/ma-fonctionnalite)
+Ouvrir une Pull Request
+
+🙏 Remerciements
+Encadrant : Mme Emna Charfi et Mr Oussema Sellami - Esprit School of Engineering
+
+Contributeurs : Voir CONTRIBUTORS.md
