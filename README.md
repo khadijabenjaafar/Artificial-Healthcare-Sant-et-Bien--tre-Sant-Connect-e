@@ -15,7 +15,7 @@
 - [Remerciements](#-remerciements)
 
 ## 🌟 Description
-Plateforme complète de gestion médicale développée dans le cadre du cours Projet Intégré : Développement Web Java à l'Esprit School of Engineering. Le système intègre 5 modules interconnectés pour digitaliser les processus de santé avec des fonctionnalités intelligentes.
+Plateforme complète de gestion médicale développée dans le cadre du cours Projet Intégré : Développement Web Java à **l'Esprit School** of Engineering. Le système intègre 5 modules interconnectés pour digitaliser les processus de santé avec des fonctionnalités intelligentes.
 
 ## 🚀 Fonctionnalités
 
@@ -75,7 +75,7 @@ Plateforme complète de gestion médicale développée dans le cadre du cours Pr
 - **Sécurité** : JWT, OAuth2
 
 ### Frontend
-- **Framework** : React.js
+- **Framework** : symfony
 - **Bibliothèques** :
   - FullCalendar pour les RDV
   - i18next pour les traductions
