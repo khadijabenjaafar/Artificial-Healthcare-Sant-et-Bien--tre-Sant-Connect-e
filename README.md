@@ -115,7 +115,7 @@ mysql -u root -p < database.sql
 symfony server:start
 npm run dev
 ````
-## Captures d'écran
+## 📸 Captures d'écran
 **Authentification**	
 ![image](https://github.com/user-attachments/assets/64b71a19-5e50-4dd1-98b0-e2b1f2d6fa49)
 **Calendrier Rendez_vous**
