@@ -71,7 +71,6 @@ Plateforme complète de gestion médicale développée dans le cadre du cours Pr
 ### Backend
 - **Framework** : Symfony 6.4
 - **Base de données** : MySQL
-- **API** : RESTful JSON
 - **Sécurité** : JWT, OAuth2
 
 ### Frontend
@@ -86,6 +85,7 @@ Plateforme complète de gestion médicale développée dans le cadre du cours Pr
 - **Notifications** : Twilio (SMS/Email)
 - **IA** : OpenAI (descriptions d'articles)
 - **Authentification** : Face ID
+- **ChatBot** : olama3.2
 
 ## 🛠 Installation
 
