@@ -56,14 +56,15 @@ Plateforme complète de gestion médicale développée dans le cadre du cours Pr
   - Statistiques de vues
 
 ### 👨‍💻 Module Freelancer
-- Composants clés :
-Matching
+**Composants clés :**
+  
+-Matching
 
 Contient les CVs et les compétences des freelancers.
 
 Sert à associer les patients avec les professionnels en freelance selon leurs besoins spécifiques.
 
-Planification
+-Planification
 
 Permet aux freelancers de gérer leurs disponibilités.
 
