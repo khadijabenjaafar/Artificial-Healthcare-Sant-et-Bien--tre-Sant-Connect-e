@@ -1,4 +1,4 @@
-# HealthConnect - Plateforme Médicale Intelligente
+# ClinicFlow - Plateforme Médicale Intelligente
 
 **Année universitaire : 2024-2025**  
 **Établissement : Esprit School of Engineering**  
